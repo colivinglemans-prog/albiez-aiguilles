@@ -55,7 +55,7 @@ export default async function HomePage({
   // Le hero suit la saison en cours ; à défaut de photo de saison, on retombe
   // sur les photos communes, puis sur un dégradé (géré par le composant Hero).
   const seasonPhotos = season === "hiver" ? winter : summer;
-  const heroImage = seasonPhotos[0]?.src ?? common[0]?.src;
+  const heroPhoto = seasonPhotos[0] ?? common[0];
 
   // L'accueil montre tout : l'intérieur d'abord, puis les deux saisons.
   // La galerie se replie d'elle-même au-delà de quelques vignettes.
@@ -73,7 +73,7 @@ export default async function HomePage({
       <Hero
         title={t.home.heroTitle}
         subtitle={t.home.heroSubtitle}
-        image={heroImage}
+        photo={heroPhoto}
       />
 
       <Section className="!pb-0">

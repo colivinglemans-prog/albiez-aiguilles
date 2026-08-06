@@ -3,64 +3,81 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "@/lib/i18n";
+import type { Photo } from "@/lib/photos";
 
+/**
+ * Bannière d'ouverture.
+ *
+ * Le texte n'est pas posé sur la photo : il vit dans une carte opaque qui chevauche
+ * le bas de l'image. Un voile sombre sur toute la photo la rendait terne alors que
+ * c'est elle qui vend le logement — ici elle garde ses couleurs, et le texte reste
+ * lisible parce qu'il a son propre fond.
+ */
 export default function Hero({
   title,
   subtitle,
   tagline,
-  image,
+  photo,
 }: {
   title: string;
   subtitle: string;
   /** Sur-titre court (ex. dates d'ouverture du domaine). */
   tagline?: string;
-  image?: string;
+  photo?: Photo;
 }) {
   const { locale, t } = useTranslation();
 
   return (
-    <section className="relative isolate overflow-hidden">
-      {image ? (
-        <>
+    <section className="relative">
+      {photo ? (
+        <div
+          className="relative w-full overflow-hidden bg-light-bg"
+          // Le format de la photo pilote la hauteur, plafonnée pour qu'il reste
+          // toujours quelque chose de la page visible sous la bannière.
+          style={{ aspectRatio: photo.ratio, maxHeight: "70vh" }}
+        >
           <Image
-            src={image}
-            alt=""
+            src={photo.src}
+            alt={photo.alt}
             fill
             sizes="100vw"
             priority
-            className="-z-10 object-cover"
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 -z-10 bg-linear-to-b from-black/55 via-black/35 to-black/60" />
-        </>
+        </div>
       ) : (
-        <div className="absolute inset-0 -z-10 bg-linear-to-br from-primary to-accent-dark" />
+        <div className="h-56 w-full bg-linear-to-br from-primary to-accent-dark sm:h-72" />
       )}
 
-      <div className="mx-auto flex min-h-[62vh] max-w-6xl flex-col justify-center px-6 py-20 text-white">
-        {tagline && (
-          <p className="mb-4 inline-flex w-fit rounded-full bg-white/15 px-4 py-1.5 text-xs font-semibold backdrop-blur-sm">
-            {tagline}
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="relative -mt-12 rounded-3xl border border-border bg-white p-7 shadow-xl sm:-mt-20 sm:p-10 md:max-w-3xl">
+          {tagline && (
+            <p className="mb-4 inline-flex rounded-full bg-accent-soft px-4 py-1.5 text-xs font-semibold text-accent-dark">
+              {tagline}
+            </p>
+          )}
+
+          <h1 className="text-3xl font-bold leading-tight text-foreground sm:text-4xl">
+            {title}
+          </h1>
+          <p className="mt-4 text-base leading-relaxed text-secondary sm:text-lg">
+            {subtitle}
           </p>
-        )}
-        <h1 className="max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
-          {title}
-        </h1>
-        <p className="mt-5 max-w-2xl text-base text-white/90 sm:text-lg">
-          {subtitle}
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href={`/${locale}#reserver`}
-            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-white/90"
-          >
-            {t.header.book}
-          </Link>
-          <Link
-            href={`/${locale}#appartement`}
-            className="rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-          >
-            {t.header.apartment}
-          </Link>
+
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link
+              href={`/${locale}#reserver`}
+              className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+            >
+              {t.header.book}
+            </Link>
+            <Link
+              href={`/${locale}#appartement`}
+              className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-light-bg"
+            >
+              {t.header.apartment}
+            </Link>
+          </div>
         </div>
       </div>
     </section>

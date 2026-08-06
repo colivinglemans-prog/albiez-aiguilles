@@ -121,10 +121,22 @@ pour que **le conteneur prenne le format de l'image**, jamais l'inverse :
   vignette en `h-auto w-full`. Les portraits et les carrés cohabitent sans recadrage.
 - **Cartes de saison** — cadre carré imposé, mais `object-contain` : ce sont des
   mosaïques, un recadrage couperait dans les vignettes qui les composent.
-- **Hero** — seule exception, `object-cover` en fond perdu : le plein écran impose un
-  format, et l'image y est décorative.
+- **Hero** — la photo prend son propre format, plafonné à `70vh` pour qu'il reste
+  quelque chose de visible sous la bannière. `object-cover` ne recadre donc que sur
+  les écrans très larges.
 
 Ajouter une photo d'un format inhabituel ne demande donc aucun ajustement.
+
+### Le hero ne pose pas de texte sur la photo
+
+Le titre vit dans une carte blanche opaque qui chevauche le bas de l'image. La première
+version assombrissait toute la photo pour faire passer du texte blanc par-dessus : la
+photo devenait terne alors que c'est elle qui vend le logement. La carte règle les deux
+problèmes — la photo garde ses couleurs, le texte a son propre fond et reste lisible
+quelle que soit l'image placée derrière.
+
+Conséquence pratique : **aucune contrainte de luminosité ou de zone calme** sur les
+photos de couverture. Une photo très claire ou très chargée convient.
 
 ## À faire
 

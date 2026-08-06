@@ -78,7 +78,7 @@ export default async function SeasonPage({
         title={content.heading}
         subtitle={content.intro}
         tagline={content.tagline}
-        image={seasonPhotos[0]?.src ?? photos[0]?.src}
+        photo={seasonPhotos[0] ?? photos[0]}
       />
 
       <Section className="!py-10">
