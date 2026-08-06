@@ -120,6 +120,8 @@ export const PROPERTY = {
     /** Profil hôte, commun à toutes les annonces. */
     airbnbProfile: "https://www.airbnb.fr/users/profile/1465428634658451220",
     resort: "https://www.station-albiez.com/fr/",
+    /** Échange de maisons, proposé hors saison. */
+    homeExchange: "https://www.homeexchange.fr/homes/view/2779081",
   },
 } as const;
 
@@ -162,6 +164,31 @@ export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
     { key: "lake", meters: 350 },
   ],
 };
+
+/**
+ * Distinctions reçues, la plus récente en premier.
+ *
+ * Le nom de l'annonce sur Booking diffère de celui du site : les certificats sont
+ * délivrés à « Appart - Chalet du Hameau des Aiguilles ». Les visuels officiels sont
+ * conservés dans `public/images/awards/` mais ne sont pas affichés tels quels
+ * (voir le composant `Awards`).
+ */
+export const AWARDS = [
+  {
+    source: "Booking.com",
+    year: 2026,
+    score: 8.8,
+    scale: 10,
+    image: "/images/awards/booking-traveller-review-award-2026.png",
+  },
+  {
+    source: "Booking.com",
+    year: 2025,
+    score: 9.1,
+    scale: 10,
+    image: "/images/awards/booking-traveller-review-award-2025.png",
+  },
+] as const;
 
 /** Total de couchages, dérivé de `beds` pour éviter une constante qui dérive. */
 export const TOTAL_BEDS = PROPERTY.beds.reduce((n, b) => n + b.count, 0);

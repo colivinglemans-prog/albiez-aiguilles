@@ -39,6 +39,9 @@ export const en: Dictionary = {
     offSeasonTitle: "What about the shoulder season?",
     offSeasonText:
       "We also rent outside the busy months, when the resort goes quiet again. It is the right time for hiking, cycling, snowshoeing, or simply enjoying the view without meeting anyone — usually at the best rate of the year. To be straight about it: out of season the lifts are closed, and so are some of the village shops and restaurants, though the grocery stays open. Guests who come for the quiet are rarely disappointed, but it is worth knowing before you book.",
+    offSeasonExchange:
+      "Outside the seasons, the apartment is also open to home exchange on HomeExchange, for GuestPoints rather than rent. A good way to discover the Maurienne if you are a member yourself.",
+    offSeasonExchangeCta: "See the home on HomeExchange",
     seo: {
       title: "Albiez-Montrond apartment rental — Skiing and lake, French Alps",
       description:
@@ -320,6 +323,15 @@ export const en: Dictionary = {
       "A live availability calendar is coming to this page shortly. In the meantime you can check free dates and book on Airbnb, or write to us directly for a tailored stay.",
     bookOnAirbnb: "Check availability on Airbnb",
     contactUs: "Write to us",
+  },
+
+  awards: {
+    title: "Awards",
+    subtitle: "What the booking platforms make of the stays spent here.",
+    bookingLabel: "Traveller Review Award",
+    yearLabel: (year) => `${year} edition`,
+    outOf: (scale) => `out of ${scale}`,
+    consecutive: "Awarded two years running by Booking.com",
   },
 
   superhost: {

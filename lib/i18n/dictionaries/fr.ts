@@ -39,6 +39,9 @@ export const fr: Dictionary = {
     offSeasonTitle: "Et hors saison ?",
     offSeasonText:
       "Nous louons aussi en dehors des périodes d'affluence, quand la station retrouve son calme. C'est le bon moment pour la randonnée, le vélo, la raquette ou simplement pour profiter de la vue sans croiser personne — souvent au meilleur tarif de l'année. Autant le dire franchement : hors saison, les remontées mécaniques sont fermées et une partie des commerces et restaurants du village aussi, la supérette restant ouverte. Ceux qui viennent chercher le calme y trouvent leur compte, mais mieux vaut le savoir avant de réserver.",
+    offSeasonExchange:
+      "En dehors des saisons, l'appartement est aussi proposé à l'échange sur HomeExchange, contre GuestPoints plutôt qu'en location. Une bonne façon de découvrir la Maurienne si vous êtes vous-même membre.",
+    offSeasonExchangeCta: "Voir le logement sur HomeExchange",
     seo: {
       title:
         "Location appartement Albiez-Montrond — Ski et lac face aux Aiguilles d'Arves",
@@ -334,6 +337,16 @@ export const fr: Dictionary = {
       "Le calendrier de disponibilités en temps réel arrive prochainement sur cette page. En attendant, vous pouvez consulter les dates libres et réserver sur Airbnb, ou nous écrire directement pour un séjour sur mesure.",
     bookOnAirbnb: "Voir les disponibilités sur Airbnb",
     contactUs: "Nous écrire",
+  },
+
+  awards: {
+    title: "Distinctions",
+    subtitle:
+      "Ce que les plateformes de réservation retiennent des séjours passés ici.",
+    bookingLabel: "Traveller Review Award",
+    yearLabel: (year) => `Édition ${year}`,
+    outOf: (scale) => `sur ${scale}`,
+    consecutive: "Distingué deux années consécutives par Booking.com",
   },
 
   superhost: {

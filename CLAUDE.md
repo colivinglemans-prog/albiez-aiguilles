@@ -68,6 +68,22 @@ ESF et club Piou-Piou. C'est modélisé par une entrée unique avec un champ `in
 (`DISTANCES.hiver`) plutôt que quatre entrées à 250 m, qui laisseraient croire à quatre
 lieux distincts. L'été, les trois distances sont réellement différentes.
 
+## Distinctions
+
+`AWARDS` dans `lib/property.ts` — Traveller Review Awards Booking.com : 8,8/10 en 2026,
+9,1/10 en 2025, décernés à « Appart - Chalet du Hameau des Aiguilles » (le nom de
+l'annonce Booking diffère de celui du site).
+
+Les certificats officiels sont de grands aplats bleus avec le texte incrusté. Le
+composant `Awards` les **reconstruit** aux couleurs du site plutôt que de les afficher
+tels quels : le texte devient traduisible et lisible par un lecteur d'écran, et net à
+toute taille — le visuel 2025 fourni ne fait que 305 px de côté. Les fichiers d'origine
+restent dans `public/images/awards/` pour un usage hors site.
+
+Le kit de communication complet de Booking (stories Instagram, PDF, GIF de signature)
+est dans `booking-2026-awards/` à la racine, **hors versionnement** : il n'a pas sa
+place dans un dépôt web.
+
 ## Avis
 
 `data/reviews.json` contient la note de synthèse (4,96 / 49 avis, Coup de cœur voyageurs)

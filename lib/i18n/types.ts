@@ -40,6 +40,8 @@ export interface Dictionary {
     seasonCard: Record<"hiver" | "ete", { title: string; description: string; cta: string }>;
     offSeasonTitle: string;
     offSeasonText: string;
+    offSeasonExchange: string;
+    offSeasonExchangeCta: string;
     seo: { title: string; description: string; keywords: string[] };
   };
   seasons: Record<"hiver" | "ete", SeasonContent>;
@@ -101,6 +103,15 @@ export interface Dictionary {
     comingSoonText: string;
     bookOnAirbnb: string;
     contactUs: string;
+  };
+  awards: {
+    title: string;
+    subtitle: string;
+    bookingLabel: string;
+    /** Ex. « Note des voyageurs 2026 ». */
+    yearLabel: (year: number) => string;
+    outOf: (scale: number) => string;
+    consecutive: string;
   };
   superhost: {
     title: string;

@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# Kit de communication Booking (assets sources, non publies)
+/booking-2026-awards

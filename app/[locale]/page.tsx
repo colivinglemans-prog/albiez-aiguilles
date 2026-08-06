@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
 import { listPhotos, getPhoto } from "@/lib/photos";
+import { PROPERTY } from "@/lib/property";
 import { currentSeason } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonCards from "@/components/public/SeasonCards";
@@ -11,7 +12,7 @@ import PracticalSection from "@/components/public/PracticalSection";
 import LocationSection from "@/components/public/LocationSection";
 import BookingSection from "@/components/public/BookingSection";
 import Reviews from "@/components/public/Reviews";
-import SuperhostCard from "@/components/public/SuperhostCard";
+import Awards from "@/components/public/Awards";
 import HostSection from "@/components/public/HostSection";
 import PhotoGallery from "@/components/public/PhotoGallery";
 import { Section, SectionTitle } from "@/components/public/Section";
@@ -99,11 +100,9 @@ export default async function HomePage({
 
       <ApartmentSection />
 
-      {/* Le badge explique pourquoi la note qui suit est crédible : les deux
-          se renforcent côte à côte, séparés ils perdent de leur poids. */}
-      <Section className="!pb-0">
-        <SuperhostCard />
-      </Section>
+      {/* Les distinctions expliquent pourquoi la note qui suit est crédible :
+          les deux se renforcent côte à côte, séparées elles perdent de leur poids. */}
+      <Awards />
       <Reviews />
 
       <PracticalSection />
@@ -114,6 +113,17 @@ export default async function HomePage({
         <div className="rounded-2xl border border-border bg-light-bg p-6 sm:p-8">
           <SectionTitle title={t.home.offSeasonTitle} />
           <p className="-mt-4 max-w-3xl text-secondary">{t.home.offSeasonText}</p>
+          <p className="mt-4 max-w-3xl text-secondary">
+            {t.home.offSeasonExchange}
+          </p>
+          <a
+            href={PROPERTY.links.homeExchange}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm font-semibold text-accent underline underline-offset-2 hover:text-accent-dark"
+          >
+            {t.home.offSeasonExchangeCta}
+          </a>
         </div>
       </Section>
 
