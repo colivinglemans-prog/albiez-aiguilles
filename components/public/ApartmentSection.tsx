@@ -1,11 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslation } from "@/lib/i18n";
 import { PROPERTY, TOTAL_BEDS } from "@/lib/property";
+import type { Photo } from "@/lib/photos";
 import { Section, SectionTitle } from "./Section";
 
-export default function ApartmentSection() {
+/** Photos par couchage, résolues côté serveur depuis `SLEEPING_PHOTOS`. */
+export interface SleepingPhotos {
+  bedroom: Photo[];
+  alcove: Photo[];
+  living: Photo[];
+}
+
+export default function ApartmentSection({
+  sleepingPhotos,
+}: {
+  sleepingPhotos: SleepingPhotos;
+}) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
@@ -18,10 +31,16 @@ export default function ApartmentSection() {
     {
       name: t.property.bedrooms,
       description: t.property.bedDouble(double.width, double.length),
+      photos: sleepingPhotos.bedroom,
+      // Deux prises de vue : le lit préparé et le lit nu. La légende dit laquelle
+      // correspond à l'option linge, ce qu'aucune photo seule ne peut montrer.
+      captions: [t.property.withLinen, t.property.withoutLinen],
     },
     {
       name: t.property.alcove,
       description: t.property.bedBunk(bunk.count, bunk.width, bunk.length),
+      photos: sleepingPhotos.alcove,
+      captions: [],
     },
     {
       name: t.property.living,
@@ -30,6 +49,8 @@ export default function ApartmentSection() {
         trundle.width,
         trundle.length,
       ),
+      photos: sleepingPhotos.living,
+      captions: [],
     },
   ];
 
@@ -61,10 +82,41 @@ export default function ApartmentSection() {
         {rooms.map((room) => (
           <div
             key={room.name}
-            className="rounded-2xl border border-border bg-white p-5"
+            className="overflow-hidden rounded-2xl border border-border bg-white"
           >
-            <p className="font-semibold">{room.name}</p>
-            <p className="mt-1 text-sm text-secondary">{room.description}</p>
+            {room.photos.length > 0 && (
+              <div
+                className={`grid gap-px bg-border ${room.photos.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}
+              >
+                {room.photos.map((photo, i) => (
+                  <figure key={photo.src} className="bg-white">
+                    {/* Le conteneur prend le format de la photo : rien n'est recadré. */}
+                    <div
+                      className="relative w-full"
+                      style={{ aspectRatio: photo.ratio }}
+                    >
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt || room.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    {room.captions[i] && (
+                      <figcaption className="px-3 py-2 text-center text-[11px] leading-tight text-secondary">
+                        {room.captions[i]}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+            )}
+
+            <div className="p-5">
+              <p className="font-semibold">{room.name}</p>
+              <p className="mt-1 text-sm text-secondary">{room.description}</p>
+            </div>
           </div>
         ))}
       </div>

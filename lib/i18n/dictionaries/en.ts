@@ -220,6 +220,8 @@ export const en: Dictionary = {
     capacity: (min, max) => `${min} to ${max} guests`,
     areaCarrez: (m2) => `${m2} m² (Carrez)`,
     roomsSummary: "1 bedroom + mountain alcove",
+    withLinen: "With the optional linen kit",
+    withoutLinen: "Without bed linen",
     bedsCount: (n) => `${n} beds`,
     bathroomsCount: (n) => `${n} bathroom`,
     bathroom: "Bathroom with bathtub and heated towel rail, separate toilet.",

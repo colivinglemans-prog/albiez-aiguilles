@@ -168,6 +168,20 @@ export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
 };
 
 /**
+ * Photos illustrant chaque couchage, dans `public/images/commun/`.
+ *
+ * Désignées par nom de fichier plutôt que par position : ces photos doivent
+ * correspondre exactement au couchage décrit, contrairement aux galeries où
+ * l'ordre seul suffit. La chambre en a deux — avec et sans le kit linge — ce qui
+ * montre concrètement ce que recouvre l'option à 15 € par personne.
+ */
+export const SLEEPING_PHOTOS = {
+  bedroom: ["04-chambre-lit-double-160.jpg", "05-chambre-lit-double-sans-linge.JPG"],
+  alcove: ["06-coin-montagne-lits-superposes.JPG"],
+  living: ["03-canape-lit-gigogne-deplie.JPG"],
+} as const;
+
+/**
  * Distinctions reçues, la plus récente en premier.
  *
  * Le nom de l'annonce sur Booking diffère de celui du site : les certificats sont

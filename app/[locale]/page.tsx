@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
 import { listPhotos, getPhoto } from "@/lib/photos";
-import { PROPERTY } from "@/lib/property";
+import { PROPERTY, SLEEPING_PHOTOS } from "@/lib/property";
 import { currentSeason } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonCards from "@/components/public/SeasonCards";
@@ -65,6 +65,15 @@ export default async function HomePage({
   // La galerie se replie d'elle-même au-delà de quelques vignettes.
   const galleryPhotos = [...common, ...winter, ...summer];
 
+  // Chaque couchage est illustré par une photo précise, désignée par nom de fichier.
+  const resolve = (files: readonly string[]) =>
+    files.map((f) => getPhoto("commun", f)).filter((p) => p !== undefined);
+  const sleepingPhotos = {
+    bedroom: resolve(SLEEPING_PHOTOS.bedroom),
+    alcove: resolve(SLEEPING_PHOTOS.alcove),
+    living: resolve(SLEEPING_PHOTOS.living),
+  };
+
   return (
     <div data-season={season}>
       <script
@@ -99,7 +108,7 @@ export default async function HomePage({
         <PhotoGallery photos={galleryPhotos} title={t.gallery.title} />
       </Section>
 
-      <ApartmentSection />
+      <ApartmentSection sleepingPhotos={sleepingPhotos} />
 
       {/* Les distinctions expliquent pourquoi la note qui suit est crédible :
           les deux se renforcent côte à côte, séparées elles perdent de leur poids. */}

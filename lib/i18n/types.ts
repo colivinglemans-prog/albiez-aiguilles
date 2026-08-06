@@ -62,6 +62,9 @@ export interface Dictionary {
     /** Surface loi Carrez, affichée dans le résumé du logement. */
     areaCarrez: (m2: number) => string;
     roomsSummary: string;
+    /** Légendes des deux photos de la chambre. */
+    withLinen: string;
+    withoutLinen: string;
     bedsCount: (n: number) => string;
     bathroomsCount: (n: number) => string;
     bathroom: string;

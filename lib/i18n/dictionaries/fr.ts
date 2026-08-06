@@ -228,6 +228,8 @@ export const fr: Dictionary = {
     capacity: (min, max) => `${min} à ${max} personnes`,
     areaCarrez: (m2) => `${m2} m² Carrez`,
     roomsSummary: "1 chambre + coin montagne",
+    withLinen: "Avec le kit linge, en option",
+    withoutLinen: "Sans linge de lit",
     bedsCount: (n) => `${n} couchages`,
     bathroomsCount: (n) => `${n} salle de bains`,
     bathroom:
