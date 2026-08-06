@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #16212b;
+  --color-secondary: #5d6b78;
+  --color-border: #dfe4e9;
+  --color-light-bg: #f5f7f9;
+
+  /* Bleu alpin, constant sur tout le site : c'est l'identité du logement. */
+  --color-primary: #1b4965;
+  --color-primary-dark: #123449;
+
+  /* Accent piloté par la saison — voir les blocs [data-season] ci-dessous. */
+  --color-accent: var(--season-accent);
+  --color-accent-dark: var(--season-accent-dark);
+  --color-accent-soft: var(--season-accent-soft);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * Le thème de saison n'est pas une classe conditionnelle sur chaque élément :
+ * on redéfinit trois variables sur un conteneur, et toutes les utilitaires
+ * `*-accent` du sous-arbre suivent. Changer de saison = changer un attribut.
+ */
+:root,
+[data-season="hiver"] {
+  --season-accent: #2c7da0;
+  --season-accent-dark: #1f5f7a;
+  --season-accent-soft: #eaf4f8;
+}
+
+[data-season="ete"] {
+  --season-accent: #4f7a3f;
+  --season-accent-dark: #3b5d2f;
+  --season-accent-soft: #eef4ea;
+}
+
+html {
+  color-scheme: light only;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #16212b;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
