@@ -77,7 +77,7 @@ export const en: Dictionary = {
         {
           title: "Large ski locker",
           description:
-            "A large ski locker is yours for the stay, on the landing right outside the door. Carry the gear up once on arrival and it stays there all week — the apartment stays dry.",
+            "A large ski locker is yours for the stay, on the landing right outside the door.",
         },
         {
           title: "A family resort",

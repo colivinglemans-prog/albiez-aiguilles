@@ -80,7 +80,7 @@ export const fr: Dictionary = {
         {
           title: "Grand casier à skis",
           description:
-            "Un grand casier à skis vous attend sur le palier, à la porte de l'appartement. Vous montez le matériel une fois en arrivant, il reste là toute la semaine — et le logement reste sec.",
+            "Un grand casier à skis vous attend sur le palier, à la porte de l'appartement.",
         },
         {
           title: "Station familiale",
