@@ -114,7 +114,12 @@ export default async function SeasonPage({
                 className="overflow-hidden rounded-2xl border border-border bg-white"
               >
                 {photo && (
-                  <div className="relative aspect-16/9">
+                  // Le conteneur prend le format de l'image : rien n'est recadré,
+                  // et les photos carrées restent carrées.
+                  <div
+                    className="relative w-full"
+                    style={{ aspectRatio: photo.ratio }}
+                  >
                     <Image
                       src={photo.src}
                       alt={photo.alt || activity.title}

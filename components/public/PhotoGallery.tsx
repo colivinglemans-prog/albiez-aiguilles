@@ -6,7 +6,7 @@ import type { Photo } from "@/lib/photos";
 import { useTranslation } from "@/lib/i18n";
 
 /** Nombre de vignettes visibles avant le bouton « voir tout ». */
-const PREVIEW_COUNT = 5;
+const PREVIEW_COUNT = 8;
 
 export default function PhotoGallery({
   photos,
@@ -65,22 +65,26 @@ export default function PhotoGallery({
         <h2 className="mb-6 text-2xl font-bold sm:text-3xl">{title}</h2>
       )}
 
-      <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
+      {/*
+        Disposition en colonnes plutôt qu'en grille à cases fixes : chaque photo
+        garde son format d'origine. Un cadre imposé recadrerait les portraits et
+        les carrés, qui sont nombreux ici.
+      */}
+      <div className="columns-2 gap-2 sm:gap-3 md:columns-3 lg:columns-4">
         {visible.map((photo, i) => (
           <button
             key={photo.src}
             type="button"
             onClick={() => setLightboxIndex(i)}
-            className={`group relative aspect-4/3 overflow-hidden rounded-xl bg-light-bg ${
-              i === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-4/3" : ""
-            }`}
+            className="group mb-2 block w-full break-inside-avoid overflow-hidden rounded-xl bg-light-bg sm:mb-3"
           >
             <Image
               src={photo.src}
               alt={photo.alt}
-              fill
-              sizes={i === 0 ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 50vw, 25vw"}
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              width={photo.width}
+              height={photo.height}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="h-auto w-full transition-transform duration-300 group-hover:scale-105"
               priority={i === 0}
             />
           </button>

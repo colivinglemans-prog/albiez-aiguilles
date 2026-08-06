@@ -21,7 +21,7 @@ export const en: Dictionary = {
       "On the top floor of a small chalet in the Hameau des Aiguilles residence, our family apartment opens onto a south-west facing balcony with a clear view of the Aiguilles d'Arves. The slopes, the village shops and the ski school are 250 metres away. The lake and the riding club are a few minutes on foot. We rent it all year round.",
     chooseSeason: "Two seasons, two very different stays",
     chooseSeasonSubtitle:
-      "Albiez in February and Albiez in July are not the same place. Pick yours.",
+      "Albiez is not the same place in winter and in the warmer months. Pick yours.",
     seasonCard: {
       hiver: {
         title: "Winter on the slopes",

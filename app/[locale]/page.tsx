@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
-import { listPhotos } from "@/lib/photos";
+import { listPhotos, findPhoto } from "@/lib/photos";
 import { currentSeason } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonCards from "@/components/public/SeasonCards";
@@ -82,8 +82,13 @@ export default async function HomePage({
         </p>
       </Section>
 
+      {/* Les cartes de saison utilisent les mosaïques, qui résument une saison
+          entière en une image — plus parlant qu'une photo unique à ce niveau. */}
       <SeasonCards
-        covers={{ hiver: winter[0]?.src, ete: summer[0]?.src }}
+        covers={{
+          hiver: findPhoto(winter, "mosaique") ?? winter[0],
+          ete: findPhoto(summer, "mosaique") ?? summer[0],
+        }}
       />
 
       <Section id="galerie" className="!pt-0">

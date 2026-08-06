@@ -4,10 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "@/lib/i18n";
 import { SEASONS, seasonHref, type Season } from "@/lib/seasons";
+import type { Photo } from "@/lib/photos";
 import { Section, SectionTitle } from "./Section";
 
 /** Une photo d'ambiance par saison, choisie côté serveur (peut être absente). */
-export type SeasonCover = Partial<Record<Season, string>>;
+export type SeasonCover = Partial<Record<Season, Photo>>;
 
 export default function SeasonCards({ covers }: { covers: SeasonCover }) {
   const { locale, t } = useTranslation();
@@ -31,14 +32,20 @@ export default function SeasonCards({ covers }: { covers: SeasonCover }) {
               data-season={season}
               className="group flex flex-col overflow-hidden rounded-3xl border border-border bg-white transition-shadow hover:shadow-lg"
             >
-              <div className="relative aspect-16/9 bg-accent-soft">
+              {/*
+                Cadre carré demandé pour les deux cartes, avec `object-contain` :
+                les mosaïques sont des montages de plusieurs photos, un recadrage
+                couperait dans les vignettes. Le fond comble l'écart pour celles
+                qui ne sont pas exactement au format 1:1.
+              */}
+              <div className="relative aspect-square bg-accent-soft">
                 {cover ? (
                   <Image
-                    src={cover}
-                    alt={card.title}
+                    src={cover.src}
+                    alt={cover.alt || card.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center text-sm text-accent-dark">

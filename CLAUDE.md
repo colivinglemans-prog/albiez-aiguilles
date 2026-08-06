@@ -109,6 +109,23 @@ dictionnaire. Changer l'ordre des activités impose de renuméroter les fichiers
 
 Voir `public/images/README.md`.
 
+### Aucune photo n'est recadrée
+
+`listPhotos()` relève les dimensions de chaque fichier au build (lecture de l'en-tête
+via `image-size`) et expose `width`, `height` et `ratio`. Les composants s'en servent
+pour que **le conteneur prenne le format de l'image**, jamais l'inverse :
+
+- **Encarts d'activités** — `style={{ aspectRatio: photo.ratio }}`. La moitié de ces
+  photos sont en 1:1 ; un cadre 16:9 leur coupait 44 % de la hauteur.
+- **Galeries** — disposition en colonnes (`columns-2/3/4` + `break-inside-avoid`), chaque
+  vignette en `h-auto w-full`. Les portraits et les carrés cohabitent sans recadrage.
+- **Cartes de saison** — cadre carré imposé, mais `object-contain` : ce sont des
+  mosaïques, un recadrage couperait dans les vignettes qui les composent.
+- **Hero** — seule exception, `object-cover` en fond perdu : le plein écran impose un
+  format, et l'image y est décorative.
+
+Ajouter une photo d'un format inhabituel ne demande donc aucun ajustement.
+
 ## À faire
 
 - [ ] **Nom de domaine** — `SITE_NAME` et `SITE_URL` dans `lib/property.ts` sont des

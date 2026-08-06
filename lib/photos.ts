@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { imageSize } from "image-size";
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 
@@ -8,6 +9,10 @@ export interface Photo {
   src: string;
   /** Texte alternatif dérivé du nom de fichier, à surcharger si besoin. */
   alt: string;
+  width: number;
+  height: number;
+  /** Largeur / hauteur. Sert à donner au conteneur le format réel de l'image. */
+  ratio: number;
 }
 
 /**
@@ -16,6 +21,10 @@ export interface Photo {
  * L'ordre d'affichage suit l'ordre alphabétique des noms de fichiers : il suffit
  * de préfixer les fichiers (`01-`, `02-`…) pour maîtriser l'ordre, sans toucher au code.
  * Lu au build côté serveur — déposer des photos ne demande aucune modification.
+ *
+ * Les dimensions sont relevées ici (lecture de l'en-tête seulement, pas du fichier
+ * entier) pour que l'affichage puisse respecter le format de chaque image plutôt que
+ * de la recadrer dans un cadre imposé.
  */
 export function listPhotos(dir: string): Photo[] {
   const abs = path.join(process.cwd(), "public", "images", dir);
@@ -31,10 +40,39 @@ export function listPhotos(dir: string): Photo[] {
   return entries
     .filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()))
     .sort((a, b) => a.localeCompare(b, "fr", { numeric: true }))
-    .map((file) => ({
-      src: `/images/${dir}/${file}`,
-      alt: altFromFilename(file),
-    }));
+    .flatMap((file) => {
+      const dimensions = readDimensions(path.join(abs, file));
+      if (!dimensions) return [];
+      return [
+        {
+          src: `/images/${dir}/${file}`,
+          alt: altFromFilename(file),
+          width: dimensions.width,
+          height: dimensions.height,
+          ratio: dimensions.width / dimensions.height,
+        },
+      ];
+    });
+}
+
+/**
+ * Retrouve une photo par fragment de nom de fichier.
+ * Permet de désigner une image précise (une couverture, par exemple) sans dépendre
+ * de sa position dans le dossier, qui bouge dès qu'on ajoute un fichier.
+ */
+export function findPhoto(photos: Photo[], nameFragment: string): Photo | undefined {
+  return photos.find((p) => p.src.includes(nameFragment));
+}
+
+function readDimensions(file: string): { width: number; height: number } | null {
+  try {
+    const { width, height } = imageSize(fs.readFileSync(file));
+    if (!width || !height) return null;
+    return { width, height };
+  } catch {
+    // Fichier illisible ou format non reconnu : on l'ignore plutôt que d'échouer le build.
+    return null;
+  }
 }
 
 /** `02-balcon-vue-aiguilles.jpg` → « Balcon vue aiguilles ». */

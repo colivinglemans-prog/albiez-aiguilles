@@ -21,7 +21,7 @@ export const fr: Dictionary = {
       "Au dernier étage d'un petit chalet de la résidence Le Hameau des Aiguilles, notre appartement familial ouvre sur un balcon exposé sud-ouest et une vue dégagée sur les Aiguilles d'Arves. Les pistes, les commerces et l'école de ski sont à 250 mètres. Le lac et son club d'équitation sont à quelques minutes à pied. Nous le louons toute l'année.",
     chooseSeason: "Deux saisons, deux séjours",
     chooseSeasonSubtitle:
-      "Albiez ne se visite pas de la même façon en février et en juillet. Choisissez la vôtre.",
+      "Albiez ne se visite pas de la même façon en hiver et pendant la belle saison. Choisissez la vôtre.",
     seasonCard: {
       hiver: {
         title: "L'hiver au ski",
