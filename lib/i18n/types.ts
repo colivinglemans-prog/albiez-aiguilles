@@ -42,6 +42,9 @@ export interface Dictionary {
     offSeasonText: string;
     offSeasonExchange: string;
     offSeasonExchangeCta: string;
+    offSeasonSponsorCta: string;
+    /** Mention de transparence sur le lien de parrainage. */
+    offSeasonSponsorNote: string;
     seo: { title: string; description: string; keywords: string[] };
   };
   seasons: Record<"hiver" | "ete", SeasonContent>;

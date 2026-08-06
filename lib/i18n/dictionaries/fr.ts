@@ -42,6 +42,9 @@ export const fr: Dictionary = {
     offSeasonExchange:
       "En dehors des saisons, l'appartement est aussi proposé à l'échange sur HomeExchange, contre GuestPoints plutôt qu'en location. Une bonne façon de découvrir la Maurienne si vous êtes vous-même membre.",
     offSeasonExchangeCta: "Voir le logement sur HomeExchange",
+    offSeasonSponsorCta: "S'inscrire avec mon code de parrainage",
+    offSeasonSponsorNote:
+      "Pas encore membre ? En vous inscrivant avec mon code, nous recevons chacun 250 GuestPoints.",
     seo: {
       title:
         "Location appartement Albiez-Montrond — Ski et lac face aux Aiguilles d'Arves",

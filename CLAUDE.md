@@ -84,6 +84,18 @@ Le kit de communication complet de Booking (stories Instagram, PDF, GIF de signa
 est dans `booking-2026-awards/` à la racine, **hors versionnement** : il n'a pas sa
 place dans un dépôt web.
 
+## HomeExchange
+
+Présenté dans le bloc « Et hors saison ? » de l'accueil, là où la question se pose pour
+le visiteur qui envisage avril ou octobre. Deux liens dans `PROPERTY.links` : la page du
+logement et le lien de parrainage (`alexandre-07e4b`, 250 GuestPoints pour chaque
+partie). La contrepartie du parrainage est **annoncée sous le bouton** — un lien de
+parrainage qui ne dit pas son nom se retourne contre celui qui le pose.
+
+Logo officiel dans `public/brand/homeexchange.svg`, servi en `unoptimized` : c'est un
+SVG statique, l'optimiseur d'images de Next n'a rien à y gagner et le laisser passer
+demanderait d'activer `dangerouslyAllowSVG`.
+
 ## Avis
 
 `data/reviews.json` contient la note de synthèse (4,96 / 49 avis, Coup de cœur voyageurs)

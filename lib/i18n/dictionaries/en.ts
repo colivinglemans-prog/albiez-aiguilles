@@ -42,6 +42,9 @@ export const en: Dictionary = {
     offSeasonExchange:
       "Outside the seasons, the apartment is also open to home exchange on HomeExchange, for GuestPoints rather than rent. A good way to discover the Maurienne if you are a member yourself.",
     offSeasonExchangeCta: "See the home on HomeExchange",
+    offSeasonSponsorCta: "Join with my referral code",
+    offSeasonSponsorNote:
+      "Not a member yet? Sign up with my code and we each receive 250 GuestPoints.",
     seo: {
       title: "Albiez-Montrond apartment rental — Skiing and lake, French Alps",
       description:

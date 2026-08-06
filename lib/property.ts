@@ -122,6 +122,8 @@ export const PROPERTY = {
     resort: "https://www.station-albiez.com/fr/",
     /** Échange de maisons, proposé hors saison. */
     homeExchange: "https://www.homeexchange.fr/homes/view/2779081",
+    /** Lien de parrainage — l'inscription via ce lien crédite les deux parties. */
+    homeExchangeSponsor: "https://www.homeexchange.fr/?sponsorkey=alexandre-07e4b",
   },
 } as const;
 
