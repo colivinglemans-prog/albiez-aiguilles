@@ -39,6 +39,9 @@ export function listPhotos(dir: string): Photo[] {
 
   return entries
     .filter((f) => IMAGE_EXT.has(path.extname(f).toLowerCase()))
+    // Un fichier préfixé par `_` reste dans le dossier mais n'est pas publié :
+    // c'est la façon de mettre une photo de côté sans la supprimer.
+    .filter((f) => !f.startsWith("_"))
     .sort((a, b) => a.localeCompare(b, "fr", { numeric: true }))
     .flatMap((file) => {
       const dimensions = readDimensions(path.join(abs, file));
@@ -56,12 +59,24 @@ export function listPhotos(dir: string): Photo[] {
 }
 
 /**
- * Retrouve une photo par fragment de nom de fichier.
- * Permet de désigner une image précise (une couverture, par exemple) sans dépendre
- * de sa position dans le dossier, qui bouge dès qu'on ajoute un fichier.
+ * Charge une photo précise par son nom de fichier, y compris préfixée par `_`.
+ *
+ * Sert aux images qui ont un rôle désigné plutôt que d'être du contenu de galerie —
+ * les mosaïques des cartes de saison, par exemple, qui n'ont rien à faire dans
+ * « En images » puisqu'elles ne montrent que des photos déjà présentes.
  */
-export function findPhoto(photos: Photo[], nameFragment: string): Photo | undefined {
-  return photos.find((p) => p.src.includes(nameFragment));
+export function getPhoto(dir: string, fileName: string): Photo | undefined {
+  const abs = path.join(process.cwd(), "public", "images", dir, fileName);
+  const dimensions = readDimensions(abs);
+  if (!dimensions) return undefined;
+
+  return {
+    src: `/images/${dir}/${fileName}`,
+    alt: altFromFilename(fileName),
+    width: dimensions.width,
+    height: dimensions.height,
+    ratio: dimensions.width / dimensions.height,
+  };
 }
 
 function readDimensions(file: string): { width: number; height: number } | null {

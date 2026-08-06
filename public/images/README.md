@@ -58,6 +58,23 @@ Une pièce photographiée dans les deux saisons mérite en revanche ses deux fic
 un dans chaque dossier de saison — c'est exactement ce qui donne envie de revenir
 à l'autre saison.
 
+## Mettre une photo de côté
+
+Un fichier dont le nom commence par `_` reste dans le dossier mais **n'est pas publié** :
+il disparaît des galeries sans être supprimé. C'est le moyen d'écarter une photo
+redondante ou de qualité insuffisante tout en la gardant sous la main.
+
+Deux exceptions y sont chargées explicitement par le code, parce qu'elles ont un rôle
+désigné et n'ont rien à faire dans « En images » — elles ne montrent que des photos
+déjà présentes :
+
+```
+hiver/_mosaique-hiver.jpg   → carte « L'hiver au ski » sur l'accueil
+ete/_mosaique-ete.jpg       → carte « L'été au lac » sur l'accueil
+```
+
+Ces deux-là doivent rester **carrées** et conserver leur nom exact.
+
 ## Ordre d'affichage
 
 L'ordre suit **l'ordre alphabétique des noms de fichiers**. Préfixer par un numéro

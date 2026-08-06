@@ -107,6 +107,11 @@ d'être dupliquées.
 saison, appariés **par position** avec la liste `seasons.<saison>.activities` du
 dictionnaire. Changer l'ordre des activités impose de renuméroter les fichiers.
 
+Un fichier préfixé par `_` reste dans le dossier mais n'est pas publié : c'est le moyen
+d'écarter une photo sans la supprimer. `getPhoto(dir, fileName)` permet malgré tout de
+charger un fichier précis — c'est ainsi que les mosaïques des cartes de saison
+(`_mosaique-hiver.jpg`, `_mosaique-ete.jpg`) sont utilisées sans polluer les galeries.
+
 Voir `public/images/README.md`.
 
 ### Aucune photo n'est recadrée
