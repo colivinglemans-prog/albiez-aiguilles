@@ -77,7 +77,7 @@ export const en: Dictionary = {
         {
           title: "Large ski locker",
           description:
-            "A ski locker on the landing is yours for the stay. Boots and gear stay downstairs, the apartment stays dry.",
+            "A large ski locker is yours for the stay, on the landing right outside the door. Carry the gear up once on arrival and it stays there all week — the apartment stays dry.",
         },
         {
           title: "A family resort",
@@ -276,7 +276,7 @@ export const en: Dictionary = {
   linen: {
     title: "The linen kit",
     subtitle: (price) =>
-      `Duvets and pillows are already there. Sheets and towels are optional, €${price} per person.`,
+      `Duvets and pillows are already there. Sheets and a bath towel are optional, €${price} per person.`,
     withLinen: "With the linen kit",
     withoutLinen: "Without the linen kit",
     providedTitle: "Provided at no extra cost",
@@ -293,13 +293,10 @@ export const en: Dictionary = {
     },
     optionTitle: "Optional",
     optionIntro: (price) =>
-      `For €${price} per person we make up the beds before you arrive and provide bath linen. Just let us know when booking.`,
-    optionItems: [
-      "Fitted and top sheets",
-      "Pillowcases",
-      "Hand and bath towels",
-      "Beds made up on arrival",
-    ],
+      `For €${price} per person the linen is waiting for you in the apartment. Just let us know when booking.`,
+    optionItems: ["Sheets and pillowcases", "One bath towel per person"],
+    notMadeNote:
+      "Beds are not made up on arrival: the linen is provided, it is yours to put on.",
     byoNote:
       "Would rather bring your own sheets and towels? That is perfectly fine, and common practice in the mountains. Plan for one 160 × 190 double bed and 80 × 190 single beds.",
   },

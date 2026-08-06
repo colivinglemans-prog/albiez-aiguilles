@@ -84,6 +84,8 @@ export interface Dictionary {
     optionTitle: string;
     optionIntro: (price: number) => string;
     optionItems: string[];
+    /** Précision qui évite une déception à l'arrivée. */
+    notMadeNote: string;
     /** Alternative pour qui préfère apporter ses draps. */
     byoNote: string;
   };

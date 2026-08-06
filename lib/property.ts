@@ -176,7 +176,9 @@ export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
  * l'ordre seul suffit.
  */
 export const SLEEPING_PHOTOS = {
-  bedroom: ["04-chambre-lit-double-160.jpg"],
+  // Le lit nu : c'est l'état dans lequel le logement est remis, les lits n'étant
+  // pas faits à l'arrivée. Le lit préparé est montré dans la section kit linge.
+  bedroom: ["05-chambre-lit-double-sans-linge.JPG"],
   alcove: ["06-coin-montagne-lits-superposes.JPG"],
   living: ["03-canape-lit-gigogne-deplie.JPG"],
 } as const;

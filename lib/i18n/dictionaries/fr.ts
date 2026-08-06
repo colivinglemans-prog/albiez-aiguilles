@@ -80,7 +80,7 @@ export const fr: Dictionary = {
         {
           title: "Grand casier à skis",
           description:
-            "Un casier à skis vous attend sur le palier. Les chaussures et le matériel restent en bas, l'appartement reste sec.",
+            "Un grand casier à skis vous attend sur le palier, à la porte de l'appartement. Vous montez le matériel une fois en arrivant, il reste là toute la semaine — et le logement reste sec.",
         },
         {
           title: "Station familiale",
@@ -285,7 +285,7 @@ export const fr: Dictionary = {
   linen: {
     title: "Le kit linge",
     subtitle: (price) =>
-      `Couettes et oreillers sont sur place. Draps et linge de toilette sont en option, ${price} € par personne.`,
+      `Couettes et oreillers sont sur place. Draps et serviette de bain sont en option, ${price} € par personne.`,
     withLinen: "Avec le kit linge",
     withoutLinen: "Sans le kit linge",
     providedTitle: "Fourni sans supplément",
@@ -302,13 +302,13 @@ export const fr: Dictionary = {
     },
     optionTitle: "En option",
     optionIntro: (price) =>
-      `Pour ${price} € par personne, nous préparons les lits à votre arrivée et fournissons le linge de toilette. À signaler à la réservation.`,
+      `Pour ${price} € par personne, le linge vous attend dans l'appartement. À signaler à la réservation.`,
     optionItems: [
-      "Draps housse et draps de dessus",
-      "Taies d'oreiller",
-      "Serviettes de toilette et de bain",
-      "Lits faits à votre arrivée",
+      "Draps et taies d'oreiller",
+      "Une serviette de bain par personne",
     ],
+    notMadeNote:
+      "Les lits ne sont pas faits à votre arrivée : le linge est mis à disposition, à vous de l'installer.",
     byoNote:
       "Vous préférez apporter vos draps et vos serviettes ? C'est possible, et c'est même l'usage à la montagne. Prévoyez alors du linge pour un lit double de 160 × 190 et des lits simples de 80 × 190.",
   },

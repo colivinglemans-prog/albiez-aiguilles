@@ -88,6 +88,11 @@ export default function LinenSection({
               </li>
             ))}
           </ul>
+
+          {/* Dit avant la réservation plutôt que découvert à l'arrivée. */}
+          <p className="mt-4 border-t border-accent/20 pt-4 text-sm text-secondary">
+            {t.linen.notMadeNote}
+          </p>
         </div>
       </div>
 
