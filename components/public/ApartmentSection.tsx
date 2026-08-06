@@ -32,9 +32,7 @@ export default function ApartmentSection({
       name: t.property.bedrooms,
       description: t.property.bedDouble(double.width, double.length),
       photos: sleepingPhotos.bedroom,
-      // Deux prises de vue : le lit préparé et le lit nu. La légende dit laquelle
-      // correspond à l'option linge, ce qu'aucune photo seule ne peut montrer.
-      captions: [t.property.withLinen, t.property.withoutLinen],
+      captions: [],
     },
     {
       name: t.property.alcove,

@@ -228,8 +228,6 @@ export const fr: Dictionary = {
     capacity: (min, max) => `${min} à ${max} personnes`,
     areaCarrez: (m2) => `${m2} m² Carrez`,
     roomsSummary: "1 chambre + coin montagne",
-    withLinen: "Avec le kit linge, en option",
-    withoutLinen: "Sans linge de lit",
     bedsCount: (n) => `${n} couchages`,
     bathroomsCount: (n) => `${n} salle de bains`,
     bathroom:
@@ -282,6 +280,37 @@ export const fr: Dictionary = {
     ],
     showAll: "Voir tous les équipements",
     showLess: "Réduire",
+  },
+
+  linen: {
+    title: "Le kit linge",
+    subtitle: (price) =>
+      `Couettes et oreillers sont sur place. Draps et linge de toilette sont en option, ${price} € par personne.`,
+    withLinen: "Avec le kit linge",
+    withoutLinen: "Sans le kit linge",
+    providedTitle: "Fourni sans supplément",
+    providedIntro:
+      "Les couettes et les oreillers vous attendent dans l'appartement, en nombre suffisant pour six personnes :",
+    itemLabel: (key, count) => {
+      const s = count > 1 ? "s" : "";
+      const labels: Record<string, string> = {
+        duvetDouble: `couette${s} double${s}`,
+        duvetSingle: `couette${s} simple${s}`,
+        pillow: `oreiller${s}`,
+      };
+      return labels[key] ?? key;
+    },
+    optionTitle: "En option",
+    optionIntro: (price) =>
+      `Pour ${price} € par personne, nous préparons les lits à votre arrivée et fournissons le linge de toilette. À signaler à la réservation.`,
+    optionItems: [
+      "Draps housse et draps de dessus",
+      "Taies d'oreiller",
+      "Serviettes de toilette et de bain",
+      "Lits faits à votre arrivée",
+    ],
+    byoNote:
+      "Vous préférez apporter vos draps et vos serviettes ? C'est possible, et c'est même l'usage à la montagne. Prévoyez alors du linge pour un lit double de 160 × 190 et des lits simples de 80 × 190.",
   },
 
   practical: {

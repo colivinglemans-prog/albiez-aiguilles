@@ -220,8 +220,6 @@ export const en: Dictionary = {
     capacity: (min, max) => `${min} to ${max} guests`,
     areaCarrez: (m2) => `${m2} m² (Carrez)`,
     roomsSummary: "1 bedroom + mountain alcove",
-    withLinen: "With the optional linen kit",
-    withoutLinen: "Without bed linen",
     bedsCount: (n) => `${n} beds`,
     bathroomsCount: (n) => `${n} bathroom`,
     bathroom: "Bathroom with bathtub and heated towel rail, separate toilet.",
@@ -273,6 +271,37 @@ export const en: Dictionary = {
     ],
     showAll: "Show all amenities",
     showLess: "Show less",
+  },
+
+  linen: {
+    title: "The linen kit",
+    subtitle: (price) =>
+      `Duvets and pillows are already there. Sheets and towels are optional, €${price} per person.`,
+    withLinen: "With the linen kit",
+    withoutLinen: "Without the linen kit",
+    providedTitle: "Provided at no extra cost",
+    providedIntro:
+      "Duvets and pillows are waiting in the apartment, enough for six guests:",
+    itemLabel: (key, count) => {
+      const s = count > 1 ? "s" : "";
+      const labels: Record<string, string> = {
+        duvetDouble: `double duvet${s}`,
+        duvetSingle: `single duvet${s}`,
+        pillow: `pillow${s}`,
+      };
+      return labels[key] ?? key;
+    },
+    optionTitle: "Optional",
+    optionIntro: (price) =>
+      `For €${price} per person we make up the beds before you arrive and provide bath linen. Just let us know when booking.`,
+    optionItems: [
+      "Fitted and top sheets",
+      "Pillowcases",
+      "Hand and bath towels",
+      "Beds made up on arrival",
+    ],
+    byoNote:
+      "Would rather bring your own sheets and towels? That is perfectly fine, and common practice in the mountains. Plan for one 160 × 190 double bed and 80 × 190 single beds.",
   },
 
   practical: {

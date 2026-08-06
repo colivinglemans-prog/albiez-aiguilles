@@ -53,10 +53,11 @@ export const PROPERTY = {
   linen: {
     included: false,
     pricePerPerson: 15,
+    /** Le libellé de chaque `key` vit dans les dictionnaires, pas ici. */
     inventory: [
-      { item: "couette double", size: "220x240", count: 1 },
-      { item: "couette simple", size: "140x200", count: 4 },
-      { item: "oreiller", size: "45x60", count: 6 },
+      { key: "duvetDouble", size: "220 × 240", count: 1 },
+      { key: "duvetSingle", size: "140 × 200", count: 4 },
+      { key: "pillow", size: "45 × 60", count: 6 },
     ],
   },
 
@@ -172,13 +173,18 @@ export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
  *
  * Désignées par nom de fichier plutôt que par position : ces photos doivent
  * correspondre exactement au couchage décrit, contrairement aux galeries où
- * l'ordre seul suffit. La chambre en a deux — avec et sans le kit linge — ce qui
- * montre concrètement ce que recouvre l'option à 15 € par personne.
+ * l'ordre seul suffit.
  */
 export const SLEEPING_PHOTOS = {
-  bedroom: ["04-chambre-lit-double-160.jpg", "05-chambre-lit-double-sans-linge.JPG"],
+  bedroom: ["04-chambre-lit-double-160.jpg"],
   alcove: ["06-coin-montagne-lits-superposes.JPG"],
   living: ["03-canape-lit-gigogne-deplie.JPG"],
+} as const;
+
+/** Le même lit préparé puis nu — la comparaison est tout l'objet de la section. */
+export const LINEN_PHOTOS = {
+  with: "04-chambre-lit-double-160.jpg",
+  without: "05-chambre-lit-double-sans-linge.JPG",
 } as const;
 
 /**

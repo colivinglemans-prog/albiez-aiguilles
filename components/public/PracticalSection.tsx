@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslation } from "@/lib/i18n";
-import { PROPERTY } from "@/lib/property";
 import { Section, SectionTitle } from "./Section";
 
 export default function PracticalSection() {
@@ -43,9 +42,9 @@ export default function PracticalSection() {
 
         <div>
           <h3 className="mb-3 font-semibold">{t.practical.servicesTitle}</h3>
+          {/* Le linge a sa propre section : le répéter ici brouillerait le message. */}
           <ul className="space-y-2 text-sm text-secondary">
             <li>{t.practical.cleaning}</li>
-            <li>{t.practical.linen(PROPERTY.linen.pricePerPerson)}</li>
           </ul>
           <p className="mt-4 mb-2 text-sm font-semibold">
             {t.practical.bringYourOwnTitle}

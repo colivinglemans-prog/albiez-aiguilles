@@ -62,9 +62,6 @@ export interface Dictionary {
     /** Surface loi Carrez, affichée dans le résumé du logement. */
     areaCarrez: (m2: number) => string;
     roomsSummary: string;
-    /** Légendes des deux photos de la chambre. */
-    withLinen: string;
-    withoutLinen: string;
     bedsCount: (n: number) => string;
     bathroomsCount: (n: number) => string;
     bathroom: string;
@@ -73,6 +70,22 @@ export interface Dictionary {
     amenityGroups: Array<{ title: string; items: string[] }>;
     showAll: string;
     showLess: string;
+  };
+  linen: {
+    title: string;
+    subtitle: (price: number) => string;
+    withLinen: string;
+    withoutLinen: string;
+    /** Ce qui est fourni sans supplément, pour lever l'ambiguïté la plus fréquente. */
+    providedTitle: string;
+    providedIntro: string;
+    /** Libellé accordé au nombre : « 4 couettes simples ». */
+    itemLabel: (key: string, count: number) => string;
+    optionTitle: string;
+    optionIntro: (price: number) => string;
+    optionItems: string[];
+    /** Alternative pour qui préfère apporter ses draps. */
+    byoNote: string;
   };
   practical: {
     title: string;

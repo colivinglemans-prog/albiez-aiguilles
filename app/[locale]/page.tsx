@@ -4,11 +4,12 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
 import { listPhotos, getPhoto } from "@/lib/photos";
-import { PROPERTY, SLEEPING_PHOTOS } from "@/lib/property";
+import { PROPERTY, SLEEPING_PHOTOS, LINEN_PHOTOS } from "@/lib/property";
 import { currentSeason } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonCards from "@/components/public/SeasonCards";
 import ApartmentSection from "@/components/public/ApartmentSection";
+import LinenSection from "@/components/public/LinenSection";
 import PracticalSection from "@/components/public/PracticalSection";
 import LocationSection from "@/components/public/LocationSection";
 import BookingSection from "@/components/public/BookingSection";
@@ -73,6 +74,10 @@ export default async function HomePage({
     alcove: resolve(SLEEPING_PHOTOS.alcove),
     living: resolve(SLEEPING_PHOTOS.living),
   };
+  const linenPhotos = {
+    with: getPhoto("commun", LINEN_PHOTOS.with),
+    without: getPhoto("commun", LINEN_PHOTOS.without),
+  };
 
   return (
     <div data-season={season}>
@@ -109,6 +114,7 @@ export default async function HomePage({
       </Section>
 
       <ApartmentSection sleepingPhotos={sleepingPhotos} />
+      <LinenSection photos={linenPhotos} />
 
       {/* Les distinctions expliquent pourquoi la note qui suit est crédible :
           les deux se renforcent côte à côte, séparées elles perdent de leur poids. */}
