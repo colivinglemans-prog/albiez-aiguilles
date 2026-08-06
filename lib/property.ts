@@ -103,12 +103,21 @@ export const PROPERTY = {
 
   contact: {
     email: "alexandre.delan@gmail.com",
+    phone: "+33620921005",
+    whatsapp: "https://wa.me/33620921005",
   },
+
+  /**
+   * Nombre d'avis cumulés sur le profil hôte, toutes annonces confondues.
+   * Relevé le 2026-08-06. Le chiffre ne fait que croître : s'il n'est pas
+   * réactualisé il sous-estime, ce qui est le bon sens de l'erreur.
+   */
+  hostReviewCount: 125,
 
   links: {
     googleMaps: "https://maps.app.goo.gl/mQnt1JRWTJ92JePW9",
     airbnb: "https://www.airbnb.fr/rooms/12328987",
-    /** Profil hôte — repris du site du Mans, même personne. À vérifier. */
+    /** Profil hôte, commun à toutes les annonces. */
     airbnbProfile: "https://www.airbnb.fr/users/profile/1465428634658451220",
     resort: "https://www.station-albiez.com/fr/",
   },

@@ -326,7 +326,7 @@ export const en: Dictionary = {
     title: "Alexandre is a Superhost",
     description:
       "Superhosts are experienced, highly rated hosts who are committed to providing excellent stays.",
-    profileLink: "See my Airbnb profile",
+    profileLink: (n) => `Browse my ${n} reviews on my Airbnb profile`,
   },
 
   host: {
@@ -342,6 +342,9 @@ export const en: Dictionary = {
     responseRateValue: "Quick response — usually within an hour",
     emailCta: "Write to me",
     airbnbCta: "Contact me on Airbnb",
+    whatsappCta: "WhatsApp",
+    whatsappMessage:
+      "Hello Alexandre, I am interested in your apartment in Albiez.",
   },
 
   reviews: {

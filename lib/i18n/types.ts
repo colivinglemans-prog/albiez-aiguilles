@@ -105,7 +105,7 @@ export interface Dictionary {
   superhost: {
     title: string;
     description: string;
-    profileLink: string;
+    profileLink: (reviewCount: number) => string;
   };
   host: {
     title: string;
@@ -120,6 +120,9 @@ export interface Dictionary {
     responseRateValue: string;
     emailCta: string;
     airbnbCta: string;
+    whatsappCta: string;
+    /** Message pré-rempli à l'ouverture de WhatsApp. */
+    whatsappMessage: string;
   };
   reviews: {
     title: string;

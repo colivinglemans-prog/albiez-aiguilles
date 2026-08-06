@@ -41,7 +41,7 @@ export default function SuperhostCard() {
             rel="noopener noreferrer"
             className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent-dark"
           >
-            {t.superhost.profileLink}
+            {t.superhost.profileLink(PROPERTY.hostReviewCount)}
             <svg
               className="h-4 w-4"
               fill="none"

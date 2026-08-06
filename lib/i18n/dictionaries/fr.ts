@@ -340,7 +340,7 @@ export const fr: Dictionary = {
     title: "Alexandre est Superhôte",
     description:
       "Les Superhôtes sont des hôtes expérimentés, très bien notés, qui s'engagent à offrir d'excellents séjours.",
-    profileLink: "Voir mon profil Airbnb",
+    profileLink: (n) => `Découvrir mes ${n} avis sur mon profil Airbnb`,
   },
 
   host: {
@@ -356,6 +356,9 @@ export const fr: Dictionary = {
     responseRateValue: "Réponse rapide — généralement en moins d'une heure",
     emailCta: "M'écrire",
     airbnbCta: "Me contacter sur Airbnb",
+    whatsappCta: "WhatsApp",
+    whatsappMessage:
+      "Bonjour Alexandre, je suis intéressé(e) par votre appartement à Albiez.",
   },
 
   reviews: {
