@@ -342,6 +342,15 @@ export const en: Dictionary = {
     seeOnAirbnb: "Read all reviews on Airbnb",
     empty: "No reviews yet for this season.",
     hostReply: "Reply from Alexandre",
+    filter: {
+      label: "Filter by period",
+      all: "All",
+      hiver: "Ski season",
+      ete: "Summer season",
+      "hors-saison": "Off season",
+      offSeasonNote:
+        "Stays outside the resort's opening periods: lifts closed, and some village shops too. The resort is markedly quieter then.",
+    },
   },
 
   gallery: {

@@ -71,10 +71,18 @@ lieux distincts. L'été, les trois distances sont réellement différentes.
 ## Avis
 
 `data/reviews.json` contient la note de synthèse (4,96 / 49 avis, Coup de cœur voyageurs)
-et une sélection d'avis relevés le 2026-08-06. Chaque avis porte une `season` : les pages
-de saison n'affichent que les avis correspondants, l'accueil les affiche tous. La note de
-synthèse alimente aussi le `aggregateRating` schema.org, qui pilote les étoiles dans les
-résultats Google.
+et les 49 avis relevés le 2026-08-06. La note de synthèse alimente le `aggregateRating`
+schema.org, qui pilote les étoiles dans les résultats Google.
+
+Chaque avis porte une **`period`** — `hiver` (déc-mars), `ete` (juil-août) ou
+`hors-saison` — à ne pas confondre avec `Season`, qui ne connaît que deux valeurs parce
+qu'il n'existe que deux pages de saison. Un séjour hors saison décrit une expérience
+différente (remontées fermées, commerces au ralenti) et mérite d'être identifié plutôt
+que rangé d'office dans l'une des deux saisons.
+
+L'accueil affiche les 49 avec un filtre à quatre entrées et leurs compteurs. Les pages
+de saison sont pré-filtrées et **n'affichent pas le filtre** : y proposer les avis de
+l'autre saison ferait quitter au visiteur le sujet de la page qu'il consulte.
 
 Pour rafraîchir : recopier les nouveaux avis dans le JSON. Le flux SociableKit de Barbusse
 n'est **pas** utilisable ici — il est au niveau du compte Airbnb et mélange les annonces

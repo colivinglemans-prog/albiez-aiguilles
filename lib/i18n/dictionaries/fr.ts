@@ -356,6 +356,15 @@ export const fr: Dictionary = {
     seeOnAirbnb: "Lire tous les avis sur Airbnb",
     empty: "Pas encore d'avis pour cette saison.",
     hostReply: "Réponse d'Alexandre",
+    filter: {
+      label: "Filtrer par période",
+      all: "Tous",
+      hiver: "Saison ski",
+      ete: "Saison été",
+      "hors-saison": "Hors saison",
+      offSeasonNote:
+        "Séjours hors des périodes d'ouverture du domaine : remontées fermées et une partie des commerces aussi. La station y est nettement plus calme.",
+    },
   },
 
   gallery: {

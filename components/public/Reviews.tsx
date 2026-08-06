@@ -4,9 +4,12 @@ import { useState } from "react";
 import { useTranslation } from "@/lib/i18n";
 import {
   REVIEW_SUMMARY,
+  REVIEW_PERIODS,
+  REVIEW_COUNTS,
   getReviews,
   formatReviewDate,
   type Review,
+  type ReviewPeriod,
 } from "@/lib/reviews";
 import { PROPERTY } from "@/lib/property";
 import type { Season } from "@/lib/seasons";
@@ -69,12 +72,24 @@ function ReviewCard({ review, locale }: { review: Review; locale: string }) {
 export default function Reviews({ season }: { season?: Season }) {
   const { locale, t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
+  const [filter, setFilter] = useState<ReviewPeriod | "all">("all");
 
-  const reviews = getReviews(season);
-  if (reviews.length === 0) return null;
+  // Sur une page de saison, la sélection est imposée par la page : proposer un filtre
+  // en plus laisserait le visiteur quitter le sujet de la page qu'il consulte.
+  const filterable = !season;
+  const active: ReviewPeriod | undefined = season ?? (filter === "all" ? undefined : filter);
+
+  const reviews = getReviews(active);
+  const { rating, count, guestFavourite, categories } = REVIEW_SUMMARY;
+
+  function selectFilter(next: ReviewPeriod | "all") {
+    setFilter(next);
+    // Sans cela, passer d'une période de 27 avis à une de 10 laisse la liste
+    // dépliée avec un bouton « Réduire » qui n'a plus de sens.
+    setExpanded(false);
+  }
 
   const visible = expanded ? reviews : reviews.slice(0, PREVIEW_COUNT);
-  const { rating, count, guestFavourite, categories } = REVIEW_SUMMARY;
 
   const categoryRows = [
     { label: t.reviews.categories.cleanliness, value: categories.cleanliness },
@@ -127,15 +142,60 @@ export default function Reviews({ season }: { season?: Season }) {
         </dl>
       </div>
 
-      <ul className="grid gap-4 md:grid-cols-2">
-        {visible.map((review) => (
-          <ReviewCard
-            key={`${review.name}-${review.date}`}
-            review={review}
-            locale={locale}
-          />
-        ))}
-      </ul>
+      {filterable && (
+        <div className="mb-6">
+          <div
+            role="group"
+            aria-label={t.reviews.filter.label}
+            className="flex flex-wrap gap-2"
+          >
+            {(["all", ...REVIEW_PERIODS] as const).map((key) => {
+              const isActive = filter === key;
+              const n = key === "all" ? count : REVIEW_COUNTS[key];
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => selectFilter(key)}
+                  aria-pressed={isActive}
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+                    isActive
+                      ? "border-accent bg-accent text-white"
+                      : "border-border text-secondary hover:border-foreground hover:text-foreground"
+                  }`}
+                >
+                  {t.reviews.filter[key]}
+                  <span className={isActive ? "ml-1.5 opacity-80" : "ml-1.5 opacity-60"}>
+                    {n}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {filter === "hors-saison" && (
+            <p className="mt-4 max-w-3xl text-sm text-secondary">
+              {t.reviews.filter.offSeasonNote}
+            </p>
+          )}
+        </div>
+      )}
+
+      {reviews.length === 0 ? (
+        <p className="rounded-2xl border border-dashed border-border bg-light-bg px-6 py-10 text-center text-sm text-secondary">
+          {t.reviews.empty}
+        </p>
+      ) : (
+        <ul className="grid gap-4 md:grid-cols-2">
+          {visible.map((review) => (
+            <ReviewCard
+              key={`${review.name}-${review.date}`}
+              review={review}
+              locale={locale}
+            />
+          ))}
+        </ul>
+      )}
 
       <div className="mt-8 flex flex-wrap gap-3">
         {reviews.length > PREVIEW_COUNT && (

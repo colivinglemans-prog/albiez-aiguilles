@@ -1,12 +1,23 @@
 import data from "@/data/reviews.json";
-import type { Season } from "./seasons";
+
+/**
+ * Période du séjour commenté.
+ *
+ * Distincte de `Season` : une page n'existe que pour l'hiver et l'été, mais un séjour
+ * peut aussi avoir eu lieu hors saison — remontées fermées, commerces au ralenti.
+ * Ces avis-là décrivent une expérience différente et méritent d'être identifiés
+ * plutôt que rangés d'office dans l'une des deux saisons.
+ */
+export type ReviewPeriod = "hiver" | "ete" | "hors-saison";
+
+export const REVIEW_PERIODS: ReviewPeriod[] = ["hiver", "ete", "hors-saison"];
 
 export interface Review {
   name: string;
   /** Mois du séjour, format `YYYY-MM`. */
   date: string;
   rating: number;
-  season: Season;
+  period: ReviewPeriod;
   text: string;
   /** Réponse de l'hôte, quand elle apporte une information au lecteur. */
   reply?: string;
@@ -33,14 +44,16 @@ const ALL = (data.reviews as Review[])
   // Les plus récents d'abord : un avis daté de l'an dernier rassure moins.
   .sort((a, b) => b.date.localeCompare(a.date));
 
-/**
- * Avis à afficher. Filtrés par saison sur les pages de saison — un visiteur qui
- * prépare un séjour au ski est convaincu par des retours de skieurs, pas par
- * des retours de randonneurs.
- */
-export function getReviews(season?: Season): Review[] {
-  return season ? ALL.filter((r) => r.season === season) : ALL;
+/** Tous les avis, ordre le plus récent en premier. */
+export function getReviews(period?: ReviewPeriod): Review[] {
+  return period ? ALL.filter((r) => r.period === period) : ALL;
 }
+
+/** Nombre d'avis par période, pour afficher les compteurs sur le filtre. */
+export const REVIEW_COUNTS: Record<ReviewPeriod, number> = REVIEW_PERIODS.reduce(
+  (acc, p) => ({ ...acc, [p]: ALL.filter((r) => r.period === p).length }),
+  {} as Record<ReviewPeriod, number>,
+);
 
 /** `2026-03` → « mars 2026 ». */
 export function formatReviewDate(date: string, locale: string): string {

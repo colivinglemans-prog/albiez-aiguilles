@@ -121,6 +121,15 @@ export interface Dictionary {
     seeOnAirbnb: string;
     empty: string;
     hostReply: string;
+    /** Libellés du filtre par période. */
+    filter: {
+      label: string;
+      all: string;
+      hiver: string;
+      ete: string;
+      "hors-saison": string;
+      offSeasonNote: string;
+    };
   };
   gallery: {
     title: string;
