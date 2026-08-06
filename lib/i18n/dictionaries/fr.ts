@@ -292,11 +292,13 @@ export const fr: Dictionary = {
     providedIntro:
       "Les couettes et les oreillers vous attendent dans l'appartement, en nombre suffisant pour six personnes :",
     itemLabel: (key, count) => {
-      const s = count > 1 ? "s" : "";
+      const s = (count ?? 0) > 1 ? "s" : "";
       const labels: Record<string, string> = {
         duvetDouble: `couette${s} double${s}`,
         duvetSingle: `couette${s} simple${s}`,
         pillow: `oreiller${s}`,
+        // Non dénombré : toujours au pluriel.
+        extraBlankets: "Couvertures additionnelles",
       };
       return labels[key] ?? key;
     },

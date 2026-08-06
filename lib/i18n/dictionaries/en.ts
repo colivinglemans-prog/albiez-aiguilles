@@ -283,11 +283,13 @@ export const en: Dictionary = {
     providedIntro:
       "Duvets and pillows are waiting in the apartment, enough for six guests:",
     itemLabel: (key, count) => {
-      const s = count > 1 ? "s" : "";
+      const s = (count ?? 0) > 1 ? "s" : "";
       const labels: Record<string, string> = {
         duvetDouble: `double duvet${s}`,
         duvetSingle: `single duvet${s}`,
         pillow: `pillow${s}`,
+        // Non dénombré : toujours au pluriel.
+        extraBlankets: "Extra blankets",
       };
       return labels[key] ?? key;
     },

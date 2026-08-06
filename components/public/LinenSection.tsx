@@ -64,11 +64,17 @@ export default function LinenSection({
               <li key={item.key} className="flex gap-2">
                 <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
                 <span>
-                  <strong className="font-semibold text-foreground">
-                    {item.count}
-                  </strong>{" "}
+                  {/* Tout n'est pas dénombré : le nombre et la taille ne s'affichent
+                      que lorsqu'ils existent. */}
+                  {item.count !== undefined && (
+                    <strong className="font-semibold text-foreground">
+                      {item.count}{" "}
+                    </strong>
+                  )}
                   {t.linen.itemLabel(item.key, item.count)}
-                  <span className="text-secondary"> — {item.size} cm</span>
+                  {item.size && (
+                    <span className="text-secondary"> — {item.size} cm</span>
+                  )}
                 </span>
               </li>
             ))}

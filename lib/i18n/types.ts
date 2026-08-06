@@ -80,7 +80,7 @@ export interface Dictionary {
     providedTitle: string;
     providedIntro: string;
     /** Libellé accordé au nombre : « 4 couettes simples ». */
-    itemLabel: (key: string, count: number) => string;
+    itemLabel: (key: string, count?: number) => string;
     optionTitle: string;
     optionIntro: (price: number) => string;
     optionItems: string[];

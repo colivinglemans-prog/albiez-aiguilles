@@ -53,12 +53,16 @@ export const PROPERTY = {
   linen: {
     included: false,
     pricePerPerson: 15,
-    /** Le libellé de chaque `key` vit dans les dictionnaires, pas ici. */
+    /**
+     * Le libellé de chaque `key` vit dans les dictionnaires, pas ici.
+     * `count` et `size` sont facultatifs : tout n'est pas dénombré à l'unité.
+     */
     inventory: [
       { key: "duvetDouble", size: "220 × 240", count: 1 },
       { key: "duvetSingle", size: "140 × 200", count: 4 },
       { key: "pillow", size: "45 × 60", count: 6 },
-    ],
+      { key: "extraBlankets" },
+    ] as ReadonlyArray<{ key: string; size?: string; count?: number }>,
   },
 
   balcony: {
