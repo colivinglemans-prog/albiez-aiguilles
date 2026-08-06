@@ -80,9 +80,10 @@ qu'il n'existe que deux pages de saison. Un séjour hors saison décrit une exp�
 différente (remontées fermées, commerces au ralenti) et mérite d'être identifié plutôt
 que rangé d'office dans l'une des deux saisons.
 
-L'accueil affiche les 49 avec un filtre à quatre entrées et leurs compteurs. Les pages
-de saison sont pré-filtrées et **n'affichent pas le filtre** : y proposer les avis de
-l'autre saison ferait quitter au visiteur le sujet de la page qu'il consulte.
+Le filtre à quatre entrées (Tous / Saison ski / Saison été / Hors saison), avec ses
+compteurs, est affiché sur **toutes** les pages. La prop `season` de `<Reviews>` ne
+filtre pas : elle fixe seulement la sélection de départ — `hiver` sur `/ski`, `ete` sur
+`/ete`, `all` sur l'accueil. Le visiteur reste libre de consulter les autres périodes.
 
 Pour rafraîchir : recopier les nouveaux avis dans le JSON. Le flux SociableKit de Barbusse
 n'est **pas** utilisable ici — il est au niveau du compte Airbnb et mélange les annonces

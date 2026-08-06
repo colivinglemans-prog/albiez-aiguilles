@@ -140,7 +140,8 @@ export default async function SeasonPage({
         <PhotoGallery photos={photos} title={t.gallery.title} />
       </Section>
 
-      {/* Avis filtrés sur la saison : les retours de skieurs convainquent les skieurs. */}
+      {/* Le filtre s'ouvre sur la saison de la page — les retours de skieurs
+          convainquent les skieurs — sans empêcher d'aller voir les autres périodes. */}
       <Reviews season={season} />
 
       <BookingSection />

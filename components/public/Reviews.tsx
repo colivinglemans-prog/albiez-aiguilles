@@ -72,14 +72,12 @@ function ReviewCard({ review, locale }: { review: Review; locale: string }) {
 export default function Reviews({ season }: { season?: Season }) {
   const { locale, t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
-  const [filter, setFilter] = useState<ReviewPeriod | "all">("all");
 
-  // Sur une page de saison, la sélection est imposée par la page : proposer un filtre
-  // en plus laisserait le visiteur quitter le sujet de la page qu'il consulte.
-  const filterable = !season;
-  const active: ReviewPeriod | undefined = season ?? (filter === "all" ? undefined : filter);
+  // Sur une page de saison, la saison n'impose pas le filtre : elle en fixe seulement
+  // la valeur de départ. Le visiteur reste libre d'aller voir les autres périodes.
+  const [filter, setFilter] = useState<ReviewPeriod | "all">(season ?? "all");
 
-  const reviews = getReviews(active);
+  const reviews = getReviews(filter === "all" ? undefined : filter);
   const { rating, count, guestFavourite, categories } = REVIEW_SUMMARY;
 
   function selectFilter(next: ReviewPeriod | "all") {
@@ -142,44 +140,42 @@ export default function Reviews({ season }: { season?: Season }) {
         </dl>
       </div>
 
-      {filterable && (
-        <div className="mb-6">
-          <div
-            role="group"
-            aria-label={t.reviews.filter.label}
-            className="flex flex-wrap gap-2"
-          >
-            {(["all", ...REVIEW_PERIODS] as const).map((key) => {
-              const isActive = filter === key;
-              const n = key === "all" ? count : REVIEW_COUNTS[key];
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => selectFilter(key)}
-                  aria-pressed={isActive}
-                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-                    isActive
-                      ? "border-accent bg-accent text-white"
-                      : "border-border text-secondary hover:border-foreground hover:text-foreground"
-                  }`}
-                >
-                  {t.reviews.filter[key]}
-                  <span className={isActive ? "ml-1.5 opacity-80" : "ml-1.5 opacity-60"}>
-                    {n}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {filter === "hors-saison" && (
-            <p className="mt-4 max-w-3xl text-sm text-secondary">
-              {t.reviews.filter.offSeasonNote}
-            </p>
-          )}
+      <div className="mb-6">
+        <div
+          role="group"
+          aria-label={t.reviews.filter.label}
+          className="flex flex-wrap gap-2"
+        >
+          {(["all", ...REVIEW_PERIODS] as const).map((key) => {
+            const isActive = filter === key;
+            const n = key === "all" ? count : REVIEW_COUNTS[key];
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => selectFilter(key)}
+                aria-pressed={isActive}
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+                  isActive
+                    ? "border-accent bg-accent text-white"
+                    : "border-border text-secondary hover:border-foreground hover:text-foreground"
+                }`}
+              >
+                {t.reviews.filter[key]}
+                <span className={isActive ? "ml-1.5 opacity-80" : "ml-1.5 opacity-60"}>
+                  {n}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      )}
+
+        {filter === "hors-saison" && (
+          <p className="mt-4 max-w-3xl text-sm text-secondary">
+            {t.reviews.filter.offSeasonNote}
+          </p>
+        )}
+      </div>
 
       {reviews.length === 0 ? (
         <p className="rounded-2xl border border-dashed border-border bg-light-bg px-6 py-10 text-center text-sm text-secondary">
