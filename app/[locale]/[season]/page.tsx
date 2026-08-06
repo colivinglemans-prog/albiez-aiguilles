@@ -9,6 +9,7 @@ import SeasonSwitch from "@/components/public/SeasonSwitch";
 import DistanceStrip from "@/components/public/DistanceStrip";
 import PhotoGallery from "@/components/public/PhotoGallery";
 import BookingSection from "@/components/public/BookingSection";
+import Reviews from "@/components/public/Reviews";
 import { Section, SectionTitle } from "@/components/public/Section";
 
 /** Génère /fr/ski, /fr/ete, /en/ski, /en/summer. */
@@ -109,6 +110,9 @@ export default async function SeasonPage({
       <Section id="galerie" className="!pt-0">
         <PhotoGallery photos={photos} title={t.gallery.title} />
       </Section>
+
+      {/* Avis filtrés sur la saison : les retours de skieurs convainquent les skieurs. */}
+      <Reviews season={season} />
 
       <BookingSection />
     </div>

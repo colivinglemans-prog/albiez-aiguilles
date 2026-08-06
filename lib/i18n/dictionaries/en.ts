@@ -26,7 +26,7 @@ export const en: Dictionary = {
       hiver: {
         title: "Winter on the slopes",
         description:
-          "40 km of pistes between 1,500 and 2,060 m, the ski school and the Piou-Piou kids' club 250 metres away, a large ski locker on the landing and a raclette waiting when you get back.",
+          "40 km of pistes between 1,500 and 2,060 m, the foot of the slopes 250 metres away with the ski school and the kids' club, a large ski locker on the landing and a raclette waiting when you get back.",
         cta: "Explore the ski season",
       },
       ete: {
@@ -38,7 +38,7 @@ export const en: Dictionary = {
     },
     offSeasonTitle: "What about the shoulder season?",
     offSeasonText:
-      "We also rent outside the busy months, when the resort goes quiet again. It is the right time for hiking, cycling, snowshoeing, or simply enjoying the view without meeting anyone — usually at the best rate of the year.",
+      "We also rent outside the busy months, when the resort goes quiet again. It is the right time for hiking, cycling, snowshoeing, or simply enjoying the view without meeting anyone — usually at the best rate of the year. To be straight about it: out of season the lifts are closed, and so are some of the village shops and restaurants, though the grocery stays open. Guests who come for the quiet are rarely disappointed, but it is worth knowing before you book.",
     seo: {
       title: "Albiez-Montrond apartment rental — Skiing and lake, French Alps",
       description:
@@ -61,12 +61,12 @@ export const en: Dictionary = {
       heading: "Skiing in Albiez: an apartment 250 m from the slopes",
       tagline: "Ski area open from 19 December 2026 to 21 March 2027",
       intro:
-        "Albiez is a family resort in the Maurienne valley — small enough to feel calm, big enough for a full week. The ski area runs from 1,500 to 2,060 metres, with 40 km of pistes served by 13 lifts. From the apartment it is 250 metres to the start of the slopes, the ski school and the Piou-Piou kids' club, close enough to come home for lunch without thinking about it.",
+        "Albiez is a family resort in the Maurienne valley — small enough to feel calm, big enough for a full week. The ski area runs from 1,500 to 2,060 metres, with 40 km of pistes served by 13 lifts. From the apartment, 250 metres take you to the foot of the slopes — and everything is there: the piste departure, the shops, the ski school and the Piou-Piou kids' club.",
       highlights: [
         {
-          title: "250 m from the slopes",
+          title: "250 m to the foot of the slopes",
           description:
-            "The piste departure, the ski school and the kids' club are all the same short walk away — five minutes, skis on your shoulder.",
+            "Piste departure, shops, ski school and kids' club are all gathered in the same place, five minutes on foot. One walk a day is all it takes.",
         },
         {
           title: "Large ski locker",
@@ -93,7 +93,7 @@ export const en: Dictionary = {
         {
           title: "Learning to ski",
           description:
-            "The ski school and the Piou-Piou club are 250 metres away, which makes a real difference on a morning lesson run.",
+            "The ski school and the Piou-Piou club sit at the foot of the slopes, 250 metres away — which makes a real difference on a morning lesson run.",
         },
         {
           title: "Snowshoeing and sledging",
@@ -107,8 +107,9 @@ export const en: Dictionary = {
         },
       ],
       distanceLabels: {
-        slopes: "Start of the slopes",
-        shops: "Village shops",
+        frontDeNeige: "Foot of the slopes",
+        slopes: "Piste departure",
+        shops: "Shops",
         esf: "Ski school (ESF)",
         piouPiou: "Piou-Piou kids' club",
       },
@@ -211,6 +212,10 @@ export const en: Dictionary = {
     bedBunk: (n, w, l) => `${n} bunk beds, ${w} × ${l} cm`,
     bedTrundle: (n, w, l) => `Trundle sofa bed, ${n} single beds ${w} × ${l} cm`,
     capacity: (min, max) => `${min} to ${max} guests`,
+    areaCarrez: (m2) => `${m2} m² (Carrez)`,
+    roomsSummary: "1 bedroom + mountain alcove",
+    bedsCount: (n) => `${n} beds`,
+    bathroomsCount: (n) => `${n} bathroom`,
     bathroom: "Bathroom with bathtub and heated towel rail, separate toilet.",
     balcony:
       "South-west facing balcony with a panoramic view of the Aiguilles d'Arves.",
@@ -317,6 +322,27 @@ export const en: Dictionary = {
     contactUs: "Write to us",
   },
 
+  reviews: {
+    title: "What guests say",
+    subtitle: (count) => `${count} reviews on Airbnb`,
+    guestFavourite: "Guest Favourite",
+    guestFavouriteNote:
+      "One of the most loved homes on Airbnb, based on ratings, reviews and listing reliability.",
+    outOf: "out of 5",
+    categories: {
+      cleanliness: "Cleanliness",
+      accuracy: "Accuracy",
+      checkIn: "Check-in",
+      communication: "Communication",
+      location: "Location",
+      value: "Value",
+    },
+    showAll: (count) => `Show all ${count} reviews`,
+    showLess: "Show less",
+    seeOnAirbnb: "Read all reviews on Airbnb",
+    empty: "No reviews yet for this season.",
+  },
+
   gallery: {
     title: "In pictures",
     empty: "Photos for this season are coming very soon.",
@@ -333,6 +359,25 @@ export const en: Dictionary = {
     legal: "Legal information",
     copyright: "All rights reserved.",
     tagline: "Mountain apartment in Albiez-Montrond, Savoie, France.",
+  },
+
+  legal: {
+    title: "Legal notice",
+    editorTitle: "Site publisher",
+    hostTitle: "Hosting",
+    dataTitle: "Personal data",
+    dataText:
+      "This site collects no personal data beyond the messages you choose to send us by email. Traffic statistics are anonymous and cannot identify you. For any question about your data, write to the address above.",
+    labels: {
+      legalName: "Legal name",
+      legalForm: "Legal form",
+      siren: "SIREN",
+      siret: "Head office SIRET",
+      capital: "Share capital",
+      office: "Registered office",
+      ape: "APE code",
+      contact: "Contact",
+    },
   },
 
   common: {

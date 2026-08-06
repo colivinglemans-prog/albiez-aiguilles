@@ -10,6 +10,7 @@ import ApartmentSection from "@/components/public/ApartmentSection";
 import PracticalSection from "@/components/public/PracticalSection";
 import LocationSection from "@/components/public/LocationSection";
 import BookingSection from "@/components/public/BookingSection";
+import Reviews from "@/components/public/Reviews";
 import PhotoGallery from "@/components/public/PhotoGallery";
 import { Section, SectionTitle } from "@/components/public/Section";
 
@@ -88,6 +89,7 @@ export default async function HomePage({
       </Section>
 
       <ApartmentSection />
+      <Reviews />
       <PracticalSection />
       <LocationSection />
 

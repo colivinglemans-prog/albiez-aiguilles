@@ -35,6 +35,11 @@ export default function Footer() {
                 {t.header.summer}
               </Link>
             </li>
+            <li>
+              <Link href={`${base}/mentions-legales`} className="hover:text-foreground">
+                {t.footer.legal}
+              </Link>
+            </li>
           </ul>
         </div>
 

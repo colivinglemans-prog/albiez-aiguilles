@@ -1,0 +1,172 @@
+{
+  "_comment": "Avis Airbnb de l'annonce Albiez (rooms/12328987), relevés le 2026-08-06. Le champ 'season' pilote l'affichage : les avis d'hiver remontent sur la page ski, ceux d'été sur la page été, tous sur l'accueil.",
+  "summary": {
+    "rating": 4.96,
+    "count": 49,
+    "guestFavourite": true,
+    "categories": {
+      "cleanliness": 4.8,
+      "accuracy": 5.0,
+      "checkIn": 4.9,
+      "communication": 5.0,
+      "location": 4.8,
+      "value": 4.9
+    }
+  },
+  "reviews": [
+    {
+      "name": "Béraud",
+      "date": "2026-08",
+      "rating": 5,
+      "season": "ete",
+      "text": "À l'usage, l'appartement s'est avéré très fonctionnel pour 4 personnes. La vue du balcon est magnifique. Bien situé : nous n'avons pas eu besoin de notre véhicule pendant les 5 jours, entre baignade et randonnées à proximité. Restaurant, bar et supérette ont permis d'assurer le quotidien sans problème. La résidence est calme. Alexandre, même à distance, a toujours été prévenant et réactif."
+    },
+    {
+      "name": "Anne",
+      "date": "2026-07",
+      "rating": 5,
+      "season": "ete",
+      "text": "Appartement confortable, bien agencé et bien équipé. Nous avons bien profité du balcon avec une vue magnifique sur les Aiguilles d'Arves. Résidence calme, proche des petits commerces de la station et du lac pour la baignade. Randonnées possibles au départ du chalet. Les enfants ont également apprécié les livres et jeux de société disponibles."
+    },
+    {
+      "name": "Léa",
+      "date": "2026-07",
+      "rating": 5,
+      "season": "ete",
+      "text": "Je recommande cet Airbnb, un vrai bijou dans la vallée de la Maurienne avec une vue fantastique sur les Aiguilles d'Arves ! L'appartement est fonctionnel, charmant et à proximité de nombreux lieux de randonnées."
+    },
+    {
+      "name": "Liily",
+      "date": "2026-07",
+      "rating": 5,
+      "season": "ete",
+      "text": "Nous avons passé un bon séjour avec ma famille. Le village au top, il y a des activités proposées et un lac en bas du logement, très reposant, et on peut se promener. Une bonne communication avec Alexandre, logement au top, propre et bien équipé. Je recommande d'été comme d'hiver à 100 %."
+    },
+    {
+      "name": "Clara",
+      "date": "2024-08",
+      "rating": 5,
+      "season": "ete",
+      "text": "Logement très sympa avec une vue incroyable sur les Aiguilles d'Arves. Il est situé à 3 min à pied du col du Mollard, point de départ de plusieurs randonnées, et d'un lac accessible à la baignade. Parking gratuit au pied du chalet. Logement bien fourni."
+    },
+    {
+      "name": "Manon",
+      "date": "2025-08",
+      "rating": 5,
+      "season": "ete",
+      "text": "Un séjour vraiment parfait en famille ! Nous étions 4 dont 2 bébés en bas âge, c'était vraiment super. La vue est magnifique, la literie est très confortable. Il y a tout ce qu'il faut pour occuper les enfants. Les quelques marches à monter valent vraiment la peine. Rien à redire !"
+    },
+    {
+      "name": "Charlene",
+      "date": "2025-07",
+      "rating": 5,
+      "season": "ete",
+      "text": "Un très beau séjour, au calme, reposant, avec de belles randonnées à faire et petit plus avec cette vue splendide du balcon. Nous reviendrons, c'est certain !"
+    },
+    {
+      "name": "Yann",
+      "date": "2025-08",
+      "rating": 5,
+      "season": "ete",
+      "text": "Très satisfait de notre séjour d'une semaine à deux. Magnifique vue sur les montagnes et notamment les Aiguilles d'Arves. L'appartement est spacieux pour deux, bien équipé en rangements. La cuisine est très bien équipée."
+    },
+    {
+      "name": "Colette",
+      "date": "2025-09",
+      "rating": 5,
+      "season": "ete",
+      "text": "Bel appartement, bien agencé, fonctionnel et d'une propreté irréprochable. Terrasse avec vue exceptionnelle. Alexandre est à l'écoute du locataire, très réactif pour toute demande, et très agréable. Je recommande vivement."
+    },
+    {
+      "name": "Anne",
+      "date": "2026-03",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Nous avons passé un séjour absolument parfait. Le logement est très bien équipé, en particulier pour les familles : entre matériel de puériculture, jeux et livres pour tous les âges et luges, il y avait de quoi faire. Avec une vue exceptionnelle. L'emplacement est idéal pour accéder aux pistes et aux cours ESF. Nous recommandons chaudement et reviendrons avec plaisir l'année prochaine."
+    },
+    {
+      "name": "Céline",
+      "date": "2025-12",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Nous avons passé un excellent séjour dans l'appartement d'Alexandre à Albiez-Montrond. L'appartement est très cosy, parfaitement équipé et vraiment adapté pour un séjour en famille, notamment pour le ski. L'endroit est très calme et paisible, avec une superbe vue, et le village d'Albiez ainsi que la station offrent de chouettes petits endroits, dans une ambiance familiale et conviviale."
+    },
+    {
+      "name": "Jean-Baptiste",
+      "date": "2024-03",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Très bon séjour, très bonne communication avec Alexandre qui est très à l'écoute et super sympathique. Le logement est vraiment bien, il ne manque rien, et il est idéalement situé à 5 minutes à pied des pistes. Je recommande fortement !"
+    },
+    {
+      "name": "Julia",
+      "date": "2024-03",
+      "rating": 5,
+      "season": "hiver",
+      "text": "L'appartement est idéalement situé, avec une vue magnifique sur la montagne et les Aiguilles d'Arves. Très bien équipé et idéal pour une famille. La station est familiale et dynamique. Alexandre est un hôte attentionné, soucieux de notre confort. Vous pouvez réserver les yeux fermés !"
+    },
+    {
+      "name": "Carolane",
+      "date": "2023-12",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Excellent séjour, très bien situé avec une vue magnifique, l'appartement est très fonctionnel. Nous avons apprécié les luges, livres et jeux de société, surtout avec des enfants. Alexandre est très réactif et avenant, avec un super guide dans la description pour nous présenter la station. Nous reviendrons avec plaisir."
+    },
+    {
+      "name": "Marie-Pascale",
+      "date": "2025-03",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Très bonne semaine dans cette station familiale au panorama incroyable ! L'appart est très proche de toutes les commodités. Bien organisé, idéal pour 4 personnes. Tout fonctionne parfaitement. Merci !"
+    },
+    {
+      "name": "Océane",
+      "date": "2024-01",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Excellent séjour. Alexandre est très réactif pour ma réservation un peu tardive et mes questions une fois sur place. Plein de jeux de société à disposition, il ne manquait rien dans la cuisine : appareil à raclette, fondue, grill, crêpière, grille-pain… Je recommande vivement pour passer un séjour entre amis ou en famille."
+    },
+    {
+      "name": "Lisa",
+      "date": "2025-02",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Très bon séjour chez Alexandre. L'appartement est à moins de 10 min à pied des pistes et très fonctionnel."
+    },
+    {
+      "name": "Frederic",
+      "date": "2025-03",
+      "rating": 5,
+      "season": "hiver",
+      "text": "Au sein d'une petite station familiale, le logement d'Alexandre est idéalement situé. Le panorama est grandiose et la terrasse bien agréable car remarquablement orientée. Le logement est conforme à sa description et Alexandre un hôte très réactif et arrangeant."
+    },
+    {
+      "name": "Sophie",
+      "date": "2026-02",
+      "rating": 4,
+      "season": "hiver",
+      "text": "Très bonne semaine, appartement conforme à la description. Néanmoins séjour sportif avec les 50 marches à monter, pas évident pour tout le monde, mais la vue vaut le détour ! Hôtes sympathiques, réactifs à toute demande."
+    },
+    {
+      "name": "Alice",
+      "date": "2024-03",
+      "rating": 5,
+      "season": "hiver",
+      "text": "L'appartement correspond bien au descriptif annoncé, la vue est superbe. Alexandre est très accueillant : à notre arrivée, les radiateurs avaient été mis en route, c'était très agréable. Albiez est une petite station familiale et agréable. À refaire, et en toute saison."
+    },
+    {
+      "name": "Damien",
+      "date": "2025-04",
+      "rating": 5,
+      "season": "ete",
+      "text": "Excellent appartement ! Suffisamment grand, très propre, une superbe vue, bien équipé, très bien situé avec beaucoup de balades possibles autour. Facile d'accès une fois dans la station, instructions très claires pour l'arrivée. Une très bonne adresse !"
+    },
+    {
+      "name": "Mounir",
+      "date": "2024-05",
+      "rating": 5,
+      "season": "ete",
+      "text": "Hôte super accueillant, prévoyant et proactif : il a même anticipé la météo et les possibles difficultés qu'on aurait pu rencontrer. Logement propre, fidèle à la description et aux photos, la vue sur la montagne est juste magnifique, surtout un matin de printemps bien ensoleillé. Le rapport qualité-prix est excellent."
+    }
+  ]
+}

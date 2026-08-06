@@ -51,10 +51,31 @@ Le header et le footer restent en bleu alpin (`primary`), volontairement hors sa
 
 | Fichier | Rôle |
 |---------|------|
-| `lib/property.ts` | **Faits** : adresse, altitude, couchages, distances, accès, contact. Identiques dans toutes les langues, corrigés à un seul endroit. |
+| `lib/property.ts` | **Faits** : adresse, altitude, surface, couchages, distances, accès, contact. Identiques dans toutes les langues, corrigés à un seul endroit. |
 | `lib/i18n/dictionaries/{fr,en}.ts` | **Textes** : tout ce qui se traduit, y compris les métadonnées SEO par page. |
 | `lib/seasons.ts` | Saisons, slugs, dates d'ouverture du domaine. |
 | `lib/seo.ts` | `alternates` (canonical + hreflang) et données structurées schema.org. |
+| `lib/legal.ts` | Identité de l'éditeur — **SCI JUARISAL**, distincte de l'entreprise individuelle de Barbusse. |
+| `data/reviews.json` | Avis Airbnb + note de synthèse. |
+
+## Distances
+
+L'hiver, tout est réuni au **front de neige à 250 m** : départ des pistes, commerces,
+ESF et club Piou-Piou. C'est modélisé par une entrée unique avec un champ `includes`
+(`DISTANCES.hiver`) plutôt que quatre entrées à 250 m, qui laisseraient croire à quatre
+lieux distincts. L'été, les trois distances sont réellement différentes.
+
+## Avis
+
+`data/reviews.json` contient la note de synthèse (4,96 / 49 avis, Coup de cœur voyageurs)
+et une sélection d'avis relevés le 2026-08-06. Chaque avis porte une `season` : les pages
+de saison n'affichent que les avis correspondants, l'accueil les affiche tous. La note de
+synthèse alimente aussi le `aggregateRating` schema.org, qui pilote les étoiles dans les
+résultats Google.
+
+Pour rafraîchir : recopier les nouveaux avis dans le JSON. Le flux SociableKit de Barbusse
+n'est **pas** utilisable ici — il est au niveau du compte Airbnb et mélange les annonces
+sans champ permettant de les distinguer.
 
 Règle : un chiffre ou une distance ne doit **jamais** être écrit dans un dictionnaire.
 Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.
@@ -71,17 +92,14 @@ Voir `public/images/README.md`.
 - [ ] **Nom de domaine** — `SITE_NAME` et `SITE_URL` dans `lib/property.ts` sont des
       valeurs provisoires (`albiez-aiguilles.fr`). Une fois le domaine arrêté, les
       changer là et nulle part ailleurs.
-- [ ] **Surface du logement en m²** — manquante, à ajouter dans `PROPERTY`.
 - [ ] **Photos** — les dossiers sont vides ; les galeries affichent un message d'attente.
 - [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
       vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé
       (property ID à mettre en variable d'environnement, pas en dur).
-- [ ] **Avis** — le flux SociableKit de Barbusse (`data.accentapi.com/feed/25659332.json`)
-      contient aussi les avis d'Albiez : il faudra les filtrer par annonce.
 - [ ] **Blog** — prévu, non démarré.
 - [ ] **Carte Leaflet** — la section situation utilise pour l'instant un lien Google Maps.
-- [ ] **Mentions légales** — l'éditeur du site est la **SCI**, pas l'entreprise
-      individuelle de Barbusse.
+- [ ] **Tarif du ménage** — 60 € est enregistré dans `PROPERTY.services.cleaningFee`
+      mais n'est affiché nulle part, en attendant le moteur de réservation.
 - [ ] `<html lang>` est figé à `fr` côté serveur et corrigé au montage par `I18nProvider`.
       Le corriger au rendu imposerait de lire les en-têtes et de perdre le rendu statique.
       Les `hreflang` étant corrects, l'impact SEO est marginal.

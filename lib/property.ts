@@ -29,6 +29,9 @@ export const PROPERTY = {
     full: "Chemin du Châtel, 73530 Albiez-Montrond, France",
   },
 
+  /** Surface loi Carrez, en m². */
+  areaM2: 33,
+
   capacity: {
     min: 4,
     max: 6,
@@ -75,6 +78,8 @@ export const PROPERTY = {
 
   services: {
     cleaningIncluded: true,
+    /** Montant refacturé du ménage de fin de séjour, en euros. */
+    cleaningFee: 60,
     /** La cuisine et la vaisselle restent à la charge du voyageur. */
     cleaningExcludes: ["cuisine", "vaisselle"],
     /** À apporter par le voyageur — évite les mauvaises surprises à l'arrivée. */
@@ -117,23 +122,35 @@ export const RESORT = {
   lifts: 13,
 } as const;
 
+export interface DistanceEntry {
+  key: string;
+  meters: number;
+  /**
+   * Points d'intérêt réunis au même endroit.
+   * L'hiver, tout se trouve au front de neige : afficher quatre fois « 250 m »
+   * donnerait l'impression de quatre lieux distincts alors qu'il n'y en a qu'un.
+   */
+  includes?: readonly string[];
+}
+
 /**
  * Distances depuis le logement, en mètres.
  * Séparées par saison : ce sont les arguments de vente de chaque page.
  */
-export const DISTANCES = {
+export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
   hiver: [
-    { key: "slopes", meters: 250 },
-    { key: "shops", meters: 250 },
-    { key: "esf", meters: 250 },
-    { key: "piouPiou", meters: 250 },
+    {
+      key: "frontDeNeige",
+      meters: 250,
+      includes: ["slopes", "shops", "esf", "piouPiou"],
+    },
   ],
   ete: [
     { key: "shops", meters: 250 },
     { key: "riding", meters: 300 },
     { key: "lake", meters: 350 },
   ],
-} as const;
+};
 
 /** Total de couchages, dérivé de `beds` pour éviter une constante qui dérive. */
 export const TOTAL_BEDS = PROPERTY.beds.reduce((n, b) => n + b.count, 0);

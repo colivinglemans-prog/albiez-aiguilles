@@ -41,19 +41,20 @@ export default function ApartmentSection() {
     <Section id="appartement">
       <SectionTitle title={t.property.title} subtitle={t.property.subtitle} />
 
-      <div className="mb-10 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-secondary">
-        <span>{t.property.capacity(capacity.min, capacity.max)}</span>
-        <span aria-hidden>·</span>
-        <span>
-          {capacity.bedrooms} {t.property.bedrooms.toLowerCase()}
-        </span>
-        <span aria-hidden>·</span>
-        <span>{TOTAL_BEDS} {t.property.sleepingTitle.toLowerCase()}</span>
-        <span aria-hidden>·</span>
-        <span>
-          {capacity.bathrooms} {t.property.bathroom.split(" ")[0].toLowerCase()}
-        </span>
-      </div>
+      <ul className="mb-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-secondary">
+        {[
+          t.property.areaCarrez(PROPERTY.areaM2),
+          t.property.capacity(capacity.min, capacity.max),
+          t.property.roomsSummary,
+          t.property.bedsCount(TOTAL_BEDS),
+          t.property.bathroomsCount(capacity.bathrooms),
+        ].map((item, i) => (
+          <li key={item} className="flex items-center gap-3">
+            {i > 0 && <span aria-hidden>·</span>}
+            {item}
+          </li>
+        ))}
+      </ul>
 
       <h3 className="mb-4 text-lg font-semibold">{t.property.sleepingTitle}</h3>
       <div className="mb-6 grid gap-4 sm:grid-cols-3">

@@ -54,6 +54,11 @@ export interface Dictionary {
     bedBunk: (n: number, w: number, l: number) => string;
     bedTrundle: (n: number, w: number, l: number) => string;
     capacity: (min: number, max: number) => string;
+    /** Surface loi Carrez, affichée dans le résumé du logement. */
+    areaCarrez: (m2: number) => string;
+    roomsSummary: string;
+    bedsCount: (n: number) => string;
+    bathroomsCount: (n: number) => string;
     bathroom: string;
     balcony: string;
     amenitiesTitle: string;
@@ -97,6 +102,25 @@ export interface Dictionary {
     bookOnAirbnb: string;
     contactUs: string;
   };
+  reviews: {
+    title: string;
+    subtitle: (count: number) => string;
+    guestFavourite: string;
+    guestFavouriteNote: string;
+    outOf: string;
+    categories: {
+      cleanliness: string;
+      accuracy: string;
+      checkIn: string;
+      communication: string;
+      location: string;
+      value: string;
+    };
+    showAll: (count: number) => string;
+    showLess: string;
+    seeOnAirbnb: string;
+    empty: string;
+  };
   gallery: {
     title: string;
     empty: string;
@@ -112,6 +136,23 @@ export interface Dictionary {
     legal: string;
     copyright: string;
     tagline: string;
+  };
+  legal: {
+    title: string;
+    editorTitle: string;
+    hostTitle: string;
+    dataTitle: string;
+    dataText: string;
+    labels: {
+      legalName: string;
+      legalForm: string;
+      siren: string;
+      siret: string;
+      capital: string;
+      office: string;
+      ape: string;
+      contact: string;
+    };
   };
   common: {
     metersAway: (m: number) => string;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LOCALES, type Locale } from "@/lib/i18n";
 import { SITE_URL, PROPERTY, SITE_NAME, RESORT } from "@/lib/property";
 import { SEASON_SLUGS, type Season } from "@/lib/seasons";
+import { REVIEW_SUMMARY } from "@/lib/reviews";
 
 /**
  * Construit les balises `alternates` (canonical + hreflang) d'une page.
@@ -42,11 +43,25 @@ export function apartmentJsonLd(locale: Locale, description: string) {
     url: `${SITE_URL}/${locale}`,
     numberOfBedrooms: PROPERTY.capacity.bedrooms,
     numberOfBathroomsTotal: PROPERTY.capacity.bathrooms,
+    floorSize: {
+      "@type": "QuantitativeValue",
+      value: PROPERTY.areaM2,
+      unitCode: "MTK",
+    },
     occupancy: {
       "@type": "QuantitativeValue",
       minValue: PROPERTY.capacity.min,
       maxValue: PROPERTY.capacity.max,
       unitText: "person",
+    },
+    // Note moyenne issue des avis Airbnb : c'est ce qui alimente les étoiles
+    // affichées dans les résultats de recherche Google.
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: REVIEW_SUMMARY.rating,
+      reviewCount: REVIEW_SUMMARY.count,
+      bestRating: 5,
+      worstRating: 1,
     },
     address: {
       "@type": "PostalAddress",

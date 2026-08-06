@@ -26,7 +26,7 @@ export const fr: Dictionary = {
       hiver: {
         title: "L'hiver au ski",
         description:
-          "40 km de pistes entre 1 500 et 2 060 m, l'ESF et le club Piou-Piou à 250 mètres, un grand casier à skis sur le palier et une raclette qui vous attend au retour.",
+          "40 km de pistes entre 1 500 et 2 060 m, un front de neige à 250 mètres avec l'ESF et le club Piou-Piou, un grand casier à skis sur le palier et une raclette qui vous attend au retour.",
         cta: "Découvrir la saison de ski",
       },
       ete: {
@@ -38,7 +38,7 @@ export const fr: Dictionary = {
     },
     offSeasonTitle: "Et hors saison ?",
     offSeasonText:
-      "Nous louons aussi en dehors des périodes d'affluence, quand la station retrouve son calme. C'est le bon moment pour la randonnée, le vélo, la raquette ou simplement pour profiter de la vue sans croiser personne — souvent au meilleur tarif de l'année.",
+      "Nous louons aussi en dehors des périodes d'affluence, quand la station retrouve son calme. C'est le bon moment pour la randonnée, le vélo, la raquette ou simplement pour profiter de la vue sans croiser personne — souvent au meilleur tarif de l'année. Autant le dire franchement : hors saison, les remontées mécaniques sont fermées et une partie des commerces et restaurants du village aussi, la supérette restant ouverte. Ceux qui viennent chercher le calme y trouvent leur compte, mais mieux vaut le savoir avant de réserver.",
     seo: {
       title:
         "Location appartement Albiez-Montrond — Ski et lac face aux Aiguilles d'Arves",
@@ -64,12 +64,12 @@ export const fr: Dictionary = {
       heading: "Ski à Albiez : l'appartement à 250 m des pistes",
       tagline: "Domaine skiable ouvert du 19 décembre 2026 au 21 mars 2027",
       intro:
-        "Albiez est une station familiale de Maurienne, à taille humaine et sans file d'attente. Le domaine s'étend de 1 500 à 2 060 mètres, avec 40 km de pistes desservies par 13 remontées mécaniques. Depuis l'appartement, il y a 250 mètres à parcourir jusqu'au départ des pistes, à l'école de ski et au club Piou-Piou — de quoi rentrer déjeuner sans y penser.",
+        "Albiez est une station familiale de Maurienne, à taille humaine et sans file d'attente. Le domaine s'étend de 1 500 à 2 060 mètres, avec 40 km de pistes desservies par 13 remontées mécaniques. Depuis l'appartement, 250 mètres suffisent pour rejoindre le front de neige — et tout s'y trouve : le départ des pistes, les commerces, l'école de ski et le club Piou-Piou.",
       highlights: [
         {
-          title: "250 m des pistes",
+          title: "Le front de neige à 250 m",
           description:
-            "Le départ des pistes, l'ESF et le club Piou-Piou sont à la même distance : cinq minutes à pied, skis sur l'épaule.",
+            "Départ des pistes, commerces, ESF et club Piou-Piou sont tous réunis au même endroit, à cinq minutes à pied. Une seule marche à faire dans la journée.",
         },
         {
           title: "Grand casier à skis",
@@ -96,7 +96,7 @@ export const fr: Dictionary = {
         {
           title: "Débuter à l'école de ski",
           description:
-            "L'ESF et le club Piou-Piou sont à 250 mètres, ce qui change tout quand on accompagne un enfant en cours le matin.",
+            "L'ESF et le club Piou-Piou sont sur le front de neige à 250 mètres, ce qui change tout quand on accompagne un enfant en cours le matin.",
         },
         {
           title: "Raquettes et luge",
@@ -110,8 +110,9 @@ export const fr: Dictionary = {
         },
       ],
       distanceLabels: {
+        frontDeNeige: "Front de neige",
         slopes: "Départ des pistes",
-        shops: "Commerces du village",
+        shops: "Commerces",
         esf: "École de ski (ESF)",
         piouPiou: "Club Piou-Piou",
       },
@@ -219,6 +220,10 @@ export const fr: Dictionary = {
     bedTrundle: (n, w, l) =>
       `Canapé-lit gigogne, ${n} lits simples ${w} × ${l} cm`,
     capacity: (min, max) => `${min} à ${max} personnes`,
+    areaCarrez: (m2) => `${m2} m² Carrez`,
+    roomsSummary: "1 chambre + coin montagne",
+    bedsCount: (n) => `${n} couchages`,
+    bathroomsCount: (n) => `${n} salle de bains`,
     bathroom:
       "Salle de bains avec baignoire et sèche-serviettes, toilettes séparées.",
     balcony:
@@ -331,6 +336,27 @@ export const fr: Dictionary = {
     contactUs: "Nous écrire",
   },
 
+  reviews: {
+    title: "Ce qu'en disent les voyageurs",
+    subtitle: (count) => `${count} commentaires sur Airbnb`,
+    guestFavourite: "Coup de cœur voyageurs",
+    guestFavouriteNote:
+      "Un logement parmi les préférés des voyageurs sur Airbnb, d'après les évaluations, les commentaires et la fiabilité de l'annonce.",
+    outOf: "sur 5",
+    categories: {
+      cleanliness: "Propreté",
+      accuracy: "Précision",
+      checkIn: "Arrivée",
+      communication: "Communication",
+      location: "Emplacement",
+      value: "Qualité-prix",
+    },
+    showAll: (count) => `Voir les ${count} avis`,
+    showLess: "Réduire",
+    seeOnAirbnb: "Lire tous les avis sur Airbnb",
+    empty: "Pas encore d'avis pour cette saison.",
+  },
+
   gallery: {
     title: "En images",
     empty: "Les photos de cette saison arrivent très bientôt.",
@@ -347,6 +373,25 @@ export const fr: Dictionary = {
     legal: "Informations légales",
     copyright: "Tous droits réservés.",
     tagline: "Appartement de montagne à Albiez-Montrond, Savoie.",
+  },
+
+  legal: {
+    title: "Mentions légales",
+    editorTitle: "Éditeur du site",
+    hostTitle: "Hébergement",
+    dataTitle: "Données personnelles",
+    dataText:
+      "Ce site ne collecte aucune donnée personnelle en dehors des messages que vous nous adressez volontairement par e-mail. Les statistiques de fréquentation sont anonymes et ne permettent pas de vous identifier. Pour toute question relative à vos données, écrivez-nous à l'adresse ci-dessus.",
+    labels: {
+      legalName: "Dénomination",
+      legalForm: "Forme juridique",
+      siren: "SIREN",
+      siret: "SIRET du siège",
+      capital: "Capital social",
+      office: "Siège social",
+      ape: "Code APE",
+      contact: "Contact",
+    },
   },
 
   common: {
