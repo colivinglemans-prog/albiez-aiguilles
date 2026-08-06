@@ -341,6 +341,7 @@ export const en: Dictionary = {
     showLess: "Show less",
     seeOnAirbnb: "Read all reviews on Airbnb",
     empty: "No reviews yet for this season.",
+    hostReply: "Reply from Alexandre",
   },
 
   gallery: {

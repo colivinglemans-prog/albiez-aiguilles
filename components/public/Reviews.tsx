@@ -34,6 +34,8 @@ function Stars({ rating }: { rating: number }) {
 }
 
 function ReviewCard({ review, locale }: { review: Review; locale: string }) {
+  const { t } = useTranslation();
+
   return (
     <li className="rounded-2xl border border-border bg-white p-6">
       <div className="mb-3 flex items-center gap-3">
@@ -49,6 +51,17 @@ function ReviewCard({ review, locale }: { review: Review; locale: string }) {
       </div>
       <Stars rating={review.rating} />
       <p className="mt-3 text-sm leading-relaxed text-secondary">{review.text}</p>
+
+      {review.reply && (
+        <div className="mt-4 rounded-xl bg-light-bg p-4">
+          <p className="text-xs font-semibold text-accent-dark">
+            {t.reviews.hostReply}
+          </p>
+          <p className="mt-1.5 text-sm leading-relaxed text-secondary">
+            {review.reply}
+          </p>
+        </div>
+      )}
     </li>
   );
 }

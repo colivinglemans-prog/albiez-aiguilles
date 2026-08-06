@@ -120,6 +120,7 @@ export interface Dictionary {
     showLess: string;
     seeOnAirbnb: string;
     empty: string;
+    hostReply: string;
   };
   gallery: {
     title: string;

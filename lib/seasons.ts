@@ -44,15 +44,26 @@ export const WINTER_OPENING = {
 export const SUMMER_MONTHS = [7, 8] as const;
 
 /**
+ * Forçage manuel de la saison mise en avant sur l'accueil.
+ *
+ * À utiliser quand la réalité commerciale ne suit pas le calendrier : une saison
+ * complète plus tôt que prévu, une ouverture décalée, une opération sur l'autre saison.
+ * `null` = bascule automatique selon le mois (voir `currentSeason`).
+ */
+export const FEATURED_SEASON_OVERRIDE: Season | null = null;
+
+/**
  * Saison à mettre en avant par défaut, selon le mois en cours.
  *
- * Le basculement est volontairement en avance sur la saison réelle : on promeut le ski
- * dès octobre parce que les séjours d'hiver se réservent plusieurs mois à l'avance.
- * Octobre → avril : ski. Mai → septembre : été.
+ * Le basculement est volontairement très en avance sur la saison réelle, parce qu'on
+ * vend un séjour plusieurs mois avant qu'il ait lieu : dès août l'été est joué et ce
+ * sont les réservations de ski qui se décident.
+ * Août → avril : ski. Mai → juillet : été.
  */
 export function currentSeason(now: Date = new Date()): Season {
+  if (FEATURED_SEASON_OVERRIDE) return FEATURED_SEASON_OVERRIDE;
   const month = now.getMonth() + 1;
-  return month >= 10 || month <= 4 ? "hiver" : "ete";
+  return month >= 8 || month <= 4 ? "hiver" : "ete";
 }
 
 /** Dossier d'images correspondant à la saison (voir public/images/). */

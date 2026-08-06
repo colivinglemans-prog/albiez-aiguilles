@@ -8,6 +8,8 @@ export interface Review {
   rating: number;
   season: Season;
   text: string;
+  /** Réponse de l'hôte, quand elle apporte une information au lecteur. */
+  reply?: string;
 }
 
 export interface ReviewSummary {

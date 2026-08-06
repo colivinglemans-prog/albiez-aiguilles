@@ -355,6 +355,7 @@ export const fr: Dictionary = {
     showLess: "Réduire",
     seeOnAirbnb: "Lire tous les avis sur Airbnb",
     empty: "Pas encore d'avis pour cette saison.",
+    hostReply: "Réponse d'Alexandre",
   },
 
   gallery: {

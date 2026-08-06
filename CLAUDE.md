@@ -38,8 +38,11 @@ entre les deux, ce qui laisse chaque page cibler ses propres requêtes.
 La saison n'est pas un état client mais une **donnée de route**. Trois pièces :
 
 1. `currentSeason()` dans `lib/seasons.ts` — quelle saison mettre en avant sur
-   l'accueil. Bascule en avance sur la saison réelle (octobre → avril = ski) parce
-   que les séjours d'hiver se réservent plusieurs mois à l'avance.
+   l'accueil. Bascule très en avance sur la saison réelle (**août → avril = ski**)
+   parce qu'on vend un séjour plusieurs mois avant qu'il ait lieu : dès août l'été
+   est joué et ce sont les réservations de ski qui se décident.
+   `FEATURED_SEASON_OVERRIDE` force la saison quand la réalité commerciale ne suit
+   pas le calendrier (saison complète en avance, ouverture décalée).
 2. L'attribut `data-season` posé sur le conteneur de page.
 3. Trois variables CSS (`--season-accent*`) redéfinies par `[data-season]` dans
    `app/globals.css`. Toutes les utilitaires `*-accent` du sous-arbre suivent.
