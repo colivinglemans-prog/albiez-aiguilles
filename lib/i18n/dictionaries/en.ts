@@ -322,6 +322,28 @@ export const en: Dictionary = {
     contactUs: "Write to us",
   },
 
+  superhost: {
+    title: "Alexandre is a Superhost",
+    description:
+      "Superhosts are experienced, highly rated hosts who are committed to providing excellent stays.",
+    profileLink: "See my Airbnb profile",
+  },
+
+  host: {
+    title: "Your host: Alexandre",
+    badge: "Superhost",
+    experience: (years) => `${years} years hosting in Albiez`,
+    about: "About Alexandre",
+    aboutText:
+      "Engineer, geek, sportsman and handyman, I have been a Superhost for several years.\nI am committed to offering clean, comfortable and perfectly functional accommodation.\nI stay available and responsive, while leaving you plenty of independence.",
+    languages: "Languages",
+    languagesValue: "French, English",
+    responseRate: "Response rate",
+    responseRateValue: "Quick response — usually within an hour",
+    emailCta: "Write to me",
+    airbnbCta: "Contact me on Airbnb",
+  },
+
   reviews: {
     title: "What guests say",
     subtitle: (count) => `${count} reviews on Airbnb`,

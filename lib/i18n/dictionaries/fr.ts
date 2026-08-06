@@ -336,6 +336,28 @@ export const fr: Dictionary = {
     contactUs: "Nous écrire",
   },
 
+  superhost: {
+    title: "Alexandre est Superhôte",
+    description:
+      "Les Superhôtes sont des hôtes expérimentés, très bien notés, qui s'engagent à offrir d'excellents séjours.",
+    profileLink: "Voir mon profil Airbnb",
+  },
+
+  host: {
+    title: "Votre hôte : Alexandre",
+    badge: "Superhôte",
+    experience: (years) => `${years} ans d'accueil à Albiez`,
+    about: "À propos d'Alexandre",
+    aboutText:
+      "Ingénieur, geek, sportif et bricoleur, je suis superhôte depuis plusieurs années.\nJ'ai à cœur de proposer des hébergements propres, confortables et parfaitement fonctionnels.\nJe reste disponible et réactif, tout en vous laissant une grande autonomie.",
+    languages: "Langues",
+    languagesValue: "Français, English",
+    responseRate: "Taux de réponse",
+    responseRateValue: "Réponse rapide — généralement en moins d'une heure",
+    emailCta: "M'écrire",
+    airbnbCta: "Me contacter sur Airbnb",
+  },
+
   reviews: {
     title: "Ce qu'en disent les voyageurs",
     subtitle: (count) => `${count} commentaires sur Airbnb`,

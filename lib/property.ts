@@ -108,6 +108,8 @@ export const PROPERTY = {
   links: {
     googleMaps: "https://maps.app.goo.gl/mQnt1JRWTJ92JePW9",
     airbnb: "https://www.airbnb.fr/rooms/12328987",
+    /** Profil hôte — repris du site du Mans, même personne. À vérifier. */
+    airbnbProfile: "https://www.airbnb.fr/users/profile/1465428634658451220",
     resort: "https://www.station-albiez.com/fr/",
   },
 } as const;

@@ -55,6 +55,14 @@ export const REVIEW_COUNTS: Record<ReviewPeriod, number> = REVIEW_PERIODS.reduce
   {} as Record<ReviewPeriod, number>,
 );
 
+/**
+ * Année du plus ancien avis — sert de point de départ à l'ancienneté affichée.
+ * Dérivée des données plutôt que saisie en dur, pour qu'elle ne se périme pas.
+ */
+export const HOSTING_SINCE = Number(
+  ALL[ALL.length - 1]?.date.slice(0, 4) ?? new Date().getFullYear(),
+);
+
 /** `2026-03` → « mars 2026 ». */
 export function formatReviewDate(date: string, locale: string): string {
   const [year, month] = date.split("-").map(Number);

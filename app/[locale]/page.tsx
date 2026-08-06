@@ -11,6 +11,8 @@ import PracticalSection from "@/components/public/PracticalSection";
 import LocationSection from "@/components/public/LocationSection";
 import BookingSection from "@/components/public/BookingSection";
 import Reviews from "@/components/public/Reviews";
+import SuperhostCard from "@/components/public/SuperhostCard";
+import HostSection from "@/components/public/HostSection";
 import PhotoGallery from "@/components/public/PhotoGallery";
 import { Section, SectionTitle } from "@/components/public/Section";
 
@@ -96,9 +98,17 @@ export default async function HomePage({
       </Section>
 
       <ApartmentSection />
+
+      {/* Le badge explique pourquoi la note qui suit est crédible : les deux
+          se renforcent côte à côte, séparés ils perdent de leur poids. */}
+      <Section className="!pb-0">
+        <SuperhostCard />
+      </Section>
       <Reviews />
+
       <PracticalSection />
       <LocationSection />
+      <HostSection />
 
       <Section className="!py-10">
         <div className="rounded-2xl border border-border bg-light-bg p-6 sm:p-8">

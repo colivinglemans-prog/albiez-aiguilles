@@ -102,6 +102,25 @@ export interface Dictionary {
     bookOnAirbnb: string;
     contactUs: string;
   };
+  superhost: {
+    title: string;
+    description: string;
+    profileLink: string;
+  };
+  host: {
+    title: string;
+    badge: string;
+    /** Suffixe du compteur d'années : « 3 ans d'accueil ». */
+    experience: (years: number) => string;
+    about: string;
+    aboutText: string;
+    languages: string;
+    languagesValue: string;
+    responseRate: string;
+    responseRateValue: string;
+    emailCta: string;
+    airbnbCta: string;
+  };
   reviews: {
     title: string;
     subtitle: (count: number) => string;
