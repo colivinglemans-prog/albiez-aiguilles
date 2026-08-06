@@ -57,7 +57,9 @@ export default async function HomePage({
   const seasonPhotos = season === "hiver" ? winter : summer;
   const heroImage = seasonPhotos[0]?.src ?? common[0]?.src;
 
-  const galleryPhotos = common.length > 0 ? common : [...winter, ...summer];
+  // L'accueil montre tout : l'intérieur d'abord, puis les deux saisons.
+  // La galerie se replie d'elle-même au-delà de quelques vignettes.
+  const galleryPhotos = [...common, ...winter, ...summer];
 
   return (
     <div data-season={season}>

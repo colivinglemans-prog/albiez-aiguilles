@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, LOCALES } from "@/lib/i18n";
 import { alternatesFor, seasonPath } from "@/lib/seo";
@@ -60,7 +61,16 @@ export default async function SeasonPage({
 
   const t = getDictionary(locale);
   const content = t.seasons[season];
-  const photos = listPhotos(season);
+
+  // Photos de la saison d'abord — elles portent l'ambiance et fournissent le hero —
+  // puis les photos valables toute l'année (intérieur sans saison visible), qui
+  // n'ont ainsi pas besoin d'être dupliquées dans les deux dossiers.
+  const seasonPhotos = listPhotos(season);
+  const photos = [...seasonPhotos, ...listPhotos("commun")];
+
+  // Les photos d'activités illustrent la liste dans l'ordre : la 1re photo du dossier
+  // va à la 1re activité, et ainsi de suite. Une activité sans photo reste en texte seul.
+  const activityPhotos = listPhotos(`activites-${season}`);
 
   return (
     <div data-season={season}>
@@ -68,7 +78,7 @@ export default async function SeasonPage({
         title={content.heading}
         subtitle={content.intro}
         tagline={content.tagline}
-        image={photos[0]?.src}
+        image={seasonPhotos[0]?.src ?? photos[0]?.src}
       />
 
       <Section className="!py-10">
@@ -95,16 +105,35 @@ export default async function SeasonPage({
 
       <Section id="activites" className="!pt-0">
         <SectionTitle title={content.heading} />
-        <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-          {content.activities.map((activity) => (
-            <div key={activity.title} className="border-l-2 border-accent pl-5">
-              <h3 className="font-semibold">{activity.title}</h3>
-              <p className="mt-1.5 text-sm text-secondary">
-                {activity.description}
-              </p>
-            </div>
-          ))}
-        </div>
+        <ul className="grid gap-6 sm:grid-cols-2">
+          {content.activities.map((activity, i) => {
+            const photo = activityPhotos[i];
+            return (
+              <li
+                key={activity.title}
+                className="overflow-hidden rounded-2xl border border-border bg-white"
+              >
+                {photo && (
+                  <div className="relative aspect-16/9">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt || activity.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className={photo ? "p-5" : "border-l-2 border-accent p-5"}>
+                  <h3 className="font-semibold">{activity.title}</h3>
+                  <p className="mt-1.5 text-sm text-secondary">
+                    {activity.description}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </Section>
 
       <Section id="galerie" className="!pt-0">

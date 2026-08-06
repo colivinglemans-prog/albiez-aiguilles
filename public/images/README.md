@@ -7,10 +7,56 @@ Déposer un fichier suffit : aucune modification de code n'est nécessaire.
 
 | Dossier  | Usage |
 |----------|-------|
-| `hiver/` | Photos de la saison ski — galerie et hero de `/fr/ski` et `/en/ski` |
-| `ete/`   | Photos de la saison estivale — galerie et hero de `/fr/ete` et `/en/summer` |
-| `commun/`| Photos valables toute l'année (intérieur, couchages, cuisine) — galerie de l'accueil |
+| `hiver/` | Photos où l'hiver se voit — hero et galerie de `/fr/ski` et `/en/ski` |
+| `ete/`   | Photos où l'été se voit — hero et galerie de `/fr/ete` et `/en/summer` |
+| `commun/`| Photos sans saison visible — reprises sur **toutes** les pages |
+| `activites-hiver/` | Illustrations des activités de la page ski |
+| `activites-ete/`   | Illustrations des activités de la page été |
 | `blog/`  | Illustrations des articles |
+
+## Photos d'activités
+
+Elles illustrent les encarts « activités » des pages de saison, **dans l'ordre du
+dossier** : la 1ʳᵉ photo va à la 1ʳᵉ activité, la 2ᵉ à la 2ᵉ, etc. Une activité sans
+photo s'affiche en texte seul — il n'est pas obligatoire de toutes les illustrer, mais
+mieux vaut alors les remplir dans l'ordre.
+
+L'ordre attendu aujourd'hui :
+
+**`activites-hiver/`**
+```
+01-ski-alpin.jpg        → Ski alpin
+02-ecole-de-ski.jpg     → Débuter à l'école de ski
+03-raquettes-luge.jpg   → Raquettes et luge
+04-apres-ski.jpg        → Après-ski tranquille
+```
+
+**`activites-ete/`**
+```
+01-lac-baignade.jpg     → Baignade au lac
+02-poney-cheval.jpg     → Poney et cheval
+03-randonnee.jpg        → Randonnée
+04-vtt-electrique.jpg   → Vélo et VTT électrique
+```
+
+Si l'ordre des activités change dans les dictionnaires
+(`lib/i18n/dictionaries/*.ts`, clé `seasons.<saison>.activities`), renuméroter les
+fichiers en conséquence.
+
+## Comment répartir les photos d'intérieur
+
+Le critère n'est pas « intérieur ou extérieur » mais **est-ce que la saison se voit
+sur la photo ?**
+
+- Salon avec la neige derrière la baie vitrée, balcon sous la neige → `hiver/`
+- Le même salon avec la montagne verte, balcon au soleil d'été → `ete/`
+- Salle de bains, chambre sans vue, détail de la cuisine → `commun/`
+
+Les photos de `commun/` sont automatiquement ajoutées à la suite des photos de saison
+sur les pages `/ski` et `/ete` : **inutile de les dupliquer dans plusieurs dossiers**.
+Une pièce photographiée dans les deux saisons mérite en revanche ses deux fichiers,
+un dans chaque dossier de saison — c'est exactement ce qui donne envie de revenir
+à l'autre saison.
 
 ## Ordre d'affichage
 

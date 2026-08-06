@@ -82,9 +82,19 @@ Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.
 
 ## Photos
 
-Déposer les fichiers dans `public/images/{hiver,ete,commun}/` — les galeries se
-construisent seules (`lib/photos.ts`, lecture du dossier au build). Ordre alphabétique
-des noms de fichiers, la première photo sert de couverture.
+Déposer les fichiers dans `public/images/` — les galeries se construisent seules
+(`lib/photos.ts`, lecture du dossier au build). Ordre alphabétique des noms de fichiers,
+la première photo sert de couverture.
+
+Le critère de répartition entre `hiver/`, `ete/` et `commun/` n'est pas intérieur/extérieur
+mais **est-ce que la saison se voit sur la photo**. Les photos de `commun/` sont ajoutées
+à la suite des photos de saison sur les pages `/ski` et `/ete` : elles n'ont jamais besoin
+d'être dupliquées.
+
+`activites-hiver/` et `activites-ete/` illustrent les encarts « activités » des pages de
+saison, appariés **par position** avec la liste `seasons.<saison>.activities` du
+dictionnaire. Changer l'ordre des activités impose de renuméroter les fichiers.
+
 Voir `public/images/README.md`.
 
 ## À faire
