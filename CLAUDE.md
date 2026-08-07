@@ -27,12 +27,24 @@ Une seule ligne à changer si le domaine bouge un jour — `SITE_URL` — et tou
 
 Registrar **OVH** (serveurs de noms `dns106.ovh.net` / `ns106.ovh.net`). Les deux domaines
 sont rattachés au projet Vercel, avec la redirection apex → www en 308 configurée côté
-Vercel. Enregistrements DNS attendus dans la zone OVH :
+Vercel. Enregistrements DNS en place dans la zone OVH depuis le 2026-08-07 :
 
 | Type | Sous-domaine | Cible |
 |------|--------------|-------|
 | `A` | (vide, l'apex) | `76.76.21.21` |
 | `CNAME` | `www` | `cname.vercel-dns.com.` |
+
+`www` est en **CNAME** et non en `A` : Vercel sert ce nom depuis plusieurs adresses et les
+fait évoluer (il renvoie aujourd'hui `76.76.21.142` et `66.33.60.66`, pas le `76.76.21.21`
+de l'apex). Un `A` en dur sur `www` deviendrait un point de panne silencieux le jour où ces
+adresses changent. L'apex n'a pas le choix — la norme DNS interdit un `CNAME` sur un nom qui
+porte déjà `SOA`, `NS` et `MX`.
+
+La mise en service a demandé de supprimer les vestiges du parking OVH : l'`A` de l'apex
+pointait sur `213.186.33.5`, et deux `TXT` au format interne des redirections OVH traînaient
+(`1|www.albiez-aiguilles.fr` sur l'apex, `3|welcome` sur `www`). Ce dernier bloquait la
+création du `CNAME`, un `CNAME` ne pouvant coexister avec aucun autre enregistrement sur le
+même nom. Les `MX` et le `SPF` d'OVH Mail sont à laisser intacts.
 
 ## Déploiement
 
@@ -255,9 +267,11 @@ photos de couverture. Une photo très claire ou très chargée convient.
 
 ## À faire
 
-- [ ] **DNS** — dernière étape avant la mise en ligne : les deux enregistrements de la
-      section « Domaine » sont à créer dans la zone OVH. L'apex pointe encore sur la page
-      de parking OVH (`213.186.33.5`).
+- [ ] **`ssoProtection`** — à remettre sur `all_except_custom_domains` maintenant que le
+      domaine est en service (voir la section « Déploiement »).
+- [ ] **Google Search Console** — propriété à créer pour `albiez-aiguilles.fr` et sitemap à
+      soumettre. Rien n'est déclaré aujourd'hui : contrairement à Barbusse, `app/layout.tsx`
+      ne porte aucun `google-site-verification`.
 - [ ] **Photos** — les dossiers sont vides ; les galeries affichent un message d'attente.
 - [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
       vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé
