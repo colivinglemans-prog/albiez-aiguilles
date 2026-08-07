@@ -36,6 +36,11 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link href={`${base}/guide`} className="hover:text-foreground">
+                {t.header.blog}
+              </Link>
+            </li>
+            <li>
               <Link href={`${base}/mentions-legales`} className="hover:text-foreground">
                 {t.footer.legal}
               </Link>

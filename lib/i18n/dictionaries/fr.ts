@@ -1,4 +1,5 @@
 import type { Dictionary } from "../types";
+import { PROPERTY } from "../../property";
 
 export const fr: Dictionary = {
   header: {
@@ -102,12 +103,16 @@ export const fr: Dictionary = {
         {
           title: "Débuter à l'école de ski",
           description:
-            "L'ESF et le club Piou-Piou sont sur le front de neige à 250 mètres, ce qui change tout quand on accompagne un enfant en cours le matin.",
+            "L'ESF et le club Piou-Piou sont sur le front de neige à 250 mètres, ce qui change tout quand on accompagne un enfant en cours le matin. À la réservation, choisissez le départ du Mollard : c'est celui-là qui est à 250 mètres de l'appartement. Les cours se remplissent vite — mieux vaut réserver dès que vos dates sont fixées.",
+          link: {
+            href: PROPERTY.links.esf,
+            label: "Réserver à l'ESF d'Albiez",
+          },
         },
         {
-          title: "Raquettes et luge",
+          title: "L'hiver hors des pistes",
           description:
-            "Les itinéraires raquettes partent du village. Des luges pour enfants sont à votre disposition dans l'appartement.",
+            "Randonnée en raquettes, motoneige, chiens de traîneau, parapente, apéro dans un igloo : de quoi remplir une journée sans chausser les skis. Des luges pour enfants sont à votre disposition dans l'appartement.",
         },
         {
           title: "Après-ski tranquille",
@@ -121,6 +126,20 @@ export const fr: Dictionary = {
         shops: "Commerces",
         esf: "École de ski (ESF)",
         piouPiou: "Club Piou-Piou",
+      },
+      resortLink: {
+        alt: "Albiez, la Perle des Alpes",
+        label: "Le site de la station d'Albiez",
+      },
+      banner: {
+        alt: "Skieurs sur le domaine d'Albiez, le village de chalets et les montagnes enneigées en arrière-plan",
+        caption:
+          "Un domaine très ensoleillé, le village de chalets en contrebas et les montagnes de Maurienne au fond.",
+      },
+      pisteMap: {
+        title: "Le secteur du Mollard",
+        caption:
+          "La flèche indique l'appartement : le front de neige, l'ESF et les commerces sont à 250 mètres.",
       },
       seo: {
         title:
@@ -340,12 +359,13 @@ export const fr: Dictionary = {
     rulesTitle: "Règlement",
     noPets: "Les animaux ne sont pas acceptés.",
     noSmoking: "Logement non-fumeur.",
+    babyKitTitle: "Kit bébé, gratuit sur demande",
     babyKit:
-      "Pas d'âge minimum : le logement convient aux tout-petits. Merci de nous signaler à la réservation le matériel dont vous avez besoin.",
+      "Pas d'âge minimum : le logement convient aux tout-petits. Le kit est prêté sans supplément — merci de nous signaler à la réservation le matériel dont vous avez besoin.",
     babyKitItems: [
       "Lit parapluie avec matelas",
       "Chaise haute",
-      "Luge adaptée",
+      "Luge bébé",
     ],
   },
 
@@ -386,10 +406,16 @@ export const fr: Dictionary = {
   },
 
   superhost: {
-    title: "Alexandre est Superhôte",
+    title: "Alexandre est Superhôte sur Airbnb",
     description:
       "Les Superhôtes sont des hôtes expérimentés, très bien notés, qui s'engagent à offrir d'excellents séjours.",
     profileLink: (n) => `Découvrir mes ${n} avis sur mon profil Airbnb`,
+  },
+
+  guestFavourite: {
+    title: "Appartement Coup de cœur voyageurs sur Airbnb",
+    description:
+      "Les logements Coup de cœur voyageurs font partie des plus appréciés sur Airbnb, d'après les notes, les avis et la fiabilité.",
   },
 
   host: {
@@ -449,6 +475,121 @@ export const fr: Dictionary = {
     next: "Photo suivante",
     close: "Fermer",
     counter: (i, total) => `${i} / ${total}`,
+  },
+
+  spaces: {
+    subtitle:
+      "La visite espace par espace. Salon, kitchenette et coin repas partagent la même pièce, ouverte plein sud-ouest sur le balcon.",
+    photoCount: (count) => (count > 1 ? `${count} photos` : "1 photo"),
+    list: {
+      salon: {
+        title: "Salon",
+        amenities: [
+          "Canapé-lit gigogne",
+          "Jeux de société",
+          "Livres et jouets pour enfants",
+          "Chauffage",
+        ],
+      },
+      kitchenette: {
+        title: "Kitchenette",
+        amenities: [
+          "Plaques de cuisson",
+          "Four",
+          "Four à micro-ondes",
+          "Lave-vaisselle",
+          "Réfrigérateur",
+          "Cafetière Nespresso",
+          "Grille-pain",
+          "Vaisselle, couverts et verres à vin",
+          "Détecteur de fumée",
+        ],
+      },
+      "espace-repas": {
+        title: "Espace repas",
+        amenities: [
+          "Table à manger",
+          "Raclette, fondue, pierrade et crêpière",
+          "Chauffage",
+        ],
+      },
+      chambre: {
+        title: "Chambre",
+        amenities: [
+          "Lit double",
+          "Rangements et cintres",
+          "Oreillers et couvertures supplémentaires",
+          "Lit parapluie (sur demande)",
+          "Chauffage",
+        ],
+      },
+      "coin-montagne": {
+        title: "Coin montagne",
+        amenities: ["Lits superposés", "Chauffage"],
+      },
+      "salle-de-bains": {
+        title: "Salle de bains",
+        amenities: [
+          "Baignoire",
+          "Eau chaude",
+          "Sèche-serviettes",
+          "Étendoir à linge",
+          "Toilettes séparées",
+          "Produits d'entretien",
+        ],
+      },
+      balcon: {
+        title: "Balcon",
+        amenities: [
+          "Exposé sud-ouest",
+          "Vue sur les Aiguilles d'Arves",
+          "Table et chaises",
+          "Luges",
+        ],
+      },
+      exterieur: {
+        title: "Extérieur",
+        amenities: [
+          "Casier à skis sur le palier",
+          "Parking extérieur",
+          "Résidence Le Hameau des Aiguilles",
+        ],
+      },
+    },
+  },
+
+  blog: {
+    heading: "Le guide d'Albiez",
+    subheading:
+      "Nos repères d'habitués sur Albiez-Montrond : randonnées balisées, loueurs de ski, commerces du village, activités d'été et animations de la station.",
+    seasonBadge: { hiver: "Hiver", ete: "Été" },
+    yearRoundBadge: "Toute l'année",
+    filter: {
+      label: "Filtrer le guide par saison",
+      all: "Toute l'année",
+      hiver: "Hiver",
+      ete: "Été",
+      note: "Les sujets valables toute l'année — commerces, randonnées, famille — restent affichés dans les deux saisons.",
+    },
+    back: "← Retour au guide",
+    relatedTitle: "À lire aussi",
+    cta: {
+      title: "Séjourner à Albiez",
+      text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon plein sud face aux Aiguilles d'Arves.",
+      button: "Voir le logement",
+    },
+    seo: {
+      title: "Guide d'Albiez-Montrond — randonnées, ski, commerces et activités",
+      description:
+        "Randonnées balisées, location de ski, ESF, commerces du village, lac du Mollard, col du Mollard à vélo : le guide pratique d'Albiez-Montrond écrit par des habitués de la station.",
+      keywords: [
+        "guide Albiez-Montrond",
+        "que faire à Albiez",
+        "randonnée Albiez-Montrond",
+        "station Albiez Maurienne",
+        "Aiguilles d'Arves",
+      ],
+    },
   },
 
   footer: {
@@ -556,7 +697,7 @@ export const fr: Dictionary = {
       "Verrouiller la porte et le casier à skis.",
     ],
     checkoutKeysNote:
-      "Remettez les deux clés dans la boîte à clés et brouillez le code — ou remettez-les en main propre si un état des lieux est prévu. C'est ce qui permet aux voyageurs suivants d'arriver en autonomie.",
+      "Remettez un trousseau dans la boîte à clés et brouillez le code, puis laissez le second bien en évidence sur la table : la boîte est trop petite pour les deux.",
     contactTitle: "Un souci ?",
     contactIntro:
       "Écrivez-nous, nous répondons généralement en moins d'une heure. Une personne est également sur place en cas de besoin.",

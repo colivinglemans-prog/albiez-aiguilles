@@ -14,8 +14,9 @@ Le site est servi sur http://localhost:3000 et redirige vers `/fr` ou `/en`.
 
 ## Ajouter des photos
 
-Déposer les fichiers dans `public/images/hiver/`, `public/images/ete/` ou
-`public/images/commun/`. Les galeries se mettent à jour au build.
+Déposer les fichiers dans le sous-dossier d'espace correspondant —
+`public/images/{hiver,ete,commun}/{salon,chambre,balcon,…}/`. La saison est le dossier
+parent, l'espace le sous-dossier ; les galeries se mettent à jour au build.
 Détails dans [`public/images/README.md`](public/images/README.md).
 
 ## Documentation

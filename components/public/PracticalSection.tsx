@@ -1,9 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslation } from "@/lib/i18n";
+import type { Photo } from "@/lib/photos";
 import { Section, SectionTitle } from "./Section";
 
-export default function PracticalSection() {
+export default function PracticalSection({
+  babyKitPhoto,
+}: {
+  babyKitPhoto?: Photo;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -64,16 +70,47 @@ export default function PracticalSection() {
           <ul className="space-y-2 text-sm text-secondary">
             <li>{t.practical.noPets}</li>
             <li>{t.practical.noSmoking}</li>
-            <li>{t.practical.babyKit}</li>
           </ul>
-          <ul className="mt-3 space-y-1 text-sm text-secondary">
-            {t.practical.babyKitItems.map((item) => (
-              <li key={item} className="flex gap-2">
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                {item}
-              </li>
-            ))}
-          </ul>
+        </div>
+      </div>
+
+      {/*
+        Le kit bébé a quitté la colonne « Règlement » : c'est un service offert, pas une
+        contrainte, et le ranger parmi les interdictions le desservait. Prêté gratuitement
+        alors que le linge se paie, il mérite son propre bloc — la photo répond d'avance
+        à la question que se pose un parent, celle de l'état du matériel.
+      */}
+      <div className="mt-10 rounded-2xl bg-accent-soft p-6">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+          {babyKitPhoto && (
+            <figure className="w-full shrink-0 overflow-hidden rounded-xl border border-border bg-white sm:w-72">
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: babyKitPhoto.ratio }}
+              >
+                <Image
+                  src={babyKitPhoto.src}
+                  alt={t.practical.babyKitTitle}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 18rem"
+                  className="object-cover"
+                />
+              </div>
+            </figure>
+          )}
+
+          <div>
+            <h3 className="font-semibold">{t.practical.babyKitTitle}</h3>
+            <p className="mt-2 text-sm text-secondary">{t.practical.babyKit}</p>
+            <ul className="mt-4 space-y-2 text-sm text-secondary">
+              {t.practical.babyKitItems.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </Section>

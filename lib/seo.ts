@@ -30,6 +30,39 @@ export const homePath = (l: Locale) => `/${l}`;
 export const seasonPath = (season: Season) => (l: Locale) =>
   `/${l}/${SEASON_SLUGS[l][season]}`;
 
+/** Chemin de l'index du guide. */
+export const blogPath = (l: Locale) => `/${l}/guide`;
+
+/**
+ * Chemin d'un article. Le slug est commun aux deux langues, contrairement aux
+ * saisons : un article n'existe qu'à un seul endroit, seul son contenu est traduit.
+ */
+export const blogPostPath = (slug: string) => (l: Locale) => `/${l}/guide/${slug}`;
+
+/** Données structurées d'un article de guide. */
+export function articleJsonLd(params: {
+  locale: Locale;
+  slug: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  date: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: params.title,
+    description: params.description,
+    image: params.imageUrl,
+    datePublished: params.date,
+    dateModified: params.date,
+    inLanguage: params.locale,
+    mainEntityOfPage: `${SITE_URL}${blogPostPath(params.slug)(params.locale)}`,
+    author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+  };
+}
+
 /**
  * Données structurées schema.org du logement.
  * Sert aux résultats enrichis de Google sur les requêtes d'hébergement.

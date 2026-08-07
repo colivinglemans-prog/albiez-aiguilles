@@ -1,4 +1,5 @@
 import type { Dictionary } from "../types";
+import { PROPERTY } from "../../property";
 
 export const en: Dictionary = {
   header: {
@@ -99,12 +100,16 @@ export const en: Dictionary = {
         {
           title: "Learning to ski",
           description:
-            "The ski school and the Piou-Piou club sit at the foot of the slopes, 250 metres away — which makes a real difference on a morning lesson run.",
+            "The ski school and the Piou-Piou club sit at the foot of the slopes, 250 metres away — which makes a real difference on a morning lesson run. When you book, choose the Le Mollard departure point: that is the one 250 metres from the apartment. Lessons fill up fast, so book as soon as your dates are set.",
+          link: {
+            href: PROPERTY.links.esf,
+            label: "Book with ESF Albiez",
+          },
         },
         {
-          title: "Snowshoeing and sledging",
+          title: "Winter off the pistes",
           description:
-            "Snowshoe routes start from the village. Children's sledges are kept in the apartment for you.",
+            "Snowshoe walks, snowmobiling, dog sledding, paragliding, drinks in an igloo: enough to fill a day without putting skis on. Children's sledges are kept in the apartment for you.",
         },
         {
           title: "A quiet après-ski",
@@ -118,6 +123,20 @@ export const en: Dictionary = {
         shops: "Shops",
         esf: "Ski school (ESF)",
         piouPiou: "Piou-Piou kids' club",
+      },
+      resortLink: {
+        alt: "Albiez, la Perle des Alpes",
+        label: "The Albiez resort website",
+      },
+      banner: {
+        alt: "Skiers on the Albiez ski area, with the chalet village and snow-covered mountains behind",
+        caption:
+          "A very sunny ski area, the chalet village below and the Maurienne mountains behind.",
+      },
+      pisteMap: {
+        title: "The Le Mollard sector",
+        caption:
+          "The arrow marks the apartment: the foot of the slopes, the ski school and the shops are 250 metres away.",
       },
       seo: {
         title: "Ski rental Albiez-Montrond — Apartment for 6, 250 m from the slopes",
@@ -327,9 +346,10 @@ export const en: Dictionary = {
     rulesTitle: "House rules",
     noPets: "Pets are not allowed.",
     noSmoking: "Non-smoking apartment.",
+    babyKitTitle: "Baby kit, free on request",
     babyKit:
-      "No minimum age: the apartment suits the youngest guests. Please tell us at booking which baby equipment you need.",
-    babyKitItems: ["Travel cot with mattress", "High chair", "Toddler sledge"],
+      "No minimum age: the apartment suits the youngest guests. The kit is lent at no extra charge — please tell us at booking which equipment you need.",
+    babyKitItems: ["Travel cot with mattress", "High chair", "Baby sledge"],
   },
 
   location: {
@@ -368,10 +388,16 @@ export const en: Dictionary = {
   },
 
   superhost: {
-    title: "Alexandre is a Superhost",
+    title: "Alexandre is a Superhost on Airbnb",
     description:
       "Superhosts are experienced, highly rated hosts who are committed to providing excellent stays.",
     profileLink: (n) => `Browse my ${n} reviews on my Airbnb profile`,
+  },
+
+  guestFavourite: {
+    title: "A Guest Favourite apartment on Airbnb",
+    description:
+      "Guest Favourites are among the most loved homes on Airbnb, based on ratings, reviews and reliability.",
   },
 
   host: {
@@ -431,6 +457,121 @@ export const en: Dictionary = {
     next: "Next photo",
     close: "Close",
     counter: (i, total) => `${i} / ${total}`,
+  },
+
+  spaces: {
+    subtitle:
+      "A room-by-room tour. The living area, kitchenette and dining space share one open room, facing south-west onto the balcony.",
+    photoCount: (count) => (count > 1 ? `${count} photos` : "1 photo"),
+    list: {
+      salon: {
+        title: "Living area",
+        amenities: [
+          "Trundle sofa bed",
+          "Board games",
+          "Books and toys for children",
+          "Heating",
+        ],
+      },
+      kitchenette: {
+        title: "Kitchenette",
+        amenities: [
+          "Hob",
+          "Oven",
+          "Microwave",
+          "Dishwasher",
+          "Fridge",
+          "Nespresso machine",
+          "Toaster",
+          "Crockery, cutlery and wine glasses",
+          "Smoke alarm",
+        ],
+      },
+      "espace-repas": {
+        title: "Dining space",
+        amenities: [
+          "Dining table",
+          "Raclette, fondue, pierrade and crêpe makers",
+          "Heating",
+        ],
+      },
+      chambre: {
+        title: "Bedroom",
+        amenities: [
+          "Double bed",
+          "Wardrobe space and hangers",
+          "Extra pillows and blankets",
+          "Travel cot (on request)",
+          "Heating",
+        ],
+      },
+      "coin-montagne": {
+        title: "Mountain nook",
+        amenities: ["Bunk beds", "Heating"],
+      },
+      "salle-de-bains": {
+        title: "Bathroom",
+        amenities: [
+          "Bathtub",
+          "Hot water",
+          "Heated towel rail",
+          "Drying rack",
+          "Separate toilet",
+          "Cleaning products",
+        ],
+      },
+      balcon: {
+        title: "Balcony",
+        amenities: [
+          "South-west facing",
+          "View of the Aiguilles d'Arves",
+          "Table and chairs",
+          "Sledges",
+        ],
+      },
+      exterieur: {
+        title: "Outside",
+        amenities: [
+          "Ski locker on the landing",
+          "Outdoor parking",
+          "Le Hameau des Aiguilles residence",
+        ],
+      },
+    },
+  },
+
+  blog: {
+    heading: "The Albiez guide",
+    subheading:
+      "What regulars know about Albiez-Montrond: waymarked walks, ski hire, village shops, summer activities and the resort's evening events.",
+    seasonBadge: { hiver: "Winter", ete: "Summer" },
+    yearRoundBadge: "All year",
+    filter: {
+      label: "Filter the guide by season",
+      all: "All year",
+      hiver: "Winter",
+      ete: "Summer",
+      note: "Year-round topics — shops, walks, family — stay visible under both seasons.",
+    },
+    back: "← Back to the guide",
+    relatedTitle: "Read next",
+    cta: {
+      title: "Staying in Albiez",
+      text: "Our apartment sits in the Mollard hamlet, 250 m from the slopes and from the start of the trails. Sleeps up to 6, south-facing balcony looking straight at the Aiguilles d'Arves.",
+      button: "See the apartment",
+    },
+    seo: {
+      title: "Albiez-Montrond guide — walks, skiing, shops and activities",
+      description:
+        "Waymarked walks, ski hire, ski school, village shops, the Mollard lake and the Col du Mollard by bike: a practical guide to Albiez-Montrond written by regulars of the resort.",
+      keywords: [
+        "Albiez-Montrond guide",
+        "things to do in Albiez",
+        "hiking Albiez-Montrond",
+        "Albiez ski resort Maurienne",
+        "Aiguilles d'Arves",
+      ],
+    },
   },
 
   footer: {
@@ -537,7 +678,7 @@ export const en: Dictionary = {
       "Lock the door and the ski locker.",
     ],
     checkoutKeysNote:
-      "Put both keys back in the key box and scramble the dials — or hand them over in person if a check-out inspection is planned. That is what lets the next guests let themselves in.",
+      "Put one set of keys back in the key box and scramble the dials, then leave the second set in plain sight on the table: the box is too small for both.",
     contactTitle: "Something wrong?",
     contactIntro:
       "Message us, we usually reply within the hour. Someone is also on site should you need help.",

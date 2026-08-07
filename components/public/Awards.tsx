@@ -3,10 +3,11 @@
 import { useTranslation } from "@/lib/i18n";
 import { AWARDS } from "@/lib/property";
 import { Section, SectionTitle } from "./Section";
-import SuperhostCard from "./SuperhostCard";
+import AirbnbDistinctions from "./AirbnbDistinctions";
 
 /**
- * Distinctions : Superhôte Airbnb et Traveller Review Awards Booking.
+ * Distinctions : Superhôte et Coup de cœur voyageurs Airbnb, Traveller Review
+ * Awards Booking.
  *
  * Les certificats officiels de Booking sont de grands aplats bleus avec du texte
  * incrusté. Ils sont reconstruits ici aux couleurs du site : le texte devient
@@ -21,7 +22,7 @@ export default function Awards() {
     <Section id="distinctions">
       <SectionTitle title={t.awards.title} subtitle={t.awards.subtitle} />
 
-      <SuperhostCard />
+      <AirbnbDistinctions />
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {AWARDS.map((award) => (

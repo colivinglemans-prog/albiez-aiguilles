@@ -5,19 +5,49 @@ import Image from "next/image";
 import type { Photo } from "@/lib/photos";
 import { useTranslation } from "@/lib/i18n";
 
-/** Nombre de vignettes visibles avant le bouton « voir tout ». */
-const PREVIEW_COUNT = 8;
+/** Un espace de la visite, déjà traduit par la page. */
+export interface GalleryGroup {
+  key: string;
+  title: string;
+  /** Équipements de l'espace ; vide si l'espace n'en déclare aucun. */
+  amenities: string[];
+  photos: Photo[];
+}
 
+/**
+ * La galerie « En images », organisée en espaces comme la visite guidée d'Airbnb.
+ *
+ * Deux états, parce que les deux répondent à des questions différentes :
+ *
+ * - **replié** — une vignette par espace, avec son nom et son nombre de photos. On
+ *   voit d'un coup d'œil *ce que contient le logement*, y compris le balcon et
+ *   l'extérieur qu'un simple « les 8 premières photos » aurait laissés hors champ.
+ * - **déplié** — la visite complète, espace par espace, chacun avec ses équipements.
+ *
+ * La visionneuse, elle, ignore ce découpage : elle parcourt les photos à plat, dans
+ * l'ordre de la visite. Ouvrir la vignette « Balcon » puis continuer à la flèche doit
+ * dérouler la suite, pas s'arrêter au bord de l'espace.
+ */
 export default function PhotoGallery({
-  photos,
+  groups,
   title,
 }: {
-  photos: Photo[];
+  groups: GalleryGroup[];
   title?: string;
 }) {
   const { t } = useTranslation();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
+
+  // Index de la 1re photo de chaque espace dans la liste à plat : c'est ce qui relie
+  // une vignette repliée à sa position dans la visionneuse.
+  const photos = groups.flatMap((g) => g.photos);
+  const offsets: number[] = [];
+  let running = 0;
+  for (const group of groups) {
+    offsets.push(running);
+    running += group.photos.length;
+  }
 
   const close = useCallback(() => setLightboxIndex(null), []);
   const prev = useCallback(
@@ -57,45 +87,75 @@ export default function PhotoGallery({
     );
   }
 
-  const visible = expanded ? photos : photos.slice(0, PREVIEW_COUNT);
-
   return (
     <div>
       {title && (
-        <h2 className="mb-6 text-2xl font-bold sm:text-3xl">{title}</h2>
+        <h2 className="mb-2 text-2xl font-bold sm:text-3xl">{title}</h2>
+      )}
+      <p className="mb-6 max-w-3xl text-secondary">{t.spaces.subtitle}</p>
+
+      {expanded ? (
+        <div className="space-y-10">
+          {groups.map((group, g) => (
+            <section key={group.key}>
+              <h3 className="text-lg font-semibold">{group.title}</h3>
+
+              {group.amenities.length > 0 && (
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {group.amenities.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full bg-light-bg px-3 py-1 text-xs text-secondary"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {/*
+                Disposition en colonnes plutôt qu'en grille à cases fixes : chaque photo
+                garde son format d'origine. Un cadre imposé recadrerait les portraits et
+                les carrés, qui sont nombreux ici.
+              */}
+              <div className="mt-4 columns-2 gap-2 sm:gap-3 md:columns-3 lg:columns-4">
+                {group.photos.map((photo, i) => (
+                  <Thumbnail
+                    key={photo.src}
+                    photo={photo}
+                    onClick={() => setLightboxIndex(offsets[g] + i)}
+                    priority={g === 0 && i === 0}
+                  />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <div className="columns-2 gap-2 sm:gap-3 md:columns-3 lg:columns-4">
+          {groups.map((group, g) => (
+            <div key={group.key} className="mb-3 break-inside-avoid sm:mb-4">
+              <Thumbnail
+                photo={group.photos[0]}
+                onClick={() => setLightboxIndex(offsets[g])}
+                priority={g === 0}
+                className="mb-0"
+              />
+              <p className="mt-1.5 text-sm font-semibold">{group.title}</p>
+              <p className="text-xs text-secondary">
+                {t.spaces.photoCount(group.photos.length)}
+              </p>
+            </div>
+          ))}
+        </div>
       )}
 
-      {/*
-        Disposition en colonnes plutôt qu'en grille à cases fixes : chaque photo
-        garde son format d'origine. Un cadre imposé recadrerait les portraits et
-        les carrés, qui sont nombreux ici.
-      */}
-      <div className="columns-2 gap-2 sm:gap-3 md:columns-3 lg:columns-4">
-        {visible.map((photo, i) => (
-          <button
-            key={photo.src}
-            type="button"
-            onClick={() => setLightboxIndex(i)}
-            className="group mb-2 block w-full break-inside-avoid overflow-hidden rounded-xl bg-light-bg sm:mb-3"
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              width={photo.width}
-              height={photo.height}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="h-auto w-full transition-transform duration-300 group-hover:scale-105"
-              priority={i === 0}
-            />
-          </button>
-        ))}
-      </div>
-
-      {photos.length > PREVIEW_COUNT && (
+      {/* Sans photo cachée — un seul cliché par espace — le bouton ne promettrait rien. */}
+      {photos.length > groups.length && (
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="mt-4 rounded-full border border-foreground px-5 py-2 text-sm font-semibold transition-colors hover:bg-light-bg"
+          className="mt-6 rounded-full border border-foreground px-5 py-2 text-sm font-semibold transition-colors hover:bg-light-bg"
         >
           {expanded ? t.property.showLess : t.gallery.showAll(photos.length)}
         </button>
@@ -159,5 +219,35 @@ export default function PhotoGallery({
         </div>
       )}
     </div>
+  );
+}
+
+function Thumbnail({
+  photo,
+  onClick,
+  priority,
+  className = "mb-2 sm:mb-3",
+}: {
+  photo: Photo;
+  onClick: () => void;
+  priority?: boolean;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group block w-full break-inside-avoid overflow-hidden rounded-xl bg-light-bg ${className}`}
+    >
+      <Image
+        src={photo.src}
+        alt={photo.alt}
+        width={photo.width}
+        height={photo.height}
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="h-auto w-full transition-transform duration-300 group-hover:scale-105"
+        priority={priority}
+      />
+    </button>
   );
 }

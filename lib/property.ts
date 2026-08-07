@@ -89,6 +89,13 @@ export const PROPERTY = {
     parkingType: "extérieur",
     keyBox: true,
     skiLocker: true,
+    /**
+     * Le palier **de l'appartement**, au dernier étage : le casier est juste à côté de
+     * la porte et porte le même numéro qu'elle. Il n'y a **aucun local en bas** — les
+     * marches depuis le parking se montent avec les skis. Ne jamais en déduire qu'on
+     * laisse le matériel au rez-de-chaussée : l'argument est la proximité de la porte,
+     * pas un étage économisé.
+     */
     skiLockerLocation: "palier",
     onSiteContact: true,
   },
@@ -115,9 +122,6 @@ export const PROPERTY = {
     babyKitOnRequest: true,
   },
 
-  /** Équipement bébé, mis à disposition sur demande préalable. */
-  babyKit: ["lit parapluie avec matelas", "chaise haute", "luge adaptée"],
-
   contact: {
     email: "alexandre.delan@gmail.com",
     phone: "+33620921005",
@@ -137,6 +141,33 @@ export const PROPERTY = {
     /** Profil hôte, commun à toutes les annonces. */
     airbnbProfile: "https://www.airbnb.fr/users/profile/1465428634658451220",
     resort: "https://www.station-albiez.com/fr/",
+    /**
+     * École du ski français d'Albiez — cours collectifs et particuliers.
+     * Deux points de départ dans la station : c'est **Le Mollard** qu'il faut choisir
+     * à la réservation, celui du front de neige à 250 m de l'appartement.
+     */
+    esf: "https://www.esfalbiez.fr/",
+    /**
+     * Sport 2000 Aux Deux Frères, au front de neige du Mollard — le loueur chez qui
+     * nous prenons notre propre matériel. Le lien pointe directement sur la page de
+     * réservation en ligne du magasin : c'est elle qui porte la remise, pas la vitrine.
+     */
+    skiRental:
+      "https://location-ski.sport2000.fr/magasins/282-sport-2000-aux-deux-freres",
+    /**
+     * Yves Vionnet, accompagnateur en montagne à Albiez. Le seul prestataire du guide
+     * qui travaille **toute l'année**, hors saison comprise : c'est ce qui en fait la
+     * réponse à « que faire à Albiez en avril ou en octobre ».
+     */
+    mountainGuide: "https://www.albiezrandopatrimoine.com/",
+    /**
+     * Le Sherpa du front de neige. On pointe la fiche magasin plutôt que l'accueil du
+     * site : les horaires changent de saison en saison, et c'est cette page qui les
+     * porte à jour — mieux vaut y renvoyer que les recopier ici.
+     */
+    sherpa: "https://www.sherpa.net/magasins/albiez-montrond",
+    /** Fromagerie coopérative de la vallée des Arves — Beaufort AOP. */
+    cheeseCoop: "https://www.beaufortdesarves.com/",
     /** Échange de maisons, proposé hors saison. */
     homeExchange: "https://www.homeexchange.fr/homes/view/2779081",
     /** Lien de parrainage — l'inscription via ce lien crédite les deux parties. */
@@ -163,6 +194,12 @@ export interface DistanceEntry {
    * donnerait l'impression de quatre lieux distincts alors qu'il n'y en a qu'un.
    */
   includes?: readonly string[];
+  /**
+   * Station à laquelle cette distance renvoie — logo et site officiel.
+   * Seuls le fichier et l'URL vivent ici ; le libellé du lien et le texte alternatif
+   * viennent du dictionnaire, comme partout ailleurs.
+   */
+  brand?: { logo: string; href: string };
 }
 
 /**
@@ -175,6 +212,10 @@ export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
       key: "frontDeNeige",
       meters: 250,
       includes: ["slopes", "shops", "esf", "piouPiou"],
+      brand: {
+        logo: "/brand/albiez-station.png",
+        href: PROPERTY.links.resort,
+      },
     },
   ],
   ete: [
@@ -187,16 +228,16 @@ export const DISTANCES: Record<"hiver" | "ete", readonly DistanceEntry[]> = {
 /**
  * Photos illustrant chaque couchage, dans `public/images/commun/`.
  *
- * Désignées par nom de fichier plutôt que par position : ces photos doivent
+ * Désignées par `espace/nom-de-fichier` plutôt que par position : ces photos doivent
  * correspondre exactement au couchage décrit, contrairement aux galeries où
  * l'ordre seul suffit.
  */
 export const SLEEPING_PHOTOS = {
   // Le lit nu : c'est l'état dans lequel le logement est remis, les lits n'étant
   // pas faits à l'arrivée. Le lit préparé est montré dans la section kit linge.
-  bedroom: ["05-chambre-lit-double-sans-linge.JPG"],
-  alcove: ["06-coin-montagne-lits-superposes.JPG"],
-  living: ["03-canape-lit-gigogne-deplie.JPG"],
+  bedroom: ["chambre/02-chambre-lit-double-sans-linge.JPG"],
+  alcove: ["coin-montagne/01-coin-montagne-lits-superposes.JPG"],
+  living: ["salon/02-canape-lit-gigogne-deplie.JPG"],
 } as const;
 
 /**
@@ -210,15 +251,44 @@ export const SLEEPING_PHOTOS = {
  * Si le fichier nommé disparaît, on retombe sur la première photo du dossier.
  */
 export const HERO_PHOTOS: Record<"hiver" | "ete", string> = {
-  hiver: "02-vue-panoramique-depuis-le-balcon.jpg",
-  ete: "01-vue-panoramique-depuis-le-balcon.jpg",
+  hiver: "balcon/02-vue-panoramique-depuis-le-balcon.jpg",
+  ete: "balcon/01-vue-panoramique-depuis-le-balcon.jpg",
 };
 
 /** Le même lit préparé puis nu — la comparaison est tout l'objet de la section. */
 export const LINEN_PHOTOS = {
-  with: "04-chambre-lit-double-160.jpg",
-  without: "05-chambre-lit-double-sans-linge.JPG",
+  with: "chambre/01-chambre-lit-double-160.jpg",
+  without: "chambre/02-chambre-lit-double-sans-linge.JPG",
 } as const;
+
+/**
+ * Le kit bébé monté, dans `public/images/commun/`.
+ *
+ * Désignée par nom de fichier, comme les couchages : la photo doit montrer le matériel
+ * annoncé. Prêter du matériel de puériculture est un engagement — le voir dissipe le
+ * doute sur son état bien mieux qu'une liste à puces.
+ */
+export const BABY_KIT_PHOTO =
+  "chambre/03-kit-bebe-lit-parapluie-et-chaise-haute.jpg";
+
+/**
+ * Bandeau panoramique de la page de saison, dans `public/images/activites-<saison>/`.
+ *
+ * Préfixé par `_` : la photo ne montre pas une activité et n'a donc rien à faire dans
+ * la liste appariée par position, mais `getPhoto()` la charge malgré tout. Une saison
+ * absente de cet objet n'affiche simplement pas de bandeau.
+ */
+export const SEASON_BANNER_PHOTOS: Partial<Record<"hiver" | "ete", string>> = {
+  hiver: "_albiez-vue-du-domaine-et-du-village.jpeg",
+};
+
+/**
+ * Plan des pistes du secteur du Mollard, flèche à l'appui sur l'appartement.
+ *
+ * Affiché contre le bandeau des distances : « 250 m du front de neige » est l'argument
+ * principal de la page ski, et une carte le prouve mieux qu'un chiffre répété.
+ */
+export const PISTE_MAP_PHOTO = "_plan-des-pistes-secteur-mollard.jpg";
 
 /**
  * Distinctions reçues, la plus récente en premier.

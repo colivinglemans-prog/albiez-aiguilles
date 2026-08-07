@@ -53,6 +53,80 @@ body {
   scroll-margin-top: 5rem;
 }
 
+/*
+ * Mise en forme du corps des articles du guide.
+ *
+ * Une classe unique posée sur le conteneur plutôt que des utilitaires sur chaque
+ * balise : le contenu des articles est du JSX presque nu (`<h2>`, `<p>`, `<ul>`),
+ * ce qui le rend lisible à l'écriture et permet de changer la typographie de tout
+ * le guide d'un seul endroit.
+ */
+.prose-article {
+  color: #3a4650;
+  line-height: 1.75;
+}
+.prose-article .lead {
+  font-size: 1.0625rem;
+  color: #4a5761;
+  margin-bottom: 2rem;
+}
+.prose-article h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.prose-article h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #16212b;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose-article p {
+  margin-bottom: 1.25rem;
+}
+.prose-article ul,
+.prose-article ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.prose-article ul {
+  list-style-type: disc;
+}
+.prose-article ol {
+  list-style-type: decimal;
+}
+.prose-article li {
+  margin-bottom: 0.4rem;
+}
+.prose-article strong {
+  color: #16212b;
+  font-weight: 600;
+}
+.prose-article a {
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-article a:hover {
+  color: var(--color-primary);
+}
+/* Encadré de faits pratiques (adresse, horaires, tarifs) en fin de section. */
+.prose-article .facts {
+  margin: 1.75rem 0;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-light-bg);
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1rem 1.25rem;
+  font-size: 0.9375rem;
+}
+.prose-article .facts p:last-child,
+.prose-article .facts ul:last-child {
+  margin-bottom: 0;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }

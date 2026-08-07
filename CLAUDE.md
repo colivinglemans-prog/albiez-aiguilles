@@ -75,6 +75,8 @@ inutile).
 | `/fr`, `/en` | Accueil — présentation du logement, valable toute l'année |
 | `/fr/ski`, `/en/ski` | Page saison hiver |
 | `/fr/ete`, `/en/summer` | Page saison été |
+| `/fr/guide`, `/en/guide` | Index du guide (blog éditorial) |
+| `/fr/guide/<slug>`, `/en/guide/<slug>` | Article du guide — 16 slugs, communs aux deux langues |
 | `/fr/guide-arrivee`, `/en/guide-arrivee` | Guide d'arrivée — **page cachée** (voir plus bas) |
 
 Les slugs de saison sont **localisés** : `/fr/ete` et `/en/summer` sont deux URLs
@@ -114,6 +116,7 @@ Le header et le footer restent en bleu alpin (`primary`), volontairement hors sa
 | `lib/seo.ts` | `alternates` (canonical + hreflang) et données structurées schema.org. |
 | `lib/legal.ts` | Identité de l'éditeur — **SCI JUARISAL**, distincte de l'entreprise individuelle de Barbusse. |
 | `data/reviews.json` | Avis Airbnb + note de synthèse. |
+| `data/guidebook-airbnb.md` | **Matière première du guide** — le guidebook Airbnb de l'hôte, aspiré et converti. Pas lu par le code. |
 
 ## Distances
 
@@ -123,6 +126,12 @@ ESF et club Piou-Piou. C'est modélisé par une entrée unique avec un champ `in
 lieux distincts. L'été, les trois distances sont réellement différentes.
 
 ## Distinctions
+
+Côté Airbnb, deux distinctions différentes affichées côte à côte par
+`AirbnbDistinctions` : **Superhôte** récompense l'hôte, **Coup de cœur voyageurs**
+récompense le logement. Elles restent deux cartes séparées — fondues en un seul
+bandeau, la seconde passerait pour une reformulation de la première. Textes dans
+`superhost` et `guestFavourite` des dictionnaires i18n.
 
 `AWARDS` dans `lib/property.ts` — Traveller Review Awards Booking.com : 8,8/10 en 2026,
 9,1/10 en 2025, décernés à « Appart - Chalet du Hameau des Aiguilles » (le nom de
@@ -174,6 +183,62 @@ sans champ permettant de les distinguer.
 Règle : un chiffre ou une distance ne doit **jamais** être écrit dans un dictionnaire.
 Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.
 
+## Le guide (blog)
+
+`/{locale}/guide` — 17 articles bilingues sur Albiez-Montrond : randonnées balisées,
+domaine skiable, loueurs, ESF, commerces, fromagerie coopérative, lac, col du Mollard,
+refuge, activités d'été.
+
+| Fichier | Rôle |
+|---------|------|
+| `lib/blog/posts.ts` | `BLOG_POSTS` — slug, date, photo, saison, et les métadonnées FR/EN (titre, description, excerpt, keywords). Plus `relatedPosts()` et `splitImagePath()`. |
+| `lib/blog/content/{fr,en}/<slug>.tsx` | Le corps de l'article, en JSX presque nu. Les `<Link>` internes sont préfixés en dur par `/fr` ou `/en`. |
+| `app/[locale]/guide/page.tsx` | Index — résout les photos côté serveur et passe les cartes au filtre. |
+| `components/public/GuideFilter.tsx` | Filtre de saison + grille de cartes (composant **client**). |
+| `app/[locale]/guide/[slug]/page.tsx` | Article + JSON-LD + encart de réservation + « À lire aussi ». |
+| `lib/blog/ArticleImage.tsx` | Photo au fil d'un article (`<ArticleImage src="dossier/fichier.jpg" alt caption />`). Même traitement que les couvertures : dimensions relevées au build, aucun recadrage, figure absente si le fichier manque. |
+| `.prose-article` (`app/globals.css`) | Toute la typographie du corps d'article, plus la classe `.facts` des encadrés pratiques. |
+
+**Le slug est commun aux deux langues**, contrairement aux slugs de saison : un article
+n'existe qu'à une seule adresse par langue, et les deux se déclarent en `hreflang`. Cela
+évite de maintenir une table de correspondance pour du contenu qui n'a pas d'équivalent
+« naturel » dans l'autre langue.
+
+Les composants d'article sont **importés paresseusement** dans `CONTENT` (`[slug]/page.tsx`) :
+trente-deux imports en tête de fichier pour n'en rendre qu'un seul alourdiraient chaque page.
+Les chemins doivent rester des littéraux, sans quoi le bundler ne les résout pas.
+
+Les **liens vers les prestataires** (ESF, location de ski Sport 2000, accompagnateur en
+montagne) vivent dans `PROPERTY.links`, jamais en dur dans un article : un partenaire qui
+change d'URL se corrige à un seul endroit, et les deux langues suivent.
+
+La photo de couverture est désignée par `dossier/fichier.jpg` sous `public/images/` et
+chargée par `getPhoto()` : ses dimensions réelles sont relevées au build, donc **aucune
+couverture n'est recadrée** — la vignette prend le format de l'image, comme le reste du site.
+Un préfixe `_` est accepté (`getPhoto` le charge, contrairement à `listPhotos`).
+
+Le champ `season` d'un article pose `data-season` sur la carte et sur la page : l'accent
+suit la saison, sans code conditionnel. `null` = valable toute l'année.
+
+**Le filtre de l'index** reprend la logique de celui des avis : trois entrées avec
+compteurs — *Toute l'année* (par défaut, tout est affiché), *Hiver*, *Été*. Un article
+`season: null` reste visible **sous chaque filtre** : « faire ses courses » ou « la
+boulangerie » servent autant en février qu'en août, et les exclure d'une saison donnerait
+une liste techniquement juste et pratiquement inutilisable. D'où des compteurs qui ne
+s'additionnent pas (17 / 11 / 12) — un encart l'explique dès qu'une saison est
+sélectionnée.
+
+Le filtre étant client, l'index résout les photos côté serveur et passe des cartes déjà
+mesurées. Les **17 cartes sont dans le HTML initial** (le filtre part sur « tout »), donc
+le filtrage ne coûte rien au référencement.
+
+**Ajouter un article** : une entrée dans `BLOG_POSTS`, deux fichiers dans
+`content/{fr,en}/`, une entrée dans `CONTENT`. Le sitemap et l'index suivent tout seuls.
+
+`react/no-unescaped-entities` est **désactivé sur `lib/blog/content/**`** (voir
+`eslint.config.mjs`) : la règle vise les `>` et `}` tapés par accident, et sur de la prose
+française elle ne signale que des apostrophes légitimes.
+
 ## Guide d'arrivée (page cachée)
 
 `/{locale}/guide-arrivee` — l'itinéraire en photos, du col du Mollard à la boîte à clés.
@@ -210,20 +275,43 @@ marches (`access.steps`) et le numéro de la porte (`unit`), qui est aussi celui
 ## Photos
 
 Déposer les fichiers dans `public/images/` — les galeries se construisent seules
-(`lib/photos.ts`, lecture du dossier au build). Ordre alphabétique des noms de fichiers :
-la première photo du dossier de saison ouvre la galerie « En images ».
+(`lib/photos.ts`, lecture du dossier au build).
 
-Le **hero est découplé de cet ordre** : il est désigné par nom de fichier dans
-`HERO_PHOTOS` (`lib/property.ts`), avec repli sur la première photo du dossier. Changer la
-tête de galerie n'impose donc pas de changer le hero, et réciproquement.
+### Saison × espace
 
-Sur l'accueil, la galerie ouvre sur la **saison en cours**, puis l'intérieur, puis l'autre
-saison : `[saison, commun, autre saison]`.
+Une photo de galerie porte **deux** coordonnées : la saison (dossier parent) et l'espace
+(sous-dossier) — `hiver/balcon/`, `commun/chambre/`. Les deux axes se composent au lieu
+de se disputer un seul dossier, ce qui permet au balcon d'avoir ses photos d'été *et*
+d'hiver regroupées sous un seul titre dans la galerie.
+
+| Fichier | Rôle |
+|---------|------|
+| `lib/spaces.ts` | `SPACES` — les espaces **dans l'ordre de la visite**, sans dépendance (importé aussi par le typage i18n). |
+| `lib/photos.ts` | `listSpaces(dir)` lit les sous-dossiers ; `gallerySpaces(season)` fusionne les trois dossiers espace par espace. |
+| `lib/gallery.ts` | Rapproche les photos (système de fichiers) des titres et équipements (dictionnaires). Côté serveur : la galerie reçoit des groupes déjà traduits. |
+| `spaces.list` (dictionnaires) | Titre et équipements de chaque espace, exhaustif sur `SPACES` — un espace sans libellé ne compile pas. |
+
+L'ordre des espaces est celui de la visite, pas l'ordre alphabétique : il est donc écrit
+dans `SPACES` et non déduit du système de fichiers. Créer un espace demande le dossier,
+sa clé et ses libellés FR/EN.
 
 Le critère de répartition entre `hiver/`, `ete/` et `commun/` n'est pas intérieur/extérieur
-mais **est-ce que la saison se voit sur la photo**. Les photos de `commun/` sont ajoutées
-à la suite des photos de saison sur les pages `/ski` et `/ete` : elles n'ont jamais besoin
+mais **est-ce que la saison se voit sur la photo**. Dans chaque espace, l'ordre reste
+`[saison en cours, commun, autre saison]` : les photos de `commun/` n'ont jamais besoin
 d'être dupliquées.
+
+### La galerie a deux états
+
+Repliée, elle montre **une vignette par espace** avec son nom et son nombre de photos :
+on voit ce que contient le logement, balcon et extérieur compris, là où « les 8 premières
+photos » les laissait hors champ. Dépliée, c'est la visite complète, chaque espace suivi
+de ses équipements. La visionneuse, elle, parcourt les photos à plat dans l'ordre de la
+visite — ouvrir « Balcon » puis continuer à la flèche déroule la suite.
+
+Le **hero est découplé de cet ordre** : il est désigné par `espace/nom-de-fichier` dans
+`HERO_PHOTOS` (`lib/property.ts`), avec repli sur la première photo de la visite. Changer
+la tête de galerie n'impose donc pas de changer le hero, et réciproquement. Même forme
+pour `SLEEPING_PHOTOS`, `LINEN_PHOTOS` et `BABY_KIT_PHOTO`.
 
 `activites-hiver/` et `activites-ete/` illustrent les encarts « activités » des pages de
 saison, appariés **par position** avec la liste `seasons.<saison>.activities` du
@@ -276,7 +364,13 @@ photos de couverture. Une photo très claire ou très chargée convient.
 - [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
       vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé
       (property ID à mettre en variable d'environnement, pas en dur).
-- [ ] **Blog** — prévu, non démarré.
+- [ ] **Guide** — 16 articles en ligne. Restent à vérifier avant la haute saison : les
+      horaires des commerces et du centre équestre, et l'horaire exact de l'Albiez C'Show,
+      qui changent chaque année. Dix articles ont une couverture dédiée dans
+      `public/images/blog/` ; les sept autres empruntent encore au dossier `activites-*`
+      (randonnées, ESF, domaine skiable, famille, lac, Aiguilles d'Arves, équitation).
+      Chaque article a bien une couverture distincte — à remplacer au fil de l'eau par des
+      visuels propres.
 - [ ] **Carte Leaflet** — la section situation utilise pour l'instant un lien Google Maps.
 - [ ] **Tarif du ménage** — 60 € est enregistré dans `PROPERTY.services.cleaningFee`
       mais n'est affiché nulle part, en attendant le moteur de réservation.

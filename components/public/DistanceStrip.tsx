@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslation } from "@/lib/i18n";
 import { DISTANCES } from "@/lib/property";
 import type { Season } from "@/lib/seasons";
@@ -14,17 +15,23 @@ import type { Season } from "@/lib/seasons";
 export default function DistanceStrip({ season }: { season: Season }) {
   const { t } = useTranslation();
   const labels = t.seasons[season].distanceLabels;
+  const resortLink = t.seasons[season].resortLink;
   const entries = DISTANCES[season];
   const single = entries.length === 1;
 
   return (
     <ul
-      className={`grid gap-px overflow-hidden rounded-2xl border border-border bg-border ${
+      className={`grid h-full gap-px overflow-hidden rounded-2xl border border-border bg-border ${
         single ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-3"
       }`}
     >
-      {entries.map(({ key, meters, includes }) => (
-        <li key={key} className="bg-white px-6 py-7 text-center">
+      {/* Contenu centré verticalement : quand le bandeau s'aligne sur un voisin plus
+          haut, il se répartit au lieu de rester collé en haut de la carte. */}
+      {entries.map(({ key, meters, includes, brand }) => (
+        <li
+          key={key}
+          className="flex flex-col justify-center bg-white px-6 py-7 text-center"
+        >
           <p className="text-3xl font-bold text-accent">{meters} m</p>
           <p className="mt-1 text-sm font-semibold">{labels[key] ?? key}</p>
 
@@ -39,6 +46,41 @@ export default function DistanceStrip({ season }: { season: Season }) {
                 </li>
               ))}
             </ul>
+          )}
+
+          {/* La station à laquelle mène cette distance. Le logo et le libellé sont
+              dans le même lien : deux liens vers la même page se disputeraient le
+              clic et alourdiraient la navigation au lecteur d'écran. */}
+          {brand && resortLink && (
+            <div className="mt-6 border-t border-border pt-5">
+              <a
+                href={brand.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex flex-col items-center gap-2"
+              >
+                <Image
+                  src={brand.logo}
+                  alt={resortLink.alt}
+                  width={2018}
+                  height={1206}
+                  className="h-14 w-auto"
+                />
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent underline-offset-4 group-hover:underline">
+                  {resortLink.label}
+                  <svg
+                    className="h-3.5 w-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden
+                  >
+                    <path d="M7 17 17 7M9 7h8v8" />
+                  </svg>
+                </span>
+              </a>
+            </div>
           )}
         </li>
       ))}

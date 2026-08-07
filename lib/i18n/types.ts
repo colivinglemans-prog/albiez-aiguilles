@@ -1,3 +1,5 @@
+import type { SpaceKey } from "../spaces";
+
 export type Locale = "fr" | "en";
 
 export const LOCALES: Locale[] = ["fr", "en"];
@@ -9,9 +11,35 @@ export interface SeasonContent {
   intro: string;
   /** Arguments courts affichés en tuiles sous le hero. */
   highlights: Array<{ title: string; description: string }>;
-  activities: Array<{ title: string; description: string }>;
+  activities: Array<{
+    title: string;
+    description: string;
+    /**
+     * Lien sortant facultatif — le prestataire chez qui l'activité se réserve.
+     * L'URL vient de `PROPERTY.links` : le dictionnaire ne porte que le libellé.
+     */
+    link?: { href: string; label: string };
+  }>;
   /** Libellés des distances, indexés par la clé de DISTANCES. */
   distanceLabels: Record<string, string>;
+  /**
+   * Lien vers le site de la station, affiché dans l'encart de distance qui porte
+   * un `brand`. Le logo est fourni par la station : son texte alternatif est écrit
+   * ici plutôt que déduit du nom de fichier.
+   */
+  resortLink?: { alt: string; label: string };
+  /**
+   * Bandeau panoramique de la saison. Facultatif : une saison sans photo à la hauteur
+   * n'affiche pas de bandeau plutôt que d'en afficher un médiocre.
+   * Le texte alternatif est écrit ici et non déduit du nom de fichier — la photo est
+   * chargée par nom (préfixe `_`), et le nom seul décrirait mal ce qu'on y voit.
+   */
+  banner?: { alt: string; caption: string };
+  /**
+   * Plan des pistes légendé, avec le repère de l'appartement. Hiver seulement :
+   * c'est la preuve du « front de neige à 250 m », qui n'a pas d'équivalent l'été.
+   */
+  pisteMap?: { title: string; caption: string };
   seo: {
     title: string;
     description: string;
@@ -105,6 +133,7 @@ export interface Dictionary {
     rulesTitle: string;
     noPets: string;
     noSmoking: string;
+    babyKitTitle: string;
     babyKit: string;
     babyKitItems: string[];
   };
@@ -138,6 +167,10 @@ export interface Dictionary {
     title: string;
     description: string;
     profileLink: (reviewCount: number) => string;
+  };
+  guestFavourite: {
+    title: string;
+    description: string;
   };
   host: {
     title: string;
@@ -193,6 +226,42 @@ export interface Dictionary {
     next: string;
     close: string;
     counter: (i: number, total: number) => string;
+  };
+  /**
+   * Les espaces de la visite. `list` est exhaustive sur `SPACES` (lib/spaces.ts) :
+   * ajouter un dossier d'espace sans son libellé casse la compilation, ce qui est
+   * préférable à un titre manquant en production.
+   */
+  spaces: {
+    subtitle: string;
+    /** « 3 photos » sous la vignette d'un espace. */
+    photoCount: (count: number) => string;
+    list: Record<SpaceKey, { title: string; amenities: string[] }>;
+  };
+  blog: {
+    heading: string;
+    subheading: string;
+    /** Libellé de la pastille de saison sur une carte d'article. */
+    seasonBadge: Record<"hiver" | "ete", string>;
+    /** Pastille des articles valables toute l'année. */
+    yearRoundBadge: string;
+    /**
+     * Filtre de l'index. Libellés distincts de `seasonBadge` bien qu'identiques
+     * aujourd'hui : la pastille qualifie un article, le filtre décrit un séjour.
+     */
+    filter: {
+      label: string;
+      all: string;
+      hiver: string;
+      ete: string;
+      /** Explique pourquoi un sujet « toute l'année » apparaît sous les deux saisons. */
+      note: string;
+    };
+    back: string;
+    relatedTitle: string;
+    /** Encart de fin d'article — c'est lui qui ramène le lecteur vers la réservation. */
+    cta: { title: string; text: string; button: string };
+    seo: { title: string; description: string; keywords: string[] };
   };
   footer: {
     navigation: string;

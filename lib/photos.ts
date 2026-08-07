@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { imageSize } from "image-size";
+import { spaceOrder } from "./spaces";
+import type { Season } from "./seasons";
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 
@@ -77,6 +79,61 @@ export function getPhoto(dir: string, fileName: string): Photo | undefined {
     height: dimensions.height,
     ratio: dimensions.width / dimensions.height,
   };
+}
+
+/** Un espace du logement et ses photos, dans l'ordre du sous-dossier. */
+export interface SpacePhotos {
+  /** Nom du sous-dossier : `salon`, `balcon`… Voir `SPACES` (lib/spaces.ts). */
+  key: string;
+  photos: Photo[];
+}
+
+/**
+ * Les sous-dossiers d'un dossier de saison, un par espace.
+ *
+ * Le découpage reste piloté par le système de fichiers : créer `commun/entree/` et y
+ * déposer une photo suffit à faire apparaître l'espace. Seuls son titre et ses
+ * équipements demandent une entrée dans les dictionnaires — un espace inconnu
+ * s'affiche quand même, en fin de visite, plutôt que de disparaître en silence.
+ */
+export function listSpaces(dir: string): SpacePhotos[] {
+  const abs = path.join(process.cwd(), "public", "images", dir);
+
+  let entries: fs.Dirent[];
+  try {
+    entries = fs.readdirSync(abs, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+
+  return entries
+    .filter((e) => e.isDirectory() && !e.name.startsWith("_"))
+    .map((e) => ({ key: e.name, photos: listPhotos(`${dir}/${e.name}`) }))
+    .filter((s) => s.photos.length > 0);
+}
+
+/**
+ * La visite complète pour une saison : un groupe par espace, dans l'ordre de `SPACES`.
+ *
+ * À l'intérieur d'un espace, l'ordre reprend celui de la galerie d'avant : saison en
+ * cours, puis photos sans saison visible, puis l'autre saison. Le balcon sous la neige
+ * précède donc le balcon au soleil sur `/ski`, et l'inverse sur `/ete` — c'est le même
+ * lieu, montré deux fois, et voir l'autre saison est justement ce qui donne envie de
+ * revenir.
+ */
+export function gallerySpaces(season: Season): SpacePhotos[] {
+  const other: Season = season === "hiver" ? "ete" : "hiver";
+
+  const merged = new Map<string, Photo[]>();
+  for (const dir of [season, "commun", other]) {
+    for (const { key, photos } of listSpaces(dir)) {
+      merged.set(key, [...(merged.get(key) ?? []), ...photos]);
+    }
+  }
+
+  return [...merged]
+    .map(([key, photos]) => ({ key, photos }))
+    .sort((a, b) => spaceOrder(a.key) - spaceOrder(b.key) || a.key.localeCompare(b.key));
 }
 
 function readDimensions(file: string): { width: number; height: number } | null {

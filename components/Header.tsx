@@ -46,6 +46,7 @@ export default function Header() {
     { href: seasonHref(locale, "ete"), label: t.header.summer },
     { href: `${base}#appartement`, label: t.header.apartment },
     { href: `${base}#situation`, label: t.header.location },
+    { href: `${base}/guide`, label: t.header.blog },
   ];
 
   return (
