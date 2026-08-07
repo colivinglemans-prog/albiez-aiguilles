@@ -51,11 +51,17 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-white/85 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        {/*
+          Le nom du logement est long : plutôt que de le tronquer, on le rend plus
+          petit sur mobile et on le laisse passer sur deux lignes. La ligne de
+          situation disparaît sous `sm` — elle répète ce que le nom dit déjà, et
+          l'espace vaut mieux au nom lui-même.
+        */}
         <Link href={base} className="flex flex-col leading-tight">
-          <span className="text-lg font-bold text-primary sm:text-xl">
+          <span className="max-w-[13rem] text-sm font-bold text-primary sm:max-w-none sm:text-base lg:text-lg">
             {SITE_NAME}
           </span>
-          <span className="text-[11px] font-medium text-secondary sm:text-xs">
+          <span className="hidden text-[11px] font-medium text-secondary sm:block sm:text-xs">
             Albiez-Montrond · Maurienne · 1 600 m
           </span>
         </Link>

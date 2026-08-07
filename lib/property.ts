@@ -6,14 +6,26 @@
  * et doivent être corrigées à un seul endroit.
  */
 
-/** Nom de marque provisoire — à remplacer quand le nom de domaine sera arrêté. */
-export const SITE_NAME = "Albiez Aiguilles";
+/**
+ * Nom du logement, aligné sur celui des annonces Booking et Airbnb.
+ *
+ * Volontairement long : c'est sous ce nom que les voyageurs ont réservé, et le
+ * reconnaître d'un coup d'œil compte plus qu'une marque courte. Les endroits
+ * contraints en largeur (bandeau du header) l'affichent en plus petit plutôt que
+ * de le tronquer.
+ */
+export const SITE_NAME = "Albiez - Appart - Chalet du Hameau des Aiguilles";
 
-/** À remplacer par le domaine définitif (utilisé pour canonical, sitemap, OG). */
+/**
+ * Domaine du site — source unique des canonical, hreflang, sitemap et Open Graph.
+ * La forme `www.` est celle que le site déclare : l'apex doit rediriger vers elle.
+ */
 export const SITE_URL = "https://www.albiez-aiguilles.fr";
 
 export const PROPERTY = {
   residence: "Le Hameau des Aiguilles",
+  /** Numéro porté par la porte et par le casier à skis — le même sur le palier. */
+  unit: "B 122",
   floor: 2,
   topFloor: true,
   /** Altitude du logement, en mètres. */

@@ -218,6 +218,49 @@ export interface Dictionary {
       contact: string;
     };
   };
+  /**
+   * Guide d'arrivée — page cachée, réservée aux voyageurs qui ont réservé.
+   * Les clés de `steps` correspondent à `ARRIVAL_STEPS` (`lib/arrival.ts`).
+   */
+  guide: {
+    title: string;
+    intro: string;
+    /** Rappel affiché en tête : les codes ne sont jamais publiés sur la page. */
+    codeNote: string;
+    mapsCta: string;
+    stepLabel: (n: number) => string;
+    steps: Record<string, { title: string; text: string }>;
+    /** Précision chiffrée rattachée à l'étape de l'escalier. */
+    stairsNote: (steps: number) => string;
+    /** Précision rattachée à l'étape de la porte. */
+    unitNote: (unit: string) => string;
+    keyBoxSecurity: string;
+    manualTitle: string;
+    panelTitle: string;
+    panelIntro: string;
+    /** Repères du tableau électrique, indexés par la clé de PANEL_MARKERS. */
+    panelMarkers: Record<string, string>;
+    panelHotWaterNote: string;
+    radiatorSwitchTitle: string;
+    radiatorSwitchText: string;
+    manualsTitle: string;
+    manualsText: string;
+    checkoutTitle: string;
+    checkoutIntro: string;
+    checkoutItems: string[];
+    /** Le retour des clés a son propre encart : c'est ce qui bloque l'arrivée suivante. */
+    checkoutKeysNote: string;
+    contactTitle: string;
+    contactIntro: string;
+    whatsappCta: string;
+    phoneCta: string;
+    emailCta: string;
+    emergencyTitle: string;
+    /** Libellés des numéros d'urgence, indexés par la clé de EMERGENCY_NUMBERS. */
+    emergencyLabels: Record<string, string>;
+    closing: string;
+    seo: { title: string; description: string };
+  };
   common: {
     metersAway: (m: number) => string;
     backHome: string;

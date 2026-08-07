@@ -478,6 +478,106 @@ export const fr: Dictionary = {
     },
   },
 
+  guide: {
+    title: "Guide d'arrivée",
+    intro:
+      "Du col du Mollard jusqu'à la porte de l'appartement, le chemin en photos. Comptez cinq minutes depuis le col.",
+    codeNote:
+      "Le code de la boîte à clés vous est envoyé par message avant votre arrivée : il ne figure pas sur cette page.",
+    mapsCta: "Ouvrir l'itinéraire dans Google Maps",
+    stepLabel: (n) => `Étape ${n}`,
+    steps: {
+      mollard: {
+        title: "Au col du Mollard, à droite",
+        text: "En arrivant au col du Mollard, repérez le vélo blanc à pois rouges exposé sur le bord de la route, puis tournez à droite sur le chemin du Châtel.",
+      },
+      residence: {
+        title: "La résidence Le Hameau des Aiguilles",
+        text: "Le chalet est dans la résidence Le Hameau des Aiguilles. Un premier parking est signalé à l'entrée : continuez à avancer plutôt que de vous y arrêter.",
+      },
+      parking: {
+        title: "Se garer près des conteneurs",
+        text: "Le mieux est d'avancer jusqu'aux conteneurs à poubelle et de se garer là : c'est le point le plus proche de l'escalier.",
+      },
+      escalier: {
+        title: "L'escalier le long de la piscine",
+        text: "En face des conteneurs, montez l'escalier qui longe la piscine (actuellement en rénovation).",
+      },
+      chalet: {
+        title: "Le chalet",
+        text: "Voici le chalet. L'appartement occupe le dernier étage, la partie en bois : le balcon à droite, les fenêtres des chambres à gauche. Continuez à monter et passez derrière le bâtiment.",
+      },
+      palier: {
+        title: "Le dernier escalier",
+        text: "Montez le dernier escalier : l'appartement est la deuxième porte à droite sur le palier.",
+      },
+      porte: {
+        title: "La porte et le casier à skis",
+        text: "Le casier à skis se trouve sur le même palier, juste à côté de la porte, et porte le même numéro.",
+      },
+      boiteAClef: {
+        title: "La boîte à clés",
+        text: "Elle est fixée sur le montant gauche de la porte. Faites descendre le cache noir, composez le code qui vous a été transmis, puis abaissez le bouton noir à gauche des molettes pour ouvrir. La grande clé ouvre la porte, la petite le casier à skis.",
+      },
+    },
+    stairsNote: (steps) =>
+      `Environ ${steps} marches séparent le parking de l'appartement. La vue se mérite !`,
+    unitNote: (unit) => `Porte ${unit} — le casier à skis porte lui aussi le ${unit}.`,
+    keyBoxSecurity:
+      "Pensez à refermer la boîte et à brouiller le code après chaque utilisation. Elle reste à votre disposition pendant tout le séjour.",
+    manualTitle: "Le manuel de la maison",
+    panelTitle: "Si le courant est coupé",
+    panelIntro:
+      "Normalement, quelqu'un est passé vérifier que tout fonctionne avant votre arrivée. Si ce n'est pas le cas, le tableau électrique est à côté de la porte d'entrée.",
+    panelMarkers: {
+      breaker:
+        "Disjoncteur général. Si le courant est coupé, relevez-le vers le haut.",
+      radiators: "Radiateurs. Remet le chauffage en marche.",
+      waterHeater:
+        "Ballon d'eau chaude. Pour forcer la chauffe, poussez le bouton de « auto » vers « 1 », une seule fois.",
+    },
+    panelHotWaterNote:
+      "Après une coupure, l'eau chaude ne revient en général que le lendemain matin — sauf si vous forcez le ballon.",
+    radiatorSwitchTitle: "Un radiateur ne chauffe pas ?",
+    radiatorSwitchText:
+      "Chaque radiateur, sèche-serviette compris, a un interrupteur à bascule 0 / 1 caché derrière l'appareil. Il doit être sur 1. Vérifiez-le avant de chercher plus loin : c'est la cause la plus fréquente.",
+    manualsTitle: "Notices des appareils",
+    manualsText:
+      "Les notices des appareils électroniques sont rangées dans le tiroir du petit meuble.",
+    checkoutTitle: "Avant de partir",
+    checkoutIntro:
+      "Le ménage de fin de séjour est inclus, mais la cuisine et la vaisselle restent à votre charge. Quelques gestes avant de refermer la porte :",
+    checkoutItems: [
+      "Laisser la partie cuisine propre et rangée, vaisselle faite et remise en place.",
+      "Descendre les poubelles jusqu'aux conteneurs — ceux devant lesquels vous vous êtes garé en arrivant.",
+      "Couper le chauffage.",
+      "Fermer les volets.",
+      "Éteindre les lumières et les appareils.",
+      "Verrouiller la porte et le casier à skis.",
+    ],
+    checkoutKeysNote:
+      "Remettez les deux clés dans la boîte à clés et brouillez le code — ou remettez-les en main propre si un état des lieux est prévu. C'est ce qui permet aux voyageurs suivants d'arriver en autonomie.",
+    contactTitle: "Un souci ?",
+    contactIntro:
+      "Écrivez-nous, nous répondons généralement en moins d'une heure. Une personne est également sur place en cas de besoin.",
+    whatsappCta: "WhatsApp",
+    phoneCta: "Appeler",
+    emailCta: "Envoyer un e-mail",
+    emergencyTitle: "Numéros d'urgence",
+    emergencyLabels: {
+      samu: "SAMU — urgences médicales",
+      police: "Police et gendarmerie",
+      firefighters: "Pompiers",
+      european: "Urgence européenne et secours en montagne",
+    },
+    closing: "Bon séjour à Albiez !",
+    seo: {
+      title: "Guide d'arrivée",
+      description:
+        "Comment rejoindre l'appartement, du col du Mollard à la boîte à clés.",
+    },
+  },
+
   common: {
     metersAway: (m) => `à ${m} m`,
     backHome: "Retour à l'accueil",

@@ -460,6 +460,105 @@ export const en: Dictionary = {
     },
   },
 
+  guide: {
+    title: "Arrival guide",
+    intro:
+      "From the Col du Mollard to the apartment door, the way there in pictures. Allow five minutes from the pass.",
+    codeNote:
+      "The key box code is sent to you by message before you arrive — it is never published on this page.",
+    mapsCta: "Open the route in Google Maps",
+    stepLabel: (n) => `Step ${n}`,
+    steps: {
+      mollard: {
+        title: "At the Col du Mollard, turn right",
+        text: "As you reach the Col du Mollard, look for the white bike with red polka dots displayed by the roadside, then turn right onto Chemin du Châtel.",
+      },
+      residence: {
+        title: "Le Hameau des Aiguilles",
+        text: "The chalet stands in the Hameau des Aiguilles residence. A first car park is signposted at the entrance: keep driving rather than stopping there.",
+      },
+      parking: {
+        title: "Park by the bins",
+        text: "Drive on to the waste containers and park there: it is the closest spot to the staircase.",
+      },
+      escalier: {
+        title: "The staircase along the pool",
+        text: "Facing the containers, climb the staircase that runs along the swimming pool (currently under renovation).",
+      },
+      chalet: {
+        title: "The chalet",
+        text: "Here is the chalet. The apartment is on the top floor, the wooden part: the balcony on the right, the bedroom windows on the left. Keep climbing and walk around the back.",
+      },
+      palier: {
+        title: "The last staircase",
+        text: "Climb the last staircase: the apartment is the second door on the right on the landing.",
+      },
+      porte: {
+        title: "The door and the ski locker",
+        text: "The ski locker is on the same landing, right next to the door, and carries the same number.",
+      },
+      boiteAClef: {
+        title: "The key box",
+        text: "It is fixed to the left door frame. Slide the black cover down, dial the code you were given, then push down the black button to the left of the dials to open it. The large key opens the door, the small one the ski locker.",
+      },
+    },
+    stairsNote: (steps) =>
+      `About ${steps} steps separate the car park from the apartment. The view has to be earned!`,
+    unitNote: (unit) => `Door ${unit} — the ski locker is also marked ${unit}.`,
+    keyBoxSecurity:
+      "Please close the box and scramble the dials after each use. It stays available to you throughout your stay.",
+    manualTitle: "House manual",
+    panelTitle: "If the power goes out",
+    panelIntro:
+      "Someone will normally have checked that everything works before you arrive. If not, the electrical panel is next to the front door.",
+    panelMarkers: {
+      breaker: "Main breaker. If the power is off, flip it back up.",
+      radiators: "Radiators. Switches the heating back on.",
+      waterHeater:
+        "Water heater. To force a heating cycle, push the switch from “auto” up to “1”, once.",
+    },
+    panelHotWaterNote:
+      "After a power cut, hot water usually only comes back the next morning — unless you force the tank.",
+    radiatorSwitchTitle: "A radiator not heating?",
+    radiatorSwitchText:
+      "Every radiator, towel rail included, has a 0 / 1 rocker switch hidden behind it. It needs to be on 1. Check that before looking any further: it is by far the most common cause.",
+    manualsTitle: "Appliance manuals",
+    manualsText:
+      "The manuals for the electronic appliances are kept in the drawer of the small cabinet.",
+    checkoutTitle: "Before you leave",
+    checkoutIntro:
+      "The end-of-stay cleaning is included, but the kitchen and the washing-up are yours to handle. A few things before you close the door:",
+    checkoutItems: [
+      "Leave the kitchen area clean and tidy, dishes washed and put away.",
+      "Take the rubbish down to the containers — the ones you parked in front of when you arrived.",
+      "Turn the heating off.",
+      "Close the shutters.",
+      "Switch off the lights and appliances.",
+      "Lock the door and the ski locker.",
+    ],
+    checkoutKeysNote:
+      "Put both keys back in the key box and scramble the dials — or hand them over in person if a check-out inspection is planned. That is what lets the next guests let themselves in.",
+    contactTitle: "Something wrong?",
+    contactIntro:
+      "Message us, we usually reply within the hour. Someone is also on site should you need help.",
+    whatsappCta: "WhatsApp",
+    phoneCta: "Call",
+    emailCta: "Send an email",
+    emergencyTitle: "Emergency numbers",
+    emergencyLabels: {
+      samu: "SAMU — medical emergencies",
+      police: "Police and gendarmerie",
+      firefighters: "Fire brigade",
+      european: "European emergency and mountain rescue",
+    },
+    closing: "Enjoy your stay in Albiez!",
+    seo: {
+      title: "Arrival guide",
+      description:
+        "How to reach the apartment, from the Col du Mollard to the key box.",
+    },
+  },
+
   common: {
     metersAway: (m) => `${m} m away`,
     backHome: "Back to home",

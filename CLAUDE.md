@@ -14,6 +14,17 @@ npm run build   # build de production
 npm run lint    # ESLint
 ```
 
+## Domaine
+
+`albiez-aiguilles.fr`, acheté le 2026-08-07.
+
+Le site se sert de la forme **`www.`** — c'est la valeur de `SITE_URL` (`lib/property.ts`),
+donc celle qui figure dans les canonical, les hreflang, le sitemap et l'Open Graph.
+L'apex doit **rediriger vers `www`**, jamais l'inverse : servir les deux revient à publier
+deux fois le même site.
+
+Une seule ligne à changer si le domaine bouge un jour — `SITE_URL` — et tout suit.
+
 ## Structure des URLs
 
 | URL | Contenu |
@@ -22,6 +33,7 @@ npm run lint    # ESLint
 | `/fr`, `/en` | Accueil — présentation du logement, valable toute l'année |
 | `/fr/ski`, `/en/ski` | Page saison hiver |
 | `/fr/ete`, `/en/summer` | Page saison été |
+| `/fr/guide-arrivee`, `/en/guide-arrivee` | Guide d'arrivée — **page cachée** (voir plus bas) |
 
 Les slugs de saison sont **localisés** : `/fr/ete` et `/en/summer` sont deux URLs
 distinctes qui se déclarent mutuellement en `hreflang`. La correspondance vit dans
@@ -120,6 +132,39 @@ sans champ permettant de les distinguer.
 Règle : un chiffre ou une distance ne doit **jamais** être écrit dans un dictionnaire.
 Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.
 
+## Guide d'arrivée (page cachée)
+
+`/{locale}/guide-arrivee` — l'itinéraire en photos, du col du Mollard à la boîte à clés.
+Destiné aux voyageurs qui ont réservé ; son adresse leur est communiquée avec la réservation.
+
+« Caché » veut dire trois choses, toutes nécessaires : `robots: { index: false, follow: false }`,
+absence du sitemap, absence du header et du footer. La page n'est **pas** listée dans
+`robots.txt` — un `Disallow` publierait justement l'adresse qu'on veut garder discrète.
+Rien n'empêche qui que ce soit d'y accéder : il n'y a **aucun secret sur la page**, le code
+de la boîte à clés est transmis par message et ne doit jamais y être écrit.
+
+Conçue pour être lue sur un téléphone, à l'arrêt au bord de la route : une seule colonne,
+photos pleine largeur au format d'origine, cibles tactiles d'au moins 48 px, et les numéros
+d'urgence composables d'un doigt (ligne entière cliquable).
+
+| Fichier | Rôle |
+|---------|------|
+| `lib/arrival.ts` | Étapes (clé + nom de fichier photo), repères du tableau électrique, numéros d'urgence. |
+| `lib/i18n/dictionaries/{fr,en}.ts` | Bloc `guide` — tous les textes. |
+| `public/images/guide-arrivee/` | Photos numérotées `01-` à `09-`. |
+
+Les étapes sont appariées à leur photo **par nom de fichier**, pas par position : une photo
+d'itinéraire doit montrer exactement l'endroit décrit, et insérer une étape ne doit pas
+décaler silencieusement toutes les suivantes. Le numéro affiché, lui, est la position dans
+`ARRIVAL_STEPS`.
+
+Les couleurs de `PANEL_MARKERS` reprennent les cadres dessinés sur la photo du tableau
+électrique : en changer une impose de refaire l'annotation de l'image.
+
+Deux valeurs de la page viennent de `property.ts` et non des dictionnaires — le nombre de
+marches (`access.steps`) et le numéro de la porte (`unit`), qui est aussi celui du casier
+à skis.
+
 ## Photos
 
 Déposer les fichiers dans `public/images/` — les galeries se construisent seules
@@ -173,9 +218,8 @@ photos de couverture. Une photo très claire ou très chargée convient.
 
 ## À faire
 
-- [ ] **Nom de domaine** — `SITE_NAME` et `SITE_URL` dans `lib/property.ts` sont des
-      valeurs provisoires (`albiez-aiguilles.fr`). Une fois le domaine arrêté, les
-      changer là et nulle part ailleurs.
+- [ ] **Déploiement** — le domaine est acheté mais le site n'est pas encore en ligne :
+      projet Vercel à créer, domaine à y rattacher, DNS à faire pointer.
 - [ ] **Photos** — les dossiers sont vides ; les galeries affichent un message d'attente.
 - [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
       vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé

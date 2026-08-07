@@ -11,8 +11,14 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Location à Albiez-Montrond, Savoie`,
-    template: `%s — ${SITE_NAME}`,
+    default: SITE_NAME,
+    /*
+     * Pas de suffixe de marque. Le nom du logement fait une cinquantaine de
+     * caractères : l'ajouter à chaque titre les pousserait tous bien au-delà des
+     * ~60 que Google affiche, et c'est la requête ciblée qui serait tronquée.
+     * Chaque page porte déjà « Albiez » dans son propre titre.
+     */
+    template: "%s",
   },
   openGraph: {
     siteName: SITE_NAME,

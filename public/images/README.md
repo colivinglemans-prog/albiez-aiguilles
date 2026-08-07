@@ -13,6 +13,30 @@ Déposer un fichier suffit : aucune modification de code n'est nécessaire.
 | `activites-hiver/` | Illustrations des activités de la page ski |
 | `activites-ete/`   | Illustrations des activités de la page été |
 | `blog/`  | Illustrations des articles |
+| `guide-arrivee/` | Itinéraire du guide d'arrivée — **pas une galerie**, voir ci-dessous |
+
+## `guide-arrivee/`
+
+Ce dossier n'alimente aucune galerie : chaque photo est appelée **par son nom de fichier**
+depuis `lib/arrival.ts`, parce qu'elle doit montrer exactement l'étape décrite. Renommer
+un fichier casse la page ; ajouter une photo ne suffit pas à la faire apparaître, il faut
+aussi ajouter son étape et son texte.
+
+```
+01-col-du-mollard.jpg                  → Au col du Mollard, à droite
+02-residence-hameau-des-aiguilles.jpg  → La résidence
+03-parking-conteneurs.jpg              → Se garer près des conteneurs
+04-escalier-piscine.jpg                → L'escalier le long de la piscine
+05-chalet-dernier-etage.jpg            → Le chalet
+06-dernier-escalier.jpg                → Le dernier escalier
+07-porte-b122-casier-ski.jpg           → La porte et le casier à skis
+08-boite-a-clef.jpg                    → La boîte à clés
+09-tableau-electrique.jpg              → « Juste au cas où » (hors itinéraire)
+```
+
+Les annotations dessinées sur les photos (flèches, cadres de couleur) font partie du
+contenu. Celles du tableau électrique sont reprises en pastilles dans la liste de la
+page : leurs couleurs sont figées dans `PANEL_MARKERS`.
 
 ## Photos d'activités
 
