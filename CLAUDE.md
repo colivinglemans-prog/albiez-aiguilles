@@ -25,6 +25,29 @@ deux fois le même site.
 
 Une seule ligne à changer si le domaine bouge un jour — `SITE_URL` — et tout suit.
 
+Registrar **OVH** (serveurs de noms `dns106.ovh.net` / `ns106.ovh.net`). Les deux domaines
+sont rattachés au projet Vercel, avec la redirection apex → www en 308 configurée côté
+Vercel. Enregistrements DNS attendus dans la zone OVH :
+
+| Type | Sous-domaine | Cible |
+|------|--------------|-------|
+| `A` | (vide, l'apex) | `76.76.21.21` |
+| `CNAME` | `www` | `cname.vercel-dns.com.` |
+
+## Déploiement
+
+Projet Vercel **`albiez-aiguilles`** (équipe `colivinglemans-progs-projects`), déployé
+depuis la CLI comme Barbusse :
+
+```bash
+npx vercel --prod
+```
+
+`ssoProtection` est réglé sur **`all_except_custom_domains`** : les URLs `*.vercel.app`
+demandent une authentification Vercel, le domaine public reste ouvert. C'est voulu — ça
+évite que Google indexe le site deux fois. Conséquence pratique : pour prévisualiser un
+déploiement, il faut être connecté à Vercel dans le navigateur.
+
 ## Structure des URLs
 
 | URL | Contenu |
@@ -218,8 +241,9 @@ photos de couverture. Une photo très claire ou très chargée convient.
 
 ## À faire
 
-- [ ] **Déploiement** — le domaine est acheté mais le site n'est pas encore en ligne :
-      projet Vercel à créer, domaine à y rattacher, DNS à faire pointer.
+- [ ] **DNS** — dernière étape avant la mise en ligne : les deux enregistrements de la
+      section « Domaine » sont à créer dans la zone OVH. L'apex pointe encore sur la page
+      de parking OVH (`213.186.33.5`).
 - [ ] **Photos** — les dossiers sont vides ; les galeries affichent un message d'attente.
 - [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
       vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé
