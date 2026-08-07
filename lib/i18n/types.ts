@@ -28,6 +28,13 @@ export interface SeasonContent {
     link?: { href: string; label: string; internal?: boolean };
   }>;
   /**
+   * Renvoi au guide sous la liste d'activités. La liste tient en quatre ou cinq
+   * encarts ; les 17 articles du guide vont plus loin, et rien ne le disait à
+   * quelqu'un qui arrive au bas de la section. Le lien pointe vers `/{locale}/guide`,
+   * construit par le composant : le dictionnaire ne porte que les mots.
+   */
+  activitiesMore: { text: string; label: string };
+  /**
    * Libellés des chiffres du domaine, affichés en pastilles sur la première activité.
    * Les valeurs viennent de `RESORT` (property.ts) — le dictionnaire ne porte que les
    * mots. Présent l'hiver seulement : c'est aussi ce qui met cette première activité

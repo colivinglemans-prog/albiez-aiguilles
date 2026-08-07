@@ -187,6 +187,12 @@ soit un **article du guide** (`internal: true`, `<Link>` préchargé, href préf
 langue comme dans le corps des articles). Les liens vers le guide sont ce qui permet à un
 encart de rester court sans être creux.
 
+La section se ferme sur un **renvoi au guide** (`activitiesMore` : `text` + `label`, lien
+construit vers `/{locale}/guide` par le composant). Il existe parce que la liste s'arrête
+volontairement à quatre ou cinq encarts : sans lui, la grille se terminait sur rien alors
+que 17 articles détaillent les mêmes activités. Les activités citées dans le texte doivent
+correspondre à des articles qui existent réellement dans `BLOG_POSTS`.
+
 ## Distinctions
 
 Côté Airbnb, deux distinctions différentes affichées côte à côte par

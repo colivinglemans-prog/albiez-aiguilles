@@ -219,6 +219,31 @@ export default function SeasonBlock({
             );
           })}
         </ul>
+
+        {/* La liste s'arrête à quatre ou cinq activités : au-delà, elle deviendrait
+            un sommaire. Ce renvoi ferme la section en indiquant où le reste se
+            trouve, plutôt que de laisser la grille se terminer sur rien. */}
+        <div className="mt-8 rounded-2xl border border-border bg-accent-soft p-5 sm:p-6">
+          <p className="text-sm text-secondary">
+            {content.activitiesMore.text}
+          </p>
+          <Link
+            href={`/${locale}/guide`}
+            className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent underline-offset-4 hover:underline"
+          >
+            {content.activitiesMore.label}
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
+        </div>
       </Section>
     </>
   );

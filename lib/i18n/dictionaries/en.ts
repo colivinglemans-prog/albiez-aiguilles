@@ -147,6 +147,10 @@ export const en: Dictionary = {
           },
         },
       ],
+      activitiesMore: {
+        text: "The ski area, ski hire, ESF lessons, husky rides, Tuesday evenings on the snow front: the guide covers all of it article by article, with addresses and practical details.",
+        label: "Read the Albiez guide",
+      },
       distanceLabels: {
         frontDeNeige: "Foot of the slopes",
         slopes: "Piste departure",
@@ -234,6 +238,10 @@ export const en: Dictionary = {
             "Electric mountain bikes and e-scooters for hire locally — climb without suffering, descend for the fun of it.",
         },
       ],
+      activitiesMore: {
+        text: "Waymarked hikes, the Col du Mollard by bike, the Lac du Mollard, the Rival forest, a mountain refuge: the guide covers all of it article by article, with addresses and practical details.",
+        label: "Read the Albiez guide",
+      },
       distanceLabels: {
         shops: "Village shops",
         riding: "Riding club",
@@ -280,12 +288,13 @@ export const en: Dictionary = {
       {
         title: "Kitchen",
         items: [
+          "Hob",
           "Dishwasher",
           "Oven",
           "Microwave",
-          "Fridge",
+          "Fridge with freezer",
           "Toaster",
-          "Nespresso espresso machine",
+          "Nespresso espresso machine and filter coffee maker",
         ],
       },
       {
@@ -514,8 +523,8 @@ export const en: Dictionary = {
           "Oven",
           "Microwave",
           "Dishwasher",
-          "Fridge",
-          "Nespresso machine",
+          "Fridge with freezer",
+          "Nespresso espresso machine and filter coffee maker",
           "Toaster",
           "Crockery, cutlery and wine glasses",
           "Smoke alarm",

@@ -15,7 +15,7 @@ export const fr: Dictionary = {
   },
 
   home: {
-    heroTitle: "Un appartement face aux Aiguilles d'Arves",
+    heroTitle: "Appartement face aux Aiguilles d'Arves",
     heroSubtitle:
       "À 1 600 m d'altitude à Albiez-Montrond, au calme dans un chalet de Maurienne. 4 à 6 personnes, balcon plein sud-ouest.",
     intro:
@@ -150,6 +150,10 @@ export const fr: Dictionary = {
           },
         },
       ],
+      activitiesMore: {
+        text: "Domaine skiable, location de skis, cours à l'ESF, chiens de traîneau, soirées du mardi : le guide détaille tout ça article par article, avec les adresses et les infos pratiques.",
+        label: "Voir le guide d'Albiez",
+      },
       distanceLabels: {
         frontDeNeige: "Front de neige",
         slopes: "Départ des pistes",
@@ -239,6 +243,10 @@ export const fr: Dictionary = {
             "Location de VTT électriques et de trottinettes électriques sur place, pour monter sans souffrir et descendre en s'amusant.",
         },
       ],
+      activitiesMore: {
+        text: "Randonnées balisées, col du Mollard à vélo, lac du Mollard, forêt du Rival, refuge d'altitude : le guide détaille tout ça article par article, avec les adresses et les infos pratiques.",
+        label: "Voir le guide d'Albiez",
+      },
       distanceLabels: {
         shops: "Commerces du village",
         riding: "Club d'équitation",
@@ -289,12 +297,13 @@ export const fr: Dictionary = {
       {
         title: "Cuisine",
         items: [
+          "Plaque de cuisson",
           "Lave-vaisselle",
           "Four",
           "Micro-ondes",
-          "Réfrigérateur",
+          "Réfrigérateur avec freezer",
           "Grille-pain",
-          "Machine à expresso Nespresso",
+          "Machine à expresso Nespresso et cafetière à filtre",
         ],
       },
       {
@@ -528,12 +537,12 @@ export const fr: Dictionary = {
       kitchenette: {
         title: "Kitchenette",
         amenities: [
-          "Plaques de cuisson",
+          "Plaque de cuisson",
           "Four",
           "Four à micro-ondes",
           "Lave-vaisselle",
-          "Réfrigérateur",
-          "Cafetière Nespresso",
+          "Réfrigérateur avec freezer",
+          "Machine à expresso Nespresso et cafetière à filtre",
           "Grille-pain",
           "Vaisselle, couverts et verres à vin",
           "Détecteur de fumée",
