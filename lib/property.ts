@@ -199,6 +199,21 @@ export const SLEEPING_PHOTOS = {
   living: ["03-canape-lit-gigogne-deplie.JPG"],
 } as const;
 
+/**
+ * Photo de couverture de chaque saison — hero de l'accueil et de la page de saison.
+ *
+ * Désignée par nom de fichier, et non « la première du dossier » : le hero et la tête
+ * de galerie ne répondent pas aux mêmes critères. Le hero doit tenir en bandeau large,
+ * la première vignette doit donner envie d'ouvrir la galerie. Les coupler obligeait à
+ * sacrifier l'un pour changer l'autre.
+ *
+ * Si le fichier nommé disparaît, on retombe sur la première photo du dossier.
+ */
+export const HERO_PHOTOS: Record<"hiver" | "ete", string> = {
+  hiver: "02-vue-panoramique-depuis-le-balcon.jpg",
+  ete: "01-vue-panoramique-depuis-le-balcon.jpg",
+};
+
 /** Le même lit préparé puis nu — la comparaison est tout l'objet de la section. */
 export const LINEN_PHOTOS = {
   with: "04-chambre-lit-double-160.jpg",

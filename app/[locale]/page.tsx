@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
 import { listPhotos, getPhoto } from "@/lib/photos";
-import { PROPERTY, SLEEPING_PHOTOS, LINEN_PHOTOS } from "@/lib/property";
+import { PROPERTY, SLEEPING_PHOTOS, LINEN_PHOTOS, HERO_PHOTOS } from "@/lib/property";
 import { currentSeason } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonCards from "@/components/public/SeasonCards";
@@ -57,14 +57,18 @@ export default async function HomePage({
   const summer = listPhotos("ete");
   const common = listPhotos("commun");
 
-  // Le hero suit la saison en cours ; à défaut de photo de saison, on retombe
-  // sur les photos communes, puis sur un dégradé (géré par le composant Hero).
+  // Le hero suit la saison en cours et porte une photo désignée, pas la première du
+  // dossier ; à défaut on retombe sur celle-ci, puis sur les photos communes, puis
+  // sur un dégradé (géré par le composant Hero).
   const seasonPhotos = season === "hiver" ? winter : summer;
-  const heroPhoto = seasonPhotos[0] ?? common[0];
+  const heroPhoto =
+    getPhoto(season, HERO_PHOTOS[season]) ?? seasonPhotos[0] ?? common[0];
 
-  // L'accueil montre tout : l'intérieur d'abord, puis les deux saisons.
-  // La galerie se replie d'elle-même au-delà de quelques vignettes.
-  const galleryPhotos = [...common, ...winter, ...summer];
+  // La galerie ouvre sur la saison en cours — c'est ce qu'on vend aujourd'hui — puis
+  // l'intérieur, puis l'autre saison. Elle se replie d'elle-même au-delà de quelques
+  // vignettes.
+  const otherSeasonPhotos = season === "hiver" ? summer : winter;
+  const galleryPhotos = [...seasonPhotos, ...common, ...otherSeasonPhotos];
 
   // Chaque couchage est illustré par une photo précise, désignée par nom de fichier.
   const resolve = (files: readonly string[]) =>

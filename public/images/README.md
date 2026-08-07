@@ -110,8 +110,13 @@ pour le maîtriser :
 03-chambre-lit-double.jpg
 ```
 
-La **première photo du dossier** sert d'image de couverture (hero de la page de saison,
-vignette de la carte de saison sur l'accueil). Choisir la plus vendeuse.
+La **première photo du dossier** ouvre la galerie « En images », sur l'accueil comme sur
+la page de saison. Choisir celle qui donne le plus envie d'ouvrir la galerie.
+
+Le **hero** ne suit pas cet ordre : il est désigné par nom de fichier dans `HERO_PHOTOS`
+(`lib/property.ts`). Les deux ne répondent pas au même critère — un hero doit tenir en
+bandeau très large, une vignette de tête doit accrocher l'œil. Les coupler obligeait à
+sacrifier l'un pour changer l'autre.
 
 ## Texte alternatif
 

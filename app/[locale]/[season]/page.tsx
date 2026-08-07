@@ -3,7 +3,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, LOCALES } from "@/lib/i18n";
 import { alternatesFor, seasonPath } from "@/lib/seo";
-import { listPhotos } from "@/lib/photos";
+import { listPhotos, getPhoto } from "@/lib/photos";
+import { HERO_PHOTOS } from "@/lib/property";
 import { SEASONS, SEASON_SLUGS, seasonFromSlug } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonSwitch from "@/components/public/SeasonSwitch";
@@ -78,7 +79,7 @@ export default async function SeasonPage({
         title={content.heading}
         subtitle={content.intro}
         tagline={content.tagline}
-        photo={seasonPhotos[0] ?? photos[0]}
+        photo={getPhoto(season, HERO_PHOTOS[season]) ?? seasonPhotos[0] ?? photos[0]}
       />
 
       <Section className="!py-10">

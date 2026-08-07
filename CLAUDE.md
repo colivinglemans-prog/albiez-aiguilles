@@ -198,8 +198,15 @@ marches (`access.steps`) et le numéro de la porte (`unit`), qui est aussi celui
 ## Photos
 
 Déposer les fichiers dans `public/images/` — les galeries se construisent seules
-(`lib/photos.ts`, lecture du dossier au build). Ordre alphabétique des noms de fichiers,
-la première photo sert de couverture.
+(`lib/photos.ts`, lecture du dossier au build). Ordre alphabétique des noms de fichiers :
+la première photo du dossier de saison ouvre la galerie « En images ».
+
+Le **hero est découplé de cet ordre** : il est désigné par nom de fichier dans
+`HERO_PHOTOS` (`lib/property.ts`), avec repli sur la première photo du dossier. Changer la
+tête de galerie n'impose donc pas de changer le hero, et réciproquement.
+
+Sur l'accueil, la galerie ouvre sur la **saison en cours**, puis l'intérieur, puis l'autre
+saison : `[saison, commun, autre saison]`.
 
 Le critère de répartition entre `hiver/`, `ete/` et `commun/` n'est pas intérieur/extérieur
 mais **est-ce que la saison se voit sur la photo**. Les photos de `commun/` sont ajoutées
