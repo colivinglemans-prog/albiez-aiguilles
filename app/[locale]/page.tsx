@@ -1,30 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
 import { listSpaces, getPhoto } from "@/lib/photos";
 import { galleryGroups } from "@/lib/gallery";
-import {
-  PROPERTY,
-  SLEEPING_PHOTOS,
-  LINEN_PHOTOS,
-  HERO_PHOTOS,
-  BABY_KIT_PHOTO,
-} from "@/lib/property";
+import { HERO_PHOTOS } from "@/lib/property";
 import { currentSeason } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonCards from "@/components/public/SeasonCards";
-import ApartmentSection from "@/components/public/ApartmentSection";
-import LinenSection from "@/components/public/LinenSection";
-import PracticalSection from "@/components/public/PracticalSection";
-import LocationSection from "@/components/public/LocationSection";
-import BookingSection from "@/components/public/BookingSection";
-import Reviews from "@/components/public/Reviews";
-import Awards from "@/components/public/Awards";
-import HostSection from "@/components/public/HostSection";
-import PhotoGallery from "@/components/public/PhotoGallery";
-import { Section, SectionTitle } from "@/components/public/Section";
+import CommonSections from "@/components/public/CommonSections";
+import { Section } from "@/components/public/Section";
 
 export async function generateMetadata({
   params,
@@ -60,30 +45,17 @@ export default async function HomePage({
   const t = getDictionary(locale);
   const season = currentSeason();
 
-  // La galerie suit la visite : un groupe par espace, dans l'ordre de `SPACES`, et
-  // à l'intérieur de chaque espace la saison en cours d'abord.
-  const spaces = galleryGroups(season, t);
-
   // Le hero porte une photo désignée, pas la première du dossier ; à défaut on
   // retombe sur la première de la visite, puis sur un dégradé (géré par Hero).
   const heroPhoto =
-    getPhoto(season, HERO_PHOTOS[season]) ?? spaces[0]?.photos[0];
-
-  // Chaque couchage est illustré par une photo précise, désignée par nom de fichier.
-  const resolve = (files: readonly string[]) =>
-    files.map((f) => getPhoto("commun", f)).filter((p) => p !== undefined);
-  const sleepingPhotos = {
-    bedroom: resolve(SLEEPING_PHOTOS.bedroom),
-    alcove: resolve(SLEEPING_PHOTOS.alcove),
-    living: resolve(SLEEPING_PHOTOS.living),
-  };
-  const linenPhotos = {
-    with: getPhoto("commun", LINEN_PHOTOS.with),
-    without: getPhoto("commun", LINEN_PHOTOS.without),
-  };
+    getPhoto(season, HERO_PHOTOS[season]) ??
+    galleryGroups(season, t)[0]?.photos[0];
 
   return (
     <div data-season={season}>
+      {/* Une seule page déclare le logement comme entité : l'accueil. Les pages
+          saison en reprennent le contenu mais pas le balisage, pour ne pas
+          déclarer trois fois le même appartement. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -104,7 +76,9 @@ export default async function HomePage({
       </Section>
 
       {/* Les mosaïques résument une saison entière en une image. Elles sont hors
-          galerie (préfixe `_`) : elles ne montrent que des photos déjà présentes. */}
+          galerie (préfixe `_`) : elles ne montrent que des photos déjà présentes.
+          C'est le seul bloc que les pages saison remplacent — tout ce qui suit
+          leur est commun. */}
       <SeasonCards
         covers={{
           hiver:
@@ -116,68 +90,7 @@ export default async function HomePage({
         }}
       />
 
-      <Section id="galerie" className="!pt-0">
-        <PhotoGallery groups={spaces} title={t.gallery.title} />
-      </Section>
-
-      <ApartmentSection sleepingPhotos={sleepingPhotos} />
-      <LinenSection photos={linenPhotos} />
-
-      {/* Les distinctions expliquent pourquoi la note qui suit est crédible :
-          les deux se renforcent côte à côte, séparées elles perdent de leur poids. */}
-      <Awards />
-      <Reviews />
-
-      <PracticalSection babyKitPhoto={getPhoto("commun", BABY_KIT_PHOTO)} />
-      <LocationSection />
-      <HostSection />
-
-      <Section className="!py-10">
-        <div className="rounded-2xl border border-border bg-light-bg p-6 sm:p-8">
-          <SectionTitle title={t.home.offSeasonTitle} />
-          <p className="-mt-4 max-w-3xl text-secondary">{t.home.offSeasonText}</p>
-          <div className="mt-6 rounded-2xl border border-border bg-white p-6">
-            <Image
-              src="/brand/homeexchange.svg"
-              alt="HomeExchange"
-              width={152}
-              height={44}
-              unoptimized
-              className="h-9 w-auto"
-            />
-            <p className="mt-4 max-w-3xl text-secondary">
-              {t.home.offSeasonExchange}
-            </p>
-
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <a
-                href={PROPERTY.links.homeExchange}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
-              >
-                {t.home.offSeasonExchangeCta}
-              </a>
-              <a
-                href={PROPERTY.links.homeExchangeSponsor}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-light-bg"
-              >
-                {t.home.offSeasonSponsorCta}
-              </a>
-            </div>
-
-            {/* La contrepartie est annoncée : un lien de parrainage qui ne dit pas
-                son nom se retourne contre celui qui le pose. */}
-            <p className="mt-3 text-xs text-secondary">
-              {t.home.offSeasonSponsorNote}
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      <BookingSection />
+      <CommonSections locale={locale} />
     </div>
   );
 }

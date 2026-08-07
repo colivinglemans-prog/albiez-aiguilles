@@ -84,10 +84,35 @@ distinctes qui se déclarent mutuellement en `hreflang`. La correspondance vit d
 `SEASON_SLUGS` (`lib/seasons.ts`). Un slug de la mauvaise langue rend un 404
 (`/fr/summer` → 404), ce qui évite le contenu dupliqué.
 
-Architecture hub-and-spoke : l'accueil porte le contenu permanent (appartement,
-couchages, équipements, infos pratiques, situation), les pages de saison portent le
-contenu saisonnier (distances, activités, galerie). Aucun contenu n'est dupliqué
-entre les deux, ce qui laisse chaque page cibler ses propres requêtes.
+## Les trois pages ont la même colonne vertébrale
+
+L'accueil, `/ski` et `/ete` sont bâties sur le même squelette. Seul le bloc situé entre le
+hero et la galerie change :
+
+| | Accueil | `/ski` et `/ete` |
+|---|---|---|
+| Bloc variable | `SeasonCards` — « Deux saisons, deux séjours » | `SeasonBlock` — bascule de saison, distances, plan des pistes, bandeau, points forts, activités |
+| Tout ce qui suit | `CommonSections` | `CommonSections`, à l'identique |
+
+`CommonSections` (`components/public/CommonSections.tsx`) rend la galerie, l'appartement,
+le kit linge, les distinctions, les avis, les infos pratiques, la situation, l'hôte,
+HomeExchange et la réservation — et résout lui-même ses photos. Sa prop `season` est
+**optionnelle** : absente = accueil (galerie ordonnée sur `currentSeason()`, avis non
+filtrés) ; fournie = page de saison (galerie et filtre d'avis accordés à la page).
+
+Ces sections vivaient auparavant sur la seule page d'accueil, en hub-and-spoke. Le
+problème : on arrive sur `/fr/ski` depuis Google ou depuis un lien Airbnb, pas par
+l'accueil, et on n'y apprenait ni le nombre de couchages, ni le kit linge, ni les 50
+marches. Le contenu partagé se paie en duplication SEO — c'est assumé, et compensé par
+des `<title>`, descriptions et H1 distincts, des canonical propres à chaque page, un haut
+de page unique, et le **JSON-LD `Apartment` déclaré sur la seule page d'accueil** (une
+seule entité pour un seul logement — ne pas le dupliquer sur les pages de saison).
+
+Corollaire : les ancres de navigation visent la **page courante**. `anchorBase(pathname,
+locale)` (`lib/anchors.ts`) rend `/fr/ski#appartement` depuis `/fr/ski`, et retombe sur
+`/fr#appartement` depuis une page qui ne porte pas ces sections (guide, mentions légales).
+Utilisé par le `Header` **et** par les deux boutons du `Hero` — sans quoi un clic sur
+« L'appartement » éjecterait le visiteur de la saison qu'il consultait.
 
 ## Le mécanisme de saison
 
@@ -124,6 +149,43 @@ L'hiver, tout est réuni au **front de neige à 250 m** : départ des pistes, co
 ESF et club Piou-Piou. C'est modélisé par une entrée unique avec un champ `includes`
 (`DISTANCES.hiver`) plutôt que quatre entrées à 250 m, qui laisseraient croire à quatre
 lieux distincts. L'été, les trois distances sont réellement différentes.
+
+Le **plan des pistes** est collé au bandeau de distances : il montre ce que le chiffre
+affirme. Il est **agrandissable** (`ZoomableFigure`), en deux paliers — ajusté à l'écran,
+puis taille réelle dans un cadre qui défile. Dans sa colonne, un plan de 1920 px de large
+rend les noms de pistes illisibles, et le premier palier n'y suffit pas sur un téléphone.
+Composant distinct de la visionneuse de `PhotoGallery`, qui parcourt une série avec
+compteur et flèches là où il n'y a ici qu'une image à regarder de près.
+
+## La section « activités » des pages de saison
+
+Cinq encarts l'hiver, quatre l'été, appariés à leurs photos par position (voir « Photos »).
+
+L'hiver, le **premier prend toute la largeur** — c'est le domaine skiable, ce que vient
+chercher le visiteur — avec sa photo à gauche et, sous le texte, les chiffres de la
+station en pastilles. Ce qui déclenche cette mise en vedette est la présence de
+`resortFacts` dans le dictionnaire de la saison : l'été, aucune activité ne l'emporte sur
+les autres, les quatre restent à égalité.
+
+Le compte n'est pas arbitraire : l'encart en vedette occupe une ligne entière, et les
+suivants remplissent une grille à deux colonnes. Un nombre impair d'encarts derrière
+la vedette laisse une case vide en bas de grille — d'où cinq activités l'hiver (1 + 4) et
+quatre l'été (2 × 2).
+
+Les chiffres viennent de `RESORT` (`property.ts`) et n'apparaissent **qu'une fois** sur la
+page, dans ces pastilles. Le dictionnaire ne porte que les mots (`pistes`, `remontées`,
+`enneigeurs`) ; les milliers sont formatés selon la langue (« 1 500 » / « 1,500 »).
+Auparavant *40 km / 13 remontées / 1 500-2 060 m* était écrit trois fois — intro, points
+forts, activités — et les encarts qui répétaient un chiffre déjà donné n'avaient plus rien
+à dire.
+
+Le titre de la section est `activitiesTitle`, et non `heading` : ce dernier est déjà le H1
+du hero, quelques centaines de pixels plus haut.
+
+Le lien d'un encart est soit un **prestataire** (URL dans `PROPERTY.links`, nouvel onglet),
+soit un **article du guide** (`internal: true`, `<Link>` préchargé, href préfixé par la
+langue comme dans le corps des articles). Les liens vers le guide sont ce qui permet à un
+encart de rester court sans être creux.
 
 ## Distinctions
 
@@ -315,7 +377,12 @@ pour `SLEEPING_PHOTOS`, `LINEN_PHOTOS` et `BABY_KIT_PHOTO`.
 
 `activites-hiver/` et `activites-ete/` illustrent les encarts « activités » des pages de
 saison, appariés **par position** avec la liste `seasons.<saison>.activities` du
-dictionnaire. Changer l'ordre des activités impose de renuméroter les fichiers.
+dictionnaire. Changer l'ordre des activités impose de renuméroter les fichiers, et il
+faut **autant de photos numérotées que d'activités** : une activité sans photo devient un
+bloc de texte au milieu d'une grille d'images. La quatrième photo d'hiver
+(`04-soiree-albiez-c-show-…`) est une copie de la couverture de l'article correspondant —
+`public/images/blog/` sert les articles, `activites-*/` sert les pages de saison, et les
+deux dossiers restent indépendants.
 
 Un fichier préfixé par `_` reste dans le dossier mais n'est pas publié : c'est le moyen
 d'écarter une photo sans la supprimer. `getPhoto(dir, fileName)` permet malgré tout de

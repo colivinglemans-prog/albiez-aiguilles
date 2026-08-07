@@ -71,6 +71,13 @@ export default function Article() {
           <strong>Bon skieur</strong> : Échaux puis Aplanes, et le domaine se déroule
           depuis 2 100 m.
         </li>
+        <li>
+          <strong>Très bon skieur</strong> : au départ des Aplanes et selon les conditions
+          d'enneigement, plusieurs itinéraires hors piste descendent dans la poudreuse de{" "}
+          <strong>2 100 m à 1 500 m</strong>, jusqu'au télésiège du Loup — 600 m de
+          dénivelé d'une traite. Hors piste veut dire hors sécurisation : équipement,
+          bulletin d'avalanche et, au moindre doute, un guide.
+        </li>
       </ol>
 
       <h2>L'avantage d'être logé au Mollard</h2>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useTranslation, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { SEASON_SLUGS, seasonHref } from "@/lib/seasons";
+import { anchorBase } from "@/lib/anchors";
 import { SITE_NAME } from "@/lib/property";
 
 const LOCALE_LABELS: Record<Locale, string> = { fr: "FR", en: "EN" };
@@ -39,13 +40,16 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const base = `/${locale}`;
+  // Les ancres visent la page courante quand elle porte les sections ; le logo, le
+  // guide et les liens de saison restent des chemins absolus.
+  const anchor = anchorBase(pathname, locale);
   const other = LOCALES.filter((l) => l !== locale);
 
   const links = [
     { href: seasonHref(locale, "hiver"), label: t.header.winter },
     { href: seasonHref(locale, "ete"), label: t.header.summer },
-    { href: `${base}#appartement`, label: t.header.apartment },
-    { href: `${base}#situation`, label: t.header.location },
+    { href: `${anchor}#appartement`, label: t.header.apartment },
+    { href: `${anchor}#situation`, label: t.header.location },
     { href: `${base}/guide`, label: t.header.blog },
   ];
 
@@ -77,7 +81,7 @@ export default function Header() {
           ))}
           <li>
             <Link
-              href={`${base}#reserver`}
+              href={`${anchor}#reserver`}
               className="rounded-full bg-primary px-5 py-2 text-white transition-colors hover:bg-primary-dark"
             >
               {t.header.book}
@@ -139,7 +143,7 @@ export default function Header() {
             ))}
             <li>
               <Link
-                href={`${base}#reserver`}
+                href={`${anchor}#reserver`}
                 onClick={() => setMenuOpen(false)}
                 className="inline-block rounded-full bg-primary px-5 py-2 text-white"
               >

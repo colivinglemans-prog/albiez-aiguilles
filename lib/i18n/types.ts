@@ -11,15 +11,29 @@ export interface SeasonContent {
   intro: string;
   /** Arguments courts affichés en tuiles sous le hero. */
   highlights: Array<{ title: string; description: string }>;
+  /**
+   * Titre de la section des activités. Distinct de `heading`, qui est déjà le H1 de
+   * la page : les répéter donnait deux fois la même phrase à un écran d'intervalle.
+   */
+  activitiesTitle: string;
   activities: Array<{
     title: string;
     description: string;
     /**
-     * Lien sortant facultatif — le prestataire chez qui l'activité se réserve.
-     * L'URL vient de `PROPERTY.links` : le dictionnaire ne porte que le libellé.
+     * Lien facultatif : le prestataire chez qui l'activité se réserve, ou l'article
+     * du guide qui la détaille. L'URL d'un prestataire vient de `PROPERTY.links` ;
+     * celle d'un article est écrite en clair, préfixée par la langue comme dans le
+     * corps des articles.
      */
-    link?: { href: string; label: string };
+    link?: { href: string; label: string; internal?: boolean };
   }>;
+  /**
+   * Libellés des chiffres du domaine, affichés en pastilles sur la première activité.
+   * Les valeurs viennent de `RESORT` (property.ts) — le dictionnaire ne porte que les
+   * mots. Présent l'hiver seulement : c'est aussi ce qui met cette première activité
+   * en pleine largeur, le domaine skiable étant l'argument principal de la page ski.
+   */
+  resortFacts?: { pistes: string; lifts: string; snowGuns: string };
   /** Libellés des distances, indexés par la clé de DISTANCES. */
   distanceLabels: Record<string, string>;
   /**
@@ -226,6 +240,11 @@ export interface Dictionary {
     next: string;
     close: string;
     counter: (i: number, total: number) => string;
+    /** Repère posé sur une image agrandissable (plan des pistes). */
+    expand: string;
+    /** Les deux paliers du plein écran : ajusté à l'écran, puis taille réelle. */
+    zoomIn: string;
+    zoomOut: string;
   };
   /**
    * Les espaces de la visite. `list` est exhaustive sur `SPACES` (lib/spaces.ts) :

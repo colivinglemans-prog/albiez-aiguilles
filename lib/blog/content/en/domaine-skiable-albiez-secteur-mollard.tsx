@@ -69,6 +69,13 @@ export default function Article() {
           <strong>Strong skier</strong>: Échaux then Aplanes, and the area unrolls from
           2,100 m.
         </li>
+        <li>
+          <strong>Expert skier</strong>: from the top of the Aplanes lift, snow conditions
+          permitting, several off-piste lines drop through the powder from{" "}
+          <strong>2,100 m down to 1,500 m</strong>, all the way to the Loup chairlift — 600
+          m of vertical in one run. Off-piste means outside the patrolled area: take the
+          gear, check the avalanche bulletin, and hire a guide if in any doubt.
+        </li>
       </ol>
 
       <h2>Why staying in the Mollard helps</h2>

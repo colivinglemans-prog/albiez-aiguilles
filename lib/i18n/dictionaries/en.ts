@@ -91,16 +91,27 @@ export const en: Dictionary = {
             "Raclette, fondue, crêpe maker and pierrade grill in the kitchen. Plus sledges for the children and a shelf of board games.",
         },
       ],
+      activitiesTitle: "What to do in Albiez in winter",
+      resortFacts: {
+        pistes: "runs",
+        lifts: "lifts",
+        snowGuns: "snow guns",
+      },
       activities: [
         {
-          title: "Alpine skiing",
+          title: "The ski area, from the Échaux chairlift",
           description:
-            "40 km of pistes for all levels between 1,500 and 2,060 metres, served by 13 lifts.",
+            "The Échaux chairlift starts 250 metres from the apartment and climbs from 1,600 to 1,800 m: it is the way into the ski area, and everything opens up behind it — Chef-lieu, Montrond, then the Aplanes drag lift topping out at 2,100 m. The plateau is wide, very sunny and sees little rain: a place to learn to ski in comfort, not a place to come looking for steep walls.",
+          link: {
+            href: "/en/guide/domaine-skiable-albiez-secteur-mollard",
+            label: "The Le Mollard ski area and its lifts",
+            internal: true,
+          },
         },
         {
           title: "Learning to ski",
           description:
-            "The ski school and the Piou-Piou club sit at the foot of the slopes, 250 metres away — which makes a real difference on a morning lesson run. When you book, choose the Le Mollard departure point: that is the one 250 metres from the apartment. Lessons fill up fast, so book as soon as your dates are set.",
+            "The ski school and the Piou-Piou club sit at the foot of the slopes, 250 metres away. When you book, choose the Le Mollard departure point: that is the one 250 metres from the apartment. Lessons fill up fast, so book as soon as your dates are set.",
           link: {
             href: PROPERTY.links.esf,
             label: "Book with ESF Albiez",
@@ -109,12 +120,31 @@ export const en: Dictionary = {
         {
           title: "Winter off the pistes",
           description:
-            "Snowshoe walks, snowmobiling, dog sledding, paragliding, drinks in an igloo: enough to fill a day without putting skis on. Children's sledges are kept in the apartment for you.",
+            "The Le Mollard sledging run is right next to the residence, in full sun — snow cover there is not guaranteed, but when it is open it fills a whole late afternoon. Otherwise: snowshoe walks, cross-country skiing, dog sledding, snowmobiling, paragliding, drinks in an igloo. Children's sledges are kept in the apartment for you.",
+          link: {
+            href: "/en/guide/chiens-de-traineau-albiez",
+            label: "Dog sledding in Albiez",
+            internal: true,
+          },
         },
         {
-          title: "A quiet après-ski",
+          title: "Evenings at the foot of the slopes",
           description:
-            "Village shops are 250 metres away. The rest of the evening happens on the balcony, or around a fondue.",
+            "On Tuesday evenings during the school holidays, the Albiez C'Show takes over the foot of the slopes, 250 metres away: torchlight descent with the instructors, snow groomer show, fireworks and free mulled wine. On other evenings, the Sherpa shop is a two-minute stop on the way back from skiing, skis in hand, and the fondue happens on the balcony.",
+          link: {
+            href: "/en/guide/albiez-c-show",
+            label: "The Albiez C'Show, Tuesday nights",
+            internal: true,
+          },
+        },
+        {
+          title: "Les Sybelles, 20 minutes by car",
+          description:
+            "Albiez sells a 5-day pass plus one day in Les Sybelles, reached via Saint-Jean-d'Arves. It is France's 4th largest linked ski area and the largest in the Maurienne: 393 hectares, 136 pistes for every level and six linked resorts, from 1,300 to 2,620 m. A change of scene mid-week without changing where you sleep.",
+          link: {
+            href: PROPERTY.links.sybelles,
+            label: "Skiing in Les Sybelles",
+          },
         },
       ],
       distanceLabels: {
@@ -181,6 +211,7 @@ export const en: Dictionary = {
             "A panoramic view of the Aiguilles d'Arves, and sun until the end of the evening.",
         },
       ],
+      activitiesTitle: "What to do in Albiez in summer",
       activities: [
         {
           title: "Swimming at the lake",
@@ -457,6 +488,9 @@ export const en: Dictionary = {
     next: "Next photo",
     close: "Close",
     counter: (i, total) => `${i} / ${total}`,
+    expand: "Enlarge",
+    zoomIn: "Actual size",
+    zoomOut: "Fit to screen",
   },
 
   spaces: {

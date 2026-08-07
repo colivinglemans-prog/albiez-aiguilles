@@ -142,6 +142,12 @@ export const PROPERTY = {
     airbnbProfile: "https://www.airbnb.fr/users/profile/1465428634658451220",
     resort: "https://www.station-albiez.com/fr/",
     /**
+     * Les Sybelles, le grand domaine relié voisin. L'accès depuis Albiez se fait par
+     * Saint-Jean-d'Arves, à 20 min de voiture — c'est la sortie à la journée quand on
+     * a fait le tour du domaine d'Albiez en milieu de semaine.
+     */
+    sybelles: "https://www.sybelles.ski/skier-aux-sybelles/",
+    /**
      * École du ski français d'Albiez — cours collectifs et particuliers.
      * Deux points de départ dans la station : c'est **Le Mollard** qu'il faut choisir
      * à la réservation, celui du front de neige à 250 m de l'appartement.
@@ -182,7 +188,10 @@ export const RESORT = {
   altitudeMin: 1500,
   altitudeMax: 2060,
   slopesKm: 40,
+  pistes: 22,
   lifts: 13,
+  /** Enneigeurs, en complément de l'enneigement naturel. */
+  snowGuns: 50,
 } as const;
 
 export interface DistanceEntry {

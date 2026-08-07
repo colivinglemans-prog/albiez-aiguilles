@@ -94,16 +94,27 @@ export const fr: Dictionary = {
             "Appareil à raclette, à fondue, à crêpes et pierrade sur place. Plus des luges pour les enfants et des jeux de société.",
         },
       ],
+      activitiesTitle: "Que faire à Albiez l'hiver",
+      resortFacts: {
+        pistes: "pistes",
+        lifts: "remontées",
+        snowGuns: "enneigeurs",
+      },
       activities: [
         {
-          title: "Ski alpin",
+          title: "Le domaine, depuis le télésiège des Échaux",
           description:
-            "40 km de pistes tous niveaux entre 1 500 et 2 060 mètres, desservies par 13 remontées mécaniques.",
+            "Le télésiège des Échaux part à 250 mètres de l'appartement et monte de 1 600 à 1 800 m : c'est la porte d'entrée du domaine, et tout s'ouvre derrière — le Chef-lieu, Montrond, puis le téléski des Aplanes qui culmine à 2 100 m. Le plateau est large, très ensoleillé et peu arrosé : on y apprend à skier confortablement, on n'y vient pas chercher des murs.",
+          link: {
+            href: "/fr/guide/domaine-skiable-albiez-secteur-mollard",
+            label: "Le domaine et les remontées du Mollard",
+            internal: true,
+          },
         },
         {
           title: "Débuter à l'école de ski",
           description:
-            "L'ESF et le club Piou-Piou sont sur le front de neige à 250 mètres, ce qui change tout quand on accompagne un enfant en cours le matin. À la réservation, choisissez le départ du Mollard : c'est celui-là qui est à 250 mètres de l'appartement. Les cours se remplissent vite — mieux vaut réserver dès que vos dates sont fixées.",
+            "L'ESF et le club Piou-Piou sont sur le front de neige à 250 mètres. À la réservation, choisissez le départ du Mollard : c'est celui-là qui est à 250 mètres de l'appartement. Les cours se remplissent vite — mieux vaut réserver dès que vos dates sont fixées.",
           link: {
             href: PROPERTY.links.esf,
             label: "Réserver à l'ESF d'Albiez",
@@ -112,12 +123,31 @@ export const fr: Dictionary = {
         {
           title: "L'hiver hors des pistes",
           description:
-            "Randonnée en raquettes, motoneige, chiens de traîneau, parapente, apéro dans un igloo : de quoi remplir une journée sans chausser les skis. Des luges pour enfants sont à votre disposition dans l'appartement.",
+            "La piste de luge du Mollard est juste à côté de la résidence, en plein soleil — son enneigement n'est pas garanti, mais quand elle est ouverte elle occupe une fin d'après-midi entière. Pour le reste : raquettes, ski de fond, chiens de traîneau, motoneige, parapente, apéro dans un igloo. Des luges pour enfants vous attendent dans l'appartement.",
+          link: {
+            href: "/fr/guide/chiens-de-traineau-albiez",
+            label: "Les chiens de traîneau à Albiez",
+            internal: true,
+          },
         },
         {
-          title: "Après-ski tranquille",
+          title: "Les soirées au front de neige",
           description:
-            "Les commerces du village sont à 250 mètres. Le reste de la soirée se passe sur le balcon ou autour d'une fondue.",
+            "Le mardi des vacances scolaires, l'Albiez C'Show anime le front de neige à 250 mètres : descente aux flambeaux avec les moniteurs, show des dameuses, feu d'artifice et vin chaud offert. Les autres soirs, le Sherpa se fait au retour de ski, skis à la main, et la fondue se prend sur le balcon.",
+          link: {
+            href: "/fr/guide/albiez-c-show",
+            label: "L'Albiez C'Show, la soirée du mardi",
+            internal: true,
+          },
+        },
+        {
+          title: "Les Sybelles, à 20 min de voiture",
+          description:
+            "Albiez propose des forfaits 5 jours + 1 journée aux Sybelles, dont l'accès se fait par Saint-Jean-d'Arves. C'est le 4e domaine skiable relié de France et le premier de Maurienne : 393 ha, 136 pistes tous niveaux et six stations reliées, de 1 300 à 2 620 m. De quoi changer de décor en milieu de semaine sans changer de logement.",
+          link: {
+            href: PROPERTY.links.sybelles,
+            label: "Skier aux Sybelles",
+          },
         },
       ],
       distanceLabels: {
@@ -186,6 +216,7 @@ export const fr: Dictionary = {
             "Vue panoramique sur les Aiguilles d'Arves et le soleil jusqu'au bout de la soirée.",
         },
       ],
+      activitiesTitle: "Que faire à Albiez l'été",
       activities: [
         {
           title: "Baignade au lac",
@@ -475,6 +506,9 @@ export const fr: Dictionary = {
     next: "Photo suivante",
     close: "Fermer",
     counter: (i, total) => `${i} / ${total}`,
+    expand: "Agrandir",
+    zoomIn: "Taille réelle",
+    zoomOut: "Vue d'ensemble",
   },
 
   spaces: {

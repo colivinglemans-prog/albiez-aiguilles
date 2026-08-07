@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslation } from "@/lib/i18n";
+import { anchorBase } from "@/lib/anchors";
 import type { Photo } from "@/lib/photos";
 
 /**
@@ -26,6 +28,9 @@ export default function Hero({
   photo?: Photo;
 }) {
   const { locale, t } = useTranslation();
+  // Les deux boutons visent des sections de la page courante : sur /ski comme sur
+  // l'accueil, « L'appartement » est juste plus bas.
+  const anchor = anchorBase(usePathname() || `/${locale}`, locale);
 
   return (
     <section className="relative">
@@ -66,13 +71,13 @@ export default function Hero({
 
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              href={`/${locale}#reserver`}
+              href={`${anchor}#reserver`}
               className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
             >
               {t.header.book}
             </Link>
             <Link
-              href={`/${locale}#appartement`}
+              href={`${anchor}#appartement`}
               className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-light-bg"
             >
               {t.header.apartment}
