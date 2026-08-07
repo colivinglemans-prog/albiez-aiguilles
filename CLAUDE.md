@@ -43,10 +43,17 @@ depuis la CLI comme Barbusse :
 npx vercel --prod
 ```
 
-`ssoProtection` est réglé sur **`all_except_custom_domains`** : les URLs `*.vercel.app`
-demandent une authentification Vercel, le domaine public reste ouvert. C'est voulu — ça
-évite que Google indexe le site deux fois. Conséquence pratique : pour prévisualiser un
-déploiement, il faut être connecté à Vercel dans le navigateur.
+⚠️ **Le preset de framework doit rester `nextjs`** sur le projet. Il était vide au départ,
+parce que le projet a été créé par `vercel project add` et non par le flux interactif de la
+CLI, qui est le seul à faire la détection. Sans lui, le build réussit, le déploiement passe
+en `READY`… et **toutes les routes renvoient 404** : Vercel ne câble ni les fonctions ni le
+routage Next.js. Symptôme trompeur, à connaître.
+
+`ssoProtection` est **désactivé** : les URLs `*.vercel.app` sont publiques, ce qui permet de
+tester depuis un téléphone sans se connecter à Vercel. À remettre sur
+`all_except_custom_domains` une fois le domaine en service, pour éviter que Google indexe le
+site deux fois (les canonical pointent déjà tous vers le domaine, le risque est faible mais
+inutile).
 
 ## Structure des URLs
 
