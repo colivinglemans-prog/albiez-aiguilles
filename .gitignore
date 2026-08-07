@@ -45,3 +45,5 @@ next-env.d.ts
 
 # Kit de communication Booking (assets sources, non publies)
 /booking-2026-awards
+
+.env*
