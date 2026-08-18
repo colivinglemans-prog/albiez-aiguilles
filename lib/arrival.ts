@@ -20,8 +20,12 @@ export interface ArrivalStep {
  * Chaque étape est appariée à sa photo par nom de fichier plutôt que par position :
  * une photo d'itinéraire doit montrer exactement l'endroit décrit, et insérer une
  * étape ne doit pas décaler silencieusement toutes les suivantes.
+ *
+ * `as const` plutôt qu'une annotation `ArrivalStep[]` : c'est ce qui donne à
+ * `ArrivalStepKey` de vraies clés littérales, et rend une étape sans libellé
+ * impossible à compiler dans les cinq dictionnaires.
  */
-export const ARRIVAL_STEPS: readonly ArrivalStep[] = [
+export const ARRIVAL_STEPS = [
   { key: "mollard", photo: "01-col-du-mollard.jpg" },
   { key: "residence", photo: "02-residence-hameau-des-aiguilles.jpg" },
   { key: "parking", photo: "03-parking-conteneurs.jpg" },
@@ -30,7 +34,9 @@ export const ARRIVAL_STEPS: readonly ArrivalStep[] = [
   { key: "palier", photo: "06-dernier-escalier.jpg" },
   { key: "porte", photo: "07-porte-b122-casier-ski.jpg" },
   { key: "boiteAClef", photo: "08-boite-a-clef.jpg" },
-];
+] as const satisfies readonly ArrivalStep[];
+
+export type ArrivalStepKey = (typeof ARRIVAL_STEPS)[number]["key"];
 
 /** Dossier des photos du guide, sous `public/images/`. */
 export const ARRIVAL_PHOTO_DIR = "guide-arrivee";
@@ -51,6 +57,8 @@ export const PANEL_MARKERS = [
   { key: "waterHeater", color: "#2563eb" },
 ] as const;
 
+export type PanelMarkerKey = (typeof PANEL_MARKERS)[number]["key"];
+
 /** Numéros d'urgence en France — les libellés vivent dans les dictionnaires. */
 export const EMERGENCY_NUMBERS = [
   { key: "samu", number: "15" },
@@ -58,3 +66,5 @@ export const EMERGENCY_NUMBERS = [
   { key: "firefighters", number: "18" },
   { key: "european", number: "112" },
 ] as const;
+
+export type EmergencyKey = (typeof EMERGENCY_NUMBERS)[number]["key"];

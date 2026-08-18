@@ -194,15 +194,34 @@ export const RESORT = {
   snowGuns: 50,
 } as const;
 
+/**
+ * Points d'intérêt auxquels une distance peut se rapporter, par saison.
+ *
+ * Écrits ici plutôt que déduits de `DISTANCES` : ces unions typent les libellés des
+ * dictionnaires (`SeasonContent.distanceLabels`), et c'est ce qui rend impossible
+ * d'oublier « front de neige » ou « club Piou-Piou » dans une des cinq langues.
+ * Séparées par saison — demander à l'hiver de nommer le centre équestre serait du bruit.
+ */
+export type WinterDistanceKey =
+  | "frontDeNeige"
+  | "slopes"
+  | "shops"
+  | "esf"
+  | "piouPiou";
+
+export type SummerDistanceKey = "shops" | "riding" | "lake";
+
+export type DistanceKey = WinterDistanceKey | SummerDistanceKey;
+
 export interface DistanceEntry {
-  key: string;
+  key: DistanceKey;
   meters: number;
   /**
    * Points d'intérêt réunis au même endroit.
    * L'hiver, tout se trouve au front de neige : afficher quatre fois « 250 m »
    * donnerait l'impression de quatre lieux distincts alors qu'il n'y en a qu'un.
    */
-  includes?: readonly string[];
+  includes?: readonly DistanceKey[];
   /**
    * Station à laquelle cette distance renvoie — logo et site officiel.
    * Seuls le fichier et l'URL vivent ici ; le libellé du lien et le texte alternatif

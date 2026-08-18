@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/types";
+import type { Locale } from "@/lib/i18n/locales";
 
 export type Season = "hiver" | "ete";
 
@@ -9,11 +9,21 @@ export const SEASONS: Season[] = ["hiver", "ete"];
  *
  * On garde des slugs localisés (`/fr/ete` vs `/en/summer`) plutôt qu'un slug unique :
  * les requêtes de recherche sont dans la langue du visiteur, et le mot de l'URL pèse
- * dans le référencement. « ski » se trouve être identique dans les deux langues.
+ * dans le référencement. « ski » se trouve être identique en français, en anglais et
+ * en allemand ; l'italien dit « sci » et l'espagnol « esquí ».
+ *
+ * Sans accent (`esqui`) : un slug accentué se percent-encode dans les canonical, les
+ * hreflang et le sitemap, et une URL de ce genre se recopie mal.
+ *
+ * Les clés restent `hiver` / `ete` dans toutes les langues — ce sont des clés de
+ * données, pas du texte affiché.
  */
 export const SEASON_SLUGS: Record<Locale, Record<Season, string>> = {
   fr: { hiver: "ski", ete: "ete" },
   en: { hiver: "ski", ete: "summer" },
+  de: { hiver: "ski", ete: "sommer" },
+  es: { hiver: "esqui", ete: "verano" },
+  it: { hiver: "sci", ete: "estate" },
 };
 
 /** Résout un slug d'URL vers une saison, ou null si le slug est inconnu (→ 404). */

@@ -67,22 +67,138 @@ tester depuis un téléphone sans se connecter à Vercel. À remettre sur
 site deux fois (les canonical pointent déjà tous vers le domaine, le risque est faible mais
 inutile).
 
-## Structure des URLs
+## Les cinq langues
+
+Le site est servi en **français, anglais, allemand, espagnol et italien**. La langue est
+un segment d'URL, jamais un état client : il n'y a pas de `setLocale`, on change de langue
+en changeant d'URL, ce qui garde une URL unique et indexable par langue.
+
+Tout part de `lib/i18n/locales.ts` — un module **sans aucun import**, parce qu'il est
+chargé par le proxy (runtime edge), par les composants serveur et par les composants
+client :
+
+| Export | Rôle |
+|--------|------|
+| `Locale`, `LOCALES` | Le type et la liste, dans l'ordre du sélecteur, des `hreflang` et du sitemap |
+| `DEFAULT_LOCALE` | Français — le `x-default`, le dictionnaire de repli, la destination de `/` quand rien ne correspond |
+| `LOCALE_META` | Par langue : `short` (pastille), `native` (nom dans sa propre langue), `bcp47` (`Intl`), `og` (`og:locale`) |
+| `isLocale`, `localeFromAcceptLanguage` | Le garde de route et la négociation d'`Accept-Language` |
+
+`LOCALE_META` existe pour une raison précise : la correspondance langue → code BCP-47
+était auparavant dupliquée dans quatre fichiers et écrite trois fois en
+`locale === "fr" ? … : …`. Ces ternaires rendaient silencieusement de l'anglais dès
+qu'une troisième langue apparaissait. **Aucun code ne doit à nouveau tester une langue
+littéralement** : tout ce qui dépend de la langue sans être une traduction passe par
+cette table.
+
+Ajouter une sixième langue : une valeur dans `Locale`, une entrée dans `LOCALE_META`, et
+la compilation liste elle-même tout ce qui reste à écrire (voir « Ce qui casse à la
+compilation » plus bas).
+
+### Structure des URLs
 
 | URL | Contenu |
 |-----|---------|
-| `/` | Redirection vers `/fr` ou `/en` selon `Accept-Language` (non indexée) |
-| `/fr`, `/en` | Accueil — présentation du logement, valable toute l'année |
-| `/fr/ski`, `/en/ski` | Page saison hiver |
-| `/fr/ete`, `/en/summer` | Page saison été |
-| `/fr/guide`, `/en/guide` | Index du guide (blog éditorial) |
-| `/fr/guide/<slug>`, `/en/guide/<slug>` | Article du guide — 16 slugs, communs aux deux langues |
-| `/fr/guide-arrivee`, `/en/guide-arrivee` | Guide d'arrivée — **page cachée** (voir plus bas) |
+| `/` | Redirection 307 vers la langue du visiteur (`proxy.ts`, non indexée) |
+| `/{locale}` | Accueil — présentation du logement, valable toute l'année |
+| `/fr/ski`, `/en/ski`, `/de/ski`, `/es/esqui`, `/it/sci` | Page saison hiver |
+| `/fr/ete`, `/en/summer`, `/de/sommer`, `/es/verano`, `/it/estate` | Page saison été |
+| `/{locale}/guide` | Index du guide (blog éditorial) |
+| `/{locale}/guide/<slug>` | Article du guide — 17 slugs, communs aux cinq langues |
+| `/{locale}/mentions-legales` | Mentions légales (`noindex`) |
+| `/{locale}/guide-arrivee` | Guide d'arrivée — **page cachée** (voir plus bas) |
 
-Les slugs de saison sont **localisés** : `/fr/ete` et `/en/summer` sont deux URLs
-distinctes qui se déclarent mutuellement en `hreflang`. La correspondance vit dans
-`SEASON_SLUGS` (`lib/seasons.ts`). Un slug de la mauvaise langue rend un 404
-(`/fr/summer` → 404), ce qui évite le contenu dupliqué.
+Le build génère **105 pages indexables** (5 × [accueil + 2 saisons + index + 17 articles])
+plus 10 pages en `noindex`.
+
+Les slugs de saison sont **localisés** : le mot de l'URL pèse dans le référencement et les
+requêtes sont dans la langue du visiteur. La correspondance vit dans `SEASON_SLUGS`
+(`lib/seasons.ts`) ; les clés y restent `hiver`/`ete` dans toutes les langues, ce sont des
+clés de données et non du texte affiché. Les slugs sont **sans accent** (`esqui`, pas
+`esquí`) : un slug accentué se percent-encode dans les canonical, les hreflang et le
+sitemap. Un slug de la mauvaise langue rend un 404 (`/de/summer` → 404), ce qui évite le
+contenu dupliqué.
+
+`guide`, les slugs d'articles, `mentions-legales` et `guide-arrivee` sont en revanche
+**identiques dans les cinq langues** : maintenir une table de correspondance pour du
+contenu sans équivalent « naturel » d'une langue à l'autre ne rapporterait rien.
+
+### Négociation de la langue et `<html lang>`
+
+`proxy.ts` à la racine (nom de Next 16, `middleware.ts` étant déprécié) ne traite que `/` :
+il lit `Accept-Language`, trie les tags par poids `q=`, retient le premier que le site
+parle **sur la langue de base** (`de-AT` → `/de`) et retombe sur `DEFAULT_LOCALE`. Le reste
+du site étant déjà préfixé et rendu statiquement, le faire passer par le proxy coûterait
+une invocation par requête pour rien — d'où `matcher: "/"`.
+
+Conséquence importante : `app/` **ne contient plus de page à la racine**, seulement
+`[locale]/`, `robots.ts` et `sitemap.ts` (les metadata routes n'ont pas besoin de layout).
+`app/[locale]/layout.tsx` est donc le **layout racine** et rend `<html lang={locale}>`
+directement, en gardant le rendu statique. C'est ce qui a permis de supprimer le
+`lang="fr"` figé qu'un `useEffect` d'`I18nProvider` rattrapait après l'hydratation :
+acceptable à deux langues, faux pour Google et les lecteurs d'écran sur trois langues de
+plus.
+
+### Ce qui casse à la compilation, et ce qui ne casse pas
+
+Le contrat d'exhaustivité est ce qui rend l'ajout d'une langue tenable. `Dictionary`
+(`lib/i18n/types.ts`) est une **interface écrite à la main**, et non un `typeof fr` : le
+compilateur signale chaque clé manquante. Les tables sont typées `Record<Locale, …>`, donc
+élargir `Locale` rend rouge tout ce qui doit être complété — `SEASON_SLUGS`,
+`dictionaries`, les 17 entrées de `BLOG_POSTS`, la table `CONTENT` des articles.
+`npx tsc --noEmit` sert de liste de tâches ; l'objectif est zéro erreur.
+
+Quatre maps du dictionnaire étaient typées `Record<string, …>`, où une clé manquante ne
+cassait rien et rendait `undefined` à l'écran. Elles sont désormais exhaustives sur les
+clés réelles, et c'est délibéré :
+
+| Champ du dictionnaire | Clés imposées par |
+|---|---|
+| `SeasonContent.distanceLabels` | `WinterDistanceKey` / `SummerDistanceKey` (`lib/property.ts`) |
+| `guide.steps` | `ArrivalStepKey` (`lib/arrival.ts`) |
+| `guide.panelMarkers` | `PanelMarkerKey` |
+| `guide.emergencyLabels` | `EmergencyKey` |
+| `spaces.list` | `SpaceKey` (`lib/spaces.ts`) — déjà exhaustif avant |
+
+`SeasonContent` est **paramétré** par ses clés de distance, les deux saisons n'en portant
+pas les mêmes : la page ski doit nommer les cinq points du front de neige, la page été ses
+trois lieux distincts. `DistanceStrip` relit donc les libellés à plat
+(`Record<string, string>`) — `season` y est une variable, et c'est la seule façon
+d'indexer les deux saisons avec la même expression sans dupliquer le rendu.
+
+### Le sélecteur de langue
+
+`components/LocaleSwitcher.tsx`, un **menu déroulant** — à cinq langues, quatre pastilles
+alignées mangeaient la barre desktop et débordaient sur mobile à côté du bouton de menu.
+Un déroulant tient la même place quel que soit le nombre de langues. Les langues sont
+nommées **dans leur propre langue** (« Deutsch », pas « Allemand ») : un visiteur qui
+cherche sa langue n'a pas à savoir lire celle de la page.
+
+La liste est **toujours dans le HTML** et seulement masquée par `hidden`, jamais démontée.
+Rendue au clic seulement, elle privait chaque page de tout lien vers les autres langues, et
+un robot ne clique pas. `display:none` retire aussi les liens du parcours au clavier quand
+le menu est fermé, donc pas de piège à tabulation.
+
+`translatePath()` y vit désormais (elle était dans `Header`) : elle échange le préfixe de
+langue **et** convertit le slug de saison via `SEASON_SLUGS`. Sans cette conversion,
+`/it/estate` vers l'allemand mènerait à `/de/estate`, un 404.
+
+### Ce qui reste en français, volontairement
+
+Les avis de `data/reviews.json` gardent leur langue d'origine — c'est ce qui les rend
+crédibles. Les valeurs juridiques de `lib/legal.ts` (`legalForm`, `apeLabel`) sont des
+mentions légales françaises ; seuls leurs libellés se traduisent. `x-default` pointe sur
+le français.
+
+### Typographie des nombres
+
+Les chiffres viennent de `property.ts` et sont formatés par `Intl` avec
+`LOCALE_META[locale].bcp47`. Attention : **l'espagnol et l'italien n'insèrent le séparateur
+de milliers qu'à partir de cinq chiffres** (`minimumGroupingDigits=2` en CLDR, conforme à
+la règle de la RAE). `1500` s'écrit donc « 1 500 » en français, « 1,500 » en anglais,
+« 1.500 » en allemand et **« 1500 »** en espagnol et en italien. La prose des dictionnaires
+et des articles suit cette règle, sans quoi le texte contredirait les chiffres calculés à
+deux lignes d'écart.
 
 ## Les trois pages ont la même colonne vertébrale
 
@@ -253,32 +369,35 @@ Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.
 
 ## Le guide (blog)
 
-`/{locale}/guide` — 17 articles bilingues sur Albiez-Montrond : randonnées balisées,
-domaine skiable, loueurs, ESF, commerces, fromagerie coopérative, lac, col du Mollard,
-refuge, activités d'été.
+`/{locale}/guide` — 17 articles dans les cinq langues sur Albiez-Montrond : randonnées
+balisées, domaine skiable, loueurs, ESF, commerces, fromagerie coopérative, lac, col du
+Mollard, refuge, activités d'été. Soit 85 pages d'article.
 
 | Fichier | Rôle |
 |---------|------|
-| `lib/blog/posts.ts` | `BLOG_POSTS` — slug, date, photo, saison, et les métadonnées FR/EN (titre, description, excerpt, keywords). Plus `relatedPosts()` et `splitImagePath()`. |
-| `lib/blog/content/{fr,en}/<slug>.tsx` | Le corps de l'article, en JSX presque nu. Les `<Link>` internes sont préfixés en dur par `/fr` ou `/en`. |
+| `lib/blog/posts.ts` | `BLOG_POSTS` — slug, date, photo, saison, et les métadonnées par langue (titre, description, excerpt, keywords). Plus `relatedPosts()` et `splitImagePath()`. |
+| `lib/blog/content/{fr,en,de,es,it}/<slug>.tsx` | Le corps de l'article, en JSX presque nu. Les `<Link>` internes sont préfixés en dur par la langue du fichier — y compris les liens de saison, qui prennent le slug localisé (`/de/sommer`, `/es/verano`, `/it/estate`). |
 | `app/[locale]/guide/page.tsx` | Index — résout les photos côté serveur et passe les cartes au filtre. |
 | `components/public/GuideFilter.tsx` | Filtre de saison + grille de cartes (composant **client**). |
 | `app/[locale]/guide/[slug]/page.tsx` | Article + JSON-LD + encart de réservation + « À lire aussi ». |
 | `lib/blog/ArticleImage.tsx` | Photo au fil d'un article (`<ArticleImage src="dossier/fichier.jpg" alt caption />`). Même traitement que les couvertures : dimensions relevées au build, aucun recadrage, figure absente si le fichier manque. |
 | `.prose-article` (`app/globals.css`) | Toute la typographie du corps d'article, plus la classe `.facts` des encadrés pratiques. |
 
-**Le slug est commun aux deux langues**, contrairement aux slugs de saison : un article
-n'existe qu'à une seule adresse par langue, et les deux se déclarent en `hreflang`. Cela
-évite de maintenir une table de correspondance pour du contenu qui n'a pas d'équivalent
-« naturel » dans l'autre langue.
+**Le slug est commun aux cinq langues**, contrairement aux slugs de saison : un article
+n'existe qu'à une seule adresse par langue, et les cinq se déclarent mutuellement en
+`hreflang`. Cela évite de maintenir une table de correspondance pour du contenu qui n'a pas
+d'équivalent « naturel » dans les autres langues.
 
 Les composants d'article sont **importés paresseusement** dans `CONTENT` (`[slug]/page.tsx`) :
-trente-deux imports en tête de fichier pour n'en rendre qu'un seul alourdiraient chaque page.
-Les chemins doivent rester des littéraux, sans quoi le bundler ne les résout pas.
+quatre-vingt-cinq imports en tête de fichier pour n'en rendre qu'un seul alourdiraient
+chaque page. Les chemins doivent rester des **littéraux** — une expression
+`content/${locale}/${slug}` ferait perdre au bundler son analyse statique, et c'est la
+raison de la longueur de cette table. Un fichier créé sans son entrée dans `CONTENT` donne
+un 404 silencieux (`CONTENT[slug]?.[locale]` → `notFound()`).
 
 Les **liens vers les prestataires** (ESF, location de ski Sport 2000, accompagnateur en
 montagne) vivent dans `PROPERTY.links`, jamais en dur dans un article : un partenaire qui
-change d'URL se corrige à un seul endroit, et les deux langues suivent.
+change d'URL se corrige à un seul endroit, et les cinq langues suivent.
 
 La photo de couverture est désignée par `dossier/fichier.jpg` sous `public/images/` et
 chargée par `getPhoto()` : ses dimensions réelles sont relevées au build, donc **aucune
@@ -300,12 +419,15 @@ Le filtre étant client, l'index résout les photos côté serveur et passe des 
 mesurées. Les **17 cartes sont dans le HTML initial** (le filtre part sur « tout »), donc
 le filtrage ne coûte rien au référencement.
 
-**Ajouter un article** : une entrée dans `BLOG_POSTS`, deux fichiers dans
-`content/{fr,en}/`, une entrée dans `CONTENT`. Le sitemap et l'index suivent tout seuls.
+**Ajouter un article** : une entrée dans `BLOG_POSTS` (cinq blocs de métadonnées), cinq
+fichiers dans `content/{fr,en,de,es,it}/`, une entrée de cinq lignes dans `CONTENT`. Le
+sitemap et l'index suivent tout seuls. Avancer **article par article, les cinq langues d'un
+coup** : les articles sont indépendants, et une entrée de `CONTENT` oubliée ne se voit pas.
 
 `react/no-unescaped-entities` est **désactivé sur `lib/blog/content/**`** (voir
 `eslint.config.mjs`) : la règle vise les `>` et `}` tapés par accident, et sur de la prose
-française elle ne signale que des apostrophes légitimes.
+française, espagnole ou italienne elle ne signale que des apostrophes et des guillemets
+légitimes.
 
 ## Guide d'arrivée (page cachée)
 
@@ -431,22 +553,32 @@ photos de couverture. Une photo très claire ou très chargée convient.
 - [ ] **`ssoProtection`** — à remettre sur `all_except_custom_domains` maintenant que le
       domaine est en service (voir la section « Déploiement »).
 - [ ] **Google Search Console** — propriété à créer pour `albiez-aiguilles.fr` et sitemap à
-      soumettre. Rien n'est déclaré aujourd'hui : contrairement à Barbusse, `app/layout.tsx`
-      ne porte aucun `google-site-verification`.
+      soumettre. Rien n'est déclaré aujourd'hui : contrairement à Barbusse,
+      `app/[locale]/layout.tsx` ne porte aucun `google-site-verification`. Penser à déclarer
+      le ciblage international maintenant que le site est en cinq langues.
 - [ ] **Photos** — les dossiers sont vides ; les galeries affichent un message d'attente.
 - [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
       vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé
       (property ID à mettre en variable d'environnement, pas en dur).
-- [ ] **Guide** — 16 articles en ligne. Restent à vérifier avant la haute saison : les
-      horaires des commerces et du centre équestre, et l'horaire exact de l'Albiez C'Show,
-      qui changent chaque année. Dix articles ont une couverture dédiée dans
-      `public/images/blog/` ; les sept autres empruntent encore au dossier `activites-*`
-      (randonnées, ESF, domaine skiable, famille, lac, Aiguilles d'Arves, équitation).
-      Chaque article a bien une couverture distincte — à remplacer au fil de l'eau par des
-      visuels propres.
+- [ ] **Guide** — 17 articles en ligne dans les cinq langues. Restent à vérifier avant la
+      haute saison : les horaires des commerces et du centre équestre, et l'horaire exact de
+      l'Albiez C'Show, qui changent chaque année — **et dans les cinq langues à la fois**.
+      Dix articles ont une couverture dédiée dans `public/images/blog/` ; les sept autres
+      empruntent encore au dossier `activites-*` (randonnées, ESF, domaine skiable, famille,
+      lac, Aiguilles d'Arves, équitation). Chaque article a bien une couverture distincte —
+      à remplacer au fil de l'eau par des visuels propres.
+- [ ] **Relecture native DE / ES / IT** — les traductions sont écrites depuis le français.
+      Le corps des articles et l'interface tiennent la route ; ce sont les `seo.title`,
+      `seo.description` et `keywords` qui méritent l'œil d'un locuteur du marché avant la
+      haute saison. C'est là que se joue le retour, et c'est là qu'une traduction correcte
+      mais non idiomatique ne se voit pas.
+- [ ] **Poids du bundle client** — `lib/i18n/context.tsx` importe statiquement **tous** les
+      dictionnaires : chaque visiteur télécharge les cinq. On ne peut pas simplement passer
+      `getDictionary(locale)` en prop depuis le serveur, le dictionnaire contenant
+      24 fonctions de formatage, et une fonction ne traverse pas la frontière RSC. Le
+      correctif propre (sortir les formateurs dans un module par langue, ne passer que les
+      chaînes) touche une trentaine d'appels : à mesurer sur un rapport de bundle avant de
+      s'y engager.
 - [ ] **Carte Leaflet** — la section situation utilise pour l'instant un lien Google Maps.
 - [ ] **Tarif du ménage** — 60 € est enregistré dans `PROPERTY.services.cleaningFee`
       mais n'est affiché nulle part, en attendant le moteur de réservation.
-- [ ] `<html lang>` est figé à `fr` côté serveur et corrigé au montage par `I18nProvider`.
-      Le corriger au rendu imposerait de lire les en-têtes et de perdre le rendu statique.
-      Les `hreflang` étant corrects, l'impact SEO est marginal.

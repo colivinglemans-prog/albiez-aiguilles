@@ -3,36 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useTranslation, LOCALES } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n";
-import { SEASON_SLUGS, seasonHref } from "@/lib/seasons";
+import { useTranslation } from "@/lib/i18n";
+import { seasonHref } from "@/lib/seasons";
 import { anchorBase } from "@/lib/anchors";
 import { SITE_NAME } from "@/lib/property";
-
-const LOCALE_LABELS: Record<Locale, string> = { fr: "FR", en: "EN" };
-
-/**
- * Traduit l'URL courante vers une autre langue.
- * Les slugs de saison étant localisés (`/fr/ete` ↔ `/en/summer`), on les convertit
- * explicitement plutôt que de se contenter de remplacer le préfixe de langue.
- */
-function translatePath(pathname: string, from: Locale, to: Locale): string {
-  const segments = pathname.split("/").filter(Boolean);
-  if (segments.length === 0) return `/${to}`;
-
-  segments[0] = to;
-
-  if (segments[1]) {
-    for (const season of ["hiver", "ete"] as const) {
-      if (segments[1] === SEASON_SLUGS[from][season]) {
-        segments[1] = SEASON_SLUGS[to][season];
-        break;
-      }
-    }
-  }
-
-  return `/${segments.join("/")}`;
-}
+import LocaleSwitcher from "./LocaleSwitcher";
 
 export default function Header() {
   const { locale, t } = useTranslation();
@@ -43,7 +18,6 @@ export default function Header() {
   // Les ancres visent la page courante quand elle porte les sections ; le logo, le
   // guide et les liens de saison restent des chemins absolus.
   const anchor = anchorBase(pathname, locale);
-  const other = LOCALES.filter((l) => l !== locale);
 
   const links = [
     { href: seasonHref(locale, "hiver"), label: t.header.winter },
@@ -87,32 +61,21 @@ export default function Header() {
               {t.header.book}
             </Link>
           </li>
-          {other.map((l) => (
-            <li key={l}>
-              <Link
-                href={translatePath(pathname, locale, l)}
-                hrefLang={l}
-                aria-label={t.header.switchLanguage}
-                className="rounded-full border border-border px-3 py-1.5 text-xs font-semibold transition-colors hover:bg-light-bg hover:text-foreground"
-              >
-                {LOCALE_LABELS[l]}
-              </Link>
-            </li>
-          ))}
+          <li>
+            <LocaleSwitcher
+              locale={locale}
+              pathname={pathname}
+              label={t.header.switchLanguage}
+            />
+          </li>
         </ul>
 
         <div className="flex items-center gap-3 md:hidden">
-          {other.map((l) => (
-            <Link
-              key={l}
-              href={translatePath(pathname, locale, l)}
-              hrefLang={l}
-              aria-label={t.header.switchLanguage}
-              className="rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-secondary"
-            >
-              {LOCALE_LABELS[l]}
-            </Link>
-          ))}
+          <LocaleSwitcher
+            locale={locale}
+            pathname={pathname}
+            label={t.header.switchLanguage}
+          />
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}

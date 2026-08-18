@@ -14,7 +14,10 @@ import type { Season } from "@/lib/seasons";
  */
 export default function DistanceStrip({ season }: { season: Season }) {
   const { t } = useTranslation();
-  const labels = t.seasons[season].distanceLabels;
+  // Les libellés sont exhaustifs par saison côté dictionnaire ; ici `season` est une
+  // variable, donc on les relit à plat — c'est la seule façon d'indexer les deux
+  // saisons avec la même expression sans dupliquer le rendu.
+  const labels: Record<string, string> = t.seasons[season].distanceLabels;
   const resortLink = t.seasons[season].resortLink;
   const entries = DISTANCES[season];
   const single = entries.length === 1;

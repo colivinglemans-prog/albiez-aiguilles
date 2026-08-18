@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect } from "react";
-import type { Locale, Dictionary } from "./types";
+import { createContext, useContext } from "react";
+import type { Locale } from "./locales";
+import type { Dictionary } from "./types";
 import { dictionaries } from "./dictionaries";
 
 interface I18nContextValue {
@@ -12,9 +13,12 @@ interface I18nContextValue {
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 /**
- * La langue vient du segment d'URL (`/fr/…`, `/en/…`), pas d'un état client :
+ * La langue vient du segment d'URL (`/fr/…`, `/de/…`), pas d'un état client :
  * il n'y a donc pas de `setLocale`, on change de langue en changeant d'URL.
  * Cela garde une URL unique et indexable par langue.
+ *
+ * `<html lang>` est écrit par le layout de langue, qui est le layout racine : ce
+ * composant n'a plus à le corriger après l'hydratation.
  */
 export function I18nProvider({
   locale,
@@ -23,10 +27,6 @@ export function I18nProvider({
   locale: Locale;
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
-
   return (
     <I18nContext.Provider value={{ locale, t: dictionaries[locale] }}>
       {children}

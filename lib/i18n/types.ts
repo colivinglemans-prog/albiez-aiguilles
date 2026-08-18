@@ -1,10 +1,27 @@
 import type { SpaceKey } from "../spaces";
+import type { WinterDistanceKey, SummerDistanceKey } from "../property";
+import type {
+  ArrivalStepKey,
+  PanelMarkerKey,
+  EmergencyKey,
+} from "../arrival";
 
-export type Locale = "fr" | "en";
+/*
+ * `Locale` et `LOCALES` vivent dans `./locales` — un module sans aucun import, le
+ * middleware en ayant besoin. Ils sont ré-exportés ici parce que tout le site les
+ * importe depuis `@/lib/i18n`.
+ */
+export type { Locale, LocaleMeta } from "./locales";
+export { LOCALES, DEFAULT_LOCALE, LOCALE_META, isLocale } from "./locales";
 
-export const LOCALES: Locale[] = ["fr", "en"];
-
-export interface SeasonContent {
+/**
+ * Le contenu d'une page de saison.
+ *
+ * Paramétré par les clés de distance de la saison : la page ski doit nommer les cinq
+ * points du front de neige, la page été les trois siens, et il ne peut plus en manquer
+ * un dans une langue sans casser la compilation.
+ */
+export interface SeasonContent<DistanceLabelKey extends string = string> {
   /** Titre H1 de la page de saison. */
   heading: string;
   tagline: string;
@@ -42,7 +59,7 @@ export interface SeasonContent {
    */
   resortFacts?: { pistes: string; lifts: string; snowGuns: string };
   /** Libellés des distances, indexés par la clé de DISTANCES. */
-  distanceLabels: Record<string, string>;
+  distanceLabels: Record<DistanceLabelKey, string>;
   /**
    * Lien vers le site de la station, affiché dans l'encart de distance qui porte
    * un `brand`. Le logo est fourni par la station : son texte alternatif est écrit
@@ -96,7 +113,15 @@ export interface Dictionary {
     offSeasonSponsorNote: string;
     seo: { title: string; description: string; keywords: string[] };
   };
-  seasons: Record<"hiver" | "ete", SeasonContent>;
+  /*
+   * Les deux saisons ne portent pas les mêmes distances : l'hiver tout est au front
+   * de neige, l'été les trois lieux sont distincts. D'où deux instanciations plutôt
+   * qu'un `Record<Season, SeasonContent>`.
+   */
+  seasons: {
+    hiver: SeasonContent<WinterDistanceKey>;
+    ete: SeasonContent<SummerDistanceKey>;
+  };
   property: {
     title: string;
     subtitle: string;
@@ -324,7 +349,7 @@ export interface Dictionary {
     codeNote: string;
     mapsCta: string;
     stepLabel: (n: number) => string;
-    steps: Record<string, { title: string; text: string }>;
+    steps: Record<ArrivalStepKey, { title: string; text: string }>;
     /** Précision chiffrée rattachée à l'étape de l'escalier. */
     stairsNote: (steps: number) => string;
     /** Précision rattachée à l'étape de la porte. */
@@ -334,7 +359,7 @@ export interface Dictionary {
     panelTitle: string;
     panelIntro: string;
     /** Repères du tableau électrique, indexés par la clé de PANEL_MARKERS. */
-    panelMarkers: Record<string, string>;
+    panelMarkers: Record<PanelMarkerKey, string>;
     panelHotWaterNote: string;
     radiatorSwitchTitle: string;
     radiatorSwitchText: string;
@@ -352,7 +377,7 @@ export interface Dictionary {
     emailCta: string;
     emergencyTitle: string;
     /** Libellés des numéros d'urgence, indexés par la clé de EMERGENCY_NUMBERS. */
-    emergencyLabels: Record<string, string>;
+    emergencyLabels: Record<EmergencyKey, string>;
     closing: string;
     seo: { title: string; description: string };
   };

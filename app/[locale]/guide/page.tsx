@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, LOCALES } from "@/lib/i18n";
-import { alternatesFor, blogPath } from "@/lib/seo";
+import { alternatesFor, blogPath, openGraphLocales } from "@/lib/seo";
 import { BLOG_POSTS, getLocalizedPost, splitImagePath } from "@/lib/blog/posts";
 import { getPhoto } from "@/lib/photos";
 import GuideFilter, { type GuideCard } from "@/components/public/GuideFilter";
@@ -29,7 +29,7 @@ export async function generateMetadata({
       title: seo.title,
       description: seo.description,
       url: blogPath(locale),
-      locale: locale === "fr" ? "fr_FR" : "en_GB",
+      ...openGraphLocales(locale),
     },
   };
 }

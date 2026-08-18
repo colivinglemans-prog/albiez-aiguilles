@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getDictionary } from "@/lib/i18n";
+import { getDictionary, LOCALE_META } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { listPhotos, getPhoto } from "@/lib/photos";
 import { SEASON_BANNER_PHOTOS, PISTE_MAP_PHOTO, RESORT } from "@/lib/property";
@@ -44,8 +44,8 @@ export default function SeasonBlock({
 
   // Les chiffres du domaine viennent de `RESORT`, le dictionnaire ne fournit que les
   // mots. Les milliers sont formatés selon la langue — « 1 500 » en français,
-  // « 1,500 » en anglais.
-  const number = new Intl.NumberFormat(locale === "fr" ? "fr-FR" : "en-GB");
+  // « 1,500 » en anglais, « 1.500 » en allemand et en italien.
+  const number = new Intl.NumberFormat(LOCALE_META[locale].bcp47);
   const facts = content.resortFacts;
   const factPills = facts
     ? [

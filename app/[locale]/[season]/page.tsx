@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, LOCALES } from "@/lib/i18n";
-import { alternatesFor, seasonPath } from "@/lib/seo";
+import { alternatesFor, seasonPath, openGraphLocales } from "@/lib/seo";
 import { getPhoto } from "@/lib/photos";
 import { galleryGroups } from "@/lib/gallery";
 import { HERO_PHOTOS } from "@/lib/property";
@@ -10,7 +10,7 @@ import Hero from "@/components/public/Hero";
 import SeasonBlock from "@/components/public/SeasonBlock";
 import CommonSections from "@/components/public/CommonSections";
 
-/** Génère /fr/ski, /fr/ete, /en/ski, /en/summer. */
+/** Génère /fr/ski, /fr/ete, /en/summer, /de/sommer, /es/verano, /it/estate… */
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) =>
     SEASONS.map((season) => ({ locale, season: SEASON_SLUGS[locale][season] })),
@@ -40,7 +40,7 @@ export async function generateMetadata({
       title: seo.title,
       description: seo.description,
       url: seasonPath(season)(locale),
-      locale: locale === "fr" ? "fr_FR" : "en_GB",
+      ...openGraphLocales(locale),
     },
   };
 }

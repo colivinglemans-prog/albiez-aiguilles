@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, LOCALE_META } from "@/lib/i18n";
 import type { Season } from "@/lib/seasons";
 
 /**
@@ -23,8 +23,6 @@ export interface GuideCard {
 
 type Filter = "all" | Season;
 
-const DATE_LOCALE: Record<string, string> = { fr: "fr-FR", en: "en-GB" };
-
 /**
  * Un article sans saison reste visible sous **chaque** filtre.
  *
@@ -40,7 +38,7 @@ export default function GuideFilter({ cards }: { cards: GuideCard[] }) {
   const { locale, t } = useTranslation();
   const [filter, setFilter] = useState<Filter>("all");
 
-  const dateLocale = DATE_LOCALE[locale] ?? "fr-FR";
+  const dateLocale = LOCALE_META[locale].bcp47;
   const visible = cards.filter((card) => matches(card, filter));
 
   const buttons: Array<{ key: Filter; label: string }> = [

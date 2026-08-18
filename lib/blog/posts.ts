@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 import type { Season } from "@/lib/seasons";
 
 /**
@@ -37,9 +37,9 @@ export interface BlogPostMeta {
  * Les articles, du plus récent au plus ancien.
  *
  * L'ordre du tableau fait foi : à date égale, c'est lui qui décide de l'affichage.
- * Le contenu de chaque article vit dans `content/{fr,en}/<slug>.tsx` et le slug est
- * volontairement identique dans les deux langues — une URL par article, deux langues
- * qui se déclarent mutuellement en hreflang.
+ * Le contenu de chaque article vit dans `content/{fr,en,de,es,it}/<slug>.tsx` et le
+ * slug est volontairement identique dans toutes les langues — une URL par article et
+ * par langue, qui se déclarent mutuellement en hreflang.
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
@@ -78,6 +78,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "snowshoeing Albiez",
         ],
       },
+      de: {
+        title: "Die sechs markierten Wanderungen ab Albiez-Montrond",
+        description:
+          "Croix du Châtel, Rundweg um den Lac du Mollard, Plateau von Montrond, Weg von La Plaigne, Rundweg der Cochette, Rundweg der Contamines: Gehzeiten, Höhenmeter und Wegbeschreibungen.",
+        excerpt:
+          "Von 40 Minuten bis 3½ Stunden: sechs markierte Routen ab dem Dorf oder ab Le Mollard – Abzweigung für Abzweigung.",
+        keywords: [
+          "Wandern Albiez-Montrond",
+          "markierte Wanderwege Albiez",
+          "Croix du Châtel Wanderung",
+          "Plateau Montrond Wanderung",
+          "Schneeschuhwandern Albiez",
+        ],
+      },
+      es: {
+        title: "Las seis rutas señalizadas que salen de Albiez-Montrond",
+        description:
+          "Croix du Châtel, vuelta al lac du Mollard, meseta de Montrond, sendero de La Plaigne, vuelta de la Cochette, vuelta de las Contamines: duraciones, desniveles e itinerarios detallados.",
+        excerpt:
+          "De 40 minutos a 3 h 30, seis itinerarios señalizados desde el pueblo o desde Le Mollard, con el detalle de cada bifurcación.",
+        keywords: [
+          "senderismo Albiez-Montrond",
+          "senderos señalizados Albiez",
+          "croix du Châtel ruta",
+          "meseta de Montrond senderismo",
+          "raquetas de nieve Albiez",
+        ],
+      },
+      it: {
+        title: "Le sei escursioni segnalate con partenza da Albiez-Montrond",
+        description:
+          "Croix du Châtel, giro del lac du Mollard, altopiano di Montrond, sentiero di La Plaigne, giro della Cochette, giro delle Contamines: durate, dislivelli e itinerari dettagliati.",
+        excerpt:
+          "Da 40 minuti a 3 ore e mezza, sei itinerari segnalati con partenza dal paese o da Le Mollard, con il dettaglio di ogni bivio.",
+        keywords: [
+          "escursioni Albiez-Montrond",
+          "sentieri segnalati Albiez",
+          "croix du Châtel escursione",
+          "altopiano di Montrond escursione",
+          "ciaspole Albiez",
+        ],
+      },
     },
   },
   {
@@ -112,6 +154,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Échaux chairlift",
           "Albiez-Montrond pistes",
           "family ski resort Maurienne",
+        ],
+      },
+      de: {
+        title:
+          "Skifahren in Albiez ab dem Sektor Le Mollard: Sessellifte, Schlepplifte und Pisten",
+        description:
+          "40 km Pisten, 13 Bergbahnen, 22 Abfahrten von 1.500 bis 2.060 m. Wie Sie das Skigebiet von Albiez ab Le Mollard angehen: Échaux, Aplanes, Coucou und Polytre.",
+        excerpt:
+          "Le Mollard ist der höchste Sektor des Skigebiets. Hier steht, mit welcher Bahn Sie Ihren Tag beginnen – je nach Niveau.",
+        keywords: [
+          "Skigebiet Albiez",
+          "Sektor Mollard Albiez",
+          "Sessellift Les Échaux",
+          "Pisten Albiez-Montrond",
+          "familiäres Skigebiet Maurienne",
+        ],
+      },
+      es: {
+        title:
+          "Esquiar en Albiez desde el sector Le Mollard: telesillas, telesquís y pistas",
+        description:
+          "40 km de pistas, 13 remontes y 22 pistas de 1500 a 2060 m. Cómo atacar el dominio de Albiez desde Le Mollard: Échaux, Aplanes, Coucou y Polytre.",
+        excerpt:
+          "Le Mollard es el sector más alto de la estación. Aquí está por qué remonte empezar la jornada según su nivel.",
+        keywords: [
+          "dominio esquiable Albiez",
+          "sector Mollard Albiez",
+          "telesilla Les Échaux",
+          "pistas Albiez-Montrond",
+          "estación familiar Maurienne",
+        ],
+      },
+      it: {
+        title:
+          "Sciare ad Albiez dal settore Le Mollard: seggiovie, skilift e piste",
+        description:
+          "40 km di piste, 13 impianti, 22 piste da 1500 a 2060 m. Come affrontare il comprensorio di Albiez da Le Mollard: Échaux, Aplanes, Coucou e Polytre.",
+        excerpt:
+          "Le Mollard è il settore più alto della località. Ecco da quale impianto iniziare la giornata in base al proprio livello.",
+        keywords: [
+          "comprensorio sciistico Albiez",
+          "settore Mollard Albiez",
+          "seggiovia Les Échaux",
+          "piste Albiez-Montrond",
+          "località per famiglie Maurienne",
         ],
       },
     },
@@ -153,6 +240,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "ski rental Albiez slopes",
         ],
       },
+      de: {
+        title:
+          "Skiverleih in Albiez-Montrond: die vier Geschäfte und wie Sie weniger zahlen",
+        description:
+          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports: wo Sie in Albiez Ski leihen, am Pistenzugang oder im Dorf, und warum Sie online buchen sollten.",
+        excerpt:
+          "Drei Verleihe 250 m von der Wohnung, ein vierter im Dorf, und jedes Mal ein Rabatt, wenn Sie vorab buchen. Unsere Wahl: Sport 2000 Aux Deux Frères.",
+        keywords: [
+          "Skiverleih Albiez",
+          "Skiset Albiez",
+          "Sport 2000 Albiez",
+          "Ski leihen Albiez-Montrond",
+          "Skiausrüstung Pistenzugang Albiez",
+        ],
+      },
+      es: {
+        title:
+          "Alquilar los esquís en Albiez-Montrond: las cuatro tiendas y cómo pagar menos",
+        description:
+          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports: dónde alquilar los esquís en Albiez, junto a las pistas o en el pueblo, y por qué reservar en línea.",
+        excerpt:
+          "Tres tiendas a 250 m del alojamiento, una cuarta en el pueblo, y un descuento sistemático si reserva antes de llegar. Nuestra elección: Sport 2000 Aux Deux Frères.",
+        keywords: [
+          "alquiler esquís Albiez",
+          "Skiset Albiez",
+          "Sport 2000 Albiez",
+          "alquilar esquís Albiez-Montrond",
+          "material esquí pistas Albiez",
+        ],
+      },
+      it: {
+        title:
+          "Noleggiare gli sci ad Albiez-Montrond: i quattro negozi e come pagare meno",
+        description:
+          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports: dove noleggiare gli sci ad Albiez, all'accesso alle piste o in paese, e perché prenotare online.",
+        excerpt:
+          "Tre noleggi a 250 m dall'alloggio, un quarto in paese e uno sconto sistematico prenotando prima di arrivare. La nostra scelta: Sport 2000 Aux Deux Frères.",
+        keywords: [
+          "noleggio sci Albiez",
+          "Skiset Albiez",
+          "Sport 2000 Albiez",
+          "noleggiare sci Albiez-Montrond",
+          "attrezzatura sci piste Albiez",
+        ],
+      },
     },
   },
   {
@@ -187,6 +319,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Piou-Piou club Albiez",
           "ski school Maurienne",
           "ski childcare Albiez",
+        ],
+      },
+      de: {
+        title:
+          "Skikurse in Albiez: die ESF, der Club Piou-Piou und der Treffpunkt Le Mollard",
+        description:
+          "Club Piou-Piou ab 3½ Jahren, Kurse für Kinder, Jugendliche und Erwachsene, Kinderbetreuung, Biathlon und LVS-Schnupperkurse: wie die französische Skischule von Albiez-Montrond funktioniert.",
+        excerpt:
+          "Eine Falle, die es zu vermeiden gilt: die Skischule hat zwei Treffpunkte. Von Le Mollard aus buchen Sie den von Le Mollard.",
+        keywords: [
+          "ESF Albiez",
+          "Skikurs Albiez-Montrond",
+          "Club Piou-Piou Albiez",
+          "Skischule Maurienne",
+          "Kinderbetreuung Ski Albiez",
+        ],
+      },
+      es: {
+        title:
+          "Clases de esquí en Albiez: la ESF, el club Piou-Piou y el punto de encuentro del Mollard",
+        description:
+          "Club Piou-Piou desde los 3 años y medio, clases para niños, adolescentes y adultos, guardería, biatlón e iniciación al ARVA: cómo funciona la Escuela de Esquí Francesa de Albiez-Montrond.",
+        excerpt:
+          "Una trampa que evitar: la escuela tiene dos puntos de encuentro. Desde Le Mollard hay que elegir el del Mollard al reservar.",
+        keywords: [
+          "ESF Albiez",
+          "clases de esquí Albiez-Montrond",
+          "club Piou-Piou Albiez",
+          "escuela de esquí Maurienne",
+          "guardería esquí Albiez",
+        ],
+      },
+      it: {
+        title:
+          "Corsi di sci ad Albiez: la ESF, il club Piou-Piou e il punto di ritrovo del Mollard",
+        description:
+          "Club Piou-Piou dai 3 anni e mezzo, corsi per bambini, ragazzi e adulti, servizio di custodia, biathlon e prova dell'ARTVA: come funziona la Scuola di Sci Francese di Albiez-Montrond.",
+        excerpt:
+          "Una trappola da evitare: la scuola ha due punti di ritrovo. Da Le Mollard bisogna scegliere quello del Mollard al momento della prenotazione.",
+        keywords: [
+          "ESF Albiez",
+          "corsi di sci Albiez-Montrond",
+          "club Piou-Piou Albiez",
+          "scuola di sci Maurienne",
+          "custodia bambini sci Albiez",
         ],
       },
     },
@@ -225,6 +402,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "local produce Maurienne",
         ],
       },
+      de: {
+        title:
+          "Einkaufen in Albiez-Montrond: die Geschäfte im Dorf und der Halt in Saint-Jean",
+        description:
+          "Der Sherpa am Pistenzugang, der Lebensmittelladen Sambuis Dufreney und die Bäckerei im Dorf, Carrefour Market und Lidl in Saint-Jean-de-Maurienne: wo Sie einkaufen und in welcher Reihenfolge.",
+        excerpt:
+          "Die sinnvolle Reihenfolge: der Großeinkauf in Saint-Jean auf dem Weg hinauf, Ergänzungen und savoyische Erzeugnisse im Dorf.",
+        keywords: [
+          "einkaufen Albiez-Montrond",
+          "Sherpa Albiez",
+          "Lebensmittelladen Albiez",
+          "Supermarkt Saint-Jean-de-Maurienne",
+          "regionale Produkte Maurienne",
+        ],
+      },
+      es: {
+        title:
+          "Hacer la compra en Albiez-Montrond: comercios del pueblo y parada en Saint-Jean",
+        description:
+          "El Sherpa junto a las pistas, la tienda Sambuis Dufreney y la panadería del pueblo, Carrefour Market y Lidl en Saint-Jean-de-Maurienne: dónde hacer la compra y en qué orden.",
+        excerpt:
+          "El método razonable: la compra grande en Saint-Jean de camino, los complementos y los productos saboyanos en el pueblo.",
+        keywords: [
+          "compra Albiez-Montrond",
+          "Sherpa Albiez",
+          "tienda de alimentación Albiez",
+          "supermercado Saint-Jean-de-Maurienne",
+          "productos locales Maurienne",
+        ],
+      },
+      it: {
+        title:
+          "Fare la spesa ad Albiez-Montrond: i negozi del paese e la sosta a Saint-Jean",
+        description:
+          "Lo Sherpa all'accesso alle piste, l'alimentari Sambuis Dufreney e il panificio in paese, Carrefour Market e Lidl a Saint-Jean-de-Maurienne: dove fare la spesa e in quale ordine.",
+        excerpt:
+          "Il metodo giusto: la spesa grossa a Saint-Jean lungo la strada, le integrazioni e i prodotti savoiardi in paese.",
+        keywords: [
+          "spesa Albiez-Montrond",
+          "Sherpa Albiez",
+          "alimentari Albiez",
+          "supermercato Saint-Jean-de-Maurienne",
+          "prodotti locali Maurienne",
+        ],
+      },
     },
   },
   {
@@ -259,6 +481,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "bread Albiez",
           "picnic Maurienne",
           "Savoyard bakery",
+        ],
+      },
+      de: {
+        title: "Le Moulin Valentin, die Bäckerei von Albiez-Montrond",
+        description:
+          "Brot, Gebäck, Pastete im Teigmantel, das „pain yéti“ und Mandeltörtchen: die Bäckerei im Dorfkern von Albiez-Montrond, deren Geschichte bis 1694 zurückreicht. Adresse, Telefon und Öffnungszeiten.",
+        excerpt:
+          "Eine Bäckerei, deren Geschichte 1694 beginnt – und ein „pain yéti“ mit Speck und Käse, das die Picknickfrage erledigt.",
+        keywords: [
+          "Bäckerei Albiez-Montrond",
+          "Moulin Valentin Albiez",
+          "Brot Albiez",
+          "Picknick Maurienne",
+          "savoyische Bäckerei",
+        ],
+      },
+      es: {
+        title: "Le Moulin Valentin, la panadería de Albiez-Montrond",
+        description:
+          "Panes, bollería, pâté en croûte, el «pain yéti» y tartaletas de almendra: la panadería del centro de Albiez-Montrond, cuya historia se remonta a 1694. Dirección, teléfono y horarios.",
+        excerpt:
+          "Una panadería cuya historia empieza en 1694, y un «pain yéti» de panceta y queso que resuelve la cuestión del picnic.",
+        keywords: [
+          "panadería Albiez-Montrond",
+          "Moulin Valentin Albiez",
+          "pan Albiez",
+          "picnic Maurienne",
+          "panadería saboyana",
+        ],
+      },
+      it: {
+        title: "Le Moulin Valentin, il panificio di Albiez-Montrond",
+        description:
+          "Pane, viennoiserie, pâté en croûte, il «pain yéti» e crostatine alle mandorle: il panificio del centro di Albiez-Montrond, la cui storia risale al 1694. Indirizzo, telefono e orari.",
+        excerpt:
+          "Un panificio la cui storia inizia nel 1694, e un «pain yéti» con pancetta e formaggio che risolve la questione del picnic.",
+        keywords: [
+          "panificio Albiez-Montrond",
+          "Moulin Valentin Albiez",
+          "pane Albiez",
+          "picnic Maurienne",
+          "panificio savoiardo",
         ],
       },
     },
@@ -297,6 +561,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Raclette de Savoie IGP",
         ],
       },
+      de: {
+        title: "Beaufort des Arves: die Sennereigenossenschaft für den Käsevorrat",
+        description:
+          "Beaufort AOP aus Rohmilch von Almen bis 2.500 m, 6 bis 12 Monate gereift, Raclette de Savoie IGP, fertig geriebenes Fondue: die Genossenschaftssennerei des Arves-Tals und ihr Laden in Albiez-Montrond.",
+        excerpt:
+          "Sommer- und Winter-Beaufort sind nicht derselbe Käse. Ein Laden in Albiez-Montrond – und ein Raclette-Gerät, das in der Wohnung wartet.",
+        keywords: [
+          "Beaufort des Arves",
+          "Sennerei Saint-Sorlin-d'Arves",
+          "Beaufort AOP Maurienne",
+          "Käse Albiez-Montrond",
+          "Raclette de Savoie IGP",
+        ],
+      },
+      es: {
+        title: "El Beaufort des Arves: la cooperativa donde abastecerse de queso",
+        description:
+          "Beaufort AOP de leche cruda de pastos hasta 2500 m, curado de 6 a 12 meses, raclette de Savoie IGP, fondue ya rallada: la quesería cooperativa del valle de los Arves y su tienda de Albiez-Montrond.",
+        excerpt:
+          "El Beaufort de verano y el de invierno no son el mismo queso. Una tienda en Albiez-Montrond, y una raclette esperando en el apartamento.",
+        keywords: [
+          "Beaufort des Arves",
+          "quesería cooperativa Saint-Sorlin-d'Arves",
+          "Beaufort AOP Maurienne",
+          "queso Albiez-Montrond",
+          "raclette de Savoie IGP",
+        ],
+      },
+      it: {
+        title: "Il Beaufort des Arves: la cooperativa dove fare provvista di formaggio",
+        description:
+          "Beaufort AOP di latte crudo di alpeggi fino a 2500 m, stagionato da 6 a 12 mesi, raclette de Savoie IGP, fonduta già grattugiata: il caseificio cooperativo della valle degli Arves e il suo negozio ad Albiez-Montrond.",
+        excerpt:
+          "Il Beaufort d'estate e quello d'inverno non sono lo stesso formaggio. Un negozio ad Albiez-Montrond, e una raclette che vi attende in appartamento.",
+        keywords: [
+          "Beaufort des Arves",
+          "caseificio cooperativo Saint-Sorlin-d'Arves",
+          "Beaufort AOP Maurienne",
+          "formaggio Albiez-Montrond",
+          "raclette de Savoie IGP",
+        ],
+      },
     },
   },
   {
@@ -331,6 +637,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Petit Montagnard Albiez",
           "sledging Albiez",
           "family resort Savoie",
+        ],
+      },
+      de: {
+        title:
+          "Albiez-Montrond mit Kindern: Betreuung, Rodeln, Baden und Spielplätze",
+        description:
+          "Club Piou-Piou, Ferienclub Le Petit Montagnard, Kinderkrippe Le Chat Perché, Rodelbahn am Mollard, bewachter Badebetrieb: was Albiez mit Kindern praktikabel macht.",
+        excerpt:
+          "Zwei Betreuungsmöglichkeiten, eine Rodelbahn neben der Residenz und im Sommer ein bewachter See – hier steht, was es wirklich gibt.",
+        keywords: [
+          "Albiez mit Kindern",
+          "Kinderbetreuung Albiez-Montrond",
+          "Le Petit Montagnard Albiez",
+          "Rodeln Albiez",
+          "familienfreundliches Skigebiet Savoyen",
+        ],
+      },
+      es: {
+        title:
+          "Albiez-Montrond en familia: guarderías, trineo, baño y zonas de juego",
+        description:
+          "Club Piou-Piou, centro de ocio Le Petit Montagnard, guardería Le Chat Perché, pista de trineos del Mollard, baño vigilado: lo que hace Albiez practicable con niños.",
+        excerpt:
+          "Dos opciones de cuidado, una pista de trineos junto a la residencia y un lago vigilado en verano: el detalle de lo que existe de verdad.",
+        keywords: [
+          "Albiez en familia",
+          "guardería Albiez-Montrond",
+          "Le Petit Montagnard Albiez",
+          "trineo Albiez",
+          "estación familiar Saboya",
+        ],
+      },
+      it: {
+        title:
+          "Albiez-Montrond in famiglia: servizi di custodia, slittino, bagno e aree gioco",
+        description:
+          "Club Piou-Piou, centro ricreativo Le Petit Montagnard, asilo nido Le Chat Perché, pista da slittino del Mollard, balneazione sorvegliata: ciò che rende Albiez praticabile con i bambini.",
+        excerpt:
+          "Due modalità di custodia, una pista da slittino accanto alla residenza e uno specchio d'acqua sorvegliato d'estate: il dettaglio di ciò che esiste davvero.",
+        keywords: [
+          "Albiez in famiglia",
+          "custodia bambini Albiez-Montrond",
+          "Le Petit Montagnard Albiez",
+          "slittino Albiez",
+          "località per famiglie Savoia",
         ],
       },
     },
@@ -369,6 +720,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Maurienne viewpoint",
         ],
       },
+      de: {
+        title: "Die Aiguilles d'Arves, das Dreigestirn vom Balkon aus",
+        description:
+          "3.514 Meter, Erstbesteigung 1878, ein kinderwagentauglicher Spazierweg und ein sportlicher Aufstieg zur Basse du Gerbier: alles über das Wahrzeichen der Maurienne.",
+        excerpt:
+          "„Das schönste Dreigestirn der Alpen“, sagte Coolidge. Zwei Wege, um näher heranzukommen – einer sehr leicht, einer nicht.",
+        keywords: [
+          "Aiguilles d'Arves",
+          "Wanderung Aiguilles d'Arves",
+          "Basse du Gerbier",
+          "savoyischer Entdeckungsweg",
+          "Aussichtspunkt Maurienne",
+        ],
+      },
+      es: {
+        title: "Las Aiguilles d'Arves, la trilogía que se ve desde el balcón",
+        description:
+          "3514 metros, una primera ascensión en 1878, un paseo accesible con carrito y una subida deportiva a la Basse du Gerbier: todo sobre el emblema de la Maurienne.",
+        excerpt:
+          "«La trilogía más bella de los Alpes», decía Coolidge. Dos formas de acercarse a ellas, una muy fácil y otra no.",
+        keywords: [
+          "Aiguilles d'Arves",
+          "ruta Aiguilles d'Arves",
+          "Basse du Gerbier",
+          "paseo saboyano de descubrimiento",
+          "mirador Maurienne",
+        ],
+      },
+      it: {
+        title: "Le Aiguilles d'Arves, la trilogia che si vede dal balcone",
+        description:
+          "3514 metri, una prima ascensione nel 1878, una passeggiata accessibile ai passeggini e una salita sportiva alla Basse du Gerbier: tutto sull'emblema della Maurienne.",
+        excerpt:
+          "«La più bella trilogia delle Alpi», diceva Coolidge. Due modi per vederle da vicino, uno molto facile e uno no.",
+        keywords: [
+          "Aiguilles d'Arves",
+          "escursione Aiguilles d'Arves",
+          "Basse du Gerbier",
+          "passeggiata savoiarda di scoperta",
+          "panorama Maurienne",
+        ],
+      },
     },
   },
   {
@@ -402,6 +795,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Col du Mollard Tour de France",
           "cycling Maurienne",
           "Arvan-Villards loop",
+          "Croix de Fer Glandon Mollard",
+        ],
+      },
+      de: {
+        title:
+          "Der Col du Mollard mit dem Rad: drei Auffahrten und die Runde Arvan-Villards",
+        description:
+          "1.638 m hoch, 2006 und 2011 von der Tour de France befahren: die gemessene Auffahrt von Saint-Jean, die Panoramarunde, die Variante über Albiez-le-Jeune und die Drei-Pässe-Runde.",
+        excerpt:
+          "Ein Tour-de-France-Pass, dessen Scheitelpunkt unser Dorf ist. Drei Wege hinauf und eine Runde, die Glandon, Croix de Fer und Mollard verbindet.",
+        keywords: [
+          "Col du Mollard Rennrad",
+          "Col du Mollard Tour de France",
+          "Radfahren Maurienne",
+          "Runde Arvan-Villards",
+          "Croix de Fer Glandon Mollard",
+        ],
+      },
+      es: {
+        title:
+          "El col du Mollard en bicicleta: tres subidas y la vuelta Arvan-Villards",
+        description:
+          "1638 m de altitud, paso del Tour de Francia en 2006 y 2011: la subida cronometrada desde Saint-Jean, la vuelta panorámica, la variante por Albiez-le-Jeune y la ruta de los tres puertos.",
+        excerpt:
+          "Un puerto del Tour de Francia cuya cima es nuestro pueblo. Tres formas de subirlo, y una vuelta que enlaza Glandon, Croix de Fer y Mollard.",
+        keywords: [
+          "col du Mollard ciclismo",
+          "col du Mollard Tour de Francia",
+          "ciclismo Maurienne",
+          "vuelta Arvan-Villards",
+          "Croix de Fer Glandon Mollard",
+        ],
+      },
+      it: {
+        title:
+          "Il col du Mollard in bici: tre salite e il giro Arvan-Villards",
+        description:
+          "1638 m di quota, passaggio del Tour de France nel 2006 e nel 2011: la salita cronometrata da Saint-Jean, il giro panoramico, la variante per Albiez-le-Jeune e il giro dei tre colli.",
+        excerpt:
+          "Un colle del Tour de France la cui cima è il nostro paese. Tre modi per salirlo, e un giro che collega Glandon, Croix de Fer e Mollard.",
+        keywords: [
+          "col du Mollard bici",
+          "col du Mollard Tour de France",
+          "ciclismo Maurienne",
+          "giro Arvan-Villards",
           "Croix de Fer Glandon Mollard",
         ],
       },
@@ -441,6 +879,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Contamines leisure area",
         ],
       },
+      de: {
+        title: "Hundeschlittenfahrt in Albiez-Montrond",
+        description:
+          "Halbstündige und einstündige Fahrten ab dem Freizeitgelände Les Contamines, vom 17. Dezember bis 1. April. Preise, Buchung und wie Sie Ihren Termin nicht verpassen.",
+        excerpt:
+          "45 € für Erwachsene, 40 € für Kinder, Start im Dorfkern – und eine Buchung, die Sie deutlich vor der Anreise vornehmen sollten.",
+        keywords: [
+          "Hundeschlitten Albiez",
+          "Schlittenhunde Maurienne",
+          "Winteraktivität Albiez-Montrond",
+          "Musher Savoyen",
+          "Freizeitgelände Les Contamines",
+        ],
+      },
+      es: {
+        title: "Paseo en trineo tirado por perros en Albiez-Montrond",
+        description:
+          "Paseos de media hora o de una hora desde la base de ocio de Les Contamines, del 17 de diciembre al 1 de abril. Tarifas, reserva y consejos para no perder el turno.",
+        excerpt:
+          "45 € adulto, 40 € niño, salida en el centro del pueblo, y una reserva que conviene hacer mucho antes de llegar a la estación.",
+        keywords: [
+          "trineo con perros Albiez",
+          "mushing Maurienne",
+          "actividad invierno Albiez-Montrond",
+          "musher Saboya",
+          "base de ocio Les Contamines",
+        ],
+      },
+      it: {
+        title: "Giro in slitta con i cani ad Albiez-Montrond",
+        description:
+          "Giri di mezz'ora o di un'ora con partenza dalla base ricreativa delle Contamines, dal 17 dicembre al 1° aprile. Tariffe, prenotazione e consigli per non perdere lo slot.",
+        excerpt:
+          "45 € adulti, 40 € bambini, partenza dal centro del paese, e una prenotazione da fare molto prima di arrivare in località.",
+        keywords: [
+          "cani da slitta Albiez",
+          "sleddog Maurienne",
+          "attività inverno Albiez-Montrond",
+          "musher Savoia",
+          "base ricreativa Les Contamines",
+        ],
+      },
     },
   },
   {
@@ -477,6 +957,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "ski school evening Maurienne",
         ],
       },
+      de: {
+        title: "Die Albiez C'Show, Dienstagabend am Pistenzugang von Le Mollard",
+        description:
+          "Fackelabfahrt unter Leitung der Skischule, Vorführung der Pistenraupen, Show der Skilehrer, Feuerwerk und Glühwein: der Höhepunkt der Schulferien in Albiez-Montrond.",
+        excerpt:
+          "Es findet am Pistenzugang von Le Mollard statt, 250 m von der Wohnung – und Kinder ab dem Niveau „flocon“ dürfen bei der Fackelabfahrt mit.",
+        keywords: [
+          "Albiez C'Show",
+          "Fackelabfahrt Albiez",
+          "Veranstaltung Skigebiet Albiez-Montrond",
+          "Feuerwerk Albiez",
+          "Skischulabend Maurienne",
+        ],
+      },
+      es: {
+        title: "El Albiez C'Show, la fiesta del martes en el acceso a pistas del Mollard",
+        description:
+          "Bajada de antorchas dirigida por la escuela de esquí, demostración de máquinas pisanieves, espectáculo de los monitores, fuegos artificiales y vino caliente: la cita de las vacaciones escolares en Albiez-Montrond.",
+        excerpt:
+          "Ocurre en el acceso a pistas del Mollard, a 250 m del alojamiento, y los niños desde el nivel «flocon» pueden bajar con antorchas.",
+        keywords: [
+          "Albiez C'Show",
+          "bajada de antorchas Albiez",
+          "animación estación Albiez-Montrond",
+          "fuegos artificiales Albiez",
+          "fiesta escuela de esquí Maurienne",
+        ],
+      },
+      it: {
+        title: "L'Albiez C'Show, la serata del martedì all'accesso alle piste del Mollard",
+        description:
+          "Fiaccolata guidata dalla scuola di sci, dimostrazione dei gatti delle nevi, spettacolo dei maestri, fuochi d'artificio e vin brulé: l'appuntamento delle vacanze scolastiche ad Albiez-Montrond.",
+        excerpt:
+          "Si svolge all'accesso alle piste del Mollard, a 250 m dall'alloggio, e i bambini dal livello «flocon» possono scendere con le fiaccole.",
+        keywords: [
+          "Albiez C'Show",
+          "fiaccolata Albiez",
+          "animazione località Albiez-Montrond",
+          "fuochi d'artificio Albiez",
+          "serata scuola di sci Maurienne",
+        ],
+      },
     },
   },
   {
@@ -510,6 +1032,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "swimming Albiez-Montrond",
           "mountain lake Savoie",
           "Albiez leisure area",
+          "Lac Savard",
+        ],
+      },
+      de: {
+        title:
+          "Der Lac du Mollard: bewachter Badebetrieb, Wasserspielgerät und Freizeitgelände",
+        description:
+          "350 m von der Wohnung dient der See am Mollard im Winter als Wasserspeicher für die Beschneiung und im Sommer als Badestelle, bewacht vom 1. Juli bis 31. August von 12 bis 18 Uhr.",
+        excerpt:
+          "Planschbecken, aufblasbares Spielgerät, Boulebahn, Volleyball und Picknicktische – alles drei Minuten zu Fuß entfernt.",
+        keywords: [
+          "Lac du Mollard Albiez",
+          "Baden Albiez-Montrond",
+          "Bergsee Savoyen",
+          "Freizeitgelände Albiez",
+          "Lac Savard",
+        ],
+      },
+      es: {
+        title:
+          "El lac du Mollard: baño vigilado, hinchable y base de ocio",
+        description:
+          "A 350 m del alojamiento, el lago del Mollard sirve de reserva para la nieve artificial en invierno y de zona de baño en verano, vigilada del 1 de julio al 31 de agosto de 12 a 18 h.",
+        excerpt:
+          "Piscina infantil, estructura hinchable, petanca, voleibol y mesas de picnic, todo a tres minutos a pie.",
+        keywords: [
+          "lac du Mollard Albiez",
+          "baño Albiez-Montrond",
+          "lago de montaña Saboya",
+          "base de ocio Albiez",
+          "Lac Savard",
+        ],
+      },
+      it: {
+        title:
+          "Il lac du Mollard: balneazione sorvegliata, gonfiabile e base ricreativa",
+        description:
+          "A 350 m dall'alloggio, lo specchio d'acqua del Mollard fa da riserva per la neve artificiale d'inverno e da zona balneabile d'estate, sorvegliata dal 1° luglio al 31 agosto dalle 12 alle 18.",
+        excerpt:
+          "Piscina per bambini, struttura gonfiabile, bocce, pallavolo e tavoli da picnic, tutto a tre minuti a piedi.",
+        keywords: [
+          "lac du Mollard Albiez",
+          "balneazione Albiez-Montrond",
+          "lago di montagna Savoia",
+          "base ricreativa Albiez",
           "Lac Savard",
         ],
       },
@@ -549,6 +1116,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "forest walk Albiez",
         ],
       },
+      de: {
+        title: "Der Wald von Le Rival, von 1.300 m bis zum Col du Mollard",
+        description:
+          "Nadelbäume, Wasserfälle, Bergbäche und Wildtiere: der Wald von Le Rival zieht sich vom Collet d'en Haut bis zum Col du Mollard, durchzogen von Wanderwegen und Mountainbike-Strecken.",
+        excerpt:
+          "700 Höhenmeter Wald, Pilze, Wasserfälle – und Hirsche, die man im Herbst röhren hört.",
+        keywords: [
+          "Wald Le Rival Albiez",
+          "Wald Albiez-Montrond",
+          "Mountainbike Wald Maurienne",
+          "Wildtiere Savoyen",
+          "Waldspaziergang Albiez",
+        ],
+      },
+      es: {
+        title: "El bosque de Le Rival, de los 1300 m al col du Mollard",
+        description:
+          "Coníferas, cascadas, torrentes y fauna de montaña: el bosque de Le Rival se extiende del Collet d'en Haut al col du Mollard, atravesado por senderos y recorridos de BTT.",
+        excerpt:
+          "700 metros de desnivel de bosque, setas, cascadas y ciervos que se oyen berrear en otoño.",
+        keywords: [
+          "bosque de Le Rival",
+          "bosque Albiez-Montrond",
+          "BTT bosque Maurienne",
+          "fauna Saboya",
+          "paseo por el bosque Albiez",
+        ],
+      },
+      it: {
+        title: "La foresta di Le Rival, dai 1300 m al col du Mollard",
+        description:
+          "Conifere, cascate, torrenti e fauna di montagna: la foresta di Le Rival si estende dal Collet d'en Haut al col du Mollard, attraversata da sentieri e percorsi per mountain bike.",
+        excerpt:
+          "700 metri di dislivello di foresta, funghi, cascate e cervi che si sentono bramire in autunno.",
+        keywords: [
+          "foresta di Le Rival",
+          "foresta Albiez-Montrond",
+          "mountain bike foresta Maurienne",
+          "fauna Savoia",
+          "passeggiata nel bosco Albiez",
+        ],
+      },
     },
   },
   {
@@ -583,6 +1192,51 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "Aiguilles d'Arves refuge",
           "sleeping in the alpine pastures",
           "hiking refuge Maurienne",
+        ],
+      },
+      de: {
+        title:
+          "Le Chalet d'la Croë, Hütte auf 2.076 m am Fuß der Aiguilles d'Arves",
+        description:
+          "Private, 2013 renovierte Hütte, geöffnet vom 18. Juni bis 13. September 2026: Bewirtung, Übernachtung in Kuppelzelten, hausgemachte regionale Erzeugnisse, mitten in den Almen von Albiez-Montrond.",
+        excerpt:
+          "Eine Crêpe oder ein Raclette mitten in der Wanderung – und Kuppelzelte, um unter dem Sternenhimmel der Almen zu schlafen.",
+        keywords: [
+          "Chalet d'la Croë",
+          "Berghütte Albiez-Montrond",
+          "Hütte Aiguilles d'Arves",
+          "auf der Alm schlafen Savoyen",
+          "Hüttenwanderung Maurienne",
+        ],
+      },
+      es: {
+        title:
+          "Le Chalet d'la Croë, refugio a 2076 m al pie de las Aiguilles d'Arves",
+        description:
+          "Refugio privado renovado en 2013, abierto del 18 de junio al 13 de septiembre de 2026: restauración, alojamiento en domos, productos locales caseros, en el corazón de los pastos de Albiez-Montrond.",
+        excerpt:
+          "Una crepe o una raclette en mitad de una ruta, y domos para dormir bajo el cielo estrellado de los pastos de altura.",
+        keywords: [
+          "Chalet d'la Croë",
+          "refugio Albiez-Montrond",
+          "refugio Aiguilles d'Arves",
+          "dormir en pastos de altura Saboya",
+          "ruta con refugio Maurienne",
+        ],
+      },
+      it: {
+        title:
+          "Le Chalet d'la Croë, rifugio a 2076 m ai piedi delle Aiguilles d'Arves",
+        description:
+          "Rifugio privato ristrutturato nel 2013, aperto dal 18 giugno al 13 settembre 2026: ristorazione, pernottamento in domi, prodotti locali fatti in casa, nel cuore degli alpeggi di Albiez-Montrond.",
+        excerpt:
+          "Una crêpe o una raclette a metà escursione, e domi per dormire sotto il cielo stellato degli alpeggi.",
+        keywords: [
+          "Chalet d'la Croë",
+          "rifugio Albiez-Montrond",
+          "rifugio Aiguilles d'Arves",
+          "dormire in alpeggio Savoia",
+          "escursione con rifugio Maurienne",
         ],
       },
     },
@@ -621,6 +1275,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "mountain horse riding",
         ],
       },
+      de: {
+        title: "Le Kavalkada: Pferde- und Ponyausritte 300 m von der Wohnung",
+        description:
+          "Der Reitbetrieb von Albiez-Montrond: Ausritte im Wald und auf den Almen, Ponykurse über eine Woche, Unterricht auf dem Reitplatz mit staatlich geprüften Lehrkräften. Öffnungszeiten vom 8. Juli bis 31. August.",
+        excerpt:
+          "Vom halbstündigen Ponyausritt rund um den Châtel bis zum halbtägigen Ritt über die Wiesen der Cochette.",
+        keywords: [
+          "Kavalkada Albiez",
+          "Reitbetrieb Albiez-Montrond",
+          "Ausritt Maurienne",
+          "Ponyreiten Kinder Savoyen",
+          "Reiten in den Bergen",
+        ],
+      },
+      es: {
+        title: "Le Kavalkada: paseos a caballo y en poni a 300 m del alojamiento",
+        description:
+          "El centro equino de Albiez-Montrond: paseos por el bosque y por los pastos, cursos de poni por semanas, clases en pista con monitores titulados. Horarios del 8 de julio al 31 de agosto.",
+        excerpt:
+          "Desde el paseo en poni de media hora alrededor del Châtel hasta la excursión de media jornada por las praderas de la Cochette.",
+        keywords: [
+          "Kavalkada Albiez",
+          "centro equino Albiez-Montrond",
+          "paseo a caballo Maurienne",
+          "poni niños Saboya",
+          "equitación en montaña",
+        ],
+      },
+      it: {
+        title: "Le Kavalkada: passeggiate a cavallo e in pony a 300 m dall'alloggio",
+        description:
+          "Il centro equestre di Albiez-Montrond: passeggiate nel bosco e in alpeggio, corsi di pony settimanali, lezioni in campo con istruttori diplomati. Orari dall'8 luglio al 31 agosto.",
+        excerpt:
+          "Dal giro in pony di mezz'ora attorno al Châtel alla passeggiata di mezza giornata nei prati della Cochette.",
+        keywords: [
+          "Kavalkada Albiez",
+          "centro equestre Albiez-Montrond",
+          "passeggiata a cavallo Maurienne",
+          "pony bambini Savoia",
+          "equitazione in montagna",
+        ],
+      },
     },
   },
   {
@@ -657,6 +1353,48 @@ export const BLOG_POSTS: BlogPostMeta[] = [
           "cycling Albiez summer",
         ],
       },
+      de: {
+        title: "Die höchstgelegene BMX-Bahn Frankreichs, und Mountainbiken in Albiez",
+        description:
+          "BMX-Race-Bahn im Dorfkern von Albiez-Montrond, Verleih von E-Mountainbikes, BMX und E-Scootern, geführte Ausfahrten: Radfahren im Sommer in Albiez.",
+        excerpt:
+          "Eine frei zugängliche BMX-Race-Bahn, umgeben von Fußball-, Basketball- und Tennisplätzen und einem Picknickplatz.",
+        keywords: [
+          "BMX Albiez-Montrond",
+          "höchste BMX-Bahn Frankreichs",
+          "E-Mountainbike Albiez",
+          "E-Scooter Maurienne",
+          "Radfahren Albiez Sommer",
+        ],
+      },
+      es: {
+        title: "La pista de BMX más alta de Francia, y la BTT en Albiez",
+        description:
+          "Pista de BMX race en el centro de Albiez-Montrond, alquiler de BTT eléctricas, BMX y patinetes eléctricos, salidas acompañadas: la bicicleta en verano en Albiez.",
+        excerpt:
+          "Una pista de BMX race de libre acceso, rodeada de campos de fútbol, baloncesto, tenis y una zona de picnic.",
+        keywords: [
+          "BMX Albiez-Montrond",
+          "pista BMX más alta de Francia",
+          "BTT eléctrica Albiez",
+          "patinete eléctrico Maurienne",
+          "bicicleta Albiez verano",
+        ],
+      },
+      it: {
+        title: "La pista di BMX più alta di Francia, e la mountain bike ad Albiez",
+        description:
+          "Pista di BMX race nel centro di Albiez-Montrond, noleggio di mountain bike elettriche, BMX e monopattini elettrici, uscite accompagnate: la bici d'estate ad Albiez.",
+        excerpt:
+          "Una pista di BMX race ad accesso libero, circondata da campi di calcio, basket, tennis e da un'area picnic.",
+        keywords: [
+          "BMX Albiez-Montrond",
+          "pista BMX più alta di Francia",
+          "mountain bike elettrica Albiez",
+          "monopattino elettrico Maurienne",
+          "bici Albiez estate",
+        ],
+      },
     },
   },
 ];
@@ -666,7 +1404,7 @@ export function getPostBySlug(slug: string): BlogPostMeta | undefined {
 }
 
 export function getLocalizedPost(post: BlogPostMeta, locale: Locale): LocalizedPost {
-  return post.locales[locale] ?? post.locales.fr;
+  return post.locales[locale] ?? post.locales[DEFAULT_LOCALE];
 }
 
 /**

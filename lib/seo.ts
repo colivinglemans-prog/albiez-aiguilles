@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, DEFAULT_LOCALE, LOCALE_META, type Locale } from "@/lib/i18n";
 import { SITE_URL, PROPERTY, SITE_NAME, RESORT } from "@/lib/property";
 import { SEASON_SLUGS, type Season } from "@/lib/seasons";
 import { REVIEW_SUMMARY } from "@/lib/reviews";
@@ -18,9 +18,27 @@ export function alternatesFor(
   for (const l of LOCALES) {
     languages[l] = `${SITE_URL}${pathFor(l)}`;
   }
-  languages["x-default"] = `${SITE_URL}${pathFor("fr")}`;
+  languages["x-default"] = `${SITE_URL}${pathFor(DEFAULT_LOCALE)}`;
 
   return { canonical: `${SITE_URL}${pathFor(locale)}`, languages };
+}
+
+/**
+ * Le bloc `openGraph` propre à la langue : `og:locale` pour la page servie, et
+ * `og:locale:alternate` pour les quatre autres.
+ *
+ * Les alternates n'étaient pas déclarés du temps où il n'y avait que deux langues.
+ * À cinq, ils indiquent à Facebook, LinkedIn et WhatsApp qu'une version existe dans
+ * la langue du lecteur — sans quoi le partage d'un lien allemand reste allemand pour
+ * tout le monde.
+ */
+export function openGraphLocales(locale: Locale) {
+  return {
+    locale: LOCALE_META[locale].og,
+    alternateLocale: LOCALES.filter((l) => l !== locale).map(
+      (l) => LOCALE_META[l].og,
+    ),
+  };
 }
 
 /** Chemin de la page d'accueil d'une langue. */

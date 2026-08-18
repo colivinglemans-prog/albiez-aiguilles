@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale } from "@/lib/i18n";
-import { alternatesFor, homePath, apartmentJsonLd } from "@/lib/seo";
+import {
+  alternatesFor,
+  homePath,
+  apartmentJsonLd,
+  openGraphLocales,
+} from "@/lib/seo";
 import { listSpaces, getPhoto } from "@/lib/photos";
 import { galleryGroups } from "@/lib/gallery";
 import { HERO_PHOTOS } from "@/lib/property";
@@ -29,7 +34,7 @@ export async function generateMetadata({
       title: t.home.seo.title,
       description: t.home.seo.description,
       url: `${homePath(locale)}`,
-      locale: locale === "fr" ? "fr_FR" : "en_GB",
+      ...openGraphLocales(locale),
     },
   };
 }
