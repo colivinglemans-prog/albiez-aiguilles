@@ -15,7 +15,7 @@ export const en: Dictionary = {
   },
 
   home: {
-    heroTitle: "An apartment facing the Aiguilles d'Arves",
+    heroTitle: "Apartment facing the Aiguilles d'Arves",
     heroSubtitle:
       "At 1,600 m in Albiez-Montrond, tucked away in a Maurienne chalet. Sleeps 4 to 6, with a south-west facing balcony.",
     intro:
