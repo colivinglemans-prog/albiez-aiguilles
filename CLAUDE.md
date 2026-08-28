@@ -102,7 +102,7 @@ poser avant de brancher le calendrier.
 Le property ID **n'est jamais écrit en dur** : il vient de `BEDS24_PROPERTY_ID`, pour que le
 site puisse être redéployé pour un autre bien sans toucher au code.
 
-## Historique Airbnb (statistiques antérieures)
+## Historique des canaux (statistiques antérieures)
 
 Le lien Airbnb → Beds24 **ne rétro-importe pas l'historique** : il synchronise les séjours en
 cours et à venir au moment du branchement, rien d'autre. Vérifié le 2026-08-28, le compte
@@ -160,6 +160,44 @@ qui fait une série comparable**, pas le brut.
 
 Enfin, **2023 n'est pas une année** : l'export commence au 2023-12-25 et ne contient qu'un
 séjour. À ne pas afficher comme un exercice complet à côté de 2024 et 2025.
+
+### Booking.com
+
+Relevés « statements » exportés par année depuis l'extranet, convertis par
+`scripts/import-booking-history.mjs` en `data/historique-booking.json`. **38 séjours de
+novembre 2023 à août 2026** au 2026-08-28.
+
+Le format diffère d'Airbnb sur quatre points qui comptent :
+
+| Point | Détail |
+|-------|--------|
+| **Dates en anglais** | « Jan 26, 2026 ». Le script refuse un export dans une autre langue plutôt que de deviner. |
+| **Pas de colonne « nuits »** | Calculées entre `Check-in` et `Checkout`. |
+| **Plusieurs lignes par réservation** | Un ajustement de commission après coup ajoute une ligne au même numéro (vu une fois : `5755448864`). Il faut **cumuler**, jamais remplacer. |
+| **Ni ménage ni taxe de séjour** | Booking n'isole aucun des deux dans ce relevé. Les champs restent **nuls**, ce qui ne veut pas dire zéro : la taxe de séjour d'Albiez n'est pas collectée par ce canal, contrairement à Airbnb. |
+
+La commission est stable autour de **17 %** sur toute la période, frais de paiement compris —
+donc comparable d'une année sur l'autre, contrairement au brut Airbnb.
+
+⚠️ **Dédoublonnage obligatoire avec Beds24.** Depuis le branchement du 2026-08-28, Booking
+alimente Beds24 en direct : deux séjours à venir y sont déjà (`6869539179` du 21 au 25 octobre,
+`5880924522` du 2 au 4 septembre). Un séjour non terminé présent dans les deux sources se
+compterait deux fois — le script marque ces entrées `aussiDansBeds24: true`, et le dashboard
+doit dédoublonner sur le numéro de réservation. Les relevés fournis s'arrêtant au 2026-08-28,
+aucun des deux n'y figure pour l'instant.
+
+### Contrôle croisé entre canaux
+
+Un séjour ne peut pas chevaucher un autre dans un logement unique : c'est le contrôle le plus
+efficace sur la cohérence de deux archives. Passé sur les 57 séjours Airbnb et les 38 séjours
+Booking, il ne remonte **aucun chevauchement**, ce qui confirme au passage que les relevés
+Booking décrivent bien Albiez — leur export ne contient aucune colonne de logement.
+
+C'est ce contrôle qui a révélé une entrée fantôme côté Airbnb : `HMY3AKKDE2`, un paiement de
+résolution de 30 € sans ligne « Réservation », dont les dates de repli (13→21 juillet 2026)
+chevauchaient deux autres séjours. Une **annulation** dont seuls des frais ont été encaissés :
+les dates ont été relouées. Le montant est conservé, les nuits ne sont plus comptées — sans
+quoi 2026 affichait 8 nuits vendues qui n'existent pas.
 
 ## Les cinq langues
 

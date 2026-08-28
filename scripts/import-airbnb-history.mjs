@@ -137,7 +137,15 @@ const rows = [...bookings.values()].sort((a, b) => (a.arrivee ?? "").localeCompa
 for (const b of rows) {
   b.net = Number(((b.versement ?? 0) + b.resolutions).toFixed(2));
   b.resolutions = Number(b.resolutions.toFixed(2));
-  if (!b.estReservation) b.note = "résolution sans ligne de réservation dans cet export";
+  if (!b.estReservation) {
+    // Un paiement de résolution sans ligne « Réservation » n'est pas un séjour : très
+    // probablement une réservation annulée dont seuls des frais ont été encaissés. Ses
+    // dates ont donc été relouées à quelqu'un d'autre — les compter en nuits vendues
+    // crée un chevauchement fantôme et gonfle l'occupation.
+    b.note = "résolution sans ligne de réservation (annulation ?) — montant conservé, nuits non comptées";
+    b.nuitsNonComptees = b.nuits;
+    b.nuits = null;
+  }
   delete b.estReservation;
 }
 
@@ -179,7 +187,10 @@ for (const b of rows) {
     a.taxeSejourReverseeParAirbnb += b.taxeSejourReverseeParAirbnb ?? 0;
   }
   // Occupation rattachée aux dates réelles, indépendamment de l'année comptable.
-  for (const [y, n] of Object.entries(nuitsParAnnee(b.arrivee, b.depart))) bucket(Number(y)).nuitsCalendaires += n;
+  // Les entrées sans séjour (résolution seule) n'occupent rien : `nuits` y est nul.
+  if (b.nuits != null) {
+    for (const [y, n] of Object.entries(nuitsParAnnee(b.arrivee, b.depart))) bucket(Number(y)).nuitsCalendaires += n;
+  }
 }
 
 for (const [y, a] of Object.entries(annees)) {
