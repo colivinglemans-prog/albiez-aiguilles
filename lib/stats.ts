@@ -3,6 +3,7 @@ import type {
   CanauxAnnee,
   ComparaisonAnnee,
   ModeRevenu,
+  RecetteSansNuits,
   RevenueChartData,
   Sejour,
 } from "@/lib/dashboard-types";
@@ -77,6 +78,31 @@ export function nuitsDuSejour(sejour: Sejour): string[] {
   return Array.from({ length: Math.max(0, sejour.nuits) }, (_, i) => ajouterJours(sejour.arrivee, i));
 }
 
+/**
+ * Tous les mouvements de revenu d'une période : les séjours ventilés selon la convention
+ * choisie, **plus les recettes sans nuits**.
+ *
+ * Ces recettes-là existent vraiment — kits drap/serviette facturés à part, frais encaissés
+ * sur une annulation, séjours directs facturés sans dates au libellé. Les omettre des blocs
+ * de comparaison creusait un trou visible : le canal Direct disparaissait de 2024 et 2025,
+ * alors qu'il y avait bien encaissé, et les totaux annuels ne retombaient pas sur les
+ * indicateurs.
+ *
+ * Elles n'apportent aucune nuit : l'occupation, elle, ne se calcule que sur les séjours.
+ */
+export function mouvements(
+  sejours: Sejour[],
+  recettes: RecetteSansNuits[],
+  mode: ModeRevenu,
+): { jour: string; canal: Canal; montant: number }[] {
+  return [
+    ...sejours.flatMap((s) => ventiler(s, mode).map((v) => ({ ...v, canal: s.canal }))),
+    ...recettes
+      .filter((r) => r.date)
+      .map((r) => ({ jour: r.date as string, canal: r.canal, montant: r.net })),
+  ];
+}
+
 const arrondi = (n: number) => Math.round(n * 100) / 100;
 
 /**
@@ -85,20 +111,22 @@ const arrondi = (n: number) => Math.round(n * 100) / 100;
  * Cette fonction ne connaît ni Albiez, ni Beds24 : elle prend des séjours et rend des lignes.
  * C'est ce qui permettra à Barbusse de reprendre le composant l'an prochain sans le réécrire.
  */
-export function construireGraphe(sejours: Sejour[], mode: ModeRevenu): RevenueChartData {
+export function construireGraphe(
+  sejours: Sejour[],
+  recettes: RecetteSansNuits[],
+  mode: ModeRevenu,
+): RevenueChartData {
   const parAnneeMois = new Map<string, number>();
   const parCanalMois = new Map<string, number>();
   const annees = new Set<number>();
 
-  for (const s of sejours) {
-    for (const { jour, montant } of ventiler(s, mode)) {
-      const annee = Number(jour.slice(0, 4));
-      const mois = Number(jour.slice(5, 7)) - 1;
-      annees.add(annee);
-      parAnneeMois.set(`${annee}|${mois}`, (parAnneeMois.get(`${annee}|${mois}`) ?? 0) + montant);
-      const cleC = `${annee}|${s.canal}|${mois}`;
-      parCanalMois.set(cleC, (parCanalMois.get(cleC) ?? 0) + montant);
-    }
+  for (const { jour, canal, montant } of mouvements(sejours, recettes, mode)) {
+    const annee = Number(jour.slice(0, 4));
+    const mois = Number(jour.slice(5, 7)) - 1;
+    annees.add(annee);
+    parAnneeMois.set(`${annee}|${mois}`, (parAnneeMois.get(`${annee}|${mois}`) ?? 0) + montant);
+    const cleC = `${annee}|${canal}|${mois}`;
+    parCanalMois.set(cleC, (parCanalMois.get(cleC) ?? 0) + montant);
   }
 
   const listeAnnees = [...annees].sort();
@@ -148,19 +176,38 @@ export function construireGraphe(sejours: Sejour[], mode: ModeRevenu): RevenueCh
  * revenu : un séjour appartient à un canal en entier, le découper entre deux années pour
  * quelques nuits de décembre n'apprendrait rien sur le mix de canaux.
  */
-export function canauxParAnnee(sejours: Sejour[]): CanauxAnnee[] {
+export function canauxParAnnee(sejours: Sejour[], recettes: RecetteSansNuits[]): CanauxAnnee[] {
   const parAnnee = new Map<number, Map<Canal, { sejours: number; revenu: number }>>();
+  const entree = (annee: number, canal: Canal) => {
+    const m = parAnnee.get(annee) ?? new Map<Canal, { sejours: number; revenu: number }>();
+    const e = m.get(canal) ?? { sejours: 0, revenu: 0 };
+    m.set(canal, e);
+    parAnnee.set(annee, m);
+    return e;
+  };
+
+  const today = aujourdhui();
+  const anneeCourante = Number(today.slice(0, 4));
+
+  // L'année en cours est annoncée « à date » : elle doit donc s'arrêter à aujourd'hui, sans
+  // quoi les réservations déjà prises pour l'automne la gonfleraient et son total ne
+  // retomberait plus sur celui de la comparaison annuelle. Les années closes, elles, sont
+  // comptées en entier.
+  const aDate = (jour: string) => Number(jour.slice(0, 4)) !== anneeCourante || jour <= today;
+
   for (const s of sejours) {
-    const annee = Number(s.arrivee.slice(0, 4));
-    const m = parAnnee.get(annee) ?? new Map();
-    const e = m.get(s.canal) ?? { sejours: 0, revenu: 0 };
+    if (!aDate(s.arrivee)) continue;
+    const e = entree(Number(s.arrivee.slice(0, 4)), s.canal);
     e.sejours += 1;
     e.revenu += s.net;
-    m.set(s.canal, e);
-    parAnnee.set(annee, m);
   }
-
-  const anneeCourante = Number(aujourdhui().slice(0, 4));
+  // Les recettes sans nuits apportent du revenu mais aucun séjour : le compteur de séjours
+  // ne bouge pas, sinon le prix moyen par séjour serait divisé par des lignes qui n'en sont
+  // pas. C'est ce qui faisait disparaître le direct de 2024 et 2025.
+  for (const r of recettes) {
+    if (!r.date || !aDate(r.date)) continue;
+    entree(Number(r.date.slice(0, 4)), r.canal).revenu += r.net;
+  }
   return [...parAnnee.keys()]
     .sort()
     .map((annee) => {
@@ -190,6 +237,7 @@ export function canauxParAnnee(sejours: Sejour[]): CanauxAnnee[] {
  */
 export function comparerAnnees(
   sejours: Sejour[],
+  recettes: RecetteSansNuits[],
   mode: ModeRevenu,
   projectionAnneeCourante: number | null,
 ): ComparaisonAnnee[] {
@@ -204,13 +252,13 @@ export function comparerAnnees(
     return b;
   };
 
+  for (const { jour, montant } of mouvements(sejours, recettes, mode)) {
+    const annee = Number(jour.slice(0, 4));
+    const b = bucket(annee);
+    b.total += montant;
+    if (joursEntre(`${annee}-01-01`, jour) <= rangDuJour) b.aDate += montant;
+  }
   for (const s of sejours) {
-    for (const { jour, montant } of ventiler(s, mode)) {
-      const annee = Number(jour.slice(0, 4));
-      const b = bucket(annee);
-      b.total += montant;
-      if (joursEntre(`${annee}-01-01`, jour) <= rangDuJour) b.aDate += montant;
-    }
     for (const nuit of nuitsDuSejour(s)) {
       const annee = Number(nuit.slice(0, 4));
       const b = bucket(annee);

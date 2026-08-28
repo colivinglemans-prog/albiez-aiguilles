@@ -99,9 +99,17 @@ function pousserSejour(s) {
   const j = lire("direct");
   for (const e of j.encaissements) {
     if (e.nature === "supplement") {
+      // Un kit drap/serviette encaissé par Stripe pour un voyageur venu d'Airbnb est du
+      // revenu **du canal Airbnb**, pas du direct : c'est Airbnb qui a apporté le client.
+      // L'attribuer au direct sous prétexte que le paiement passe par Stripe gonflerait la
+      // part directe d'une recette que le direct n'a pas générée.
+      const origine = e.rapprocheAvec?.canal;
       recettes.push({
-        ref: e.id, canal: CANAUX.direct, date: e.date,
+        ref: e.id,
+        canal: CANAUX[origine] ?? CANAUX.direct,
+        date: e.date,
         brut: e.brut, net: e.net, nature: "supplement", libelle: e.libelle,
+        paiementVia: "Stripe",
         ...(e.rapprocheAvec ? { rapprocheAvec: e.rapprocheAvec } : {}),
       });
       continue;
@@ -120,9 +128,13 @@ function pousserSejour(s) {
     }
     // Séjour direct facturé sans dates dans le libellé : le revenu est certain, les nuits
     // inconnues. Les inventer fausserait l'occupation, les jeter fausserait le revenu.
+    //
+    // Le canal reste **Direct** même quand le nom est déjà connu d'un autre canal : ce sont
+    // des voyageurs qui reviennent, et qui repassent alors en direct.
     recettes.push({
       ref: e.id, canal: CANAUX.direct, date: e.date,
       brut: e.brut, net: e.net, nature: "sejour_sans_dates", libelle: e.libelle,
+      paiementVia: "Stripe",
       ...(e.rapprocheAvec ? { rapprocheAvec: e.rapprocheAvec } : {}),
     });
   }
@@ -142,15 +154,21 @@ for (let i = 0; i < sejours.length - 1; i++) {
 const somme = (liste, f) => Number(liste.reduce((s, x) => s + f(x), 0).toFixed(2));
 
 /**
- * Réconciliation avec les archives source : le total par canal doit être identique avant et
- * après fusion. C'est le contrôle qui attrape une entrée oubliée ou comptée deux fois.
+ * Réconciliation avec les archives source.
+ *
+ * Le contrôle porte sur le **total**, pas sur le détail par canal : les suppléments changent
+ * délibérément de canal à la fusion (un kit encaissé par Stripe pour un voyageur Airbnb est
+ * du revenu Airbnb). Un écart par canal est donc attendu et documenté ; un écart sur le total
+ * signalerait en revanche une entrée perdue ou comptée deux fois.
  */
-const attendu = {
-  [CANAUX.airbnb]: somme(lire("airbnb").reservations, (r) => r.net),
-  [CANAUX.booking]: somme(lire("booking").reservations, (r) => r.net),
-  [CANAUX.abritel]: somme(lire("abritel").reservations, (r) => r.net),
-  [CANAUX.direct]: somme(lire("direct").encaissements, (e) => e.net),
-};
+const attenduTotal = Number(
+  (
+    somme(lire("airbnb").reservations, (r) => r.net) +
+    somme(lire("booking").reservations, (r) => r.net) +
+    somme(lire("abritel").reservations, (r) => r.net) +
+    somme(lire("direct").encaissements, (e) => e.net)
+  ).toFixed(2),
+);
 const obtenu = {};
 for (const canal of Object.values(CANAUX)) {
   obtenu[canal] = Number(
@@ -160,6 +178,7 @@ for (const canal of Object.values(CANAUX)) {
     ).toFixed(2),
   );
 }
+const obtenuTotal = Number(somme(Object.values(obtenu), (v) => v).toFixed(2));
 
 const sortie = {
   genereLe: new Date().toISOString().slice(0, 10),
@@ -182,16 +201,22 @@ console.log(`✓ ${sejours.length} séjours + ${recettes.length} recettes sans n
 console.log(`  data/archive-albiez.json  et  data/archive-albiez.env.txt (${(compact.length / 1024).toFixed(1)} Ko)`);
 
 console.log("\n-- Réconciliation avec les archives source --");
-let ko = false;
 for (const canal of Object.values(CANAUX)) {
-  const ecart = Number((obtenu[canal] - attendu[canal]).toFixed(2));
-  if (Math.abs(ecart) > 0.02) ko = true;
+  console.log(`  ${canal.padEnd(12)} ${obtenu[canal].toFixed(2).padStart(10)} €`);
+}
+const ko = Math.abs(obtenuTotal - attenduTotal) > 0.02;
+console.log(
+  `  ${"TOTAL".padEnd(12)} ${obtenuTotal.toFixed(2).padStart(10)} € ` +
+  `${ko ? `✗ attendu ${attenduTotal.toFixed(2)} €` : "✓ identique aux quatre archives"}`,
+);
+
+const reattribues = recettes.filter((r) => r.nature === "supplement" && r.canal !== CANAUX.direct);
+if (reattribues.length) {
   console.log(
-    `  ${canal.padEnd(12)} ${obtenu[canal].toFixed(2).padStart(10)} € ` +
-    `${Math.abs(ecart) > 0.02 ? `✗ écart de ${ecart} €` : "✓"}`,
+    `\n  ${reattribues.length} supplément(s) encaissés par Stripe mais rattachés à leur canal ` +
+    `d'origine (${somme(reattribues, (r) => r.net).toFixed(2)} €) : le client venait de là.`,
   );
 }
-console.log(`  ${"TOTAL".padEnd(12)} ${somme(Object.values(obtenu), (v) => v).toFixed(2).padStart(10)} €`);
 
 console.log("\n-- Nuits par année (séjours seuls) --");
 const parAn = {};

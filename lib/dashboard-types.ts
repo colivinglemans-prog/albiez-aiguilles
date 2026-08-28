@@ -51,6 +51,12 @@ export interface RecetteSansNuits {
   net: number;
   nature: "supplement" | "frais_annulation" | "sejour_sans_dates";
   libelle?: string;
+  /**
+   * Moyen d'encaissement, quand il diffère du canal. Un kit facturé par Stripe à un voyageur
+   * venu d'Airbnb porte `canal: "Airbnb"` — c'est Airbnb qui a apporté le client — et
+   * `paiementVia: "Stripe"`, qui garde la trace de l'endroit où retrouver la transaction.
+   */
+  paiementVia?: string;
   rapprocheAvec?: { canal: string; code: string };
 }
 

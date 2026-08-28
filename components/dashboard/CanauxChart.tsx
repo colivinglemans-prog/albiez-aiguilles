@@ -82,51 +82,73 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-4 -mx-2 overflow-x-auto">
-        <table className="w-full min-w-[30rem] text-sm">
-          <thead>
-            <tr className="text-xs uppercase tracking-wide text-slate-400">
-              <th className="px-2 pb-2 text-left font-medium">Année</th>
-              {canauxPresents.map((c) => (
-                <th key={c} className="px-2 pb-2 text-right font-medium">
-                  {c}
-                </th>
+      {/* Comme les tableaux de séjours : cartes en dessous de `md`, tableau au-dessus.
+          Aucun conteneur défilant — les pourcentages sont justement ce qu'on vient lire. */}
+      <ul className="mt-4 space-y-3 md:hidden">
+        {[...data].reverse().map((a) => (
+          <li key={a.annee} className="rounded-xl bg-slate-50 p-3">
+            <div className="flex items-baseline justify-between">
+              <span className="font-medium text-slate-900">
+                {a.annee}
+                {a.enCours && <span className="ml-1 text-xs text-slate-400">à date</span>}
+              </span>
+              <span className="font-semibold text-slate-900">{euros(a.total)}</span>
+            </div>
+            <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-500">
+              {a.canaux.map((c) => (
+                <span key={c.canal} className="whitespace-nowrap">
+                  {c.canal} {euros(c.revenu)}{" "}
+                  <span className="text-slate-400">({Math.round(c.part)} %)</span>
+                </span>
               ))}
-              <th className="px-2 pb-2 text-right font-medium">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...data].reverse().map((a) => (
-              <tr key={a.annee} className="border-t border-slate-100">
-                <td className="px-2 py-2 font-medium text-slate-900">
-                  {a.annee}
-                  {a.enCours && <span className="ml-1 text-xs text-slate-400">à date</span>}
-                </td>
-                {canauxPresents.map((canal) => {
-                  const e = a.canaux.find((x) => x.canal === canal);
-                  return (
-                    <td key={canal} className="px-2 py-2 text-right">
-                      {e ? (
-                        <>
-                          <span className="text-slate-900">{euros(e.revenu)}</span>
-                          <span className="ml-1.5 text-xs text-slate-400">
-                            {Math.round(e.part)} %
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-slate-300">—</span>
-                      )}
-                    </td>
-                  );
-                })}
-                <td className="px-2 py-2 text-right font-semibold text-slate-900">
-                  {euros(a.total)}
-                </td>
-              </tr>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <table className="mt-4 hidden w-full text-sm md:table">
+        <thead>
+          <tr className="text-xs uppercase tracking-wide text-slate-400">
+            <th className="pb-2 pr-3 text-left font-medium">Année</th>
+            {canauxPresents.map((c) => (
+              <th key={c} className="pb-2 pr-3 text-right font-medium">
+                {c}
+              </th>
             ))}
-          </tbody>
-        </table>
-      </div>
+            <th className="pb-2 text-right font-medium">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...data].reverse().map((a) => (
+            <tr key={a.annee} className="border-t border-slate-100">
+              <td className="whitespace-nowrap py-2 pr-3 font-medium text-slate-900">
+                {a.annee}
+                {a.enCours && <span className="ml-1 text-xs text-slate-400">à date</span>}
+              </td>
+              {canauxPresents.map((canal) => {
+                const e = a.canaux.find((x) => x.canal === canal);
+                return (
+                  <td key={canal} className="whitespace-nowrap py-2 pr-3 text-right">
+                    {e ? (
+                      <>
+                        <span className="text-slate-900">{euros(e.revenu)}</span>
+                        <span className="ml-1.5 text-xs text-slate-400">
+                          {Math.round(e.part)} %
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-slate-300">—</span>
+                    )}
+                  </td>
+                );
+              })}
+              <td className="whitespace-nowrap py-2 text-right font-semibold text-slate-900">
+                {euros(a.total)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 }

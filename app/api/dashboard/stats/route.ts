@@ -100,6 +100,10 @@ export async function GET(request: NextRequest) {
     : 0;
   const comparables = tout.filter((s) => Number(s.arrivee.slice(0, 4)) >= premiereAnneeComparable);
   const recettes = recettesArchivees({ arriveeDu: du, arriveeAu: au });
+  // Recettes sur tout l'historique, pour les mêmes raisons que `comparables`.
+  const recettesComparables = recettesArchivees().filter(
+    (r) => !r.date || Number(r.date.slice(0, 4)) >= premiereAnneeComparable,
+  );
 
   const today = aujourdhui();
   const revenuNet = sejours.reduce((s, x) => s + x.net, 0) + recettes.reduce((s, r) => s + r.net, 0);
@@ -191,9 +195,9 @@ export async function GET(request: NextRequest) {
     ),
     repartitionCanaux: repartitionCanaux(sejours),
     // Sur `comparables`, jamais sur `sejours` : voir le commentaire des deux jeux de données.
-    graphe: construireGraphe(comparables, mode),
-    comparaison: comparerAnnees(comparables, mode, projection),
-    canauxParAnnee: canauxParAnnee(comparables),
+    graphe: construireGraphe(comparables, recettesComparables, mode),
+    comparaison: comparerAnnees(comparables, recettesComparables, mode, projection),
+    canauxParAnnee: canauxParAnnee(comparables, recettesComparables),
     sejoursRecents: avecPeriode(
       [...sejours]
         .sort((a, b) => (b.reserveLe ?? b.arrivee).localeCompare(a.reserveLe ?? a.arrivee))
