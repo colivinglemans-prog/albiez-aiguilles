@@ -67,6 +67,41 @@ tester depuis un téléphone sans se connecter à Vercel. À remettre sur
 site deux fois (les canonical pointent déjà tous vers le domaine, le risque est faible mais
 inutile).
 
+## Beds24
+
+Propriété **346417** (`BEDS24_PROPERTY_ID`), hébergée dans un **sub account** Beds24 dédié à
+la SCI, distinct de celui de Barbusse. Un sub account est une frontière d'API : vérifié le
+2026-08-07, le token de Barbusse ne retourne que sa propre propriété `303771` et répond
+`401` sur `346417`. Il faut donc **un token propre à Albiez**, généré depuis le sub account
+lui-même — celui de Barbusse ne sert à rien ici, quels que soient ses scopes.
+
+| Script | Rôle |
+|--------|------|
+| `scripts/beds24-setup.mjs <INVITE_CODE>` | Échange un invite code contre un `refreshToken` (à faire une fois). L'invite code se génère **connecté au sub account Albiez** : *Settings → Apps & Integrations → API*, valable quelques minutes. |
+| `scripts/beds24-test.mjs [propertyId]` | Test de connexion : liste les propriétés du compte, vérifie que `346417` en fait partie, puis affiche disponibilités et réservations à 90 jours. |
+
+Les scripts lisent `.env.local` (`process.loadEnvFile`) : `BEDS24_REFRESH_TOKEN` ou, à
+défaut, `BEDS24_API_TOKEN`. Le **refresh token est la bonne forme** : un token longue durée
+ne porte que des scopes de lecture, et celui de Barbusse a fini par être refusé en local
+(`401 Token not valid`) alors que la valeur stockée sur Vercel, elle, fonctionne toujours —
+un token qui traîne dans un `.env.local` dérive de celui qui est réellement en service.
+
+La connexion est **en service depuis le 2026-08-28** : `BEDS24_REFRESH_TOKEN` est dans
+`.env.local` et `scripts/beds24-test.mjs` passe. Le compte ne contient que la propriété
+`346417`, avec **une seule room, `715147`** — c'est cet ID qu'attendra le calendrier, à
+sortir en variable d'environnement au même titre que le property ID. L'endpoint
+`/properties` renvoie `room types : aucune` alors que les disponibilités de `715147`
+remontent bien : la liste des propriétés n'inclut pas les rooms par défaut, ne pas en
+conclure que la propriété est vide.
+
+⚠️ **Rien n'est encore sur Vercel** : le projet n'a aucune variable d'environnement en
+production (`npx vercel env ls production`, vérifié le 2026-08-28). Ni le property ID ni le
+refresh token. Sans conséquence aujourd'hui — le site n'appelle pas encore Beds24 — mais à
+poser avant de brancher le calendrier.
+
+Le property ID **n'est jamais écrit en dur** : il vient de `BEDS24_PROPERTY_ID`, pour que le
+site puisse être redéployé pour un autre bien sans toucher au code.
+
 ## Les cinq langues
 
 Le site est servi en **français, anglais, allemand, espagnol et italien**. La langue est
