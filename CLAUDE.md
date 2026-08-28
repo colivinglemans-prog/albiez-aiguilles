@@ -202,10 +202,59 @@ La colonne « Date » de l'espace propriétaire est **la date d'arrivée** — d
 voir le contrôle croisé ci-dessous. Les déductions représentent **9,6 à 9,8 %** du brut sur les
 trois séjours, soit près de moitié moins que la commission Booking.
 
+### Direct (Stripe)
+
+Compte Stripe **propre à la SCI**, distinct de celui de Barbusse — pas de question
+d'attribution. Export « Détail de l'évolution du solde selon l'activité » du Dashboard
+(section *Évolution du solde selon l'activité* → **Télécharger** → **Détaillé**), converti par
+`scripts/import-direct-history.mjs`. Une seule plage couvrant toute la période suffit : le
+découpage mensuel se fait à l'import.
+
+⚠️ **Ce compte n'est pas « le canal direct ».** Il porte deux natures de recettes, et les
+confondre fait compter des nuits deux fois :
+
+| `nature` | Ce que c'est | Nuits |
+|----------|--------------|-------|
+| `direct` | Vraie réservation directe. | À compter. |
+| `supplement` | Kit drap/serviette facturé à part à un voyageur venu d'Airbnb ou de Booking — pratique confirmée par l'utilisateur, longtemps systématique côté Airbnb. Recette réelle et absente des relevés du canal. | **Aucune** : le séjour est déjà compté dans le canal d'origine. |
+| `a_verifier` | Des nuits facturées à un nom déjà vu sur un autre canal. Prolongation du séjour OTA, ou second séjour en direct du même voyageur ? Indécidable sans la mémoire de l'utilisateur. | À trancher. |
+
+Le tri se fait en rapprochant `customer_name` des noms de voyageurs des autres exports, passés
+en argument (`--airbnb`, `--booking`, `--abritel`). Les noms ne servent qu'au rapprochement en
+mémoire : **rien n'est écrit en sortie**. Quatre encaissements restent en `a_verifier`
+(2024-03-29, 2024-06-03, 2024-08-01, 2025-11-22).
+
+Deux pièges de plus :
+
+- **La catégorie `fee`** de l'export n'est pas un frais par transaction mais l'abonnement
+  Stripe Invoicing (−16,37 € sur trois ans). C'est un coût du canal, jamais une recette : elle
+  est exclue du brut et sortie à part dans `fraisAbonnementInvoicing`.
+- **La date est celle de l'encaissement, pas du séjour.** Les dates de séjour ne viennent que
+  du libellé du produit quand il en porte (« Séjour du 30 avril au 16 mai 2026 »). L'année
+  manque parfois : elle est déduite de l'année d'encaissement et l'entrée est marquée
+  `anneeDeduite`.
+
+**Les frais Stripe ressortent à 1,92 %** du brut. C'est de très loin le canal le moins cher :
+Abritel 9,7 %, Booking 17 %, Airbnb 18 %.
+
+### La location longue de 2026 n'était dans aucun autre canal
+
+Quatre factures à un même client italien, du **20 avril au 14 juin 2026**, **3 135 € brut** pour
+**~55 nuits** en continu, facturées par quinzaines. Rien de tout cela n'apparaît dans Airbnb,
+Booking ou Abritel : **toute statistique bâtie sans Stripe rate ce bloc**, et avec lui la
+moitié du printemps 2026.
+
+Le contrôle croisé le valide de façon nette : le bloc s'emboîte exactement entre un séjour
+Booking qui finit le 20 avril et un autre qui commence le 15 juin.
+
+Une seule anomalie, interne aux libellés : « du 16 mai au 30 mai » puis « du 29 mai au 14 juin »
+se chevauchent d'un jour. La somme des nuits facturées fait 56 pour un bloc réel de 55 —
+**coquille dans une des deux factures**, à trancher avant de figer le compte de nuits.
+
 ### Contrôle croisé entre canaux
 
 Un séjour ne peut pas chevaucher un autre dans un logement unique : c'est le contrôle le plus
-efficace sur la cohérence de plusieurs archives. Passé sur les **97 séjours des trois canaux**,
+efficace sur la cohérence de plusieurs archives. Passé sur les **101 séjours des quatre canaux**,
 il ne remonte **aucun chevauchement**. Ça confirme au passage que les relevés Booking décrivent
 bien Albiez — leur export ne contient aucune colonne de logement.
 
