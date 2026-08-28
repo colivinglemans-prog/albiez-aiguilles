@@ -114,11 +114,34 @@ Le choix de l'archive plutôt que d'un backfill dans Beds24 est délibéré : le
 les scopes `write:bookings`, mais **Beyond Pricing lit ce même compte**. Y injecter des
 séjours reconstitués fausserait ses analytics de revenu.
 
-⚠️ **Le fichier de sortie est gitignoré, et doit le rester** : ce repo est **public** et
-l'archive contient le chiffre d'affaires de la SCI ligne par ligne. Le script, lui, est
-versionné — il ne contient aucune donnée. La question « où la production lit-elle cette
-archive » reste ouverte et se tranchera avec le dashboard (variable d'environnement, stockage
-externe, ou passage du repo en privé).
+⚠️ **Les fichiers de sortie sont gitignorés, et doivent le rester** : ce repo est **public**
+et l'archive contient le chiffre d'affaires de la SCI ligne par ligne. Le script, lui, est
+versionné — il ne contient aucune donnée. Personne ne se souvient de la raison pour laquelle
+le repo a été rendu public ; il n'y a aucune contrainte technique qui l'impose, Vercel
+déployant aussi bien un repo privé. Le passage en privé reste donc une option à tout moment.
+
+**La production lit l'archive depuis une variable d'environnement** (décision du 2026-08-28,
+usage strictement interne, pas d'optimisation recherchée). Le script écrit à côté du JSON une
+forme compacte prête à coller :
+
+```
+node scripts/import-airbnb-history.mjs <export.csv>
+# -> data/historique-airbnb.json       (lisible, pour inspection)
+# -> data/historique-airbnb.env.txt    (HISTORIQUE_AIRBNB=... sur une ligne)
+npx vercel env add HISTORIQUE_AIRBNB production   # coller la valeur
+```
+
+Point à surveiller le jour où le dashboard se branchera : **16,5 Ko pour Airbnb seul**. Avec
+Booking, Abritel et le direct, l'ensemble approchera le budget total de variables
+d'environnement d'un déploiement Vercel — à vérifier à ce moment-là, avec le repo privé ou un
+stockage externe comme repli.
+
+**L'archive ne couvre qu'Airbnb.** Il y a aussi du Booking, de l'Abritel et des réservations
+directes : tant qu'ils n'y sont pas, ces chiffres ne décrivent pas l'activité et **aucune
+statistique ne doit être présentée comme telle**. Chaque canal aura son propre export et son
+propre importeur (`data/historique-<canal>.json`, champ `canal` déjà présent dans chaque
+entrée) ; le dashboard les fusionnera. À partir de maintenant, le direct et les canaux
+connectés passent par Beds24, donc l'archive ne concerne que l'antérieur.
 
 Trois pièges du format Airbnb, tous traités par le script :
 

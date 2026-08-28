@@ -208,6 +208,12 @@ const out = {
 
 writeFileSync(outPath, JSON.stringify(out, null, 2) + "\n", "utf8");
 
+/** Le repo est public : la production lit l'archive depuis une variable d'environnement,
+ *  pas depuis un fichier versionné. On écrit à côté la forme compacte à y coller. */
+const envPath = outPath.replace(/\.json$/, ".env.txt");
+const compact = JSON.stringify(out);
+writeFileSync(envPath, `HISTORIQUE_AIRBNB=${compact}\n`, "utf8");
+
 /** Garde-fou : la somme des nets doit retomber sur celle des virements Airbnb. C'est ce
  *  contrôle qui a révélé les 225 € de résolutions perdues par un `set` qui écrasait. */
 const netTotal = rows.reduce((s, b) => s + b.net, 0);
@@ -221,6 +227,7 @@ if (Math.abs(ecartTresorerie) > 0.02) {
 
 console.log(`✓ ${rows.length} réservations écrites dans ${outPath}`);
 console.log(`  Réconciliation OK : ${netTotal.toFixed(2)} € = total des virements Airbnb`);
+console.log(`  Forme compacte pour la variable d'environnement : ${envPath} (${(compact.length / 1024).toFixed(1)} Ko)`);
 console.log(`  ${payouts} lignes Payout ignorées (${payoutTotal.toFixed(2)} € de virements — mouvements de trésorerie, pas du revenu)`);
 if (ignored) console.log(`  ${ignored} ligne(s) non reconnue(s)`);
 console.log(`  Annonces présentes dans l'export : ${[...listings].join(" | ")}`);

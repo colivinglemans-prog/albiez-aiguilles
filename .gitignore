@@ -51,3 +51,4 @@ next-env.d.ts
 # Archive de revenus reconstituee depuis Airbnb : le repo est PUBLIC, ces chiffres
 # sont ceux de la SCI. Le fichier se regenere avec scripts/import-airbnb-history.mjs.
 /data/historique-airbnb.json
+/data/historique-*.env.txt
