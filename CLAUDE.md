@@ -186,12 +186,34 @@ compterait deux fois — le script marque ces entrées `aussiDansBeds24: true`, 
 doit dédoublonner sur le numéro de réservation. Les relevés fournis s'arrêtant au 2026-08-28,
 aucun des deux n'y figure pour l'instant.
 
+### Abritel
+
+**Trois séjours en tout** (février 2024, mai 2025, février 2026), et le canal est **arrêté en
+août 2026**. Abritel ne propose aucun export machine exploitable : l'espace propriétaire donne
+un tableau à l'écran, sans colonne de dates d'arrivée ni de départ — seulement une « Date », un
+nombre de nuits, un brut, des déductions et un paiement.
+
+L'archive `data/historique-abritel.json` est donc **saisie à la main**, au même format que les
+deux autres. Il n'y a délibérément **pas de script d'import** : trois lignes ne justifient pas
+un parseur, et surtout un script versionné dans un repo public ne peut pas contenir ces
+montants.
+
+La colonne « Date » de l'espace propriétaire est **la date d'arrivée** — déduit, pas supposé :
+voir le contrôle croisé ci-dessous. Les déductions représentent **9,6 à 9,8 %** du brut sur les
+trois séjours, soit près de moitié moins que la commission Booking.
+
 ### Contrôle croisé entre canaux
 
 Un séjour ne peut pas chevaucher un autre dans un logement unique : c'est le contrôle le plus
-efficace sur la cohérence de deux archives. Passé sur les 57 séjours Airbnb et les 38 séjours
-Booking, il ne remonte **aucun chevauchement**, ce qui confirme au passage que les relevés
-Booking décrivent bien Albiez — leur export ne contient aucune colonne de logement.
+efficace sur la cohérence de plusieurs archives. Passé sur les **97 séjours des trois canaux**,
+il ne remonte **aucun chevauchement**. Ça confirme au passage que les relevés Booking décrivent
+bien Albiez — leur export ne contient aucune colonne de logement.
+
+C'est aussi ce contrôle qui a **établi** que la « Date » d'Abritel est la date d'arrivée. Lu
+comme tel, `HA-GL20F9` (21→28 février 2026) s'insère exactement entre un séjour Airbnb qui finit
+le 21 et un autre qui commence le 28 : trois séjours bout à bout, sans un jour de trou ni de
+recouvrement. `HA-BN8XHJ` enchaîne de la même façon derrière un Airbnb qui finit le 4 février
+2024. Aucune autre lecture de cette colonne ne produirait cet emboîtement.
 
 C'est ce contrôle qui a révélé une entrée fantôme côté Airbnb : `HMY3AKKDE2`, un paiement de
 résolution de 30 € sans ligne « Réservation », dont les dates de repli (13→21 juillet 2026)
