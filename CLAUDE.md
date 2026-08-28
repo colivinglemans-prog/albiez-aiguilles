@@ -102,6 +102,42 @@ poser avant de brancher le calendrier.
 Le property ID **n'est jamais écrit en dur** : il vient de `BEDS24_PROPERTY_ID`, pour que le
 site puisse être redéployé pour un autre bien sans toucher au code.
 
+## Historique Airbnb (statistiques antérieures)
+
+Le lien Airbnb → Beds24 **ne rétro-importe pas l'historique** : il synchronise les séjours en
+cours et à venir au moment du branchement, rien d'autre. Vérifié le 2026-08-28, le compte
+Beds24 ne contient aucune réservation, toutes dates confondues. L'antériorité vient donc d'un
+**export CSV** de l'espace hôte Airbnb (« historique des transactions »), converti par
+`scripts/import-airbnb-history.mjs` en `data/historique-airbnb.json`.
+
+Le choix de l'archive plutôt que d'un backfill dans Beds24 est délibéré : le token a bien
+les scopes `write:bookings`, mais **Beyond Pricing lit ce même compte**. Y injecter des
+séjours reconstitués fausserait ses analytics de revenu.
+
+⚠️ **Le fichier de sortie est gitignoré, et doit le rester** : ce repo est **public** et
+l'archive contient le chiffre d'affaires de la SCI ligne par ligne. Le script, lui, est
+versionné — il ne contient aucune donnée. La question « où la production lit-elle cette
+archive » reste ouverte et se tranchera avec le dashboard (variable d'environnement, stockage
+externe, ou passage du repo en privé).
+
+Trois pièges du format Airbnb, tous traités par le script :
+
+| Piège | Détail |
+|-------|--------|
+| **Ordre inverse** | L'export est chronologique inverse : pour cinq séjours sur sept, la ligne « Versement de résolution » **précède** la « Réservation » du même code. Fusionner dans l'entrée existante, jamais l'écraser. |
+| **Deux conventions décimales** | `Revenus bruts` utilise le point (`329.10`), `Frais de service` la virgule (`"61,21"`), dans le même fichier. |
+| **Lignes `Payout`** | Ce sont des virements bancaires, pas du revenu : les compter revient à doubler le chiffre d'affaires. Elles servent uniquement de **contrôle de réconciliation** — la somme des nets doit retomber exactement sur le total versé, sinon le script sort en erreur. |
+
+**Le changement de modèle de commission Airbnb rend les revenus bruts non comparables d'une
+année sur l'autre.** Jusqu'au 2024-03-09, les frais de service sont à **3,6 %** (modèle
+partagé : le voyageur paie sa propre commission, invisible dans l'export). À partir du
+2024-03-22, ils passent à **18 %** (modèle *host-only* : tout est refacturé à l'hôte, donc
+le brut inclut désormais ce que payait le voyageur). Sur les statistiques, **c'est le net
+qui fait une série comparable**, pas le brut.
+
+Enfin, **2023 n'est pas une année** : l'export commence au 2023-12-25 et ne contient qu'un
+séjour. À ne pas afficher comme un exercice complet à côté de 2024 et 2025.
+
 ## Les cinq langues
 
 Le site est servi en **français, anglais, allemand, espagnol et italien**. La langue est
