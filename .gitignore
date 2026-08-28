@@ -52,3 +52,6 @@ next-env.d.ts
 # sont ceux de la SCI. Le fichier se regenere avec scripts/import-airbnb-history.mjs.
 /data/historique-*.json
 /data/historique-*.env.txt
+/data/archive-albiez.json
+/data/archive-albiez.env.txt
+# data/vacances-scolaires.json est au contraire VERSIONNE : donnee publique du ministere.

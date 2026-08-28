@@ -7,7 +7,7 @@ import { I18nProvider, isLocale, LOCALES } from "@/lib/i18n";
 import { SITE_NAME, SITE_URL } from "@/lib/property";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import "../globals.css";
+import "../../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });

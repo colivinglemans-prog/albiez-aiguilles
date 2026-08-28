@@ -122,12 +122,14 @@ for (const x of rows) {
   const sejour = sejourDepuisLibelle(libelle, Number(date.slice(0, 4)));
 
   // Un nom connu d'un autre canal + aucune nuit facturée = supplément sur ce séjour.
-  // Un nom connu + des nuits = ambigu : prolongation du séjour OTA, ou second séjour en
-  // direct du même voyageur ? Seul l'utilisateur peut trancher, on ne devine pas.
-  let nature;
-  if (correspondance && !contientNuit) nature = "supplement";
-  else if (correspondance) nature = "a_verifier";
-  else nature = "direct";
+  // Un nom connu + des nuits facturées = un séjour en direct : les voyageurs qui reviennent
+  // repassent en direct (règle donnée par l'utilisateur, 2026-08-28). Ce n'est donc pas une
+  // prolongation du séjour OTA, et ces nuits sont bien à compter.
+  const nature = correspondance && !contientNuit ? "supplement" : "direct";
+
+  // Le kit drap/serviette est facturé 15 € par personne : un supplément doit être un
+  // multiple de 15. Sinon le libellé ou le tarif a changé, et le tri mérite un œil.
+  const kitIncoherent = nature === "supplement" && Math.abs(brut % 15) > 0.005;
 
   encaissements.push({
     id: x[c("balance_transaction_id")],
@@ -140,6 +142,8 @@ for (const x of rows) {
     fraisStripe: Number(frais.toFixed(2)),
     net: Number((brut - frais).toFixed(2)),
     ...(correspondance ? { rapprocheAvec: { canal: correspondance.canal, code: correspondance.code } } : {}),
+    ...(nature === "supplement" ? { personnesKit: Number((brut / 15).toFixed(2)) } : {}),
+    ...(kitIncoherent ? { kitIncoherent: true } : {}),
     ...(indice ? { indiceCanal: indice } : {}),
     ...(sejour ? { arrivee: sejour.arrivee, depart: sejour.depart, nuits: sejour.nuits, ...(sejour.anneeDeduite ? { anneeDeduite: true } : {}) } : {}),
   });
@@ -152,16 +156,15 @@ const ecarts = encaissements.filter((e) => Math.abs(e.net - (e.brut - e.fraisStr
 
 const mois = {};
 for (const e of encaissements) {
-  const m = (mois[e.mois] ??= { encaissements: 0, brut: 0, fraisStripe: 0, net: 0, brutDirect: 0, brutSupplements: 0, brutAVerifier: 0, nuits: 0 });
+  const m = (mois[e.mois] ??= { encaissements: 0, brut: 0, fraisStripe: 0, net: 0, brutDirect: 0, brutSupplements: 0, nuits: 0 });
   m.encaissements++;
   m.brut += e.brut; m.fraisStripe += e.fraisStripe; m.net += e.net;
   if (e.nature === "direct") m.brutDirect += e.brut;
-  else if (e.nature === "supplement") m.brutSupplements += e.brut;
-  else m.brutAVerifier += e.brut;
+  else m.brutSupplements += e.brut;
   if (e.nature === "direct" && e.nuits) m.nuits += e.nuits;
 }
 for (const m of Object.values(mois)) {
-  for (const k of ["brut", "fraisStripe", "net", "brutDirect", "brutSupplements", "brutAVerifier"]) m[k] = Number(m[k].toFixed(2));
+  for (const k of ["brut", "fraisStripe", "net", "brutDirect", "brutSupplements"]) m[k] = Number(m[k].toFixed(2));
 }
 
 const total = (f) => Number(encaissements.reduce((s, e) => s + f(e), 0).toFixed(2));
@@ -172,9 +175,9 @@ const out = {
     "Ce compte Stripe n'est pas « le canal direct » : il mélange des réservations directes " +
     "(nature: direct) et des suppléments facturés à des voyageurs venus d'Airbnb, Booking ou " +
     "Abritel (nature: supplement) — recette réelle, mais AUCUNE nuit à ajouter, le séjour est " +
-    "déjà compté dans le canal d'origine. Les nature: a_verifier portent des nuits ET un nom " +
-    "déjà vu ailleurs : à trancher à la main. La date est celle de l'encaissement, pas du " +
-    "séjour. Aucun nom de client (repo public).",
+    "déjà compté dans le canal d'origine. Un nom déjà vu ailleurs AVEC des nuits facturées reste " +
+    "du direct : les voyageurs qui reviennent repassent en direct. La date est celle de " +
+    "l'encaissement, pas du séjour. Aucun nom de client (repo public).",
   fraisAbonnementInvoicing: Number(fraisAbonnement.toFixed(2)),
   totaux: {
     brut: total((e) => e.brut),
@@ -182,7 +185,6 @@ const out = {
     net: total((e) => e.net),
     brutDirect: total((e) => (e.nature === "direct" ? e.brut : 0)),
     brutSupplements: total((e) => (e.nature === "supplement" ? e.brut : 0)),
-    brutAVerifier: total((e) => (e.nature === "a_verifier" ? e.brut : 0)),
     nuitsDirectes: encaissements.reduce((s, e) => s + (e.nature === "direct" ? (e.nuits ?? 0) : 0), 0),
   },
   mois,
@@ -201,23 +203,21 @@ if (autresCategories.size) {
 console.log(`  Frais Stripe : ${out.totaux.fraisStripe.toFixed(2)} € sur ${out.totaux.brut.toFixed(2)} € = ${((out.totaux.fraisStripe / out.totaux.brut) * 100).toFixed(2)} %`);
 
 console.log("\n-- Par mois --");
-console.log("mois     enc.      brut       direct   supplém.  à vérif.   frais     net   nuits");
+console.log("mois     enc.      brut       direct   supplém.   frais      net   nuits");
 for (const k of Object.keys(mois).sort()) {
   const m = mois[k];
   console.log(
     `${k}  ${String(m.encaissements).padStart(4)}  ${m.brut.toFixed(2).padStart(8)}  ` +
     `${m.brutDirect.toFixed(2).padStart(9)}  ${m.brutSupplements.toFixed(2).padStart(8)}  ` +
-    `${m.brutAVerifier.toFixed(2).padStart(8)}  ${m.fraisStripe.toFixed(2).padStart(6)}  ${m.net.toFixed(2).padStart(8)}  ${String(m.nuits).padStart(5)}`
+    `${m.fraisStripe.toFixed(2).padStart(6)}  ${m.net.toFixed(2).padStart(8)}  ${String(m.nuits).padStart(5)}`
   );
 }
 
-const aVerifier = encaissements.filter((e) => e.nature === "a_verifier");
-if (aVerifier.length) {
-  console.log(`\n! ${aVerifier.length} encaissement(s) à trancher — nuits facturées à un nom déjà vu sur un autre canal :`);
-  for (const e of aVerifier) {
-    console.log(`   ${e.date}  ${e.brut.toFixed(2)} €  « ${e.libelle} »  → même personne que ${e.rapprocheAvec.canal} ${e.rapprocheAvec.code}`);
-  }
-  console.log("   Prolongation du séjour OTA (aucune nuit à ajouter) ou second séjour en direct (nuits à compter) ?");
+const kitsDouteux = encaissements.filter((e) => e.kitIncoherent);
+if (kitsDouteux.length) {
+  console.log(`
+! ${kitsDouteux.length} supplément(s) qui ne tombent pas sur un multiple de 15 € (kit = 15 €/personne) :`);
+  for (const e of kitsDouteux) console.log(`   ${e.date}  ${e.brut.toFixed(2)} €  « ${e.libelle} »`);
 }
 
 const deduites = encaissements.filter((e) => e.anneeDeduite);
