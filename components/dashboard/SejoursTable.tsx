@@ -13,25 +13,26 @@ const jourCourt = (iso: string) =>
 /**
  * Deux rendus du même contenu, et aucun ascenseur dans l'un ni dans l'autre.
  *
- * Le tableau à cinq colonnes ne tient pas sous ~34 rem : le mettre dans un conteneur
- * défilant faisait disparaître le prix et le net hors de l'écran, c'est-à-dire les deux
- * colonnes qu'on vient lire. En dessous de `md`, le tableau est donc remplacé par une liste
- * de cartes qui empile la même information verticalement — rien n'est masqué, rien ne défile
- * latéralement. Au-dessus de `md`, le tableau reprend, sans largeur minimale imposée.
+ * Cinq ou six colonnes ne tiennent pas sous ~34 rem : les mettre dans un conteneur défilant
+ * faisait disparaître le prix et le net hors de l'écran, c'est-à-dire ce qu'on vient lire.
+ * En dessous de `md`, le tableau est donc remplacé par une liste de cartes qui empile la même
+ * information verticalement — rien n'est masqué, rien ne défile latéralement. Au-dessus de
+ * `md`, le tableau reprend, sans largeur minimale imposée.
  */
 export default function SejoursTable({
   titre,
   sejours,
-  colonne,
+  reserveLe = false,
 }: {
   titre: string;
   sejours: SejourAffiche[];
-  colonne: "reserveLe" | "tjm";
+  /**
+   * Ajoute la date de réservation. Le prix par nuit, lui, est toujours affiché : c'est
+   * l'indicateur qui permet de juger un séjour, et il manquait au tableau des réservations
+   * récentes où l'on regarde justement si les dernières prises se vendent bien.
+   */
+  reserveLe?: boolean;
 }) {
-  const entete = colonne === "tjm" ? "€ / nuit" : "Réservé le";
-  const valeurColonne = (s: SejourAffiche) =>
-    colonne === "tjm" ? euros(s.tjm) : s.reserveLe ? jourCourt(s.reserveLe) : "—";
-
   const Canal = ({ s }: { s: SejourAffiche }) => (
     <span
       className="inline-flex items-center gap-1.5 whitespace-nowrap text-slate-600"
@@ -76,16 +77,19 @@ export default function SejoursTable({
             <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
               <Canal s={s} />
               <span className="text-slate-400">{s.nuits} nuits</span>
-              <span className="text-slate-400">
-                {entete} : {valeurColonne(s)}
-              </span>
+              <span className="text-slate-400">{euros(s.tjm)} / nuit</span>
+              {reserveLe && (
+                <span className="text-slate-400">
+                  réservé le {s.reserveLe ? jourCourt(s.reserveLe) : "—"}
+                </span>
+              )}
               <Periode s={s} />
             </div>
           </li>
         ))}
       </ul>
 
-      {/* Tableau — à partir de md, où les cinq colonnes tiennent sans défilement */}
+      {/* Tableau — à partir de md, où toutes les colonnes tiennent sans défilement */}
       {sejours.length > 0 && (
         <table className="hidden w-full text-sm md:table">
           <thead>
@@ -93,7 +97,8 @@ export default function SejoursTable({
               <th className="pb-2 pr-3 font-medium">Séjour</th>
               <th className="pb-2 pr-3 font-medium">Canal</th>
               <th className="pb-2 pr-3 font-medium">Période</th>
-              <th className="pb-2 pr-3 text-right font-medium">{entete}</th>
+              {reserveLe && <th className="pb-2 pr-3 text-right font-medium">Réservé le</th>}
+              <th className="pb-2 pr-3 text-right font-medium">€ / nuit</th>
               <th className="pb-2 text-right font-medium">Net</th>
             </tr>
           </thead>
@@ -112,8 +117,13 @@ export default function SejoursTable({
                 <td className="py-2.5 pr-3">
                   <Periode s={s} />
                 </td>
+                {reserveLe && (
+                  <td className="whitespace-nowrap py-2.5 pr-3 text-right text-slate-500">
+                    {s.reserveLe ? jourCourt(s.reserveLe) : "—"}
+                  </td>
+                )}
                 <td className="whitespace-nowrap py-2.5 pr-3 text-right text-slate-600">
-                  {valeurColonne(s)}
+                  {euros(s.tjm)}
                 </td>
                 <td className="whitespace-nowrap py-2.5 text-right font-medium text-slate-900">
                   {euros(s.net)}

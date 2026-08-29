@@ -136,17 +136,16 @@ export default function DashboardPage() {
             jourDeReference={new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" })}
           />
 
-          {/* Pleine largeur et non côte à côte : sur une demi-colonne, les cinq colonnes du
+          {/* Pleine largeur et non côte à côte : sur une demi-colonne, les colonnes du
               tableau imposaient un défilement horizontal qui masquait le prix et le net. */}
           <SejoursTable
             titre="Réservations récentes"
             sejours={stats.sejoursRecents}
-            colonne="reserveLe"
+            reserveLe
           />
           <SejoursTable
             titre="Meilleurs séjours (€ / nuit)"
             sejours={stats.meilleursSejours}
-            colonne="tjm"
           />
 
           <CanauxChart data={stats.canauxParAnnee} />
