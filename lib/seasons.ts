@@ -111,6 +111,9 @@ export interface BandeauSaison {
  * lit comme une donnée.
  */
 export const HIVERS: BandeauSaison[] = [
+  // 2023-2024 : dates non retrouvées. L'hiver reste absent du calendrier plutôt qu'estimé.
+  { saison: "hiver", debut: "2024-12-21", fin: "2025-03-23", confirme: true },
+  { saison: "hiver", debut: "2025-12-20", fin: "2026-03-22", confirme: true },
   { saison: "hiver", debut: WINTER_OPENING.from, fin: WINTER_OPENING.to, confirme: true },
 ];
 

@@ -270,6 +270,115 @@ chevauchaient deux autres séjours. Une **annulation** dont seuls des frais ont 
 les dates ont été relouées. Le montant est conservé, les nuits ne sont plus comptées — sans
 quoi 2026 affichait 8 nuits vendues qui n'existent pas.
 
+## Dashboard privé (`/dashboard`)
+
+Espace interne, **hors de `[locale]`** : en français seulement, jamais indexé. Deux pages —
+statistiques et calendrier — protégées par un mot de passe unique et un JWT en cookie
+(`lib/auth.ts`, repris de Barbusse).
+
+### Deux layouts racines
+
+`app/(site)/[locale]/layout.tsx` et `app/(dashboard)/layout.tsx` écrivent chacun leur
+`<html lang>`. Next n'accepte plusieurs layouts racines que si **chacun vit dans un groupe de
+routes** — c'est la raison du déplacement de `app/[locale]` vers `app/(site)/[locale]`. Les
+parenthèses n'apparaissent pas dans les URLs, `/fr` et `/dashboard` sont inchangés.
+
+### `Sejour`, et non `Beds24Booking`
+
+Le type canonique est `Sejour` (`lib/dashboard-types.ts`) : **les deux sources s'y ramènent**,
+l'archive comme le live. Barbusse fait l'inverse et donne à son archive la forme
+`Beds24Booking` ; impossible ici, nos séjours archivés n'ayant ni `id` numérique, ni
+`propertyId`, ni nom de voyageur. Les inventer pour satisfaire un type serait fabriquer des
+données.
+
+### La série de référence est le net, pas le brut
+
+Les frais de service Airbnb passent de 3,6 % à 18 % entre le 9 et le 22 mars 2024. Le brut
+change donc de définition au milieu de l'historique : une courbe de brut sur quatre ans
+affiche une croissance qui n'existe pas. Le brut et les commissions restent visibles dans les
+cartes, mais **ne servent jamais à comparer les années**.
+
+### Deux jeux de données dans `/api/dashboard/stats`
+
+| Jeu | Sert à | Filtré par la période ? |
+|-----|--------|--------------------------|
+| `sejours` | Cartes d'indicateurs, tableaux de séjours | **Oui** |
+| `comparables` | Revenus mensuels, comparaison annuelle, répartition par canal | **Non, jamais** |
+
+Filtrer les blocs de comparaison par la période les viderait de leur sens : comparer les
+années suppose de les avoir toutes, y compris quand on regarde « l'année en cours ».
+
+La **première année est écartée quand elle est tronquée** — 2023 ne compte que cinq semaines,
+sa barre ne dirait que « l'activité n'avait pas commencé » en écrasant l'échelle. La règle se
+maintient seule : on garde à partir de la première année dont le premier séjour tombe en
+janvier.
+
+### Recettes sans nuits
+
+`archive.recettes` porte du revenu réel **sans nuits** : kits drap/serviette facturés à part,
+frais encaissés sur une annulation, séjours directs facturés sans dates au libellé. Elles
+comptent dans le revenu et **jamais dans l'occupation**.
+
+Les oublier des blocs de comparaison faisait disparaître le canal Direct de 2024 et 2025 alors
+qu'il y avait bien encaissé, et les totaux annuels ne retombaient pas sur les indicateurs.
+
+⚠️ **Un supplément est rattaché au canal qui a apporté le client**, pas à Stripe. Un kit
+facturé à un voyageur venu d'Airbnb est du revenu Airbnb ; le compter en direct gonflerait une
+part que le direct n'a pas générée. Le champ `paiementVia` garde la trace de l'encaissement.
+La réconciliation de `build-archive.mjs` porte donc sur le **total**, pas par canal.
+
+### Chargement de l'archive
+
+`HISTORIQUE_ALBIEZ` d'abord, repli sur `data/archive-albiez.json`, sinon rien **et le
+dashboard le dit** : une archive absente ressemble sinon à une année creuse. Lecture à
+l'exécution et non par `import` statique — le fichier est gitignoré, un import statique ferait
+échouer le build sur Vercel.
+
+Dédoublonnage live / archive sur la **référence de réservation** (`apiReference` côté Beds24),
+le live gagnant. Aucune date de coupure en dur.
+
+### Calendrier (`/dashboard/calendrier`)
+
+Trois couches par jour : la saison de la station en fond (bleu domaine ouvert, ambre saison du
+lac), les vacances scolaires en pastilles de zone, les séjours en barre colorée par canal.
+Les nuits sont comptées sur `[arrivee, depart[`, ce qui laisse deux séjours qui s'enchaînent
+le même jour cohabiter.
+
+### Le graphe est écrit portable
+
+`components/dashboard/RevenueChart.tsx` ne connaît ni Albiez, ni Beds24, ni les canaux : il ne
+lit que `RevenueChartData`. **Barbusse doit le reprendre** quand il aura assez d'années à
+comparer — il n'aura qu'à produire la même forme. Les barres sont côte à côte parce qu'elles
+n'ont **pas de `stackId`** ; en ajouter un les empilerait.
+
+## Saisons de la station
+
+`lib/seasons.ts` porte les dates d'ouverture du domaine (`HIVERS`, une entrée par hiver) et la
+saison estivale (`SUMMER_MONTHS`, règle stable). Elles servent aux bandeaux du calendrier et
+aux accroches des pages de saison.
+
+**L'hiver 2023-2024 est absent, volontairement** : ses dates n'ont pas été retrouvées, et sur
+un calendrier une bande approximative se lit comme une date vérifiée. Ajouter une ligne dès
+que la station publie une nouvelle saison.
+
+Les accroches (`SeasonContent.tagline`) sont des **fonctions des dates**, formatées par `Intl`
+dans la langue de la page. Elles étaient auparavant recopiées en toutes lettres dans les cinq
+dictionnaires, à côté d'un `WINTER_OPENING` que personne ne lisait : changer une date
+demandait six modifications, et rien ne signalait un oubli.
+
+## Variables d'environnement
+
+| Variable | Rôle |
+|----------|------|
+| `BEDS24_REFRESH_TOKEN` | Échangé contre un access token de 24 h. Voir la section Beds24. |
+| `BEDS24_PROPERTY_ID` | Propriété `346417`, jamais en dur. |
+| `HISTORIQUE_ALBIEZ` | Archive des quatre canaux, forme compacte produite par `build-archive.mjs`. |
+| `DASHBOARD_PASSWORD` | Mot de passe unique du dashboard. |
+| `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
+
+⚠️ **Aucune n'est encore posée sur Vercel** (vérifié le 2026-08-28 : le projet n'a aucune
+variable en production). À faire avant tout déploiement du dashboard.
+
 ## Les cinq langues
 
 Le site est servi en **français, anglais, allemand, espagnol et italien**. La langue est
