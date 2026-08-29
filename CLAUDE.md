@@ -357,9 +357,9 @@ n'ont **pas de `stackId`** ; en ajouter un les empilerait.
 saison estivale (`SUMMER_MONTHS`, règle stable). Elles servent aux bandeaux du calendrier et
 aux accroches des pages de saison.
 
-**L'hiver 2023-2024 est absent, volontairement** : ses dates n'ont pas été retrouvées, et sur
-un calendrier une bande approximative se lit comme une date vérifiée. Ajouter une ligne dès
-que la station publie une nouvelle saison.
+Les quatre hivers depuis 2023-2024 y sont, aux dates réelles de la station. **Ajouter une
+ligne dès qu'elle publie une nouvelle saison** — une saison manquante laisse le mois sans
+teinte, ce qui se lit comme « hors saison » sur le calendrier.
 
 Les accroches (`SeasonContent.tagline`) sont des **fonctions des dates**, formatées par `Intl`
 dans la langue de la page. Elles étaient auparavant recopiées en toutes lettres dans les cinq
