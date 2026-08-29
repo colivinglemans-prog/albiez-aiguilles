@@ -104,12 +104,23 @@ export default function ComparaisonAnnuelle({
               <p className="text-xl font-bold text-slate-900">
                 {c.totalAnnee != null ? euros(c.totalAnnee) : "—"}
               </p>
+              {c.variationTotale != null && (
+                <p
+                  className={`text-xs font-medium ${
+                    c.variationTotale >= 0 ? "text-emerald-600" : "text-rose-600"
+                  }`}
+                >
+                  {c.variationTotale >= 0 ? "▲" : "▼"}{" "}
+                  {Math.abs(c.variationTotale).toFixed(1).replace(".", ",")} % vs {c.annee - 1}
+                </p>
+              )}
             </div>
           ))}
         </div>
         <p className="mt-2 text-xs text-slate-400">
-          Aucun pourcentage ici : la projection de {annee} est une estimation, la comparer à un
-          exercice clos donnerait un chiffre trompeur.
+          Les pourcentages ne comparent que des exercices clos entre eux. La projection de{" "}
+          {annee} n&apos;en porte pas : la confronter à une année close donnerait un chiffre
+          trompeur.
         </p>
       </div>
     </section>

@@ -271,6 +271,10 @@ export function comparerAnnees(
     const b = cumuls.get(annee)!;
     const precedente = i > 0 ? cumuls.get(annees[i - 1])! : null;
     const enCours = annee === anneeCourante;
+    // La variation d'année pleine ne se calcule qu'entre deux exercices clos. L'année en
+    // cours en est exclue — son total n'est qu'une projection — et l'année qui suit
+    // immédiatement la première l'est aussi tant que celle-ci n'est pas close.
+    const precedenteClose = i > 0 && annees[i - 1] !== anneeCourante;
     return {
       annee,
       cumulADate: arrondi(b.aDate),
@@ -280,6 +284,10 @@ export function comparerAnnees(
           ? arrondi(((b.aDate - precedente.aDate) / precedente.aDate) * 100)
           : null,
       totalAnnee: enCours ? null : arrondi(b.total),
+      variationTotale:
+        !enCours && precedenteClose && precedente && precedente.total > 0
+          ? arrondi(((b.total - precedente.total) / precedente.total) * 100)
+          : null,
       enCours,
       ...(enCours && projectionAnneeCourante != null
         ? { projection: arrondi(projectionAnneeCourante) }

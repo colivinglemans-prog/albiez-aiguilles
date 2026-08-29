@@ -37,6 +37,18 @@ export interface Sejour {
   /** L'année du séjour a été déduite de la date d'encaissement, pas lue sur la facture. */
   anneeDeduite?: boolean;
   statut?: string;
+  /**
+   * Identifiant numérique Beds24, présent uniquement sur les réservations vivantes. C'est la
+   * clé d'écriture des notes : un séjour archivé n'existe plus dans Beds24 et n'est donc pas
+   * annotable.
+   */
+  idBeds24?: number;
+  /**
+   * Note interne, stockée dans le champ `notes` de Beds24 — et non `comments`, qui est la
+   * remarque du voyageur et s'imprime sur les factures. Visible en lecture par le rôle
+   * `menage` : c'est là qu'on écrit « changer les draps du canapé ».
+   */
+  notes?: string;
 }
 
 /**
@@ -112,6 +124,12 @@ export interface ComparaisonAnnee {
   variationADate: number | null;
   /** Total de l'année entière. Absent pour l'année en cours. */
   totalAnnee: number | null;
+  /**
+   * Variation du total de l'année pleine par rapport à l'année pleine précédente, en %.
+   * Nulle sur la première année et sur l'année en cours : comparer un exercice clos à une
+   * projection ne produirait pas un vrai pourcentage.
+   */
+  variationTotale: number | null;
   /** Année encore en cours : `totalAnnee` est une projection, pas un constat. */
   enCours: boolean;
   projection?: number;

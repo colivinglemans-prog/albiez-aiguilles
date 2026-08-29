@@ -4,11 +4,16 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const LIENS = [
-  { href: "/dashboard", libelle: "Statistiques" },
-  { href: "/dashboard/calendrier", libelle: "Calendrier" },
+  { href: "/dashboard", libelle: "Statistiques", adminSeul: true },
+  { href: "/dashboard/calendrier", libelle: "Calendrier", adminSeul: false },
 ];
 
-export default function DashboardNav() {
+/**
+ * `role` arrive de la réponse d'API et peut manquer au premier rendu : on affiche alors la
+ * navigation complète le temps du chargement. Ce n'est pas une faille — le proxy refuse déjà
+ * l'accès aux pages interdites, et l'API ne renvoie pas les montants au rôle `menage`.
+ */
+export default function DashboardNav({ role }: { role?: "admin" | "menage" }) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -21,7 +26,7 @@ export default function DashboardNav() {
   return (
     <nav className="mb-6 flex items-center justify-between gap-4">
       <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
-        {LIENS.map((l) => (
+        {LIENS.filter((l) => !l.adminSeul || role !== "menage").map((l) => (
           <Link
             key={l.href}
             href={l.href}

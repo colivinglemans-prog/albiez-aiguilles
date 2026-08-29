@@ -9,6 +9,7 @@ import DashboardNav from "@/components/dashboard/DashboardNav";
 
 interface Reponse {
   mois: string;
+  role: "admin" | "menage";
   sejours: Sejour[];
   periodes: Periode[];
   saisons: BandeauSaison[];
@@ -39,9 +40,14 @@ export default function CalendrierPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8">
-      <DashboardNav />
+      <DashboardNav role={data?.role} />
 
-      <h1 className="mb-6 text-2xl font-bold text-slate-900">Calendrier</h1>
+      <h1 className="text-2xl font-bold text-slate-900">Calendrier</h1>
+      <p className="mb-6 mt-0.5 text-sm text-slate-500">
+        {data?.role === "menage"
+          ? "Les jours marqués MÉNAGE sont les départs : c'est là qu'il faut intervenir."
+          : "Saison de la station en fond, vacances scolaires par zone, séjours par canal."}
+      </p>
 
       {erreur && <div className="rounded-2xl bg-rose-50 p-6 text-rose-700">{erreur}</div>}
 
@@ -61,6 +67,7 @@ export default function CalendrierPage() {
           periodes={data.periodes}
           saisons={data.saisons}
           onMois={setMois}
+          menage={data.role === "menage"}
         />
       )}
     </div>

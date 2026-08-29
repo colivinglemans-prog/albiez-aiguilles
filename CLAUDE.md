@@ -339,10 +339,48 @@ le live gagnant. Aucune date de coupure en dur.
 
 ### Calendrier (`/dashboard/calendrier`)
 
-Trois couches par jour : la saison de la station en fond (bleu domaine ouvert, ambre saison du
-lac), les vacances scolaires en pastilles de zone, les séjours en barre colorée par canal.
-Les nuits sont comptées sur `[arrivee, depart[`, ce qui laisse deux séjours qui s'enchaînent
-le même jour cohabiter.
+Rendu repris du calendrier du Mans : barres continues par-dessus la grille, réparties en
+lignes à l'intérieur de chaque semaine. Le fond des cases porte la saison de la station (bleu
+domaine ouvert, ambre saison du lac), une rangée de barres porte les vacances scolaires par
+zone et les semaines de fêtes, une autre les séjours.
+
+**Les demi-cellules sont le point délicat.** Une barre qui se termine le jour J n'occupe que
+la moitié gauche de sa case, une barre qui commence le jour J que la moitié droite. Deux
+séjours qui s'enchaînent le même jour partagent donc une ligne au lieu de s'empiler — ce qui
+est le cas courant en pleine saison.
+
+### Deux rôles : `admin` et `menage`
+
+| | `admin` | `menage` |
+|---|---|---|
+| Statistiques | oui | **redirigé vers le calendrier** |
+| Montants et canaux | oui | **absents de la réponse d'API**, pas seulement de l'écran |
+| Consignes de ménage | écriture | **lecture** |
+| Jours de départ | — | marqués `MÉNAGE` dans la case |
+
+Les mots de passe : `DASHBOARD_PASSWORD` pour l'admin, et **toute** variable commençant par
+`DASHBOARD_PASSWORD_MENAGE` pour le ménage — ce qui permet d'en donner un par personne
+(`DASHBOARD_PASSWORD_MENAGE_Sylvie`) et d'en révoquer un sans changer celui des autres.
+
+⚠️ Le filtrage est fait **côté serveur** : le proxy bloque les pages, et
+`/api/dashboard/calendrier` remet les montants à zéro avant d'envoyer. Masquer côté client
+laisserait les chiffres dans le navigateur.
+
+### Consignes de ménage
+
+Stockées dans le champ `notes` de Beds24 — **et non `comments`**, qui porte la remarque du
+voyageur et s'imprime sur les documents qui lui sont envoyés. Écriture par
+`POST /api/dashboard/notes`, admin uniquement, via le scope `write:bookings` du refresh token.
+
+Seules les réservations **vivantes** sont annotables : un séjour archivé n'existe plus dans
+Beds24. L'interface le dit au lieu d'afficher un champ qui échouerait.
+
+Deux pièges de l'API, tous deux traités :
+- Beds24 répond parfois **200 avec `success: false`** dans le tableau de retour. Sans lire le
+  corps, l'interface affiche « enregistré » alors que rien ne l'a été.
+- La lecture des réservations est mise en cache 60 s. Le calendrier passe donc en
+  `cache: "no-store"` : sans ça, une consigne enregistrée restait invisible une minute, et la
+  personne du ménage qui rafraîchissait voyait l'ancienne version.
 
 ### Le graphe est écrit portable
 
@@ -373,7 +411,8 @@ demandait six modifications, et rien ne signalait un oubli.
 | `BEDS24_REFRESH_TOKEN` | Échangé contre un access token de 24 h. Voir la section Beds24. |
 | `BEDS24_PROPERTY_ID` | Propriété `346417`, jamais en dur. |
 | `HISTORIQUE_ALBIEZ` | Archive des quatre canaux, forme compacte produite par `build-archive.mjs`. |
-| `DASHBOARD_PASSWORD` | Mot de passe unique du dashboard. |
+| `DASHBOARD_PASSWORD` | Mot de passe administrateur. |
+| `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne du ménage. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. |
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
 
 **Les cinq sont posées en production** depuis le 2026-08-29, et vérifiées de bout en bout :

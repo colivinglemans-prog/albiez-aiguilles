@@ -35,15 +35,23 @@ async function accessToken(): Promise<string> {
   return token;
 }
 
-async function appeler<T>(chemin: string, params: Record<string, string> = {}): Promise<T> {
+async function appeler<T>(
+  chemin: string,
+  params: Record<string, string> = {},
+  frais = false,
+): Promise<T> {
   const token = await accessToken();
   const url = new URL(API + chemin);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
   const res = await fetch(url, {
     headers: { token },
-    // 60 s : le dashboard n'a pas besoin de la seconde près, et ça évite de tapisser
-    // l'API à chaque changement de période dans l'interface.
-    next: { revalidate: 60 },
+    // 60 s par défaut : le dashboard n'a pas besoin de la seconde près, et ça évite de
+    // tapisser l'API à chaque changement de période.
+    //
+    // `frais` court-circuite ce cache là où l'on vient d'écrire. Sans lui, une consigne de
+    // ménage enregistrée restait invisible pendant une minute — et la personne du ménage,
+    // qui rafraîchit sa page, voyait l'ancienne version sans comprendre pourquoi.
+    ...(frais ? { cache: "no-store" as const } : { next: { revalidate: 60 } }),
   });
   if (!res.ok) throw new Error(`Beds24 ${chemin} ${res.status} : ${(await res.text()).slice(0, 200)}`);
   return res.json() as Promise<T>;
@@ -61,6 +69,7 @@ interface BookingBeds24 {
   bookingTime?: string;
   firstName?: string;
   lastName?: string;
+  notes?: string;
 }
 
 const nuitsEntre = (a: string, b: string) =>
@@ -78,11 +87,17 @@ const nuitsEntre = (a: string, b: string) =>
  * pour le brut **et** pour le net : la commission des séjours vivants sera donc nulle, ce
  * qui est faux mais visible, plutôt qu'estimé au doigt mouillé.
  */
-export async function sejoursBeds24(params: { arriveeDu: string; arriveeAu: string }): Promise<Sejour[]> {
-  const { data = [] } = await appeler<{ data: BookingBeds24[] }>("/bookings", {
-    arrivalFrom: params.arriveeDu,
-    arrivalTo: params.arriveeAu,
-  });
+export async function sejoursBeds24(params: {
+  arriveeDu: string;
+  arriveeAu: string;
+  /** Ignorer le cache — à utiliser sur les vues où l'on écrit, comme le calendrier. */
+  frais?: boolean;
+}): Promise<Sejour[]> {
+  const { data = [] } = await appeler<{ data: BookingBeds24[] }>(
+    "/bookings",
+    { arrivalFrom: params.arriveeDu, arrivalTo: params.arriveeAu },
+    params.frais,
+  );
 
   return data
     .filter((b) => !STATUTS_EXCLUS.has((b.status ?? "").toLowerCase()))
@@ -100,6 +115,8 @@ export async function sejoursBeds24(params: { arriveeDu: string; arriveeAu: stri
         reserveLe: b.bookingTime?.slice(0, 10) ?? null,
         source: "beds24" as const,
         statut: b.status,
+        idBeds24: b.id,
+        notes: b.notes ?? "",
       };
     });
 }
@@ -131,4 +148,43 @@ export async function prixParNuit(params: { du: string; au: string }): Promise<R
     }
   }
   return prix;
+}
+
+/**
+ * Écrit une note interne sur une réservation vivante.
+ *
+ * Le champ visé est `notes` et non `comments` : le second porte la remarque du voyageur et
+ * s'imprime sur les documents envoyés au client. `notes` reste interne.
+ *
+ * Beds24 v2 répond parfois **200 avec `success: false`** dans le tableau de retour : un
+ * refus silencieux qu'il faut lire dans le corps, sinon l'interface affiche « enregistré »
+ * alors que rien ne l'a été.
+ */
+export async function ecrireNotes(id: number, notes: string): Promise<void> {
+  const token = await accessToken();
+  const res = await fetch(`${API}/bookings`, {
+    method: "POST",
+    headers: { token, "Content-Type": "application/json" },
+    body: JSON.stringify([{ id, notes }]),
+    cache: "no-store",
+  });
+  const corps = await res.text();
+  if (!res.ok) {
+    // Un 401 signifie que l'access token est mort avant son expiration annoncée : on vide
+    // le cache pour que l'appel suivant en redemande un.
+    if (res.status === 401) accesEnCache = null;
+    throw new Error(`Beds24 ${res.status} : ${corps.slice(0, 300)}`);
+  }
+  try {
+    const parse = JSON.parse(corps) as { success?: boolean; errors?: unknown; error?: unknown }[];
+    const premier = Array.isArray(parse) ? parse[0] : null;
+    if (premier && premier.success === false) {
+      throw new Error(
+        `Beds24 a refusé l'écriture : ${JSON.stringify(premier.errors ?? premier.error ?? premier).slice(0, 300)}`,
+      );
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("Beds24 a refusé")) throw e;
+    // Corps illisible mais statut 200 : format inattendu, pas une erreur d'écriture.
+  }
 }

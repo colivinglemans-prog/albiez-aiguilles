@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { localeFromAcceptLanguage } from "@/lib/i18n/locales";
-import { COOKIE_NAME, verifyToken } from "@/lib/auth";
+import { COOKIE_NAME, roleDuToken, verifyToken } from "@/lib/auth";
 
 /**
  * Deux responsabilités, sans rapport l'une avec l'autre mais qui vivent dans le même
@@ -40,6 +40,16 @@ export async function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard/login";
     url.searchParams.set("retour", pathname);
+    return NextResponse.redirect(url);
+  }
+
+  // Le rôle `menage` n'a droit qu'au calendrier. Le contrôle vit ici et non dans les pages :
+  // une page cliente qui masquerait les montants les aurait quand même reçus dans sa réponse
+  // d'API, donc dans le navigateur.
+  if ((await roleDuToken(token)) === "menage" && pathname !== "/dashboard/calendrier") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/dashboard/calendrier";
+    url.search = "";
     return NextResponse.redirect(url);
   }
   return NextResponse.next();
