@@ -77,6 +77,9 @@ export default function SejoursTable({
             <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
               <Canal s={s} />
               <span className="text-slate-400">{s.nuits} nuits</span>
+              {s.voyageurs != null && (
+                <span className="text-slate-400">{s.voyageurs} voy.</span>
+              )}
               <span className="text-slate-400">{euros(s.tjm)} / nuit</span>
               {reserveLe && (
                 <span className="text-slate-400">
@@ -96,6 +99,7 @@ export default function SejoursTable({
             <tr className="text-left text-xs uppercase tracking-wide text-slate-400">
               <th className="pb-2 pr-3 font-medium">Séjour</th>
               <th className="pb-2 pr-3 font-medium">Canal</th>
+              <th className="pb-2 pr-3 text-right font-medium">Voy.</th>
               <th className="pb-2 pr-3 font-medium">Période</th>
               {reserveLe && <th className="pb-2 pr-3 text-right font-medium">Réservé le</th>}
               <th className="pb-2 pr-3 text-right font-medium">€ / nuit</th>
@@ -113,6 +117,9 @@ export default function SejoursTable({
                 </td>
                 <td className="py-2.5 pr-3">
                   <Canal s={s} />
+                </td>
+                <td className="whitespace-nowrap py-2.5 pr-3 text-right text-slate-600">
+                  {s.voyageurs ?? <span className="text-slate-300" title="Non renseigné dans l&apos;archive">—</span>}
                 </td>
                 <td className="py-2.5 pr-3">
                   <Periode s={s} />

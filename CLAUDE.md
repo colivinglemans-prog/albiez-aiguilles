@@ -366,6 +366,22 @@ Les mots de passe : `DASHBOARD_PASSWORD` pour l'admin, et **toute** variable com
 `/api/dashboard/calendrier` remet les montants à zéro avant d'envoyer. Masquer côté client
 laisserait les chiffres dans le navigateur.
 
+### Nombre de voyageurs
+
+Relevé depuis Beds24 (`numAdult + numChild`) et affiché dans les tableaux, sur les barres du
+calendrier et dans la fiche d'un séjour. Il sert aussi au ménage : c'est le nombre de lits à
+faire.
+
+⚠️ **Vide sur tout l'antérieur, et c'est normal** : aucun export de canal ne porte le nombre
+de voyageurs — ni Airbnb, ni Booking, ni Abritel. Seules les réservations passées par Beds24
+depuis le 2026-08-28 en ont un. La colonne se remplit donc d'elle-même. `null` et non `0`
+quand l'information manque : zéro voyageur serait un chiffre, l'absence d'information n'en est
+pas un.
+
+C'est cette colonne qui permettra un jour de trancher la **tarification par occupation** (5ᵉ
+et 6ᵉ personne) sur des données réelles. Aujourd'hui elle est réglée au raisonnement, faute de
+savoir à quelle fréquence le logement se remplit à 5 ou 6.
+
 ### Consignes de ménage
 
 Stockées dans le champ `notes` de Beds24 — **et non `comments`**, qui porte la remarque du

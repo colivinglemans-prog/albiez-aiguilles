@@ -70,6 +70,8 @@ interface BookingBeds24 {
   firstName?: string;
   lastName?: string;
   notes?: string;
+  numAdult?: number;
+  numChild?: number;
 }
 
 const nuitsEntre = (a: string, b: string) =>
@@ -117,6 +119,12 @@ export async function sejoursBeds24(params: {
         statut: b.status,
         idBeds24: b.id,
         notes: b.notes ?? "",
+        // `null` et non `0` quand Beds24 ne renseigne rien : zéro voyageur serait un chiffre,
+        // l'absence d'information n'en est pas un.
+        voyageurs:
+          b.numAdult == null && b.numChild == null
+            ? null
+            : (b.numAdult ?? 0) + (b.numChild ?? 0),
       };
     });
 }

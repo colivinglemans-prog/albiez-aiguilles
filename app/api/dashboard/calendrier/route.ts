@@ -63,6 +63,8 @@ export async function GET(request: NextRequest) {
           // C'est le seul champ qu'elle a besoin de lire au-delà des dates.
           notes: s.notes,
           idBeds24: s.idBeds24,
+          // Le nombre de voyageurs reste : c'est le nombre de lits à faire.
+          voyageurs: s.voyageurs,
         }))
       : tous;
 

@@ -269,7 +269,9 @@ export default function Calendrier({
         return {
           source: s,
           couleur: menage ? "#64748b" : COULEUR_CANAL[s.canal],
-          libelle: menage ? `${s.nuits} nuits` : `${s.canal} · ${s.nuits} n`,
+          libelle: menage
+            ? `${s.nuits} n${s.voyageurs != null ? ` · ${s.voyageurs} voy.` : ""}`
+            : `${s.canal} · ${s.nuits} n${s.voyageurs != null ? ` · ${s.voyageurs} voy.` : ""}`,
           debutJour: commenceDansLeMois ? Number(s.arrivee.slice(8, 10)) : 1,
           finJour: finitDansLeMois ? Number(s.depart.slice(8, 10)) : nbJours,
           borneDebut: commenceDansLeMois,
@@ -569,6 +571,14 @@ export default function Calendrier({
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">Nuits</dt>
               <dd className="text-slate-900">{popup.sejour.nuits}</dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-slate-500">Voyageurs</dt>
+              <dd className="text-slate-900">
+                {popup.sejour.voyageurs ?? (
+                  <span className="text-slate-400">non renseigné</span>
+                )}
+              </dd>
             </div>
             {!menage && (
               <>

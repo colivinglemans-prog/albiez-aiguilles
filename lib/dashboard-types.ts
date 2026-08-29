@@ -49,6 +49,18 @@ export interface Sejour {
    * `menage` : c'est là qu'on écrit « changer les draps du canapé ».
    */
   notes?: string;
+  /**
+   * Nombre de voyageurs, adultes et enfants confondus.
+   *
+   * **Absent de tout l'historique archivé** : aucun des exports de canal ne le porte, ni
+   * Airbnb, ni Booking, ni Abritel. Seules les réservations passées par Beds24 depuis le
+   * 2026-08-28 en ont un. La colonne se remplira donc d'elle-même, et restera vide sur
+   * l'antérieur — ce qui est la vérité, pas un bug d'affichage.
+   *
+   * Elle servira à trancher sur données réelles la tarification par occupation (5ᵉ et 6ᵉ
+   * personne), aujourd'hui réglée au raisonnement faute de mesure.
+   */
+  voyageurs?: number | null;
 }
 
 /**
