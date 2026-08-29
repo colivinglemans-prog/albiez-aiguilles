@@ -376,8 +376,18 @@ demandait six modifications, et rien ne signalait un oubli.
 | `DASHBOARD_PASSWORD` | Mot de passe unique du dashboard. |
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
 
-⚠️ **Aucune n'est encore posée sur Vercel** (vérifié le 2026-08-28 : le projet n'a aucune
-variable en production). À faire avant tout déploiement du dashboard.
+**Les cinq sont posées en production** depuis le 2026-08-29, et vérifiées de bout en bout :
+mot de passe refusé puis accepté, archive chargée depuis la variable, Beds24 joignable depuis
+Vercel, chiffres identiques au local.
+
+⚠️ `HISTORIQUE_ALBIEZ` pèse **26,8 Ko à lui seul**. Vercel plafonne le total des variables
+d'un déploiement à 64 Ko : il reste de la marge, mais **la regénérer après chaque nouvel
+import** la fait grossir. Le jour où le plafond approche, le repli est un stockage externe ou
+le passage du repo en privé — pas une archive tronquée.
+
+**L'archive n'est pas synchronisée toute seule.** Elle est figée au moment où la variable a
+été posée. Après un nouvel export de canal, il faut relancer `build-archive.mjs`, remplacer la
+variable et redéployer, sinon la production reste sur l'ancienne photo.
 
 ## Les cinq langues
 
