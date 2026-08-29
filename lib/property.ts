@@ -44,6 +44,22 @@ export const PROPERTY = {
   /** Surface loi Carrez, en m². */
   areaM2: 33,
 
+  /**
+   * Identifiants Beds24 du logement.
+   *
+   * Le `propertyId` est ici et non en variable d'environnement parce qu'il **n'est pas un
+   * secret** : il figure en clair dans l'URL de la page de réservation, que n'importe quel
+   * visiteur peut lire. Le mettre en env var obligerait à l'exposer côté client par un
+   * `NEXT_PUBLIC_`, ce qui revient au même en moins lisible.
+   *
+   * `BEDS24_PROPERTY_ID` reste la source pour le **serveur** (dashboard, disponibilités) :
+   * là, il sert à interroger l'API avec un token, et vit avec lui.
+   */
+  beds24: {
+    propertyId: 346417,
+    roomId: 715147,
+  },
+
   capacity: {
     min: 4,
     max: 6,

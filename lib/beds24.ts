@@ -16,6 +16,28 @@ const STATUTS_EXCLUS = new Set(["cancelled", "black"]);
 
 let accesEnCache: { token: string; expireLe: number } | null = null;
 
+/**
+ * Token à utiliser pour les lectures servies au **public**.
+ *
+ * `BEDS24_REFRESH_TOKEN` porte `write:bookings`. Le faire servir une route ouverte à tous
+ * donnerait à du trafic anonyme un jeton capable d'écrire dans les réservations — même si la
+ * route ne l'expose jamais, c'est une surface inutile.
+ *
+ * `BEDS24_PUBLIC_TOKEN` est un long life token en **lecture seule** (`read:inventory` et
+ * `read:properties` suffisent), à créer dans *Beds24 → Settings → Account → API*. Tant qu'il
+ * n'existe pas, on retombe sur le token d'écriture pour que le développement local ne soit
+ * pas bloqué — mais la production doit l'avoir.
+ */
+async function tokenPublic(): Promise<string> {
+  const lecture = process.env.BEDS24_PUBLIC_TOKEN;
+  if (lecture && lecture.trim()) return lecture.trim();
+  console.warn(
+    "BEDS24_PUBLIC_TOKEN absent : les lectures publiques utilisent le token d'écriture. " +
+      "Créer un long life token en lecture seule avant de déployer.",
+  );
+  return accessToken();
+}
+
 async function accessToken(): Promise<string> {
   const refreshToken = process.env.BEDS24_REFRESH_TOKEN;
   if (!refreshToken) throw new Error("BEDS24_REFRESH_TOKEN n'est pas défini");
@@ -39,8 +61,9 @@ async function appeler<T>(
   chemin: string,
   params: Record<string, string> = {},
   frais = false,
+  public_ = false,
 ): Promise<T> {
-  const token = await accessToken();
+  const token = public_ ? await tokenPublic() : await accessToken();
   const url = new URL(API + chemin);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
   const res = await fetch(url, {
@@ -127,6 +150,73 @@ export async function sejoursBeds24(params: {
             : (b.numAdult ?? 0) + (b.numChild ?? 0),
       };
     });
+}
+
+/**
+ * Disponibilités jour par jour, pour le calendrier **public** de la vitrine.
+ *
+ * Une date est libre si elle l'est pour toutes les rooms. Albiez n'en a qu'une (`715147`),
+ * mais la fusion est conservée : elle ne coûte rien et évite un bug silencieux le jour où une
+ * seconde room apparaîtrait.
+ *
+ * Ne renvoie **que des booléens** : aucun montant, aucun nom. C'est ce qui rend la route
+ * publiable sans risque.
+ */
+export async function disponibilites(du: string, au: string): Promise<Record<string, boolean>> {
+  const propertyId = process.env.BEDS24_PROPERTY_ID;
+  if (!propertyId) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
+
+  const { data = [] } = await appeler<{ data: { availability: Record<string, boolean> }[] }>(
+    "/inventory/rooms/availability",
+    { propertyId, startDate: du, endDate: au },
+    false,
+    true,
+  );
+
+  const fusion: Record<string, boolean> = {};
+  for (const room of data) {
+    for (const [jour, libre] of Object.entries(room.availability ?? {})) {
+      fusion[jour] = fusion[jour] === undefined ? libre : fusion[jour] && libre;
+    }
+  }
+  return fusion;
+}
+
+/**
+ * Séjour minimum par date, tel que **Beyond Pricing** le pousse dans Beds24.
+ *
+ * Ce n'est pas le `minStay` de la room, qui vaut 1 et ne veut rien dire : la vraie contrainte
+ * est portée date par date au calendrier — relevé le 2026-08-29, 2 nuits en général et
+ * **6 nuits sur les fêtes de fin d'année**. Le calendrier du site doit la respecter, sinon il
+ * laisse sélectionner des séjours que le tunnel de réservation refusera ensuite.
+ */
+export async function sejourMinimum(du: string, au: string): Promise<Record<string, number>> {
+  const propertyId = process.env.BEDS24_PROPERTY_ID;
+  if (!propertyId) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
+
+  const { data = [] } = await appeler<{
+    data: { calendar?: { from: string; to: string; minStay?: number }[] }[];
+  }>(
+    "/inventory/rooms/calendar",
+    { propertyId, startDate: du, endDate: au, includeMinStay: "true" },
+    false,
+    true,
+  );
+
+  const minima: Record<string, number> = {};
+  for (const room of data) {
+    for (const tranche of room.calendar ?? []) {
+      if (tranche.minStay == null) continue;
+      // Beds24 compacte les jours consécutifs de même valeur en une tranche [from, to].
+      for (let j = tranche.from; j <= tranche.to; ) {
+        minima[j] = Math.max(minima[j] ?? 0, tranche.minStay);
+        const d = new Date(`${j}T00:00:00Z`);
+        d.setUTCDate(d.getUTCDate() + 1);
+        j = d.toISOString().slice(0, 10);
+      }
+    }
+  }
+  return minima;
 }
 
 /** Prix au calendrier — ceux que pousse Beyond Pricing. Sert à la projection. */

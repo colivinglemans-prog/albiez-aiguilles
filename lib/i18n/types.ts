@@ -199,11 +199,40 @@ export interface Dictionary {
     altitudeLabel: string;
     resortStats: { slopes: string; lifts: string; altitude: string };
   };
+  /**
+   * Calendrier de réservation directe.
+   *
+   * Aucune clé ne porte de prix : la tarification bouge tous les jours sous Beyond Pricing,
+   * et c'est la page de réservation Beds24 qui l'affiche. Le seul chiffre commercial ici est
+   * la remise directe, qui est une politique, pas un tarif.
+   */
+  calendar: {
+    loading: string;
+    previousMonth: string;
+    nextMonth: string;
+    close: string;
+    clear: string;
+    bookNow: string;
+    adults: string;
+    children: string;
+    selectCheckOut: string;
+    directDiscount: string;
+    nights: (n: number) => string;
+    minStayNote: (n: number) => string;
+    capacityNote: (max: number) => string;
+    summary: (
+      nights: number,
+      checkIn: string,
+      checkOut: string,
+      adults: number,
+      children: number,
+    ) => string;
+    monthNames: string[];
+    dayNames: string[];
+  };
   booking: {
     title: string;
     subtitle: string;
-    comingSoon: string;
-    comingSoonText: string;
     bookOnAirbnb: string;
     contactUs: string;
   };

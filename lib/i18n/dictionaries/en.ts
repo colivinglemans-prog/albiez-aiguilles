@@ -408,12 +408,28 @@ export const en: Dictionary = {
     },
   },
 
+  calendar: {
+    loading: "Loading availability…",
+    previousMonth: "Previous month",
+    nextMonth: "Next month",
+    close: "Close",
+    clear: "Clear",
+    bookNow: "Book now",
+    adults: "Adults",
+    children: "Children",
+    selectCheckOut: "Select your check-out date",
+    directDiscount: "Best rate guaranteed: −7% when you book direct",
+    nights: (n) => `${n} night${n > 1 ? "s" : ""}`,
+    minStayNote: (n) => `(minimum ${n} nights)`,
+    capacityNote: (max) => `Up to ${max} guests.`,
+    summary: (nights, checkIn, checkOut, adults, children) =>
+      `${nights} night${nights > 1 ? "s" : ""} — ${checkIn} to ${checkOut} · ${adults} adult${adults > 1 ? "s" : ""}${children > 0 ? `, ${children} child${children > 1 ? "ren" : ""}` : ""}`,
+    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    dayNames: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  },
   booking: {
     title: "Availability and booking",
     subtitle: "Book directly, with no middleman.",
-    comingSoon: "Direct booking coming soon",
-    comingSoonText:
-      "A live availability calendar is coming to this page shortly. In the meantime you can check free dates and book on Airbnb, or write to us directly for a tailored stay.",
     bookOnAirbnb: "Check availability on Airbnb",
     contactUs: "Write to us",
   },

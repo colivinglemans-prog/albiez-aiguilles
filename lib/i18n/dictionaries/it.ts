@@ -427,12 +427,28 @@ export const it: Dictionary = {
     },
   },
 
+  calendar: {
+    loading: "Caricamento disponibilità…",
+    previousMonth: "Mese precedente",
+    nextMonth: "Mese successivo",
+    close: "Chiudi",
+    clear: "Cancella",
+    bookNow: "Prenota",
+    adults: "Adulti",
+    children: "Bambini",
+    selectCheckOut: "Seleziona la data di partenza",
+    directDiscount: "Miglior prezzo garantito: −7 % prenotando direttamente",
+    nights: (n) => `${n} ${n > 1 ? "notti" : "notte"}`,
+    minStayNote: (n) => `(minimo ${n} notti)`,
+    capacityNote: (max) => `Fino a ${max} ospiti.`,
+    summary: (nights, checkIn, checkOut, adults, children) =>
+      `${nights} ${nights > 1 ? "notti" : "notte"} — dal ${checkIn} al ${checkOut} · ${adults} adult${adults > 1 ? "i" : "o"}${children > 0 ? `, ${children} bambin${children > 1 ? "i" : "o"}` : ""}`,
+    monthNames: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+    dayNames: ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
+  },
   booking: {
     title: "Disponibilità e prenotazione",
     subtitle: "Prenotate direttamente, senza intermediari.",
-    comingSoon: "Prenotazione diretta disponibile a breve",
-    comingSoonText:
-      "Il calendario delle disponibilità in tempo reale arriverà presto su questa pagina. Nel frattempo potete consultare le date libere e prenotare su Airbnb, oppure scriverci direttamente per un soggiorno su misura.",
     bookOnAirbnb: "Vedere le disponibilità su Airbnb",
     contactUs: "Scriveteci",
   },

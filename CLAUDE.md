@@ -270,6 +270,62 @@ chevauchaient deux autres séjours. Une **annulation** dont seuls des frais ont 
 les dates ont été relouées. Le montant est conservé, les nuits ne sont plus comptées — sans
 quoi 2026 affichait 8 nuits vendues qui n'existent pas.
 
+## Réservation directe (vitrine)
+
+`components/public/BookingSection.tsx` rend `CalendrierReservation`, qui interroge Beds24 en
+direct et ouvre son tunnel de paiement dans une modale. Le site **ne fait que choisir des
+dates** : prix, remise directe et encaissement vivent sur la page Beds24. Aucun tarif n'est
+écrit dans le code — la tarification bouge tous les jours sous Beyond Pricing, un prix recopié
+serait faux le lendemain.
+
+L'enjeu est la marge : **1,92 % de frais Stripe en direct contre 17 % chez Booking et 18 %
+chez Airbnb**. Le bouton Airbnb reste sur la page mais en style secondaire — le laisser en
+« primary » à côté du calendrier mettrait en concurrence visuelle un canal à 18 % avec un
+canal à 2 %.
+
+### Les séjours minimums viennent de Beyond Pricing
+
+⚠️ Le `minStay` de la room vaut `1` et **ne veut rien dire**. La vraie contrainte est poussée
+date par date au calendrier : relevé le 2026-08-29, **2 nuits en général et 6 nuits sur les
+fêtes de fin d'année**. `sejourMinimum()` la lit via `includeMinStay`, et le calendrier la
+respecte — sans quoi il laisserait composer des séjours que le tunnel refuserait ensuite.
+
+### Un token de lecture seule pour le public
+
+`BEDS24_PUBLIC_TOKEN` — long life token **read-only** (`read:inventory`, `read:properties`),
+créé dans *Beds24 → Settings → Account → API*. `BEDS24_REFRESH_TOKEN` porte `write:bookings` :
+le faire servir une route ouverte à tous donnerait à du trafic anonyme un jeton capable
+d'écrire dans les réservations.
+
+Tant que la variable n'existe pas, le code retombe sur le token d'écriture **et le signale
+dans les logs**, pour que le développement local ne soit pas bloqué. La production doit
+l'avoir.
+
+### `/api/disponibilites` — publique
+
+Hors du `matcher` du proxy, qui ne couvre que `/` et `/dashboard/:path*`. Elle ne renvoie que
+des **dates, des booléens et des durées minimales** : aucun montant, aucun nom, aucune
+référence de réservation. Plage plafonnée à 400 jours, garde-fou sur une route ouverte.
+
+### Ce qui reste à faire côté Beds24
+
+⚠️ **Le sélecteur de langue de la booking page propose English, Español, Français, Italiano,
+Nederlands.** L'allemand y manque, le néerlandais y est pour rien — le site n'a pas de version
+néerlandaise. `lang=de` retombe donc en anglais, et un visiteur allemand traverse cinq pages
+dans sa langue avant d'atterrir sur un tunnel en anglais.
+
+Correctif : *Settings → Properties → Booking Page → Languages*, **remplacer Nederlands par
+Deutsch**. La page de Barbusse le fait déjà — ce n'est pas une limite de la plateforme.
+Vérification : `lang=de` doit rendre « Nächte » et non « Nights ».
+
+**Ne pas déployer avant ce correctif.**
+
+### Fermetures volontaires
+
+Noël, le Jour de l'An et les vacances de février sont fermés — potentiellement gardés pour un
+usage personnel. Le calendrier les affiche donc barrés, ce qui est correct. Les rouvrir dans
+Beds24 suffit à les faire réapparaître, sans toucher au code.
+
 ## Dashboard privé (`/dashboard`)
 
 Espace interne, **hors de `[locale]`** : en français seulement, jamais indexé. Deux pages —
