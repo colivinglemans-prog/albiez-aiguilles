@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, LOCALES } from "@/lib/i18n";
+import { getDictionary, isLocale, LOCALES, LOCALE_META } from "@/lib/i18n";
 import { alternatesFor, seasonPath, openGraphLocales } from "@/lib/seo";
 import { getPhoto } from "@/lib/photos";
 import { galleryGroups } from "@/lib/gallery";
 import { HERO_PHOTOS } from "@/lib/property";
-import { SEASONS, SEASON_SLUGS, seasonFromSlug } from "@/lib/seasons";
+import { SEASONS, SEASON_SLUGS, seasonFromSlug, periodeSaison } from "@/lib/seasons";
 import Hero from "@/components/public/Hero";
 import SeasonBlock from "@/components/public/SeasonBlock";
 import CommonSections from "@/components/public/CommonSections";
@@ -79,7 +79,7 @@ export default async function SeasonPage({
       <Hero
         title={content.heading}
         subtitle={content.intro}
-        tagline={content.tagline}
+        tagline={content.tagline(periodeSaison(LOCALE_META[locale].bcp47))}
         photo={heroPhoto}
       />
 

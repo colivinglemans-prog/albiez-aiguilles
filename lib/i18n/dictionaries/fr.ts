@@ -69,7 +69,7 @@ export const fr: Dictionary = {
   seasons: {
     hiver: {
       heading: "Ski à Albiez : l'appartement à 250 m des pistes",
-      tagline: "Domaine skiable ouvert du 19 décembre 2026 au 21 mars 2027",
+      tagline: (p) => `Domaine skiable ouvert du ${p.du} au ${p.au}`,
       intro:
         "Albiez est une station familiale de Maurienne, à taille humaine et sans file d'attente. Le domaine s'étend de 1 500 à 2 060 mètres, avec 40 km de pistes desservies par 13 remontées mécaniques. Depuis l'appartement, 250 mètres suffisent pour rejoindre le front de neige — et tout s'y trouve : le départ des pistes, les commerces, l'école de ski et le club Piou-Piou.",
       highlights: [
@@ -195,7 +195,7 @@ export const fr: Dictionary = {
 
     ete: {
       heading: "L'été à Albiez : le lac, les chevaux et la montagne",
-      tagline: "Baignade surveillée au lac en juillet et août",
+      tagline: (p) => `Baignade surveillée au lac en ${p.mois}`,
       intro:
         "L'été, Albiez change de rythme. Le lac et sa baignade surveillée sont à 350 mètres de l'appartement, le club d'équitation à 300 mètres, et les départs de randonnée et de VTT sont à portée immédiate. Le balcon exposé sud-ouest devient la pièce principale du logement, face aux Aiguilles d'Arves.",
       highlights: [

@@ -7,6 +7,7 @@ import RevenueChart from "@/components/dashboard/RevenueChart";
 import ComparaisonAnnuelle from "@/components/dashboard/ComparaisonAnnuelle";
 import CanauxChart from "@/components/dashboard/CanauxChart";
 import SejoursTable from "@/components/dashboard/SejoursTable";
+import DashboardNav from "@/components/dashboard/DashboardNav";
 
 const PERIODES = [
   { valeur: "annee", libelle: "Année en cours" },
@@ -51,6 +52,8 @@ export default function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-8">
+      <DashboardNav />
+
       <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Albiez — statistiques</h1>

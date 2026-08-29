@@ -1,3 +1,4 @@
+import type { PeriodeSaison } from "@/lib/seasons";
 import type { SpaceKey } from "../spaces";
 import type { WinterDistanceKey, SummerDistanceKey } from "../property";
 import type {
@@ -24,7 +25,13 @@ export { LOCALES, DEFAULT_LOCALE, LOCALE_META, isLocale } from "./locales";
 export interface SeasonContent<DistanceLabelKey extends string = string> {
   /** Titre H1 de la page de saison. */
   heading: string;
-  tagline: string;
+  /**
+   * Accroche sous le H1. C'est une **fonction** et non une chaîne : elle porte les dates
+   * d'ouverture du domaine et les mois de la saison estivale, qui vivent dans
+   * `lib/seasons.ts`. Les recopier en toutes lettres dans les cinq dictionnaires obligeait
+   * à six modifications pour un changement de date, sans rien pour signaler un oubli.
+   */
+  tagline: (p: PeriodeSaison) => string;
   intro: string;
   /** Arguments courts affichés en tuiles sous le hero. */
   highlights: Array<{ title: string; description: string }>;

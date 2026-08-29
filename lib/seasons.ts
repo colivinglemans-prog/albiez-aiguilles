@@ -80,3 +80,110 @@ export function currentSeason(now: Date = new Date()): Season {
 export function seasonImageDir(season: Season): string {
   return `/images/${season}`;
 }
+
+/**
+ * Saisons d'activité de la station, pour les bandeaux du calendrier du dashboard et les
+ * accroches de la vitrine.
+ *
+ * Ce ne sont pas les vacances scolaires (voir `lib/periodes.ts`, généré depuis l'open data
+ * du ministère) : c'est l'ouverture du domaine et la saison animée du lac, qui commandent la
+ * demande indépendamment du calendrier des zones.
+ */
+export interface BandeauSaison {
+  saison: Season;
+  /** Première journée, incluse (YYYY-MM-DD). */
+  debut: string;
+  /** Dernière journée, incluse (YYYY-MM-DD). */
+  fin: string;
+  /**
+   * `false` quand les dates sont déduites d'une convention et non d'un communiqué de la
+   * station. Le calendrier les affiche alors en pointillé : une bande pleine laisserait
+   * croire à une date vérifiée.
+   */
+  confirme: boolean;
+}
+
+/**
+ * Ouvertures du domaine skiable, **une entrée par hiver**.
+ *
+ * À compléter chaque année quand la station publie ses dates. Les hivers passés sont
+ * volontairement absents plutôt qu'estimés : sur un calendrier, une bande approximative se
+ * lit comme une donnée.
+ */
+export const HIVERS: BandeauSaison[] = [
+  { saison: "hiver", debut: WINTER_OPENING.from, fin: WINTER_OPENING.to, confirme: true },
+];
+
+/**
+ * Saison estivale animée : juillet et août, tous les ans.
+ *
+ * Contrairement à l'hiver, la règle est stable d'une année sur l'autre — la baignade
+ * surveillée au lac et les animations suivent les vacances d'été, pas une date d'ouverture
+ * négociée. On peut donc la générer pour n'importe quelle année.
+ */
+export function eteDeLAnnee(annee: number): BandeauSaison {
+  const premier = Math.min(...SUMMER_MONTHS);
+  const dernier = Math.max(...SUMMER_MONTHS);
+  const finDuMois = new Date(Date.UTC(annee, dernier, 0)).getUTCDate();
+  return {
+    saison: "ete",
+    debut: `${annee}-${String(premier).padStart(2, "0")}-01`,
+    fin: `${annee}-${String(dernier).padStart(2, "0")}-${finDuMois}`,
+    confirme: true,
+  };
+}
+
+/** Les bandeaux de saison qui recoupent la fenêtre [du, au], dans l'ordre chronologique. */
+export function saisonsEntre(du: string, au: string): BandeauSaison[] {
+  const anneeDebut = Number(du.slice(0, 4));
+  const anneeFin = Number(au.slice(0, 4));
+  const etes = Array.from({ length: anneeFin - anneeDebut + 1 }, (_, i) =>
+    eteDeLAnnee(anneeDebut + i),
+  );
+  return [...HIVERS, ...etes]
+    .filter((s) => s.debut <= au && s.fin >= du)
+    .sort((a, b) => a.debut.localeCompare(b.debut));
+}
+
+/** Ce que les accroches de saison ont besoin de savoir, déjà mis en forme pour la langue. */
+export interface PeriodeSaison {
+  /** Date d'ouverture du domaine, formatée (« 19 décembre 2026 »). */
+  du: string;
+  /** Date de fermeture du domaine, formatée. */
+  au: string;
+  /** Mois de la saison estivale, énumérés dans la langue (« juillet et août »). */
+  mois: string;
+}
+
+/**
+ * Les dates ne sont écrites qu'ici : les dictionnaires reçoivent des chaînes déjà formatées
+ * et n'ont plus qu'à composer la phrase.
+ *
+ * Elles étaient auparavant recopiées en toutes lettres dans les cinq dictionnaires, à côté
+ * de `WINTER_OPENING` qui n'était lue par personne. Changer une date d'ouverture demandait
+ * six modifications, et rien ne signalait qu'on en avait oublié une.
+ */
+export function periodeSaison(bcp47: string): PeriodeSaison {
+  const formatDate = (iso: string) =>
+    new Date(`${iso}T00:00:00Z`).toLocaleDateString(bcp47, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    });
+  const nomMois = (m: number) =>
+    new Date(Date.UTC(2000, m - 1, 1)).toLocaleDateString(bcp47, {
+      month: "long",
+      timeZone: "UTC",
+    });
+
+  return {
+    du: formatDate(WINTER_OPENING.from),
+    au: formatDate(WINTER_OPENING.to),
+    // `Intl.ListFormat` connaît la conjonction de chaque langue : « et », « and », « und »,
+    // « y », « e ». L'écrire à la main obligerait à la traduire cinq fois.
+    mois: new Intl.ListFormat(bcp47, { style: "long", type: "conjunction" }).format(
+      SUMMER_MONTHS.map(nomMois),
+    ),
+  };
+}

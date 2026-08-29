@@ -69,7 +69,7 @@ export const it: Dictionary = {
   seasons: {
     hiver: {
       heading: "Sci ad Albiez: l'appartamento a 250 m dalle piste",
-      tagline: "Comprensorio aperto dal 19 dicembre 2026 al 21 marzo 2027",
+      tagline: (p) => `Comprensorio aperto dal ${p.du} al ${p.au}`,
       intro:
         "Albiez è una località per famiglie della Maurienne, a misura d'uomo e senza code. Il comprensorio si estende da 1500 a 2060 metri, con 40 km di piste servite da 13 impianti di risalita. Dall'appartamento bastano 250 metri per raggiungere l'accesso alle piste, e lì c'è tutto: la partenza delle piste, i negozi, la scuola di sci e il club Piou-Piou.",
       highlights: [
@@ -195,7 +195,7 @@ export const it: Dictionary = {
 
     ete: {
       heading: "L'estate ad Albiez: il lago, i cavalli e la montagna",
-      tagline: "Balneazione sorvegliata al lago in luglio e agosto",
+      tagline: (p) => `Balneazione sorvegliata al lago in ${p.mois}`,
       intro:
         "D'estate Albiez cambia ritmo. Il lago con la sua balneazione sorvegliata è a 350 metri dall'appartamento, il centro di equitazione a 300 metri, e le partenze di escursioni e di mountain bike sono a portata immediata. Il balcone esposto a sud-ovest diventa la stanza principale della casa, di fronte alle Aiguilles d'Arves.",
       highlights: [

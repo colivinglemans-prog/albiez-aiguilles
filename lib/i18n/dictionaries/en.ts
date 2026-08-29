@@ -66,7 +66,7 @@ export const en: Dictionary = {
   seasons: {
     hiver: {
       heading: "Skiing in Albiez: an apartment 250 m from the slopes",
-      tagline: "Ski area open from 19 December 2026 to 21 March 2027",
+      tagline: (p) => `Ski area open from ${p.du} to ${p.au}`,
       intro:
         "Albiez is a family resort in the Maurienne valley — small enough to feel calm, big enough for a full week. The ski area runs from 1,500 to 2,060 metres, with 40 km of pistes served by 13 lifts. From the apartment, 250 metres take you to the foot of the slopes — and everything is there: the piste departure, the shops, the ski school and the Piou-Piou kids' club.",
       highlights: [
@@ -190,7 +190,7 @@ export const en: Dictionary = {
 
     ete: {
       heading: "Summer in Albiez: the lake, the horses and the mountains",
-      tagline: "Supervised swimming at the lake in July and August",
+      tagline: (p) => `Supervised swimming at the lake in ${p.mois}`,
       intro:
         "Albiez changes pace in summer. The lake and its supervised swimming area are 350 metres from the apartment, the riding club is at 300 metres, and hiking and mountain-bike trails start right nearby. The south-west balcony becomes the main room of the place, facing the Aiguilles d'Arves.",
       highlights: [

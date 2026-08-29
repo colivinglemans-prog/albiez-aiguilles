@@ -69,7 +69,7 @@ export const de: Dictionary = {
   seasons: {
     hiver: {
       heading: "Skifahren in Albiez: die Wohnung 250 m von den Pisten",
-      tagline: "Skigebiet geöffnet vom 19. Dezember 2026 bis 21. März 2027",
+      tagline: (p) => `Skigebiet geöffnet vom ${p.du} bis ${p.au}`,
       intro:
         "Albiez ist ein familiäres Skigebiet in der Maurienne, überschaubar und ohne Warteschlangen. Es reicht von 1.500 bis 2.060 Meter, mit 40 km Pisten und 13 Bergbahnen. Von der Wohnung sind es 250 Meter bis zum Pistenzugang – und dort ist alles beieinander: Pistenstart, Geschäfte, Skischule und Kinderskiclub Piou-Piou.",
       highlights: [
@@ -195,7 +195,7 @@ export const de: Dictionary = {
 
     ete: {
       heading: "Sommer in Albiez: der See, die Pferde und die Berge",
-      tagline: "Bewachter Badebetrieb am See im Juli und August",
+      tagline: (p) => `Bewachter Badebetrieb am See im ${p.mois}`,
       intro:
         "Im Sommer wechselt Albiez den Rhythmus. Der See mit bewachtem Badebetrieb liegt 350 Meter von der Wohnung, das Reitzentrum 300 Meter, und die Wander- und Mountainbike-Einstiege sind unmittelbar erreichbar. Der nach Südwesten ausgerichtete Balkon wird zum Hauptraum der Wohnung, gegenüber den Aiguilles d'Arves.",
       highlights: [

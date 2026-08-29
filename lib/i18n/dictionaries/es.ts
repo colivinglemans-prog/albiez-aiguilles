@@ -69,7 +69,7 @@ export const es: Dictionary = {
   seasons: {
     hiver: {
       heading: "Esquí en Albiez: el apartamento a 250 m de las pistas",
-      tagline: "Dominio esquiable abierto del 19 de diciembre de 2026 al 21 de marzo de 2027",
+      tagline: (p) => `Dominio esquiable abierto del ${p.du} al ${p.au}`,
       intro:
         "Albiez es una estación familiar de la Maurienne, a escala humana y sin colas. El dominio se extiende de 1500 a 2060 metros, con 40 km de pistas y 13 remontes. Desde el apartamento, 250 metros bastan para llegar al acceso a pistas, y allí está todo: la salida de las pistas, las tiendas, la escuela de esquí y el club Piou-Piou.",
       highlights: [
@@ -195,7 +195,7 @@ export const es: Dictionary = {
 
     ete: {
       heading: "El verano en Albiez: el lago, los caballos y la montaña",
-      tagline: "Baño vigilado en el lago en julio y agosto",
+      tagline: (p) => `Baño vigilado en el lago en ${p.mois}`,
       intro:
         "En verano, Albiez cambia de ritmo. El lago con baño vigilado está a 350 metros del apartamento, el club de equitación a 300 metros, y las salidas de senderismo y de BTT quedan al alcance inmediato. El balcón orientado al suroeste se convierte en la pieza principal de la casa, frente a las Aiguilles d'Arves.",
       highlights: [
