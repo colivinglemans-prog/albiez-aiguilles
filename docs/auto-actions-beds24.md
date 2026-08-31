@@ -118,9 +118,9 @@ VOTRE KIT LINGE
   à vous de l'installer. Les couettes et les oreillers sont sur place dans
   tous les cas.
 
-MERCI DE NOUS RÉPONDRE SUR DEUX POINTS
-  1. Votre heure d'arrivée approximative, pour que tout soit prêt.
-[IF>:[INVOICEUPSELLQTY2]:0:  2. La répartition des couchages que vous souhaitez, pour que nous préparions les bonnes tailles de draps — par exemple « 1 double + 2 simples ».|  2. Les tailles de linge à prévoir de votre côté, si vous avez un doute.]
+MERCI DE NOUS RÉPONDRE
+  - Votre heure d'arrivée approximative, pour que tout soit prêt.
+[IF>:[INVOICEUPSELLQTY2]:0:  - La répartition des couchages que vous souhaitez, pour que nous préparions les bonnes tailles de draps — par exemple « 1 double + 2 simples ».|]
 
 EN HIVER
   Pensez à réserver vos skis et vos cours à l'ESF sans tarder : les créneaux
@@ -176,6 +176,24 @@ comme zéro, et les deux branches pourraient s'inverser.
 La ligne « Les couettes et les oreillers sont sur place dans tous les cas » est **hors du
 conditionnel** à dessein : sans elle, un voyageur sans kit peut croire qu'il doit apporter un
 duvet.
+
+### Le bloc « Merci de nous répondre » s'adapte à un ou deux points
+
+La branche « sans kit » du second point est **volontairement vide** (`…|]`) : les tailles de
+linge à apporter sont rappelées par les messages d'avant-arrivée, et les répéter ici alourdit
+la confirmation sans rien ajouter.
+
+Deux conséquences de rédaction :
+
+- **Le titre ne compte pas les points.** « Merci de nous répondre sur deux points » aurait été
+  faux dès que la branche se vide. Un titre qui annonce un nombre doit être conditionné lui
+  aussi, ou ne rien annoncer — c'est la seconde option, plus simple.
+- **Des tirets, pas des numéros.** Un « 1. » seul, sans « 2. », se lit comme une liste
+  tronquée. Les tirets tiennent aussi bien à un qu'à deux éléments.
+
+À vérifier au test : une branche vide laisse probablement une ligne blanche là où le
+conditionnel se trouvait. Sans conséquence, le paragraphe suivant en ayant déjà une, mais si
+deux lignes blanches apparaissent c'est de là qu'elles viennent.
 
 ## English — *brouillon, à resynchroniser sur le français*
 
