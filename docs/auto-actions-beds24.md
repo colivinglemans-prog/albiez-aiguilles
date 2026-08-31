@@ -32,6 +32,16 @@ Découvert le 2026-08-31, et pas dans l'API — dans le wiki Beds24. Les modèle
 
 Avec aussi `[IF=:`, `[IFIN:`, `[IFLIKE:`, `[IF>=:`, `[IF<:`, `[IF<=:`, `[IFBETWEEN:`.
 
+⚠️ **Deux contraintes d'écriture, déduites de la syntaxe elle-même** — le `:` sépare les
+champs et le `|` sépare les deux branches, donc **aucun des deux ne doit apparaître dans le
+texte d'une branche**. C'est pour ça que les phrases conditionnelles du kit linge n'ont pas de
+deux-points, là où le reste du message en emploie librement. Un « votre kit est réservé : … »
+casserait vraisemblablement le découpage. À confirmer au test, mais ça ne coûte rien de
+l'éviter.
+
+Par prudence, **une branche tient sur une seule ligne**. Rien ne dit que le parseur accepte un
+saut de ligne au milieu, et le texte partagé peut vivre en dehors du conditionnel.
+
 C'est ce qui permet deux choses que le modèle d'origine ne savait pas faire : dire au voyageur
 s'il a pris le kit linge, et masquer « 0 enfant(s) » quand il n'y en a pas. **Y penser avant
 de dupliquer un message pour gérer un cas particulier** — c'est ainsi que les deux modèles
@@ -101,9 +111,16 @@ CE QUI EST INCLUS
   - Couettes et oreillers
 
 VOTRE KIT LINGE
-[IF>:[INVOICEUPSELLQTY2]:0:C'est noté : votre kit linge (draps + serviette de bain) est réservé, vous n'avez rien à apporter.|Vous n'avez pas pris le kit linge. Prévoyez donc vos draps et vos serviettes de bain — ou dites-le nous et nous l'ajoutons (15 € par personne).]
+[IF>:[INVOICEUPSELLQTY2]:0:C'est noté, votre kit linge est réservé. Draps, taies et une serviette de bain par personne vous attendent dans l'appartement.|Vous n'avez pas pris le kit linge. Prévoyez vos draps, vos taies et vos serviettes de bain — ou dites-le nous et nous l'ajoutons, 15 € par personne.]
 
-  Les couettes et les oreillers sont sur place dans tous les cas.
+  Le logement compte 1 lit double de 160 × 190 et 4 lits simples de 80 × 190.
+  Les lits ne sont pas faits à votre arrivée : le linge est mis à disposition,
+  à vous de l'installer. Les couettes et les oreillers sont sur place dans
+  tous les cas.
+
+MERCI DE NOUS RÉPONDRE SUR DEUX POINTS
+  1. Votre heure d'arrivée approximative, pour que tout soit prêt.
+[IF>:[INVOICEUPSELLQTY2]:0:  2. La répartition des couchages que vous souhaitez, pour que nous préparions les bonnes tailles de draps — par exemple « 1 double + 2 simples ».|  2. Les tailles de linge à prévoir de votre côté, si vous avez un doute.]
 
 EN HIVER
   Pensez à réserver vos skis et vos cours à l'ESF sans tarder : les créneaux
@@ -115,7 +132,6 @@ NOTRE GUIDE
 
 VOTRE ARRIVÉE
   L'arrivée est 100 % autonome : vous arrivez à l'heure qui vous convient.
-  Merci de nous indiquer votre heure approximative, pour que tout soit prêt.
   Vous recevrez votre code d'accès et un mini-guide avant votre départ.
 
   Adresse : Chemin du Châtel, 73530 Albiez-Montrond
