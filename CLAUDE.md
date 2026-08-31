@@ -438,6 +438,11 @@ exactement `5 adultes`, et `4 adultes + 2 enfants` exactement `6 adultes`, au ce
 signaler au support Beds24 — le régime proportionnel français est le régime par défaut de tout
 meublé non classé, pas un cas exotique.
 
+**Ticket ouvert chez Beds24 le 2026-08-31.** L'argument central est que le même champ
+`per: "adult"` fonctionne avec le type forfaitaire : l'ancien réglage `obligatoryTax` à
+2,20 € facturait 61,60 € sur 7 nuits pour 4 adultes + 2 enfants, soit `2,20 × 4 adultes × 7`,
+les mineurs bien ignorés. C'est donc un défaut et non une fonctionnalité manquante.
+
 En attendant : corriger à la main sur les réservations avec mineurs, et **reverser à la 3CMA
 l'intégralité du collecté**. Surcollecter et tout reverser est une irrégularité mineure ;
 garder la différence serait autre chose. Surtout, ne pas abaisser le taux pour compenser en
