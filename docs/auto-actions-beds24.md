@@ -139,12 +139,10 @@ CE QUI EST INCLUS
   - Couettes et oreillers
 
 VOTRE KIT LINGE
-[IF>:[INVOICEUPSELLQTY2]:0:C'est noté, votre kit linge est réservé. Draps, taies et une serviette de bain par personne vous attendent dans l'appartement.|Vous n'avez pas pris le kit linge. Prévoyez vos draps, vos taies et vos serviettes de bain — ou dites-le nous et nous l'ajoutons, 15 € par personne.]
+[IF>:[INVOICEUPSELLQTY2]:0:C'est noté, votre kit linge est réservé. Draps, taies et une serviette de bain par personne vous attendent dans l'appartement. Les lits ne sont pas faits à votre arrivée — le linge est mis à disposition, à vous de l'installer.|Vous n'avez pas pris le kit linge. Prévoyez vos draps, vos taies et vos serviettes de bain — ou dites-le nous et nous l'ajoutons, 15 € par personne.]
 
   Le logement compte 1 lit double de 160 × 190 et 4 lits simples de 80 × 190.
-  Les lits ne sont pas faits à votre arrivée : le linge est mis à disposition,
-  à vous de l'installer. Les couettes et les oreillers sont sur place dans
-  tous les cas.
+  Les couettes et les oreillers sont sur place dans tous les cas.
 
 [IF>:[INVOICEUPSELLQTY2]:0:  Une chose à nous dire dès maintenant — la répartition des couchages que vous souhaitez, pour que nous sortions les bonnes tailles de draps. Par exemple « 1 double + 2 simples ».|]
 
@@ -199,9 +197,22 @@ sans. La documentation Beds24 ne dit pas ce que rend `[INVOICEUPSELLQTY2]` quand
 pas prise : si c'est une chaîne vide plutôt que `0`, rien ne garantit que `[IF>:` la traite
 comme zéro, et les deux branches pourraient s'inverser.
 
-La ligne « Les couettes et les oreillers sont sur place dans tous les cas » est **hors du
-conditionnel** à dessein : sans elle, un voyageur sans kit peut croire qu'il doit apporter un
-duvet.
+### Ce qui est partagé, et ce qui ne peut pas l'être
+
+Deux phrases seulement valent dans les deux cas, et elles sont donc hors du conditionnel :
+
+- **L'inventaire des lits** (1 double 160 × 190, 4 simples 80 × 190) — il sert à décrire la
+  répartition souhaitée si le kit est pris, et à acheter les bonnes tailles sinon.
+- **« Les couettes et les oreillers sont sur place dans tous les cas »** — sans elle, un
+  voyageur sans kit peut croire qu'il doit apporter un duvet.
+
+En revanche **« Les lits ne sont pas faits à votre arrivée, le linge est mis à disposition »
+n'appartient qu'à la branche avec kit** : sans kit, il n'y a aucun linge mis à disposition, et
+la phrase devient incompréhensible. Elle a donc été déplacée dans la branche.
+
+⚠️ Au passage, la formulation s'écarte d'un caractère de celle du site (`linen.notMadeNote`,
+qui emploie un deux-points) : le `:` étant le séparateur de champs du conditionnel, il est
+remplacé par un tiret cadratin. C'est le seul écart, et il est syntaxique, pas rédactionnel.
 
 ### Ce que la confirmation demande, et ce qu'elle ne demande pas
 
