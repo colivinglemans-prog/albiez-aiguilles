@@ -399,22 +399,31 @@ Les en-têtes HTTP sont propres (`no-store` sur `booking2.php` et `getroomprice.
   d'enfants. Le devis ne suffit pas : l'endpoint honore `nc=2` même quand la page ne sait pas
   le saisir.
 
-### Les enfants ne sont pas facturés par le tunnel — `maxChildren: null`
+### `maxChildren` doit rester renseigné, sinon le tunnel ne facture pas les enfants
 
-**C'est la fuite.** La chambre 715147 déclare `maxPeople: 6` mais `maxAdult: null` et
-`maxChildren: null`. La page de réservation ne rend donc qu'un seul sélecteur, « Personnes »
-(`id="inputnumadult"`), et **jette le `numchild`** que `CalendrierReservation.tsx` lui passe :
-son JS lit `$("#inputnumchild").val()` sur un élément qui n'existe pas.
+**Corrigé le 2026-08-31** — `maxChildren: 5` sur la chambre 715147, `maxPeople: 6` inchangé.
+Consigné parce que le symptôme est silencieux et que le réglage est facile à perdre.
 
-Une famille de 4 adultes + 2 enfants est devisée au tarif 4 personnes — **68,68 € perdus** sur
-7 nuits de novembre (374,95 € au lieu de 443,63 €). Les autres canaux ne sont pas touchés :
-Airbnb facture bien son supplément.
+Tant que `maxChildren` valait `null`, la page de réservation ne rendait qu'un seul sélecteur,
+« Personnes » (`id="inputnumadult"`), et **jetait le `numchild`** que `CalendrierReservation.tsx`
+lui passe pourtant : son JS lit `$("#inputnumchild").val()` sur un élément qui n'existait pas.
+Une famille de 4 adultes + 2 enfants était devisée au tarif 4 personnes — **68,68 € perdus**
+sur 7 nuits de novembre (374,95 € au lieu de 443,63 €). Les autres canaux n'étaient pas
+touchés : Airbnb facture bien son supplément.
 
-Correctif : renseigner **Max Adults** et **Max Children** sur la chambre (*Settings →
-Properties → Rooms*). Ne pas se contenter d'envoyer `numadult = adultes + enfants` depuis le
-site : le prix serait identique (`extraPerson` et `extraChild` valent tous deux 5), mais Beds24
-enregistrerait 6 adultes et **on perdrait le nombre de mineurs** — l'information même qui sert
-à corriger la taxe de séjour et à déclarer à la 3CMA. Le dashboard lit `numAdult`/`numChild`.
+Rien à faire côté code : `numchild` était déjà envoyé, c'est Beds24 qui l'ignorait. Et surtout
+**ne pas** « contourner » en envoyant `numadult = adultes + enfants` depuis le site — le prix
+serait identique (`extraPerson` et `extraChild` valent tous deux 5), mais Beds24 enregistrerait
+6 adultes et on perdrait le nombre de mineurs, l'information même qui sert à corriger la taxe
+de séjour et à déclarer à la 3CMA. Le dashboard lit `numAdult`/`numChild`.
+
+`maxPeople` reste le plafond global : 3 adultes + 4 enfants sont refusés (« Capacité maximale
+dépassée »), il n'y a donc pas de risque à ouvrir large sur `maxChildren`.
+
+⚠️ `maxAdult` laissé à `null` fait apparaître **`0` dans le sélecteur adultes**, et un devis à
+0 adulte + 4 enfants est accepté. Le prix reste juste, mais une réservation pourrait
+s'enregistrer sans adulte, et la taxe de séjour serait prélevée sur un séjour dont tous les
+occupants sont exonérés. Renseigner **Max Adults = 6** referme ça.
 
 ### La taxe de séjour n'exonère pas les mineurs
 
