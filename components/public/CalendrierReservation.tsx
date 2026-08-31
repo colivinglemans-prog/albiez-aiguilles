@@ -308,7 +308,7 @@ export default function CalendrierReservation() {
           */}
         {periodeVisible && (
           <p className="mt-4 flex items-center justify-center gap-2 text-sm font-medium text-foreground">
-            <span aria-hidden className="h-4 w-4 rounded-sm border border-sky-300 bg-sky-100" />
+            <span aria-hidden className="h-4 w-4 rounded-sm border border-sky-400 bg-sky-200" />
             {t.seasons.skiPeriod(periodeVisible.du, periodeVisible.au)}
           </p>
         )}
@@ -516,7 +516,7 @@ function Grille({
            * masque la teinte le temps du survol. Le retour de survol vaut mieux que la bande.
            */
           return (
-            <div key={iso} className={`aspect-square ${estSaisonSki(iso) ? "bg-sky-100" : ""}`}>
+            <div key={iso} className={`aspect-square ${estSaisonSki(iso) ? "bg-sky-200" : ""}`}>
               <button
                 type="button"
                 disabled={!cliquable}
