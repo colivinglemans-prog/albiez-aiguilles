@@ -118,9 +118,7 @@ VOTRE KIT LINGE
   à vous de l'installer. Les couettes et les oreillers sont sur place dans
   tous les cas.
 
-MERCI DE NOUS RÉPONDRE
-  - Votre heure d'arrivée approximative, pour que tout soit prêt.
-[IF>:[INVOICEUPSELLQTY2]:0:  - La répartition des couchages que vous souhaitez, pour que nous préparions les bonnes tailles de draps — par exemple « 1 double + 2 simples ».|]
+[IF>:[INVOICEUPSELLQTY2]:0:  Une chose à nous dire dès maintenant — la répartition des couchages que vous souhaitez, pour que nous sortions les bonnes tailles de draps. Par exemple « 1 double + 2 simples ».|]
 
 EN HIVER
   Pensez à réserver vos skis et vos cours à l'ESF sans tarder : les créneaux
@@ -177,19 +175,19 @@ La ligne « Les couettes et les oreillers sont sur place dans tous les cas » es
 conditionnel** à dessein : sans elle, un voyageur sans kit peut croire qu'il doit apporter un
 duvet.
 
-### Le bloc « Merci de nous répondre » s'adapte à un ou deux points
+### Ce que la confirmation demande, et ce qu'elle ne demande pas
 
-La branche « sans kit » du second point est **volontairement vide** (`…|]`) : les tailles de
-linge à apporter sont rappelées par les messages d'avant-arrivée, et les répéter ici alourdit
-la confirmation sans rien ajouter.
+**Elle ne demande pas l'heure d'arrivée.** Un voyageur qui réserve six mois à l'avance n'en a
+aucune idée, et une question sans réponse possible n'obtient rien tout en donnant l'impression
+d'avoir été traitée. Cette demande appartient au **message d'avant-arrivée (J-7)**, où elle est
+répondable.
 
-Deux conséquences de rédaction :
+**Elle demande la répartition des couchages**, mais seulement si le kit linge est pris. C'est
+le bon moment : le voyageur vient de choisir l'option, il a la composition du groupe en tête.
+Deux personnes peuvent être un couple ou non — un lit double, ou un double et un simple — et
+les draps n'étant pas installés mais mis à disposition, la taille compte.
 
-- **Le titre ne compte pas les points.** « Merci de nous répondre sur deux points » aurait été
-  faux dès que la branche se vide. Un titre qui annonce un nombre doit être conditionné lui
-  aussi, ou ne rien annoncer — c'est la seconde option, plus simple.
-- **Des tirets, pas des numéros.** Un « 1. » seul, sans « 2. », se lit comme une liste
-  tronquée. Les tirets tiennent aussi bien à un qu'à deux éléments.
+La branche « sans kit » est **vide** (`…|]`) : rien à demander, donc rien à afficher.
 
 À vérifier au test : une branche vide laisse probablement une ligne blanche là où le
 conditionnel se trouvait. Sans conséquence, le paragraphe suivant en ayant déjà une, mais si
@@ -447,9 +445,11 @@ Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 - [ ] Vérifier si le nom de propriété Beds24 est **poussé vers Airbnb et Booking**. Si oui, le
       renommage réécrit les titres d'annonces — or l'ancien nom avait été choisi pour coller à eux.
 - [ ] Aligner l'heure d'arrivée annoncée sur le site : ni `lib/property.ts` ni les dictionnaires
-      ne mentionnent 16h aujourd'hui. Le message le dit, le site se taît.
+      ne mentionnent 16h aujourd'hui. Le message le dit, le site se tait.
 - [ ] **Tester le conditionnel du kit linge** avec deux réservations de test, une avec
       l'option et une sans. C'est le seul point du message qui peut mentir.
 - [ ] Resynchroniser les quatre traductions sur le français figé, une fois le test passé.
-- [ ] Écrire les Auto Actions suivantes — rappel avant arrivée avec le code d'accès (⚠️ **ne pas
-      recopier ici**), message de départ, demande d'avis.
+- [ ] **Message d'avant-arrivée (J-7)** — c'est lui qui demande l'heure d'arrivée, rappelle les
+      tailles de linge à apporter pour qui n'a pas pris le kit, et porte le code d'accès
+      (⚠️ **ne jamais recopier le code ici**, le repo est public).
+- [ ] Message de départ, et demande d'avis.
