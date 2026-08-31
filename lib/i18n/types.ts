@@ -128,6 +128,11 @@ export interface Dictionary {
   seasons: {
     hiver: SeasonContent<WinterDistanceKey>;
     ete: SeasonContent<SummerDistanceKey>;
+    /**
+     * « Saison de ski du 19 décembre 2026 au 21 mars 2027 » — encart des distances et
+     * légende du calendrier. Reçoit des dates **déjà formatées** par `periodeSaison()`.
+     */
+    skiPeriod: (du: string, au: string) => string;
   };
   property: {
     title: string;

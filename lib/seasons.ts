@@ -166,7 +166,18 @@ export interface PeriodeSaison {
  * de `WINTER_OPENING` qui n'était lue par personne. Changer une date d'ouverture demandait
  * six modifications, et rien ne signalait qu'on en avait oublié une.
  */
-export function periodeSaison(bcp47: string): PeriodeSaison {
+/**
+ * Les dates d'une saison quelconque, formatées dans la langue.
+ *
+ * Extraite de `periodeSaison()` pour le calendrier de réservation, qui doit étiqueter la
+ * bande d'hiver **visible** et non la prochaine ouverture : les deux diffèrent dès qu'on
+ * navigue vers un autre hiver de `HIVERS`.
+ */
+export function formatPeriode(
+  bcp47: string,
+  debut: string,
+  fin: string,
+): { du: string; au: string } {
   const formatDate = (iso: string) =>
     new Date(`${iso}T00:00:00Z`).toLocaleDateString(bcp47, {
       day: "numeric",
@@ -174,6 +185,10 @@ export function periodeSaison(bcp47: string): PeriodeSaison {
       year: "numeric",
       timeZone: "UTC",
     });
+  return { du: formatDate(debut), au: formatDate(fin) };
+}
+
+export function periodeSaison(bcp47: string): PeriodeSaison {
   const nomMois = (m: number) =>
     new Date(Date.UTC(2000, m - 1, 1)).toLocaleDateString(bcp47, {
       month: "long",
@@ -181,8 +196,7 @@ export function periodeSaison(bcp47: string): PeriodeSaison {
     });
 
   return {
-    du: formatDate(WINTER_OPENING.from),
-    au: formatDate(WINTER_OPENING.to),
+    ...formatPeriode(bcp47, WINTER_OPENING.from, WINTER_OPENING.to),
     // `Intl.ListFormat` connaît la conjonction de chaque langue : « et », « and », « und »,
     // « y », « e ». L'écrire à la main obligerait à la traduire cinq fois.
     mois: new Intl.ListFormat(bcp47, { style: "long", type: "conjunction" }).format(

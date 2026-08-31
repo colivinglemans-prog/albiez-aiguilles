@@ -269,6 +269,16 @@ export const es: Dictionary = {
         ],
       },
     },
+
+    /**
+     * « Saison de ski du 19 décembre 2026 au 21 mars 2027 ».
+     *
+     * Une seule phrase pour deux emplacements — l'encart des distances et la légende du
+     * calendrier de réservation. Les dates arrivent déjà formatées par `periodeSaison()` :
+     * `WINTER_OPENING` reste la source unique, et cinq copies en toutes lettres étaient
+     * exactement l'erreur déjà corrigée sur les accroches de saison.
+     */
+    skiPeriod: (du: string, au: string) => `Temporada de esquí del ${du} al ${au}`,
   },
 
   property: {

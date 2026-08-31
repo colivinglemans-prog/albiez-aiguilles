@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "@/lib/i18n";
+import { LOCALE_META, useTranslation } from "@/lib/i18n";
 import { PROPERTY } from "@/lib/property";
+import { formatPeriode, HIVERS } from "@/lib/seasons";
 import {
   ajouterJours,
   ajouterMois,
@@ -216,6 +217,26 @@ export default function CalendrierReservation() {
       ? Math.round((Date.parse(depart) - Date.parse(arrivee)) / 86_400_000)
       : 0;
 
+  /*
+   * Bande de saison de ski, teintée derrière les cases.
+   *
+   * On parcourt `HIVERS` et non le seul `WINTER_OPENING` : le calendrier navigue librement,
+   * et un hiver publié mais absent du teintage se lirait comme « hors saison ». La légende
+   * étiquette la bande **effectivement visible**, sans quoi naviguer vers un autre hiver
+   * afficherait les dates du mauvais.
+   */
+  const estSaisonSki = (jour: string) =>
+    HIVERS.some((h) => jour >= h.debut && jour <= h.fin);
+
+  const debutFenetre = `${annee}-${String(mois + 1).padStart(2, "0")}-01`;
+  const finFenetre = `${mois2.annee}-${String(mois2.mois + 1).padStart(2, "0")}-${String(
+    joursDuMois(mois2.annee, mois2.mois),
+  ).padStart(2, "0")}`;
+  const hiverVisible = HIVERS.find((h) => h.debut <= finFenetre && h.fin >= debutFenetre);
+  const periodeVisible = hiverVisible
+    ? formatPeriode(LOCALE_META[locale].bcp47, hiverVisible.debut, hiverVisible.fin)
+    : null;
+
   const urlReservation =
     arrivee && depart
       ? `https://beds24.com/booking2.php?propid=${PROPERTY.beds24.propertyId}&layout=1&lang=${locale}` +
@@ -264,6 +285,7 @@ export default function CalendrierReservation() {
             onSurvol={(j) => arrivee && !depart && setSurvol(j)}
             nomsMois={t.calendar.monthNames}
             nomsJours={t.calendar.dayNames}
+            estSaisonSki={estSaisonSki}
           />
           <div className="hidden md:block">
             <Grille
@@ -274,9 +296,22 @@ export default function CalendrierReservation() {
               onSurvol={(j) => arrivee && !depart && setSurvol(j)}
               nomsMois={t.calendar.monthNames}
               nomsJours={t.calendar.dayNames}
+              estSaisonSki={estSaisonSki}
             />
           </div>
         </div>
+
+        {/*
+          * La teinte seule ne suffirait pas : une information portée par la couleur doit avoir
+          * un équivalent textuel. La légende nomme la période en clair, ce qui vaut mieux que
+          * d'alourdir l'`aria-label` des quatre-vingt-treize cases concernées.
+          */}
+        {periodeVisible && (
+          <p className="mt-4 flex items-center justify-center gap-2 text-xs text-secondary">
+            <span aria-hidden className="h-3 w-3 rounded-sm border border-sky-200 bg-sky-50" />
+            {t.seasons.skiPeriod(periodeVisible.du, periodeVisible.au)}
+          </p>
+        )}
 
         {chargement && (
           <div className="mt-4 flex items-center justify-center gap-2 text-sm text-secondary">
@@ -438,6 +473,7 @@ function Grille({
   onSurvol,
   nomsMois,
   nomsJours,
+  estSaisonSki,
 }: {
   annee: number;
   mois: number;
@@ -446,6 +482,7 @@ function Grille({
   onSurvol: (jour: string) => void;
   nomsMois: string[];
   nomsJours: string[];
+  estSaisonSki: (jour: string) => boolean;
 }) {
   const nb = joursDuMois(annee, mois);
   const decalage = premierJourDuMois(annee, mois);
@@ -469,18 +506,25 @@ function Grille({
           const iso = `${annee}-${String(mois + 1).padStart(2, "0")}-${String(jour).padStart(2, "0")}`;
           const etat = etatDe(iso);
           const cliquable = ["libre", "arrivee", "depart", "dans-sejour", "survol"].includes(etat);
+          /*
+           * La teinte de saison vit sur un conteneur et non sur le bouton : les états de
+           * sélection ont leur propre fond (`bg-primary`, `bg-gray-100`…) et l'écraseraient.
+           * En sous-couche, elle reste visible sur les jours libres et cède la place à
+           * l'indisponibilité ou à la sélection, qui priment.
+           */
           return (
-            <button
-              key={iso}
-              type="button"
-              disabled={!cliquable}
-              onClick={() => cliquable && onClic(iso)}
-              onMouseEnter={() => onSurvol(iso)}
-              className={`flex aspect-square items-center justify-center text-sm transition-colors ${STYLES[etat]}`}
-              aria-label={`${jour} ${nomsMois[mois]} ${annee}`}
-            >
-              {jour}
-            </button>
+            <div key={iso} className={`aspect-square ${estSaisonSki(iso) ? "bg-sky-50" : ""}`}>
+              <button
+                type="button"
+                disabled={!cliquable}
+                onClick={() => cliquable && onClic(iso)}
+                onMouseEnter={() => onSurvol(iso)}
+                className={`flex h-full w-full items-center justify-center text-sm transition-colors ${STYLES[etat]}`}
+                aria-label={`${jour} ${nomsMois[mois]} ${annee}`}
+              >
+                {jour}
+              </button>
+            </div>
           );
         })}
       </div>

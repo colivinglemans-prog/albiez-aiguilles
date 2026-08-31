@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslation } from "@/lib/i18n";
+import { LOCALE_META, useTranslation } from "@/lib/i18n";
 import { DISTANCES } from "@/lib/property";
-import type { Season } from "@/lib/seasons";
+import { periodeSaison, type Season } from "@/lib/seasons";
 
 /**
  * Bandeau des distances clés de la saison.
@@ -13,7 +13,7 @@ import type { Season } from "@/lib/seasons";
  * Une entrée peut regrouper plusieurs points d'intérêt situés au même endroit.
  */
 export default function DistanceStrip({ season }: { season: Season }) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   // Les libellés sont exhaustifs par saison côté dictionnaire ; ici `season` est une
   // variable, donc on les relit à plat — c'est la seule façon d'indexer les deux
   // saisons avec la même expression sans dupliquer le rendu.
@@ -21,6 +21,12 @@ export default function DistanceStrip({ season }: { season: Season }) {
   const resortLink = t.seasons[season].resortLink;
   const entries = DISTANCES[season];
   const single = entries.length === 1;
+  /*
+   * Les dates d'ouverture du domaine n'ont de sens qu'en hiver : l'été n'a pas d'ouverture
+   * négociée, seulement une règle de mois (`SUMMER_MONTHS`). On les affiche contre le lien
+   * de la station, dont elles relèvent — c'est le domaine qui ouvre, pas l'appartement.
+   */
+  const periode = season === "hiver" ? periodeSaison(LOCALE_META[locale].bcp47) : null;
 
   return (
     <ul
@@ -49,6 +55,12 @@ export default function DistanceStrip({ season }: { season: Season }) {
                 </li>
               ))}
             </ul>
+          )}
+
+          {periode && (
+            <p className="mt-4 text-xs font-medium text-secondary">
+              {t.seasons.skiPeriod(periode.du, periode.au)}
+            </p>
           )}
 
           {/* La station à laquelle mène cette distance. Le logo et le libellé sont
