@@ -381,6 +381,73 @@ Noël, le Jour de l'An et les vacances de février sont fermés — potentiellem
 usage personnel. Le calendrier les affiche donc barrés, ce qui est correct. Les rouvrir dans
 Beds24 suffit à les faire réapparaître, sans toucher au code.
 
+## Tarification du tunnel direct — ce que la page affiche vraiment
+
+Vérifié le 2026-08-31, en comparant un devis direct à son équivalent Airbnb (7 nuits,
+12→19 décembre 2026). Trois choses se sont révélées, dont une fuite de recette.
+
+**Deux outils pour ne plus tester à l'aveugle.** La page mémorise ses réponses dans
+`sessionStorage` sous une clé qui contient les dates *et* les voyageurs (`storeroomprice()`).
+Le cache meurt avec l'onglet, donc **aucun voyageur n'est concerné** — mais il frappe celui
+qui teste, puisque tester consiste à reposer la même question après avoir changé un réglage.
+Les en-têtes HTTP sont propres (`no-store` sur `booking2.php` et `getroomprice.php`).
+
+- `node scripts/devis-beds24.mjs <arrivée> <départ>` — le total réel de la page 1 pour six
+  occupations, sans navigateur. Il interroge `api/ajax/getroomprice.php`, l'endpoint qu'appelle
+  le JS de `booking2.php`.
+- `node scripts/verifie-selecteur-enfants.mjs` — vérifie que la page rend un sélecteur
+  d'enfants. Le devis ne suffit pas : l'endpoint honore `nc=2` même quand la page ne sait pas
+  le saisir.
+
+### Les enfants ne sont pas facturés par le tunnel — `maxChildren: null`
+
+**C'est la fuite.** La chambre 715147 déclare `maxPeople: 6` mais `maxAdult: null` et
+`maxChildren: null`. La page de réservation ne rend donc qu'un seul sélecteur, « Personnes »
+(`id="inputnumadult"`), et **jette le `numchild`** que `CalendrierReservation.tsx` lui passe :
+son JS lit `$("#inputnumchild").val()` sur un élément qui n'existe pas.
+
+Une famille de 4 adultes + 2 enfants est devisée au tarif 4 personnes — **68,68 € perdus** sur
+7 nuits de novembre (374,95 € au lieu de 443,63 €). Les autres canaux ne sont pas touchés :
+Airbnb facture bien son supplément.
+
+Correctif : renseigner **Max Adults** et **Max Children** sur la chambre (*Settings →
+Properties → Rooms*). Ne pas se contenter d'envoyer `numadult = adultes + enfants` depuis le
+site : le prix serait identique (`extraPerson` et `extraChild` valent tous deux 5), mais Beds24
+enregistrerait 6 adultes et **on perdrait le nombre de mineurs** — l'information même qui sert
+à corriger la taxe de séjour et à déclarer à la 3CMA. Le dashboard lit `numAdult`/`numChild`.
+
+### La taxe de séjour n'exonère pas les mineurs
+
+L'article 5 du barème 3CMA : sans classement, le tarif est **5 % du coût par personne et par
+nuitée**, hors taxes, et les mineurs sont exonérés de plein droit. Le forfait de 2,20 € par
+adulte qui traînait initialement était faux sur la méthode *et* absent du barème.
+
+L'item est désormais `{type: "obligatoryPercentTax", amount: 5.5, per: "adult", period:
+"daily"}` — 5 % plus 10 % de part départementale. La base est juste : hébergement **remisé**,
+**hors ménage**. Mais **`per: "adult"` reste sans effet** : `4 adultes + 1 enfant` donne
+exactement `5 adultes`, et `4 adultes + 2 enfants` exactement `6 adultes`, au centime. À
+signaler au support Beds24 — le régime proportionnel français est le régime par défaut de tout
+meublé non classé, pas un cas exotique.
+
+En attendant : corriger à la main sur les réservations avec mineurs, et **reverser à la 3CMA
+l'intégralité du collecté**. Surcollecter et tout reverser est une irrégularité mineure ;
+garder la différence serait autre chose. Surtout, ne pas abaisser le taux pour compenser en
+moyenne — ce serait sous-déclarer sur tous les séjours d'adultes. Formule de l'écart :
+`5,5 % × hébergement remisé × (enfants ÷ occupants)`.
+
+### Deux réglages d'affichage, souvent confondus
+
+Le total de la page 1 et les prix de la grille de dates sont pilotés séparément :
+
+| Réglage | Ce qu'il gouverne | Valeur |
+|---|---|---|
+| `Total Price Style` | le **total** | `Total including obligatory` |
+| `Style of Date Prices` | les prix **par nuit** de la grille | `Per Room`, tarifs bruts |
+
+La grille continuera donc d'afficher les tarifs bruts — c'est normal, Airbnb fait pareil, et
+c'est ce qui explique le 409 € qu'on croyait figé alors que le total annonçait déjà 461,29 €.
+`scripts/devis-beds24.mjs` affiche les deux côte à côte pour cette raison.
+
 ## Dashboard privé (`/dashboard`)
 
 Espace interne, **hors de `[locale]`** : en français seulement, jamais indexé. Deux pages —
