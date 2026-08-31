@@ -58,7 +58,7 @@ export default function DistanceStrip({ season }: { season: Season }) {
           )}
 
           {periode && (
-            <p className="mt-4 text-xs font-medium text-secondary">
+            <p className="mt-4 text-sm font-semibold text-accent-dark">
               {t.seasons.skiPeriod(periode.du, periode.au)}
             </p>
           )}

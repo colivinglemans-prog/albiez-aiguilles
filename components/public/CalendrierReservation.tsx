@@ -307,8 +307,8 @@ export default function CalendrierReservation() {
           * d'alourdir l'`aria-label` des quatre-vingt-treize cases concernées.
           */}
         {periodeVisible && (
-          <p className="mt-4 flex items-center justify-center gap-2 text-xs text-secondary">
-            <span aria-hidden className="h-3 w-3 rounded-sm border border-sky-200 bg-sky-50" />
+          <p className="mt-4 flex items-center justify-center gap-2 text-sm font-medium text-foreground">
+            <span aria-hidden className="h-4 w-4 rounded-sm border border-sky-300 bg-sky-100" />
             {t.seasons.skiPeriod(periodeVisible.du, periodeVisible.au)}
           </p>
         )}
@@ -511,9 +511,12 @@ function Grille({
            * sélection ont leur propre fond (`bg-primary`, `bg-gray-100`…) et l'écraseraient.
            * En sous-couche, elle reste visible sur les jours libres et cède la place à
            * l'indisponibilité ou à la sélection, qui priment.
+           *
+           * Conséquence assumée : au survol d'un jour libre, le `hover:bg-light-bg` du bouton
+           * masque la teinte le temps du survol. Le retour de survol vaut mieux que la bande.
            */
           return (
-            <div key={iso} className={`aspect-square ${estSaisonSki(iso) ? "bg-sky-50" : ""}`}>
+            <div key={iso} className={`aspect-square ${estSaisonSki(iso) ? "bg-sky-100" : ""}`}>
               <button
                 type="button"
                 disabled={!cliquable}
