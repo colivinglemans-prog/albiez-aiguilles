@@ -20,7 +20,22 @@ rester hors de ce fichier.
 | `[PROPERTYPHONE]` | `33620921005` | **Sans le `+`** : Beds24 stocke l'indicatif dans un champ séparé et le concatène. D'où `+[PROPERTYPHONE]` pour l'affichage, et `wa.me/[PROPERTYPHONE]` pour le lien, qui veut le numéro nu. À revérifier au premier envoi de test : si Beds24 ajoutait le `+` de lui-même, on obtiendrait `++33…`. |
 | `[ROOMNAME]` | le nom complet du logement | Identique à `[PROPERTYNAME]` — Albiez n'a qu'une room. « Chambre : [ROOMNAME] » donnait donc « Chambre : Appart au Chalet du Hameau des Aiguilles ». Ne pas l'utiliser. |
 | `[PROPERTYNAME]` | `Appart au Chalet du Hameau des Aiguilles` | Renommé le 2026-08-31. L'ancien nom portait un point médian et un tiret orphelin. **Ce nom s'affiche aussi avant la réservation**, sur la page de paiement : il doit dire « appart » et non « chalet », sinon un logement de 33 m² promet une maison entière. |
-| `[NUMCHILD]` | `0` quand il n'y a pas d'enfant | « 0 enfant(s) » se lit mal. Accepté ici faute de conditionnel dans les modèles Beds24. |
+| `[NUMCHILD]` | `0` quand il n'y a pas d'enfant | « 0 enfant(s) » se lit mal. Masqué par un conditionnel, les modèles Beds24 en acceptant : voir la ligne « Voyageurs » du message. |
+
+## Le conditionnel existe dans les modèles
+
+Découvert le 2026-08-31, et pas dans l'API — dans le wiki Beds24. Les modèles acceptent :
+
+```
+[IF>:valeur:seuil:texte si vrai|texte si faux]
+```
+
+Avec aussi `[IF=:`, `[IFIN:`, `[IFLIKE:`, `[IF>=:`, `[IF<:`, `[IF<=:`, `[IFBETWEEN:`.
+
+C'est ce qui permet deux choses que le modèle d'origine ne savait pas faire : dire au voyageur
+s'il a pris le kit linge, et masquer « 0 enfant(s) » quand il n'y en a pas. **Y penser avant
+de dupliquer un message pour gérer un cas particulier** — c'est ainsi que les deux modèles
+Airbnb ski / hors-ski avaient fini par exister, puis par converger.
 
 ## Faits que les messages doivent respecter
 
@@ -56,7 +71,10 @@ L'été ne porte aucune incitation à réserver : à Albiez, ce n'est pas néces
 
 *Trigger : Auto · Send Message : Booking API/Email Smart · Reply To : alexandre.delan@gmail.com*
 
-## Français
+## Français — **version de référence**
+
+C'est la seule version validée. Les quatre traductions qui suivent sont des **brouillons
+antérieurs**, à resynchroniser sur celle-ci avant tout usage.
 
 **Sujet**
 
@@ -76,16 +94,16 @@ Votre séjour est confirmé :
   Arrivée   : [FIRSTNIGHTSHORT] à partir de 16h00
   Départ    : [LEAVINGDAYSHORT] avant 10h00
   Durée     : [NUMNIGHT] nuit(s)
-  Voyageurs : [NUMADULT] adulte(s), [NUMCHILD] enfant(s)
+  Voyageurs : [NUMADULT] adulte(s)[IF>:[NUMCHILD]:0:, [NUMCHILD] enfant(s)|]
 
 CE QUI EST INCLUS
   - Ménage de fin de séjour, hors cuisine et vaisselle qui restent à votre charge
   - Couettes et oreillers
 
-EN OPTION
-  - Kit linge (draps + serviette de bain) : 15 € par personne.
-    Dites-le nous rapidement si vous le souhaitez, pour que nous le réservions.
-    Sans kit, prévoyez vos draps et vos serviettes.
+VOTRE KIT LINGE
+[IF>:[INVOICEUPSELLQTY2]:0:C'est noté : votre kit linge (draps + serviette de bain) est réservé, vous n'avez rien à apporter.|Vous n'avez pas pris le kit linge. Prévoyez donc vos draps et vos serviettes de bain — ou dites-le nous et nous l'ajoutons (15 € par personne).]
+
+  Les couettes et les oreillers sont sur place dans tous les cas.
 
 EN HIVER
   Pensez à réserver vos skis et vos cours à l'ESF sans tarder : les créneaux
@@ -110,11 +128,40 @@ Une question ? Répondez à ce message, ou écrivez-nous sur WhatsApp :
 À très bientôt,
 Isabelle et Alexandre
 
+VOTRE RÉSERVATION EN DÉTAIL
+[INVOICE:PRI_QTY_CUA€]
+
 --
 Référence [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## English
+### Le bloc kit linge, et pourquoi il est construit ainsi
+
+Le kit linge est l'**upsell n° 2** dans la configuration Beds24 : d'où `[INVOICEUPSELLQTY2]`.
+Ce numéro dépend de l'ordre des upsells dans l'interface et **l'API ne l'expose pas** — si
+l'ordre change, la condition se met à parler du mauvais article sans rien signaler.
+
+La construction est volontairement redondante, en deux temps :
+
+1. **La phrase conditionnelle** dit quoi faire. C'est la partie utile, et la partie qui peut
+   se tromper.
+2. **Le tableau `[INVOICE:PRI_QTY_CUA€]`** liste ce qui a réellement été facturé. Aucune
+   logique, donc aucune erreur possible.
+
+Si le conditionnel se trompe, le tableau dit encore la vérité : l'erreur reste survivable.
+Un message qui affirmerait seulement « votre kit est réservé » sans rien pour le recouper
+serait, lui, indéfendable à l'arrivée.
+
+⚠️ **À tester avant mise en service**, avec deux réservations de test — une avec l'option, une
+sans. La documentation Beds24 ne dit pas ce que rend `[INVOICEUPSELLQTY2]` quand l'option n'est
+pas prise : si c'est une chaîne vide plutôt que `0`, rien ne garantit que `[IF>:` la traite
+comme zéro, et les deux branches pourraient s'inverser.
+
+La ligne « Les couettes et les oreillers sont sur place dans tous les cas » est **hors du
+conditionnel** à dessein : sans elle, un voyageur sans kit peut croire qu'il doit apporter un
+duvet.
+
+## English — *brouillon, à resynchroniser sur le français*
 
 **Subject**
 
@@ -172,7 +219,7 @@ Isabelle and Alexandre
 Reference [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## Deutsch
+## Deutsch — *brouillon, à resynchroniser sur le français*
 
 **Betreff**
 
@@ -230,7 +277,7 @@ Isabelle und Alexandre
 Referenz [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## Español
+## Español — *brouillon, à resynchroniser sur le français*
 
 **Asunto**
 
@@ -288,7 +335,7 @@ Isabelle y Alexandre
 Referencia [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## Italiano
+## Italiano — *brouillon, à resynchroniser sur le français*
 
 **Oggetto**
 
@@ -367,5 +414,8 @@ Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
       renommage réécrit les titres d'annonces — or l'ancien nom avait été choisi pour coller à eux.
 - [ ] Aligner l'heure d'arrivée annoncée sur le site : ni `lib/property.ts` ni les dictionnaires
       ne mentionnent 16h aujourd'hui. Le message le dit, le site se taît.
+- [ ] **Tester le conditionnel du kit linge** avec deux réservations de test, une avec
+      l'option et une sans. C'est le seul point du message qui peut mentir.
+- [ ] Resynchroniser les quatre traductions sur le français figé, une fois le test passé.
 - [ ] Écrire les Auto Actions suivantes — rappel avant arrivée avec le code d'accès (⚠️ **ne pas
       recopier ici**), message de départ, demande d'avis.
