@@ -30,7 +30,11 @@ export default function BookingSection() {
         {/* Chemins secondaires, volontairement en retrait : le bouton principal est celui du
             calendrier, qui mène au tarif direct. Les deux étaient en style « primary » avant
             l'arrivée du calendrier — les laisser ainsi mettrait en concurrence visuelle un
-            canal à 18 % de commission avec un canal à 1,92 %. */}
+            canal à 18 % de commission avec un canal à 1,92 %.
+
+            Le libellé Airbnb disait « voir les disponibilités » du temps où le site n'en
+            affichait aucune. Avec le calendrier juste au-dessus, la phrase envoyait chercher
+            ailleurs ce qui est désormais sous les yeux. */}
         <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
           <a
             href={PROPERTY.links.airbnb}

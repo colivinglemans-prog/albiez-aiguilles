@@ -447,7 +447,7 @@ export const fr: Dictionary = {
   booking: {
     title: "Disponibilités et réservation",
     subtitle: "Réservez en direct, sans intermédiaire.",
-    bookOnAirbnb: "Voir les disponibilités sur Airbnb",
+    bookOnAirbnb: "Réserver sur Airbnb",
     contactUs: "Nous écrire",
   },
 

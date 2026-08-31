@@ -450,7 +450,7 @@ export const de: Dictionary = {
   booking: {
     title: "Verfügbarkeit und Buchung",
     subtitle: "Buchen Sie direkt, ohne Vermittler.",
-    bookOnAirbnb: "Verfügbarkeit auf Airbnb ansehen",
+    bookOnAirbnb: "Auf Airbnb buchen",
     contactUs: "Schreiben Sie uns",
   },
 
