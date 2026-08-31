@@ -623,6 +623,28 @@ dans la langue de la page. Elles étaient auparavant recopiées en toutes lettre
 dictionnaires, à côté d'un `WINTER_OPENING` que personne ne lisait : changer une date
 demandait six modifications, et rien ne signalait un oubli.
 
+`t.seasons.skiPeriod(du, au)` porte la même règle pour les deux endroits où la période
+s'affiche — l'encart des distances (`DistanceStrip`, hiver seulement : l'été n'a pas
+d'ouverture négociée, seulement une règle de mois) et la légende du calendrier de réservation.
+Les dictionnaires reçoivent des dates **déjà formatées** par `formatPeriode()`, extraite de
+`periodeSaison()` qui ne connaissait que la prochaine ouverture — le calendrier doit étiqueter
+la bande **visible**, sinon naviguer vers un autre hiver affiche les dates du mauvais.
+
+Sur le calendrier public, les jours de saison sont teintés en `bg-sky-200`, et le teintage
+parcourt tout `HIVERS` : un hiver publié mais absent du teintage se lirait comme « hors
+saison ». Trois décisions qui ont demandé un aller-retour :
+
+- **La teinte vit sur un conteneur, pas sur le bouton.** Les fonds d'état (`bg-primary` de la
+  sélection, `bg-gray-100` de l'indisponibilité) l'écraseraient. En sous-couche elle cède la
+  place à ce qui prime. Effet de bord assumé : au survol d'un jour libre, le
+  `hover:bg-light-bg` du bouton la masque le temps du survol.
+- **Un bleu fixe et non `--season-accent`**, qui bascule au vert en été : le calendrier vit sur
+  l'accueil, dont l'accent suit la saison du moment, et une bande verte pour la saison de ski
+  serait absurde.
+- **`sky-50` puis `sky-100` étaient invisibles** — `#f0f9ff` est à 4 % du blanc. La règle était
+  pourtant bien émise par Tailwind, vérifié dans la feuille servie : le premier réflexe est de
+  soupçonner une classe non générée, ce n'était pas ça.
+
 ## Variables d'environnement
 
 | Variable | Rôle |
