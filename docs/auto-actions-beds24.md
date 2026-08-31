@@ -22,6 +22,34 @@ rester hors de ce fichier.
 | `[PROPERTYNAME]` | `Appart au Chalet du Hameau des Aiguilles` | Renommé le 2026-08-31. L'ancien nom portait un point médian et un tiret orphelin. **Ce nom s'affiche aussi avant la réservation**, sur la page de paiement : il doit dire « appart » et non « chalet », sinon un logement de 33 m² promet une maison entière. |
 | `[NUMCHILD]` | `0` quand il n'y a pas d'enfant | « 0 enfant(s) » se lit mal. Masqué par un conditionnel, les modèles Beds24 en acceptant : voir la ligne « Voyageurs » du message. |
 
+## La séquence des trois messages
+
+| Quand | Message | Contenu | Ce qu'il ne porte **pas** |
+|-------|---------|---------|---------------------------|
+| À la réservation | Confirmation (617008) | Récapitulatif, kit linge, répartition des couchages, **guide d'activités** | Ni heure d'arrivée, ni code |
+| J-7 | Avant-arrivée | **Guide d'arrivée**, heure d'arrivée demandée, tailles de linge pour qui n'a pas le kit | **Pas le code** |
+| Jour J | Code d'accès | Le code de la boîte à clés | — |
+
+**Le code arrive le jour même parce qu'il est fixe.** La boîte à clés d'Albiez n'a pas de code
+tournant : chaque voyageur qui le reçoit le conserve indéfiniment. L'envoyer au dernier moment
+ne l'empêche pas de s'accumuler, mais réduit la fenêtre pendant laquelle un séjour annulé ou
+reporté circule avec un code valide.
+
+💡 **Corollaire à envisager : changer le code à chaque changement de saison.** Quatre dates
+existent déjà dans `lib/seasons.ts` (`HIVERS`), et le code ne vit qu'à un seul endroit — l'Auto
+Action du jour J. Le faire tourner deux fois par an borne le nombre de porteurs à une saison
+de voyageurs, au lieu de tous depuis l'ouverture.
+
+**Le guide d'arrivée en ligne peut circuler à J-7 sans risque**, et c'est déjà prévu par le
+site : `lib/arrival.ts` porte en commentaire « Aucun code d'accès ne figure ici ni sur la
+page », et la page affiche « Le code de la boîte à clés vous est envoyé par message avant votre
+arrivée : il ne figure pas sur cette page ». La page décrit donc où est la boîte et comment
+elle s'ouvre, mais pas avec quoi.
+
+⚠️ Cette page est en `noindex` mais **son URL est devinable** (`/fr/guide-arrivee`) : elle est
+discrète, pas secrète. C'est acceptable précisément parce que le code n'y est pas — et c'est
+une raison de plus pour qu'il n'y arrive jamais.
+
 ## Le conditionnel existe dans les modèles
 
 Découvert le 2026-08-31, et pas dans l'API — dans le wiki Beds24. Les modèles acceptent :
@@ -449,7 +477,10 @@ Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 - [ ] **Tester le conditionnel du kit linge** avec deux réservations de test, une avec
       l'option et une sans. C'est le seul point du message qui peut mentir.
 - [ ] Resynchroniser les quatre traductions sur le français figé, une fois le test passé.
-- [ ] **Message d'avant-arrivée (J-7)** — c'est lui qui demande l'heure d'arrivée, rappelle les
-      tailles de linge à apporter pour qui n'a pas pris le kit, et porte le code d'accès
-      (⚠️ **ne jamais recopier le code ici**, le repo est public).
+- [ ] **Message J-7 — avant-arrivée.** Lien vers le guide d'arrivée, demande de l'heure
+      d'arrivée, rappel des tailles de linge pour qui n'a pas pris le kit. À rédiger.
+- [ ] **Message jour J — code d'accès.** ⚠️ **Son texte ne sera pas versionné ici** : il porte
+      le code de la boîte à clés, et le repo est public. Seule sa structure peut l'être.
 - [ ] Message de départ, et demande d'avis.
+- [ ] Décider si le code de la boîte à clés tourne à chaque saison (voir « La séquence des
+      trois messages »).
