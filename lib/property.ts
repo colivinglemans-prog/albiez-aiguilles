@@ -124,9 +124,27 @@ export const PROPERTY = {
   },
 
   services: {
+    /**
+     * « Inclus » au sens qui compte pour le voyageur : **rien à payer en plus** de ce qu'il a
+     * réglé. Le ménage apparaît en ligne séparée chez Booking et en direct, et il est fondu
+     * dans le prix à la nuit chez Airbnb — mais dans les trois cas il est déjà payé.
+     */
     cleaningIncluded: true,
-    /** Montant refacturé du ménage de fin de séjour, en euros. */
+    /**
+     * Montant du ménage de fin de séjour en **direct et sur Airbnb**, en euros.
+     *
+     * ⚠️ **Booking est à 40 €**, et c'est voulu : le forfait Booking impose en revanche le
+     * linge (20 € serviettes + 20 € draps), soit 80 € de frais fixes contre 60 € en direct
+     * où le linge reste optionnel. Deux emballages pour deux publics — les séjours Booking
+     * sont plus courts (3,1 nuits de moyenne contre 4,8 tous canaux) et le voyageur y est
+     * moins susceptible d'apporter ses draps.
+     *
+     * Ne pas « harmoniser » les deux montants sans revoir cette logique : ce n'est pas une
+     * incohérence, c'est une politique par canal.
+     */
     cleaningFee: 60,
+    /** Montant du ménage sur Booking, où le linge est en revanche obligatoire. */
+    cleaningFeeBooking: 40,
     /** La cuisine et la vaisselle restent à la charge du voyageur. */
     cleaningExcludes: ["cuisine", "vaisselle"],
     /** À apporter par le voyageur — évite les mauvaises surprises à l'arrivée. */

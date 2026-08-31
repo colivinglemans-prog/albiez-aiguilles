@@ -102,6 +102,27 @@ poser avant de brancher le calendrier.
 Le property ID **n'est jamais écrit en dur** : il vient de `BEDS24_PROPERTY_ID`, pour que le
 site puisse être redéployé pour un autre bien sans toucher au code.
 
+## Frais fixes par canal
+
+Deux emballages pour deux publics, et ce **n'est pas une incohérence à corriger**.
+
+| | Ménage | Linge | Total fixe |
+|---|---|---|---|
+| **Direct / Airbnb** | 60 € | **optionnel**, 15 €/personne | 60 € + option |
+| **Booking** | 40 € | **obligatoire**, 20 € serviettes + 20 € draps | 80 € |
+
+Le raisonnement : les séjours Booking sont plus courts — **3,1 nuits de moyenne contre 4,8
+tous canaux confondus** — et ce public est moins enclin à apporter son linge. D'où un forfait
+tout compris, quitte à baisser la ligne ménage pour que le total reste tenable.
+
+En direct et sur Airbnb, le séjour est plus long et le voyageur de montagne apporte souvent
+ses draps : le linge y reste une option à 15 €/personne.
+
+⚠️ Le mot « inclus » sur le site et dans les messages signifie **rien à payer en plus** de ce
+qui a été réglé — pas « sans ligne au décompte ». Le ménage apparaît en ligne séparée chez
+Booking et en direct, et il est fondu dans le prix à la nuit chez Airbnb. Dans les trois cas
+il est déjà payé, et c'est la seule chose que le voyageur ait besoin de savoir.
+
 ## Historique des canaux (statistiques antérieures)
 
 Le lien Airbnb → Beds24 **ne rétro-importe pas l'historique** : il synchronise les séjours en
