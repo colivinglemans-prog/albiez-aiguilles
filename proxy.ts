@@ -35,31 +35,56 @@ export async function proxy(request: NextRequest) {
   // La page de connexion doit rester atteignable, sinon la redirection boucle sur elle-même.
   if (pathname === "/dashboard/login") return NextResponse.next();
 
-  const token = request.cookies.get(COOKIE_NAME)?.value;
-  if (!token || !(await verifyToken(token))) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard/login";
-    url.searchParams.set("retour", pathname);
-    return NextResponse.redirect(url);
-  }
+  // Une route d'API répond par un statut, jamais par une redirection : un client qui reçoit
+  // un 307 vers du HTML tente de le parser en JSON et échoue de façon illisible.
+  const estApi = pathname.startsWith("/api/");
+  const refuser = (statut: number, message: string) =>
+    estApi
+      ? NextResponse.json({ erreur: message }, { status: statut })
+      : (() => {
+          const url = request.nextUrl.clone();
+          url.pathname = "/dashboard/login";
+          url.searchParams.set("retour", pathname);
+          return NextResponse.redirect(url);
+        })();
 
-  // Le rôle `menage` n'a droit qu'au calendrier. Le contrôle vit ici et non dans les pages :
-  // une page cliente qui masquerait les montants les aurait quand même reçus dans sa réponse
-  // d'API, donc dans le navigateur.
-  if ((await roleDuToken(token)) === "menage" && pathname !== "/dashboard/calendrier") {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard/calendrier";
-    url.search = "";
-    return NextResponse.redirect(url);
+  const token = request.cookies.get(COOKIE_NAME)?.value;
+  if (!token || !(await verifyToken(token))) return refuser(401, "Authentification requise");
+
+  /**
+   * Le rôle `menage` n'a droit qu'au calendrier — la page comme son API.
+   *
+   * Le contrôle vit ici et non dans les pages : une page cliente qui masquerait les montants
+   * les aurait quand même reçus dans sa réponse d'API, donc dans le navigateur.
+   */
+  if ((await roleDuToken(token)) === "menage") {
+    const autorise =
+      pathname === "/dashboard/calendrier" || pathname.startsWith("/api/dashboard/calendrier");
+    if (!autorise) {
+      if (estApi) return NextResponse.json({ erreur: "Réservé à l'administrateur" }, { status: 403 });
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard/calendrier";
+      url.search = "";
+      return NextResponse.redirect(url);
+    }
   }
   return NextResponse.next();
 }
 
 /**
- * La racine exacte, et le dashboard. Tout le site vitrine est déjà préfixé par sa langue et
- * rendu statiquement : le faire passer ici ne servirait à rien et coûterait une invocation
- * par requête.
+ * La racine exacte, les pages du dashboard, **et ses routes d'API**.
+ *
+ * ⚠️ `/api/dashboard/:path*` manquait jusqu'au 2026-08-31, et c'était un trou béant : les
+ * pages redirigeaient bien vers la connexion, mais `/api/dashboard/stats` répondait 200 à
+ * n'importe qui — chiffre d'affaires, séjours et répartition par canal en clair. Protéger la
+ * page sans protéger l'API qu'elle appelle ne protège rien.
+ *
+ * `/api/disponibilites` reste volontairement en dehors : elle est publique par conception et
+ * ne renvoie que des dates et des booléens.
+ *
+ * Tout le site vitrine est déjà préfixé par sa langue et rendu statiquement : le faire passer
+ * ici ne servirait à rien et coûterait une invocation par requête.
  */
 export const config = {
-  matcher: ["/", "/dashboard/:path*"],
+  matcher: ["/", "/dashboard/:path*", "/api/dashboard/:path*"],
 };
