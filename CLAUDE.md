@@ -291,6 +291,40 @@ chevauchaient deux autres séjours. Une **annulation** dont seuls des frais ont 
 les dates ont été relouées. Le montant est conservé, les nuits ne sont plus comptées — sans
 quoi 2026 affichait 8 nuits vendues qui n'existent pas.
 
+## Beds24 — deux tokens, et le piège de l'invite code
+
+| Variable | Nature | Scopes | Sert à |
+|---|---|---|---|
+| `BEDS24_REFRESH_TOKEN` | refresh token | lecture + `write:bookings` | Dashboard, consignes de ménage |
+| `BEDS24_PUBLIC_REFRESH_TOKEN` | refresh token | `read:inventory`, `read:properties` | **Uniquement** `/api/disponibilites` |
+
+`deviceName` respectifs : `albiez-aiguilles-site` et `albiez-site-public`. Ils apparaissent
+dans *Beds24 → Settings → Apps & Integrations → API → Refresh Tokens*.
+
+⚠️ **Un invite code n'est pas un refresh token**, et la confusion coûte cher — elle a brûlé
+trois codes le 2026-08-31. Présenté à `/authentication/token` avec l'en-tête `refreshToken:`,
+Beds24 accepte un invite code **une seule fois** et renvoie un access token parfaitement
+valide, scopes corrects et tout. Le vrai refresh token est créé silencieusement au passage,
+et **sa valeur n'est jamais affichée** — elle est perdue. Le deuxième appel répond alors
+`401 Token not valid`, et on conclut à tort que le token a été révoqué.
+
+Seul **`/authentication/setup` avec l'en-tête `code:`** retourne le refresh token en clair.
+C'est ce que fait `scripts/beds24-setup.mjs <INVITE_CODE> [deviceName]`, et c'est la seule
+façon de le capturer.
+
+Symptôme qui doit mettre la puce à l'oreille : la valeur qu'on manipule ne correspond pas au
+préfixe affiché dans la liste des Refresh Tokens de Beds24.
+
+**L'expiration glisse.** Un refresh token dure 30 jours, mais l'échéance est repoussée à
+chaque usage — le token d'écriture, créé le 28/08 à 15:50, expirait le 30/09 à 19:58, l'heure
+de son dernier appel. Un token que le site interroge en continu ne s'éteint donc jamais. C'est
+ce qui l'emporte sur le long life token, dont les 90 jours sont fermes et imposeraient un
+renouvellement manuel, potentiellement en pleine saison.
+
+**Repli en cas de révocation** : sur 401, les lectures publiques refont l'appel avec le token
+d'écriture, en journalisant quoi régénérer. On perd la séparation des privilèges le temps de
+réagir, ce qui vaut mieux qu'un tunnel de réservation éteint sans prévenir.
+
 ## Réservation directe (vitrine)
 
 `components/public/BookingSection.tsx` rend `CalendrierReservation`, qui interroge Beds24 en

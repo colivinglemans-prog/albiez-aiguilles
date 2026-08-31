@@ -8,59 +8,81 @@ import { normaliserCanal } from "@/lib/canal";
  *
  * - `BEDS24_REFRESH_TOKEN` — échangé contre un access token de 24 h, il porte
  *   `write:bookings`. Sert au dashboard et à l'écriture des consignes de ménage.
- * - `BEDS24_PUBLIC_TOKEN` — long life token en lecture seule (`read:inventory`,
- *   `read:properties`), utilisé **uniquement** par les deux lectures servies au public.
+ * - `BEDS24_PUBLIC_REFRESH_TOKEN` — refresh token en **lecture seule**, utilisé uniquement
+ *   par les deux lectures servies au public (`disponibilites`, `sejourMinimum`).
  *
- * Les long life tokens Beds24 ne supportent que des scopes de lecture — c'est une limite de
- * la plateforme, et c'est précisément ce qui les rend adaptés à une route ouverte à tous.
- * Ils durent **90 jours**, d'où le repli documenté dans `appeler()`.
+ * Le second n'est pas un long life token, bien que ceux-là ne puissent techniquement porter
+ * que des scopes de lecture : ils expirent au bout de 90 jours **fermes**. Un refresh token
+ * expire lui aussi — 30 jours — mais l'échéance **glisse à chaque usage** (visible dans
+ * Beds24 → Settings → API : le token d'écriture, créé le 28/08 à 15:50, expirait le 30/09 à
+ * 19:58, l'heure de son dernier appel). Un token que le site interroge en continu ne s'éteint
+ * donc jamais, là où le long life token aurait imposé un renouvellement manuel en pleine
+ * saison. Le privilège reste restreint par les scopes de l'invite code, pas par la nature du
+ * token.
  */
 const API = "https://api.beds24.com/v2";
 
 /** Statuts qui ne sont pas du chiffre d'affaires : blocages propriétaire et annulations. */
 const STATUTS_EXCLUS = new Set(["cancelled", "black"]);
 
-let accesEnCache: { token: string; expireLe: number } | null = null;
-
 /**
- * Token à utiliser pour les lectures servies au **public**.
+ * Access tokens de 24 h, en cache par refresh token.
  *
- * `BEDS24_REFRESH_TOKEN` porte `write:bookings`. Le faire servir une route ouverte à tous
- * donnerait à du trafic anonyme un jeton capable d'écrire dans les réservations — même si la
- * route ne l'expose jamais, c'est une surface inutile.
- *
- * `BEDS24_PUBLIC_TOKEN` est un long life token en **lecture seule** (`read:inventory` et
- * `read:properties` suffisent), à créer dans *Beds24 → Settings → Account → API*. Tant qu'il
- * n'existe pas, on retombe sur le token d'écriture pour que le développement local ne soit
- * pas bloqué — mais la production doit l'avoir.
+ * Les deux voies — écriture et publique — partagent le même mécanisme d'échange : les
+ * dupliquer aurait laissé deux caches à maintenir, et la marge d'expiration à corriger
+ * deux fois le jour où elle s'avère mal choisie.
  */
-async function tokenPublic(): Promise<string> {
-  const lecture = process.env.BEDS24_PUBLIC_TOKEN;
-  if (lecture && lecture.trim()) return lecture.trim();
-  console.warn(
-    "BEDS24_PUBLIC_TOKEN absent : les lectures publiques utilisent le token d'écriture. " +
-      "Créer un long life token en lecture seule avant de déployer.",
-  );
-  return accessToken();
-}
+const accesEnCache = new Map<string, { token: string; expireLe: number }>();
 
-async function accessToken(): Promise<string> {
-  const refreshToken = process.env.BEDS24_REFRESH_TOKEN;
-  if (!refreshToken) throw new Error("BEDS24_REFRESH_TOKEN n'est pas défini");
-
+async function echanger(refreshToken: string, usage: string): Promise<string> {
   // Marge d'une minute : un token qui expire pendant la requête coûte un 401 inexplicable.
-  if (accesEnCache && accesEnCache.expireLe > Date.now() + 60_000) return accesEnCache.token;
+  const cache = accesEnCache.get(refreshToken);
+  if (cache && cache.expireLe > Date.now() + 60_000) return cache.token;
 
   const res = await fetch(`${API}/authentication/token`, {
     headers: { refreshToken },
     cache: "no-store",
   });
   if (!res.ok) {
-    throw new Error(`Beds24 authentication/token ${res.status} : ${(await res.text()).slice(0, 200)}`);
+    throw new Error(
+      `Beds24 authentication/token ${res.status} (${usage}) : ${(await res.text()).slice(0, 200)}`,
+    );
   }
   const { token, expiresIn } = (await res.json()) as { token: string; expiresIn: number };
-  accesEnCache = { token, expireLe: Date.now() + expiresIn * 1000 };
+  accesEnCache.set(refreshToken, { token, expireLe: Date.now() + expiresIn * 1000 });
   return token;
+}
+
+/** Token d'écriture — dashboard, consignes de ménage. Porte `write:bookings`. */
+async function accessToken(): Promise<string> {
+  const rt = process.env.BEDS24_REFRESH_TOKEN;
+  if (!rt) throw new Error("BEDS24_REFRESH_TOKEN n'est pas défini");
+  return echanger(rt, "écriture");
+}
+
+/**
+ * Token des lectures servies au **public**.
+ *
+ * `BEDS24_PUBLIC_REFRESH_TOKEN` est un refresh token dont l'invite code ne demandait que
+ * `read:inventory` et `read:properties` — `deviceName: albiez-site-public`, créé le
+ * 2026-08-31 via `scripts/beds24-setup.mjs`.
+ *
+ * Un refresh token et non un long life token, alors que ce dernier ne peut *techniquement*
+ * porter que des scopes de lecture : le long life expire au bout de **90 jours**, et une
+ * échéance manuelle sur le chemin qui encaisse les réservations est une dette. Ce sont les
+ * scopes de l'invite code qui restreignent le privilège, pas la nature du token.
+ *
+ * Sans la variable, on retombe sur le token d'écriture pour ne pas bloquer le développement
+ * local — mais la production doit l'avoir.
+ */
+async function tokenPublic(): Promise<string> {
+  const rt = process.env.BEDS24_PUBLIC_REFRESH_TOKEN;
+  if (rt && rt.trim()) return echanger(rt.trim(), "public");
+  console.warn(
+    "BEDS24_PUBLIC_REFRESH_TOKEN absent : les lectures publiques utilisent le token " +
+      "d'écriture. Créer un refresh token en lecture seule avant de déployer.",
+  );
+  return accessToken();
 }
 
 async function appeler<T>(
@@ -94,11 +116,13 @@ async function appeler<T>(
 
   let res = await appel(public_ ? await tokenPublic() : await accessToken());
 
-  if (res.status === 401 && public_ && process.env.BEDS24_PUBLIC_TOKEN) {
+  if (res.status === 401 && public_ && process.env.BEDS24_PUBLIC_REFRESH_TOKEN) {
+    // Un refresh token n'expire pas sur une horloge, mais il peut être révoqué. Le repli
+    // évite qu'une révocation éteigne le calendrier de réservation sans prévenir.
     console.error(
-      "BEDS24_PUBLIC_TOKEN refusé (401) — il a probablement expiré, les long life tokens " +
-        "Beds24 durant 90 jours. Repli sur le token d'écriture. À renouveler dans " +
-        "Beds24 → Settings → Account → API, scopes read:inventory et read:properties.",
+      "BEDS24_PUBLIC_REFRESH_TOKEN refusé (401) — révoqué ? Repli sur le token d'écriture. " +
+        "En régénérer un dans Beds24 → Settings → Apps & Integrations → API, avec les seuls " +
+        "scopes read:inventory et read:properties.",
     );
     res = await appel(await accessToken());
   }
@@ -296,8 +320,11 @@ export async function ecrireNotes(id: number, notes: string): Promise<void> {
   const corps = await res.text();
   if (!res.ok) {
     // Un 401 signifie que l'access token est mort avant son expiration annoncée : on vide
-    // le cache pour que l'appel suivant en redemande un.
-    if (res.status === 401) accesEnCache = null;
+    // l'entrée du cache pour que l'appel suivant en redemande un. Seule celle du token
+    // d'écriture — celle du token public n'a rien à voir avec cet échec.
+    if (res.status === 401 && process.env.BEDS24_REFRESH_TOKEN) {
+      accesEnCache.delete(process.env.BEDS24_REFRESH_TOKEN);
+    }
     throw new Error(`Beds24 ${res.status} : ${corps.slice(0, 300)}`);
   }
   try {
