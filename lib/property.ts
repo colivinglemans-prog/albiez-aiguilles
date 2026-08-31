@@ -7,14 +7,21 @@
  */
 
 /**
- * Nom du logement, aligné sur celui des annonces Booking et Airbnb.
+ * Nom du logement.
  *
- * Volontairement long : c'est sous ce nom que les voyageurs ont réservé, et le
- * reconnaître d'un coup d'œil compte plus qu'une marque courte. Les endroits
- * contraints en largeur (bandeau du header) l'affichent en plus petit plutôt que
- * de le tronquer.
+ * « Appart **au** Chalet » et non « Appart - Chalet » (renommé le 2026-08-31) : c'est un
+ * appartement **dans** un des chalets de la résidence, et le tiret laissait entendre une
+ * apposition, comme si le logement était le chalet. La nuance compte — 33 m² annoncés
+ * « chalet » promettent une maison entière, et l'écart se découvre à l'arrivée.
+ *
+ * Volontairement long : c'est sous ce nom que les voyageurs ont réservé, et le reconnaître
+ * d'un coup d'œil compte plus qu'une marque courte. Les endroits contraints en largeur
+ * (bandeau du header) l'affichent en plus petit plutôt que de le tronquer.
+ *
+ * ⚠️ Ce nom était aligné sur les titres d'annonces Booking et Airbnb. Le renommage les
+ * désaligne : à répercuter sur les annonces, ou à assumer comme un écart voulu.
  */
-export const SITE_NAME = "Albiez - Appart - Chalet du Hameau des Aiguilles";
+export const SITE_NAME = "Albiez - Appart au Chalet du Hameau des Aiguilles";
 
 /**
  * Domaine du site — source unique des canonical, hreflang, sitemap et Open Graph.
