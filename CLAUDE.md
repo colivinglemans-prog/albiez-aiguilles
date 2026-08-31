@@ -31,8 +31,19 @@ Vercel. Enregistrements DNS en place dans la zone OVH depuis le 2026-08-07 :
 
 | Type | Sous-domaine | Cible |
 |------|--------------|-------|
-| `A` | (vide, l'apex) | `76.76.21.21` |
+| `A` | `@` | `76.76.21.21` |
 | `CNAME` | `www` | `cname.vercel-dns.com.` |
+| `TXT` | `@` | `google-site-verification=rcZ_QCptLeTa0v9kL5IlYEyeN4m5ngjx1_469tXuhaY` |
+
+**Chez OVH, la racine s'écrit `@`, et le champ Sous-domaine est obligatoire.** L'interface le
+dit (« Utilisez @ pour la racine du domaine ») là où la documentation OVH en anglais écrit
+« leave blank » : un champ vide garde le bouton de validation grisé. Deux heures perdues le
+2026-08-31 à chercher un contournement pour une réponse écrite dans l'aide du champ.
+
+Le `TXT` de vérification **cohabite** avec le `SPF` sur l'apex — c'est une entrée à *ajouter*,
+jamais une valeur à remplacer. Écraser le `SPF` (`v=spf1 include:mx.ovh.com -all`, en rejet
+strict) ferait rejeter tous les mails sortants du domaine. Le jeton n'est pas un secret : il
+est public dans la zone DNS par nature.
 
 `www` est en **CNAME** et non en `A` : Vercel sert ce nom depuis plusieurs adresses et les
 fait évoluer (il renvoie aujourd'hui `76.76.21.142` et `66.33.60.66`, pas le `76.76.21.21`
@@ -1121,14 +1132,12 @@ photos de couverture. Une photo très claire ou très chargée convient.
 
 - [ ] **`ssoProtection`** — à remettre sur `all_except_custom_domains` maintenant que le
       domaine est en service (voir la section « Déploiement »).
-- [ ] **Google Search Console** — propriété à créer pour `albiez-aiguilles.fr` et sitemap à
-      soumettre. Rien n'est déclaré aujourd'hui : contrairement à Barbusse,
-      `app/[locale]/layout.tsx` ne porte aucun `google-site-verification`. Penser à déclarer
-      le ciblage international maintenant que le site est en cinq langues.
-- [ ] **Photos** — les dossiers sont vides ; les galeries affichent un message d'attente.
-- [ ] **Calendrier de réservation** — `BookingSection` est un placeholder qui renvoie
-      vers Airbnb. À remplacer par le calendrier Beds24 une fois le compte de la SCI créé
-      (property ID à mettre en variable d'environnement, pas en dur).
+- [x] **Google Search Console** — propriété de type **Domaine** validée le 2026-08-31 par
+      enregistrement `TXT` à la racine (voir « Domaine »). Elle couvre l'apex, le `www` et
+      tous les sous-domaines d'un coup, ce qu'une propriété « préfixe d'URL » n'aurait pas
+      fait. **Ne pas ajouter de balise `google-site-verification`** dans le layout : la
+      validation par DNS la rend inutile, contrairement à Barbusse qui en porte deux. Reste à
+      soumettre `sitemap.xml` dans Indexation → Sitemaps (105 URLs, HTTP 200 vérifié).
 - [ ] **Guide** — 17 articles en ligne dans les cinq langues. Restent à vérifier avant la
       haute saison : les horaires des commerces et du centre équestre, et l'horaire exact de
       l'Albiez C'Show, qui changent chaque année — **et dans les cinq langues à la fois**.
@@ -1149,5 +1158,8 @@ photos de couverture. Une photo très claire ou très chargée convient.
       chaînes) touche une trentaine d'appels : à mesurer sur un rapport de bundle avant de
       s'y engager.
 - [ ] **Carte Leaflet** — la section situation utilise pour l'instant un lien Google Maps.
-- [ ] **Tarif du ménage** — 60 € est enregistré dans `PROPERTY.services.cleaningFee`
-      mais n'est affiché nulle part, en attendant le moteur de réservation.
+- [ ] **Tarif du ménage** — 60 € est enregistré dans `PROPERTY.services.cleaningFee` mais
+      n'est affiché nulle part. Ce n'est plus une attente : le tunnel Beds24 facture ce montant
+      et son total de première page l'inclut désormais (« Total including obligatory »). À
+      trancher — l'annoncer sur la vitrine renseigne le visiteur, mais affiche un frais avant
+      qu'il ait vu un prix.
