@@ -4,10 +4,16 @@ import { normaliserCanal } from "@/lib/canal";
 /**
  * Client Beds24 v2 pour Albiez.
  *
- * Différence avec Barbusse, qui utilise un long life token en lecture : le compte de la SCI
- * n'a qu'un **refresh token**, échangé contre un access token de 24 h. C'est d'ailleurs la
- * bonne forme — un long life token Beds24 ne porte que des scopes de lecture, et celui de
- * Barbusse a fini par être refusé en local.
+ * **Deux tokens, deux privilèges**, comme chez Barbusse :
+ *
+ * - `BEDS24_REFRESH_TOKEN` — échangé contre un access token de 24 h, il porte
+ *   `write:bookings`. Sert au dashboard et à l'écriture des consignes de ménage.
+ * - `BEDS24_PUBLIC_TOKEN` — long life token en lecture seule (`read:inventory`,
+ *   `read:properties`), utilisé **uniquement** par les deux lectures servies au public.
+ *
+ * Les long life tokens Beds24 ne supportent que des scopes de lecture — c'est une limite de
+ * la plateforme, et c'est précisément ce qui les rend adaptés à une route ouverte à tous.
+ * Ils durent **90 jours**, d'où le repli documenté dans `appeler()`.
  */
 const API = "https://api.beds24.com/v2";
 
@@ -63,10 +69,19 @@ async function appeler<T>(
   frais = false,
   public_ = false,
 ): Promise<T> {
-  const token = public_ ? await tokenPublic() : await accessToken();
   const url = new URL(API + chemin);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
-  const res = await fetch(url, {
+
+  /**
+   * Le token public est un **long life token de 90 jours**. Le jour où il expire, la route
+   * de disponibilités renverrait 502 et le calendrier du site afficherait un logement
+   * indisponible sur toutes les dates — un calendrier muet, sans que rien ne le signale.
+   *
+   * D'où un repli : sur 401, on refait l'appel avec le token d'écriture. On perd la
+   * séparation des privilèges le temps de renouveler, ce qui vaut mieux qu'un tunnel de
+   * réservation éteint en pleine saison. L'avertissement dans les logs dit quoi faire.
+   */
+  const appel = (token: string) => fetch(url, {
     headers: { token },
     // 60 s par défaut : le dashboard n'a pas besoin de la seconde près, et ça évite de
     // tapisser l'API à chaque changement de période.
@@ -76,6 +91,18 @@ async function appeler<T>(
     // qui rafraîchit sa page, voyait l'ancienne version sans comprendre pourquoi.
     ...(frais ? { cache: "no-store" as const } : { next: { revalidate: 60 } }),
   });
+
+  let res = await appel(public_ ? await tokenPublic() : await accessToken());
+
+  if (res.status === 401 && public_ && process.env.BEDS24_PUBLIC_TOKEN) {
+    console.error(
+      "BEDS24_PUBLIC_TOKEN refusé (401) — il a probablement expiré, les long life tokens " +
+        "Beds24 durant 90 jours. Repli sur le token d'écriture. À renouveler dans " +
+        "Beds24 → Settings → Account → API, scopes read:inventory et read:properties.",
+    );
+    res = await appel(await accessToken());
+  }
+
   if (!res.ok) throw new Error(`Beds24 ${chemin} ${res.status} : ${(await res.text()).slice(0, 200)}`);
   return res.json() as Promise<T>;
 }
