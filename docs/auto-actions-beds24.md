@@ -111,8 +111,9 @@ L'été ne porte aucune incitation à réserver : à Albiez, ce n'est pas néces
 
 ## Français — **version de référence**
 
-C'est la seule version validée. Les quatre traductions qui suivent sont des **brouillons
-antérieurs**, à resynchroniser sur celle-ci avant tout usage.
+Les quatre traductions qui suivent en sont dérivées et alignées sur elle (2026-08-31).
+**Toute modification se fait ici d'abord**, puis se répercute sur les quatre autres — sinon
+elles divergent, et c'est exactement ce qui est arrivé aux deux modèles Airbnb ski / hors-ski.
 
 **Sujet**
 
@@ -232,7 +233,7 @@ La branche « sans kit » est **vide** (`…|]`) : rien à demander, donc rien �
 conditionnel se trouvait. Sans conséquence, le paragraphe suivant en ayant déjà une, mais si
 deux lignes blanches apparaissent c'est de là qu'elles viennent.
 
-## English — *brouillon, à resynchroniser sur le français*
+## English
 
 **Subject**
 
@@ -249,48 +250,53 @@ Thank you very much for your booking and for your trust.
 
 Your stay is confirmed:
 
-  Check-in  : [FIRSTNIGHTSHORT] from 4:00 pm
-  Check-out : [LEAVINGDAYSHORT] before 10:00 am
-  Length    : [NUMNIGHT] night(s)
-  Guests    : [NUMADULT] adult(s), [NUMCHILD] child(ren)
+  Check-in : [FIRSTNIGHTSHORT] from 4:00 pm
+  Check-out: [LEAVINGDAYSHORT] before 10:00 am
+  Length   : [NUMNIGHT] night(s)
+  Guests   : [NUMADULT] adult(s)[IF>:[NUMCHILD]:0:, [NUMCHILD] child(ren)|]
 
-INCLUDED
-  - End-of-stay cleaning, excluding kitchen and dishes which are left to you
+WHAT IS INCLUDED
+  - End-of-stay cleaning, excluding the kitchen and washing-up which are left to you
   - Duvets and pillows
 
-OPTIONAL
-  - Linen kit (bed sheets + bath towel): 15 EUR per person.
-    Let us know soon if you would like it, so we can set it aside.
-    Without the kit, please bring your own sheets and towels.
+YOUR LINEN KIT
+[IF>:[INVOICEUPSELLQTY2]:0:Noted, your linen kit is reserved. Sheets, pillowcases and one bath towel per person will be waiting in the apartment. The beds are not made up when you arrive — the linen is provided and you put it on yourself.|You have not taken the linen kit. Please bring your own sheets, pillowcases and bath towels — or let us know and we will add it, 15 € per person.]
+
+  The apartment has 1 double bed of 160 × 190 cm and 4 single beds of 80 × 190 cm.
+  Duvets and pillows are there in every case.
+
+[IF>:[INVOICEUPSELLQTY2]:0:  One thing to tell us now — how you would like the beds arranged, so we can set out the right sheet sizes. For example "1 double + 2 singles".|]
 
 IN WINTER
-  Book your ski rental and ESF lessons early: slots fill up fast during the
+  Book your ski rental and your ESF lessons early: slots fill up fast during the
   French school holidays.
 
 OUR GUIDE
-  Activities and places worth seeing around the chalet:
+  The activities and the places not to miss around the chalet:
   https://www.albiez-aiguilles.fr/en/guide
 
 YOUR ARRIVAL
-  Check-in is fully self-service: arrive whenever suits you.
-  Please let us know your approximate arrival time so everything is ready.
+  Check-in is fully self-service: you arrive whenever suits you.
   You will receive your access code and a short guide before you set off.
 
-  Address : Chemin du Châtel, 73530 Albiez-Montrond, France
-  Map     : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
-  Website : https://www.albiez-aiguilles.fr/en/
+  Address: Chemin du Châtel, 73530 Albiez-Montrond, France
+  Map    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
+  Website: https://www.albiez-aiguilles.fr/en/
 
-Any questions? Just reply to this message, or write to us on WhatsApp:
+Any questions? Reply to this message, or write to us on WhatsApp:
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 See you very soon,
 Isabelle and Alexandre
 
+YOUR BOOKING IN DETAIL
+[INVOICE:PRI_QTY_CUA€]
+
 --
 Reference [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## Deutsch — *brouillon, à resynchroniser sur le français*
+## Deutsch
 
 **Betreff**
 
@@ -307,23 +313,26 @@ vielen Dank für Ihre Buchung und für Ihr Vertrauen.
 
 Ihr Aufenthalt ist bestätigt:
 
-  Anreise : [FIRSTNIGHTSHORT] ab 16:00 Uhr
-  Abreise : [LEAVINGDAYSHORT] vor 10:00 Uhr
-  Dauer   : [NUMNIGHT] Nacht/Nächte
-  Gäste   : [NUMADULT] Erwachsene, [NUMCHILD] Kind(er)
+  Anreise: [FIRSTNIGHTSHORT] ab 16:00 Uhr
+  Abreise: [LEAVINGDAYSHORT] vor 10:00 Uhr
+  Dauer  : [NUMNIGHT] Nacht/Nächte
+  Gäste  : [NUMADULT] Erwachsene[IF>:[NUMCHILD]:0:, [NUMCHILD] Kind(er)|]
 
-INKLUSIVE
-  - Endreinigung, ohne Küche und Geschirr, die Ihnen überlassen bleiben
+WAS ENTHALTEN IST
+  - Endreinigung, ausgenommen Küche und Geschirr, die Ihnen obliegen
   - Bettdecken und Kopfkissen
 
-OPTIONAL
-  - Wäschepaket (Bettwäsche + Badetuch): 15 EUR pro Person.
-    Sagen Sie uns rechtzeitig Bescheid, damit wir es reservieren.
-    Ohne Paket bringen Sie bitte Bettwäsche und Handtücher selbst mit.
+IHR WÄSCHEPAKET
+[IF>:[INVOICEUPSELLQTY2]:0:Notiert, Ihr Wäschepaket ist reserviert. Bettwäsche, Kissenbezüge und ein Badetuch pro Person warten in der Wohnung. Die Betten sind bei Ihrer Ankunft nicht bezogen — die Wäsche wird bereitgestellt, das Beziehen übernehmen Sie.|Sie haben das Wäschepaket nicht gebucht. Bringen Sie bitte Ihre eigene Bettwäsche, Kissenbezüge und Badetücher mit — oder sagen Sie uns Bescheid und wir fügen es hinzu, 15 € pro Person.]
+
+  Die Wohnung hat 1 Doppelbett von 160 × 190 cm und 4 Einzelbetten von 80 × 190 cm.
+  Bettdecken und Kopfkissen sind in jedem Fall vorhanden.
+
+[IF>:[INVOICEUPSELLQTY2]:0:  Eine Sache noch — sagen Sie uns bitte, wie Sie die Betten aufteilen möchten, damit wir die passenden Bettwäschegrößen bereitlegen. Zum Beispiel „1 Doppelbett + 2 Einzelbetten".|]
 
 IM WINTER
-  Buchen Sie Skiverleih und ESF-Kurse frühzeitig: in den französischen
-  Schulferien sind die Plätze schnell vergeben.
+  Buchen Sie Skiverleih und ESF-Kurse frühzeitig: in den französischen Schulferien
+  sind die Plätze schnell vergeben.
 
 UNSER GUIDE
   Aktivitäten und sehenswerte Orte rund um das Chalet:
@@ -331,24 +340,26 @@ UNSER GUIDE
 
 IHRE ANKUNFT
   Die Anreise erfolgt vollständig selbstständig: Sie kommen, wann es Ihnen passt.
-  Bitte teilen Sie uns Ihre ungefähre Ankunftszeit mit, damit alles bereit ist.
   Ihren Zugangscode und einen kurzen Leitfaden erhalten Sie vor der Abreise.
 
-  Adresse : Chemin du Châtel, 73530 Albiez-Montrond, Frankreich
-  Karte   : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
-  Website : https://www.albiez-aiguilles.fr/de/
+  Adresse: Chemin du Châtel, 73530 Albiez-Montrond, Frankreich
+  Karte  : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
+  Website: https://www.albiez-aiguilles.fr/de/
 
-Fragen? Antworten Sie einfach auf diese Nachricht oder schreiben Sie uns
-auf WhatsApp: +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
+Fragen? Antworten Sie auf diese Nachricht oder schreiben Sie uns auf WhatsApp:
++[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 Bis bald,
 Isabelle und Alexandre
+
+IHRE BUCHUNG IM DETAIL
+[INVOICE:PRI_QTY_CUA€]
 
 --
 Referenz [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## Español — *brouillon, à resynchroniser sur le français*
+## Español
 
 **Asunto**
 
@@ -365,36 +376,38 @@ Muchas gracias por su reserva y por su confianza.
 
 Su estancia está confirmada:
 
-  Llegada  : [FIRSTNIGHTSHORT] a partir de las 16:00
-  Salida   : [LEAVINGDAYSHORT] antes de las 10:00
-  Duración : [NUMNIGHT] noche(s)
-  Viajeros : [NUMADULT] adulto(s), [NUMCHILD] niño(s)
+  Llegada : [FIRSTNIGHTSHORT] a partir de las 16:00
+  Salida  : [LEAVINGDAYSHORT] antes de las 10:00
+  Duración: [NUMNIGHT] noche(s)
+  Viajeros: [NUMADULT] adulto(s)[IF>:[NUMCHILD]:0:, [NUMCHILD] niño(s)|]
 
-INCLUIDO
-  - Limpieza final de la estancia, excepto cocina y vajilla, que quedan a su cargo
+LO QUE ESTÁ INCLUIDO
+  - Limpieza final, excepto la cocina y la vajilla, que quedan a su cargo
   - Edredones y almohadas
 
-OPCIONAL
-  - Kit de ropa de cama (sábanas + toalla de baño): 15 EUR por persona.
-    Avísenos pronto si lo desea, para que podamos reservarlo.
-    Sin el kit, traiga sus sábanas y sus toallas.
+SU KIT DE ROPA DE CAMA
+[IF>:[INVOICEUPSELLQTY2]:0:Anotado, su kit de ropa de cama está reservado. Sábanas, fundas de almohada y una toalla de baño por persona le esperan en el apartamento. Las camas no están hechas a su llegada — la ropa se pone a su disposición y usted la coloca.|No ha contratado el kit de ropa de cama. Traiga sus sábanas, fundas y toallas de baño — o díganoslo y lo añadimos, 15 € por persona.]
+
+  El apartamento tiene 1 cama doble de 160 × 190 cm y 4 camas individuales de 80 × 190 cm.
+  Los edredones y las almohadas están allí en todos los casos.
+
+[IF>:[INVOICEUPSELLQTY2]:0:  Una cosa que puede decirnos ya — cómo desea repartir las camas, para que preparemos las medidas de sábanas adecuadas. Por ejemplo «1 doble + 2 individuales».|]
 
 EN INVIERNO
-  Reserve pronto el alquiler de esquís y las clases de la ESF: las plazas se
-  agotan rápido durante las vacaciones escolares francesas.
+  Reserve pronto el alquiler de esquís y las clases de la ESF: las plazas se agotan
+  rápido durante las vacaciones escolares francesas.
 
 NUESTRA GUÍA
-  Actividades y lugares imprescindibles alrededor del chalet:
+  Las actividades y los lugares imprescindibles alrededor del chalet:
   https://www.albiez-aiguilles.fr/es/guide
 
 SU LLEGADA
   La entrada es totalmente autónoma: llegue a la hora que le convenga.
-  Indíquenos su hora aproximada de llegada para que todo esté listo.
   Recibirá su código de acceso y una pequeña guía antes de su salida.
 
-  Dirección : Chemin du Châtel, 73530 Albiez-Montrond, Francia
-  Mapa      : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
-  Web       : https://www.albiez-aiguilles.fr/es/
+  Dirección: Chemin du Châtel, 73530 Albiez-Montrond, Francia
+  Mapa     : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
+  Web      : https://www.albiez-aiguilles.fr/es/
 
 ¿Alguna pregunta? Responda a este mensaje o escríbanos por WhatsApp:
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
@@ -402,11 +415,14 @@ SU LLEGADA
 Hasta muy pronto,
 Isabelle y Alexandre
 
+SU RESERVA EN DETALLE
+[INVOICE:PRI_QTY_CUA€]
+
 --
 Referencia [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
 
-## Italiano — *brouillon, à resynchroniser sur le français*
+## Italiano
 
 **Oggetto**
 
@@ -423,36 +439,38 @@ grazie mille per la vostra prenotazione e per la vostra fiducia.
 
 Il vostro soggiorno è confermato:
 
-  Arrivo   : [FIRSTNIGHTSHORT] dalle 16:00
-  Partenza : [LEAVINGDAYSHORT] entro le 10:00
-  Durata   : [NUMNIGHT] notte/notti
-  Ospiti   : [NUMADULT] adulto/i, [NUMCHILD] bambino/i
+  Arrivo  : [FIRSTNIGHTSHORT] dalle 16:00
+  Partenza: [LEAVINGDAYSHORT] entro le 10:00
+  Durata  : [NUMNIGHT] notte/notti
+  Ospiti  : [NUMADULT] adulto/i[IF>:[NUMCHILD]:0:, [NUMCHILD] bambino/i|]
 
-INCLUSO
+CHE COSA È COMPRESO
   - Pulizia finale, escluse cucina e stoviglie che restano a vostro carico
   - Piumini e cuscini
 
-OPZIONALE
-  - Kit biancheria (lenzuola + telo da bagno): 15 EUR a persona.
-    Segnalatecelo presto se lo desiderate, così lo mettiamo da parte.
-    Senza il kit, portate lenzuola e asciugamani.
+IL VOSTRO KIT BIANCHERIA
+[IF>:[INVOICEUPSELLQTY2]:0:Annotato, il vostro kit biancheria è prenotato. Lenzuola, federe e un telo da bagno a persona vi attendono nell'appartamento. I letti non sono rifatti al vostro arrivo — la biancheria è messa a disposizione, sarete voi a sistemarla.|Non avete preso il kit biancheria. Portate le vostre lenzuola, federe e teli da bagno — oppure segnalatecelo e lo aggiungiamo, 15 € a persona.]
+
+  L'appartamento ha 1 letto matrimoniale da 160 × 190 cm e 4 letti singoli da 80 × 190 cm.
+  Piumini e cuscini sono presenti in ogni caso.
+
+[IF>:[INVOICEUPSELLQTY2]:0:  Una cosa da dirci già ora — come desiderate suddividere i letti, così prepariamo le misure di lenzuola giuste. Per esempio «1 matrimoniale + 2 singoli».|]
 
 IN INVERNO
-  Prenotate presto il noleggio sci e i corsi ESF: i posti si esauriscono in
-  fretta durante le vacanze scolastiche francesi.
+  Prenotate presto il noleggio sci e i corsi ESF: i posti si esauriscono in fretta
+  durante le vacanze scolastiche francesi.
 
 LA NOSTRA GUIDA
-  Attività e luoghi da non perdere intorno allo chalet:
+  Le attività e i luoghi da non perdere intorno allo chalet:
   https://www.albiez-aiguilles.fr/it/guide
 
 IL VOSTRO ARRIVO
   Il check-in è totalmente autonomo: arrivate all'ora che preferite.
-  Segnalateci l'ora approssimativa di arrivo, così troverete tutto pronto.
   Riceverete il codice di accesso e una breve guida prima della partenza.
 
-  Indirizzo : Chemin du Châtel, 73530 Albiez-Montrond, Francia
-  Mappa     : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
-  Sito      : https://www.albiez-aiguilles.fr/it/
+  Indirizzo: Chemin du Châtel, 73530 Albiez-Montrond, Francia
+  Mappa    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
+  Sito     : https://www.albiez-aiguilles.fr/it/
 
 Domande? Rispondete a questo messaggio o scriveteci su WhatsApp:
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
@@ -460,11 +478,12 @@ Domande? Rispondete a questo messaggio o scriveteci su WhatsApp:
 A presto,
 Isabelle e Alexandre
 
+LA VOSTRA PRENOTAZIONE IN DETTAGLIO
+[INVOICE:PRI_QTY_CUA€]
+
 --
 Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 ```
-
----
 
 ## Ce qui a été retiré du modèle d'origine, et pourquoi
 
@@ -487,7 +506,9 @@ Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
       ne mentionnent 16h aujourd'hui. Le message le dit, le site se tait.
 - [ ] **Tester le conditionnel du kit linge** avec deux réservations de test, une avec
       l'option et une sans. C'est le seul point du message qui peut mentir.
-- [ ] Resynchroniser les quatre traductions sur le français figé, une fois le test passé.
+- [ ] Faire relire les quatre traductions par un locuteur du marché avant la haute saison.
+      Elles sont écrites depuis le français : le corps tient la route, mais une tournure
+      correcte et non idiomatique ne se voit pas de l'intérieur.
 - [ ] **Message J-7 — avant-arrivée.** Lien vers le guide d'arrivée, demande de l'heure
       d'arrivée, rappel des tailles de linge pour qui n'a pas pris le kit. À rédiger.
 - [ ] **Message jour J — code d'accès.** ⚠️ **Son texte ne sera pas versionné ici** : il porte
