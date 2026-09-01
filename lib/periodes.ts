@@ -115,3 +115,88 @@ export function periodeLabel(arrivee: string, depart: string): string | null {
 
   return zones.length > 0 ? `${court} ${zones.join("+")}` : court;
 }
+
+/**
+ * Une bande de calendrier : **un seul libellé** pour une plage de jours homogène.
+ *
+ * Le calendrier peignait une barre par ligne de données, soit quatre barres empilées la
+ * semaine de Noël (« Noël », « Noël A », « Noël B », « Noël C ») pour une seule information :
+ * tout le monde est en vacances. On ne garde donc qu'**une bande à la fois**, découpée aux
+ * jours où la composition change — c'est justement ce qui est intéressant, puisque le nombre
+ * de zones en vacances est la mesure de la pression sur la demande :
+ *
+ *   « Hiver A » → « Hiver A+B » → « Hiver A+B+C » → « Hiver B+C » → « Hiver C »
+ */
+export interface BandePeriode {
+  /** « Noël A+B+C », « Hiver A+C », « Jour de l'An A+B+C ». */
+  libelle: string;
+  /** Type de la période dominante du segment : c'est lui qui donne la couleur. */
+  type: "vacances" | "fete";
+  /** Premier jour du segment, inclus (YYYY-MM-DD). */
+  debut: string;
+  /** Dernier jour du segment, inclus (YYYY-MM-DD). */
+  fin: string;
+  /** Les périodes réellement actives sur le segment, pour l'infobulle. */
+  sources: Periode[];
+}
+
+/**
+ * Libellé d'un jour : nom de la période dominante (fête d'abord) suivi des lettres de zones
+ * en vacances ce jour-là. La semaine du Jour de l'An tombant en plein dans les vacances de
+ * Noël, elle hérite de ses zones — ce sont bien elles qui sont en congés.
+ */
+function libelleDuJour(actives: Periode[]): { libelle: string; type: "vacances" | "fete" } {
+  const dominante = [...actives].sort(
+    (a, b) => (POIDS[b.nom] ?? 0) - (POIDS[a.nom] ?? 0) || a.zone.localeCompare(b.zone),
+  )[0];
+
+  const vacances = actives.filter((p) => p.type === "vacances");
+  const nom = vacances.length > 0 ? vacances[0].nom : null;
+  const zones = vacances
+    .filter((p) => p.nom === nom)
+    .map((p) => p.zone.replace(/^Zone\s+/, ""))
+    .filter((z) => z !== "Toutes")
+    .sort();
+
+  const court = shortPeriodeLabel(dominante.nom);
+  return {
+    libelle: zones.length > 0 ? `${court} ${zones.join("+")}` : court,
+    type: dominante.type,
+  };
+}
+
+/**
+ * Découpe [premier, dernier] en bandes homogènes : un jour sans période n'en produit aucune,
+ * et deux jours consécutifs de même libellé n'en produisent qu'une. Les bornes sont donc déjà
+ * ramenées à la fenêtre demandée, l'appelant n'a rien à rogner.
+ */
+export function bandesPeriodes(
+  periodes: Periode[],
+  premier: string,
+  dernier: string,
+): BandePeriode[] {
+  const bandes: BandePeriode[] = [];
+
+  for (let jour = premier; jour <= dernier; jour = addDays(jour, 1)) {
+    const actives = periodes.filter((p) => p.debut <= jour && p.fin >= jour);
+    if (actives.length === 0) {
+      continue;
+    }
+
+    const { libelle, type } = libelleDuJour(actives);
+    const courante = bandes[bandes.length - 1];
+    if (courante && courante.libelle === libelle && courante.fin === addDays(jour, -1)) {
+      courante.fin = jour;
+      for (const p of actives) {
+        if (!courante.sources.includes(p)) {
+          courante.sources.push(p);
+        }
+      }
+      continue;
+    }
+
+    bandes.push({ libelle, type, debut: jour, fin: jour, sources: [...actives] });
+  }
+
+  return bandes;
+}

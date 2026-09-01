@@ -655,6 +655,23 @@ la moitié gauche de sa case, une barre qui commence le jour J que la moitié dr
 séjours qui s'enchaînent le même jour partagent donc une ligne au lieu de s'empiler — ce qui
 est le cas courant en pleine saison.
 
+**Une seule bande de vacances à la fois.** Peindre une barre par ligne de données donnait
+quatre barres empilées la semaine de Noël — « Noël », « Noël A », « Noël B », « Noël C » —
+pour une seule information : tout le monde est en vacances. `bandesPeriodes` (`lib/periodes.ts`)
+parcourt donc le mois jour par jour, fusionne les zones d'une même période dans le libellé, et
+ne coupe que là où la composition change. C'est justement ce découpage qui porte l'information,
+puisque le nombre de zones en vacances mesure la pression sur la demande :
+
+```
+déc. 2025   20→26 NOËL A+B+C          27→31 JOUR DE L'AN A+B+C
+févr. 2027  06→12 HIVER C   13→19 HIVER A+C   20→21 HIVER A+B+C   22→28 HIVER A+B
+```
+
+La semaine du Jour de l'An tombe en plein dans les vacances de Noël : elle en hérite les zones
+— ce sont bien elles qui sont en congés — et garde sa couleur de fête (rose contre l'indigo des
+vacances). Le libellé compact ne dit pas de quelles périodes il est fait, donc le détail (nom
+complet, zone, dates réelles, une ligne par période) se lit dans l'infobulle au survol.
+
 ### Deux rôles : `admin` et `menage`
 
 | | `admin` | `menage` |
@@ -662,7 +679,6 @@ est le cas courant en pleine saison.
 | Statistiques | oui | **redirigé vers le calendrier** |
 | Montants et canaux | oui | **absents de la réponse d'API**, pas seulement de l'écran |
 | Consignes de ménage | écriture | **lecture** |
-| Jours de départ | — | marqués `MÉNAGE` dans la case |
 
 Les mots de passe : `DASHBOARD_PASSWORD` pour l'admin, et **toute** variable commençant par
 `DASHBOARD_PASSWORD_MENAGE` pour le ménage — ce qui permet d'en donner un par personne
@@ -693,6 +709,11 @@ savoir à quelle fréquence le logement se remplit à 5 ou 6.
 Stockées dans le champ `notes` de Beds24 — **et non `comments`**, qui porte la remarque du
 voyageur et s'imprime sur les documents qui lui sont envoyés. Écriture par
 `POST /api/dashboard/notes`, admin uniquement, via le scope `write:bookings` du refresh token.
+
+Une consigne ne se devine pas : elle vit dans le popup, qu'il faut penser à ouvrir. La barre
+du séjour porte donc un 📝, la légende explique ce que ce 📝 veut dire, et le sous-titre de la
+page annonce que les séjours peuvent en porter une — kit draps et serviettes, heure d'arrivée…
+Sans ces trois rappels, la personne du ménage n'a aucune raison de cliquer sur un séjour.
 
 Seules les réservations **vivantes** sont annotables : un séjour archivé n'existe plus dans
 Beds24. L'interface le dit au lieu d'afficher un champ qui échouerait.

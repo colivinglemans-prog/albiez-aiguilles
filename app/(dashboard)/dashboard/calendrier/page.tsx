@@ -45,8 +45,8 @@ export default function CalendrierPage() {
       <h1 className="text-2xl font-bold text-slate-900">Calendrier</h1>
       <p className="mb-6 mt-0.5 text-sm text-slate-500">
         {data?.role === "menage"
-          ? "Les jours marqués MÉNAGE sont les départs : c'est là qu'il faut intervenir."
-          : "Saison de la station en fond, vacances scolaires par zone, séjours par canal."}
+          ? "Saison de la station en fond, vacances scolaires par zone, séjours en gris. Un séjour marqué 📝 porte une consigne — kit draps et serviettes, heure d'arrivée… — à lire en cliquant dessus."
+          : "Saison de la station en fond, vacances scolaires par zone, séjours par canal. Cliquez sur un séjour pour y laisser une consigne de ménage — kit draps et serviettes, heure d'arrivée… — qui le marquera d'un 📝."}
       </p>
 
       {erreur && <div className="rounded-2xl bg-rose-50 p-6 text-rose-700">{erreur}</div>}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Periode } from "@/lib/periodes";
+import { bandesPeriodes, type BandePeriode, type Periode } from "@/lib/periodes";
 import type { BandeauSaison } from "@/lib/seasons";
 import type { Sejour } from "@/lib/dashboard-types";
 import { COULEUR_CANAL } from "@/lib/canal";
@@ -113,6 +113,19 @@ function arrondis(gauche: boolean, droite: boolean): string {
   if (gauche) return "rounded-l-full";
   if (droite) return "rounded-r-full";
   return "";
+}
+
+/**
+ * Infobulle d'une bande : le libellé compact ne dit pas de quelles périodes il est fait, donc
+ * le détail — nom complet, zone, dates réelles — se lit au survol, une ligne par période.
+ */
+function infobulleBande(bande: BandePeriode): string {
+  return bande.sources
+    .map(
+      (p) =>
+        `${p.nom}${p.zone === "Toutes" ? "" : ` — ${p.zone}`} · ${p.debut} → ${p.fin}`,
+    )
+    .join("\n");
 }
 
 /**
@@ -230,9 +243,8 @@ export default function Calendrier({
   saisons: BandeauSaison[];
   onMois: (mois: string) => void;
   /**
-   * Vue ménage : pas de montants, pas de canaux, et un marqueur sur chaque jour de départ —
-   * c'est ce jour-là qu'il faut venir. Les montants sont déjà absents de la réponse d'API
-   * pour ce rôle ; ce drapeau ne fait qu'adapter l'affichage.
+   * Vue ménage : pas de montants, pas de canaux. Les montants sont déjà absents de la réponse
+   * d'API pour ce rôle ; ce drapeau ne fait qu'adapter l'affichage.
    */
   menage?: boolean;
 }) {
@@ -281,42 +293,31 @@ export default function Calendrier({
     return placer(barres, decalage, true);
   }, [sejours, premier, dernier, nbJours, decalage, menage]);
 
-  /** Jours de départ : ce sont eux qui déclenchent un ménage. */
-  const departs = useMemo(() => new Set(sejours.map((s) => s.depart)), [sejours]);
-
   /** La note la plus fraîche : celle qu'on vient d'écrire l'emporte sur celle du chargement. */
   const noteDe = (s: Sejour) =>
     (s.idBeds24 != null && notesLocales[s.idBeds24] !== undefined
       ? notesLocales[s.idBeds24]
       : s.notes) ?? "";
 
+  /**
+   * Une seule ligne de bandes : `bandesPeriodes` a déjà fusionné les zones d'une même période
+   * (« Noël A+B+C ») et découpé aux jours où la composition change (« Hiver A » → « Hiver
+   * A+B »). Les bandes ne se chevauchent donc jamais, et `placer` les range toutes sur la
+   * ligne 0.
+   */
   const segmentsPeriodes = useMemo(() => {
-    const barres = periodes
-      .filter((p) => p.debut <= dernier && p.fin >= premier)
-      // Les fêtes d'abord : elles se superposent aux vacances de Noël et doivent rester
-      // sur la ligne du haut, là où l'œil les trouve.
-      .sort((a, b) =>
-        a.type === b.type ? a.debut.localeCompare(b.debut) : a.type === "fete" ? -1 : 1,
-      )
-      .map((p) => {
-        const commence = p.debut >= premier;
-        const finit = p.fin <= dernier;
-        const zone = p.zone.replace(/^Zone\s+/, "");
-        return {
-          source: p,
-          couleur: p.type === "fete" ? "#e11d48" : "#6366f1",
-          libelle:
-            p.type === "fete"
-              ? p.nom.replace(/^Semaine (du |de )/, "")
-              : `${p.nom.replace(/^Vacances (de la |de |d')/, "")} ${zone}`,
-          debutJour: commence ? Number(p.debut.slice(8, 10)) : 1,
-          finJour: finit ? Number(p.fin.slice(8, 10)) : nbJours,
-          borneDebut: commence,
-          borneFin: finit,
-        };
-      });
+    const barres = bandesPeriodes(periodes, premier, dernier).map((b) => ({
+      source: b,
+      couleur: b.type === "fete" ? "#e11d48" : "#6366f1",
+      libelle: b.libelle,
+      debutJour: Number(b.debut.slice(8, 10)),
+      finJour: Number(b.fin.slice(8, 10)),
+      // Une bande qui s'arrête au bord du mois est coupée, pas terminée : pas d'arrondi.
+      borneDebut: b.debut > premier || b.sources.some((p) => p.debut === premier),
+      borneFin: b.fin < dernier || b.sources.some((p) => p.fin === dernier),
+    }));
     return placer(barres, decalage, false);
-  }, [periodes, premier, dernier, nbJours, decalage]);
+  }, [periodes, premier, dernier, decalage]);
 
   const saisonDuJour = (jour: string) => saisons.find((s) => jour >= s.debut && jour <= s.fin);
 
@@ -389,23 +390,13 @@ export default function Calendrier({
                   }`}
                 >
                   {dansLeMois && (
-                    <div className="flex items-center justify-between">
-                      <span
-                        className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs ${
-                          jour === today ? "bg-sky-600 font-bold text-white" : "text-slate-700"
-                        }`}
-                      >
-                        {jourDuMois}
-                      </span>
-                      {menage && departs.has(jour) && (
-                        <span
-                          className="rounded bg-emerald-100 px-1 text-[10px] font-bold text-emerald-700"
-                          title="Départ ce jour : ménage à prévoir"
-                        >
-                          MÉNAGE
-                        </span>
-                      )}
-                    </div>
+                    <span
+                      className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs ${
+                        jour === today ? "bg-sky-600 font-bold text-white" : "text-slate-700"
+                      }`}
+                    >
+                      {jourDuMois}
+                    </span>
                   )}
                 </div>
               );
@@ -419,7 +410,7 @@ export default function Calendrier({
                       .filter((b) => b.ligne === ligne)
                       .map((b) => (
                         <div
-                          key={`${b.source.nom}-${b.source.zone}-${b.debutCol}`}
+                          key={`${b.source.debut}-${b.debutCol}`}
                           className={`absolute top-0 h-full overflow-hidden truncate px-1.5 text-left text-[10px] font-semibold uppercase tracking-wide text-white ${arrondis(
                             b.borneDebut,
                             b.borneFin,
@@ -429,9 +420,7 @@ export default function Calendrier({
                             width: `${(b.finCol - b.debutCol + 1) * CELLULE}%`,
                             backgroundColor: b.couleur,
                           }}
-                          title={`${b.source.nom}${
-                            b.source.zone === "Toutes" ? "" : ` — ${b.source.zone}`
-                          } · ${b.source.debut} → ${b.source.fin}`}
+                          title={infobulleBande(b.source)}
                         >
                           {b.premierSegment && b.libelle}
                         </div>
@@ -520,19 +509,15 @@ export default function Calendrier({
           <span className="inline-block h-3 w-6 rounded-full bg-rose-600" />
           Fêtes
         </span>
+        <span className="flex items-center gap-1.5">
+          <span aria-hidden>📝</span>
+          Consigne sur le séjour
+        </span>
         {menage ? (
-          <>
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block h-3 w-6 rounded-full bg-slate-500" />
-              Logement occupé
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="rounded bg-emerald-100 px-1 text-[10px] font-bold text-emerald-700">
-                MÉNAGE
-              </span>
-              Jour de départ
-            </span>
-          </>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-3 w-6 rounded-full bg-slate-500" />
+            Logement occupé
+          </span>
         ) : (
           Object.entries(COULEUR_CANAL).map(([canal, couleur]) => (
             <span key={canal} className="flex items-center gap-1.5">
@@ -618,14 +603,6 @@ export default function Calendrier({
                   </dd>
                 </div>
               </>
-            )}
-            {menage && (
-              <div className="flex justify-between gap-3">
-                <dt className="text-slate-500">Ménage</dt>
-                <dd className="font-medium text-emerald-700">
-                  le {popup.sejour.depart.split("-").reverse().join("/")}
-                </dd>
-              </div>
             )}
           </dl>
 
