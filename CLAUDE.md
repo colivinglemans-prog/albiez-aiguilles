@@ -97,7 +97,6 @@ lui-même — celui de Barbusse ne sert à rien ici, quels que soient ses scopes
 | `scripts/beds24-setup.mjs <INVITE_CODE>` | Échange un invite code contre un `refreshToken` (à faire une fois). L'invite code se génère **connecté au sub account Albiez** : *Settings → Apps & Integrations → API*, valable quelques minutes. |
 | `scripts/beds24-test.mjs [propertyId]` | Test de connexion : liste les propriétés du compte, vérifie que `346417` en fait partie, puis affiche disponibilités et réservations à 90 jours. |
 | `scripts/sync-reviews.mjs [--dry-run]` | Récupère les avis Airbnb via `GET /channels/airbnb/reviews` et ajoute les nouveaux à `data/reviews.json`. Voir *Avis*. |
-| `scripts/rotation-samedi.mjs [--appliquer\|--annuler]` | Pose au calendrier Beds24 l'interdiction d'arriver et de partir un autre jour que le samedi pendant les vacances scolaires d'hiver. Simulation par défaut. Voir *Rotation du samedi*. |
 
 Les scripts lisent `.env.local` (`process.loadEnvFile`) : `BEDS24_REFRESH_TOKEN` ou, à
 défaut, `BEDS24_API_TOKEN`. Le **refresh token est la bonne forme** : un token longue durée
@@ -121,45 +120,47 @@ poser avant de brancher le calendrier.
 Le property ID **n'est jamais écrit en dur** : il vient de `BEDS24_PROPERTY_ID`, pour que le
 site puisse être redéployé pour un autre bien sans toucher au code.
 
-### Rotation du samedi (vacances scolaires d'hiver)
+### Rotation du samedi (hiver)
 
-Pendant les vacances d'hiver, on ne loue qu'en semaine complète du samedi au samedi. La règle
-est posée **une seule fois, au calendrier Beds24**, par l'override quotidien
-`noCheckInOrCheckOut` sur tous les jours qui ne sont pas un samedi — et de là elle part sur
-les trois canaux : Booking.com (*closed to arrival / closed to departure*), Airbnb (CTA/CTD,
-envoyés quel que soit le sync type) et le moteur de réservation direct.
+Pendant l'hiver, on ne loue qu'en semaine complète du samedi au samedi. La règle est posée
+**uniquement dans Beds24**, à la main, par l'override quotidien `noCheckInOrCheckOut` du
+CALENDAR sur tous les jours qui ne sont pas un samedi. De là elle part sur les trois canaux :
+Booking.com (*closed to arrival / closed to departure*), Airbnb (CTA/CTD, envoyés quel que
+soit le sync type) et le moteur de réservation direct.
 
-**Pourquoi pas les cases « Check-in / Check-out Allowed » d'un Fixed Price**, qui font la même
-chose sur le papier : les prix d'Albiez viennent de Beyond Pricing, qui écrit `price1` et
-`minStay` au calendrier. Un Fixed Price « vacances scolaires » ferait deux sources de prix sur
-les mêmes dates. Par ailleurs l'API v2 n'expose pas les tarifs mais expose bien l'override, et
-le marquage des jours barrés sur la page de réservation (CSS `.datenci` / `.datenco`) ne
-fonctionne **que** pour des règles posées au calendrier. Beyond ne touche jamais à `override` :
-les deux écritures cohabitent.
+⚠️ **Rien dans ce dépôt ne doit décrire quels jours sont fermés.** Ni une liste, ni un calcul
+à partir des vacances scolaires, ni un test sur le jour de la semaine : Beds24 fait foi, et
+une seconde définition divergerait dès la première exception — une semaine rouverte en
+janvier, un samedi fermé pour travaux. Un script a existé une demi-journée qui calculait ces
+dates depuis `data/vacances-scolaires.json` et les écrivait par l'API : **supprimé le
+2026-09-01**, le jour même où les dates réellement posées s'en sont écartées. Ne pas le
+réintroduire.
 
-Les périodes viennent de `data/vacances-scolaires.json` (toutes zones fusionnées), coupées à la
-fenêtre `WINTER_OPENING` de `lib/seasons.ts` — hors saison de ski, la rotation du samedi ferme
-des courts séjours sans rien protéger. La restriction **déborde d'une semaine** : elle court
-jusqu'au vendredi qui précède la rotation suivant le dernier samedi du bloc, pour que la
-dernière semaine vendue en vacances soit protégée jusqu'à son terme. Sans ce débordement, un
-voyageur arrive le dimanche d'après et occupe la semaine en travers, rendant le dernier samedi
-invendable.
+**Pourquoi le calendrier et non les cases « Check-in / Check-out Allowed » d'un Fixed Price**,
+qui font la même chose sur le papier : les prix d'Albiez viennent de Beyond Pricing, qui écrit
+`price1` et `minStay` au calendrier. Un Fixed Price « vacances scolaires » ferait deux sources
+de prix sur les mêmes dates. Par ailleurs le marquage des jours barrés sur la page de
+réservation Beds24 (CSS `.datenci` / `.datenco`) ne fonctionne **que** pour des règles posées
+au calendrier. Beyond ne touche jamais à `override` : les deux écritures cohabitent.
 
-**Posé dans Beds24 le 2026-09-01, à la main**, pour l'hiver 2026-27 : 20-25/12, 27/12-01/01,
-puis 07/02 → 12/03. Rotations libres les 19/12, 26/12, 02/01, 06/02, 13/02, 20/02, 27/02,
-06/03 et 13/03. La semaine du 02/01 n'a pas reçu le débordement (03-08/01) : elle est déjà
-occupée par une réservation 05→11/01 hors rotation, il n'y a plus rien à y protéger. C'est le
-seul écart entre le calendrier réel et ce que propose le script.
+Où c'est : **CALENDAR → ligne Override → clic sur la case du premier jour**, puis la valeur et
+une date de fin. Si la ligne n'apparaît pas, elle est masquée dans les réglages de lignes du
+calendrier. La propagation aux canaux se fait « au prochain changement de prix ou de
+disponibilité, ou au maximum sous 24 h » — pousser un *Update* dans CHANNEL MANAGER pour la
+voir tout de suite. Doc :
+[Dynamic Multi Calendar](https://wiki.beds24.com/index.php/Dynamic_Multi_Calendar#Override),
+[aide du champ](https://wiki.beds24.com/index.php/Setting/calendar2override).
 
-⚠️ Écrire demande le scope **`write:inventory`**, absent du `BEDS24_REFRESH_TOKEN` actuel
-(vérifié le 2026-09-01). Le script le contrôle avant d'écrire et s'arrête proprement ; il faut
-sinon régénérer un token avec ce scope.
+**État posé pour l'hiver 2026-27** (relevé le 2026-09-01, à titre de constat — Beds24 reste la
+référence) : 20-25/12, 27/12-01/01, puis 17/01 → 12/03 en continu, samedis exceptés. Les
+rotations libres tombent donc les 19/12, 26/12, 02/01, puis chaque samedi du 23/01 au 13/03.
+La semaine du 02/01 n'est pas protégée : elle est déjà occupée par une réservation 05→11/01
+hors rotation.
 
-**Le calendrier du site reflète ces règles**, il ne les déduit pas : `contraintes()` lit
-`includeOverride` dans le même appel que le séjour minimum et renvoie `sansArrivee` /
-`sansDepart`, que `/api/disponibilites` sert au composant. Aucun test sur le jour de la
-semaine côté site — la règle vit dans Beds24, et deux définitions divergeraient à la première
-exception.
+**Le site reflète ces règles, il ne les déduit pas** : `contraintes()` lit `includeOverride`
+dans le même appel que le séjour minimum et renvoie `sansArrivee` / `sansDepart`, que
+`/api/disponibilites` sert au calendrier de la vitrine. Aucun test sur le jour de la semaine
+côté site.
 
 Sans ça, le tunnel s'arrêtait sans expliquer pourquoi : la sélection passait, puis la page
 Beds24 répondait « Pas de check-in 24 févr. » avec un prix nul. Le moteur de réservation, lui,
