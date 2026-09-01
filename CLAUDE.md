@@ -1009,9 +1009,33 @@ compteurs, est affiché sur **toutes** les pages. La prop `season` de `<Reviews>
 filtre pas : elle fixe seulement la sélection de départ — `hiver` sur `/ski`, `ete` sur
 `/ete`, `all` sur l'accueil. Le visiteur reste libre de consulter les autres périodes.
 
-Pour rafraîchir : recopier les nouveaux avis dans le JSON. Le flux SociableKit de Barbusse
-n'est **pas** utilisable ici — il est au niveau du compte Airbnb et mélange les annonces
-sans champ permettant de les distinguer.
+**Pour rafraîchir : la commande `/avis`** (`.claude/commands/avis.md`), qui enchaîne la
+synchro, la relecture des avis nouveaux, le contrôle du diff et le déploiement. Le script seul
+s'appelle `npm run sync-reviews` (`-- --dry-run` pour ne rien écrire).
+
+Beds24 relaie l'API `listing_reviews` d'Airbnb sur `GET /channels/airbnb/reviews?roomId=…`
+— endpoint marqué « Beta », scope `read:channels`, que le token d'écriture porte déjà. On y
+trouve tout ce que le fichier affiche : note globale, texte public, les six notes de
+catégorie, la réponse de l'hôte, et le code de réservation. **Sauf le prénom du voyageur**,
+qu'Airbnb ne donne que sous forme de `reviewer_id` opaque. Le script le récupère en joignant
+`reservation_confirmation_code` à la réservation Beds24 — ce qui ne marche que pour les
+séjours passés par Beds24, donc à partir d'août 2026. Avant cela, il laisse `name` vide et
+le signale : c'est le seul champ à compléter à la main.
+
+Le script **ajoute, il ne réécrit pas**. Un avis déjà présent est laissé intact — ses fautes
+de frappe ont été corrigées, sa date et sa période vérifiées, et l'API renvoie le texte brut.
+Un avis qu'Airbnb ne renvoie plus est signalé mais jamais supprimé. Seul `summary` est
+recalculé : il est entièrement dérivable, à la virgule près (vérifié sur les 49 avis
+d'origine), sauf `guestFavourite` qui n'est pas dans la réponse et reste manuel.
+
+L'appariement entre le fichier et l'API se fait par **similarité de texte** (trigrammes de
+Jaccard) et non par identifiant : le fichier est antérieur à cette intégration et ne porte
+pas les `id` Airbnb. Sur les 49 avis d'origine, l'appariement est complet et le pire score
+vaut 0,86, pour un seuil à 0,35 — le seuil est bas exprès, un faux positif ferait rater un
+avis nouveau en silence là où un faux négatif se voit dans le rapport.
+
+Le flux SociableKit de Barbusse n'est **pas** utilisable ici — il est au niveau du compte
+Airbnb et mélange les annonces sans champ permettant de les distinguer.
 
 Règle : un chiffre ou une distance ne doit **jamais** être écrit dans un dictionnaire.
 Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.

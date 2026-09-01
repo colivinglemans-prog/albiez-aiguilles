@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "compress-images": "node scripts/compress-images.mjs"
+    "compress-images": "node scripts/compress-images.mjs",
+    "sync-reviews": "node scripts/sync-reviews.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.0",
