@@ -9,7 +9,7 @@ import { normaliserCanal } from "@/lib/canal";
  * - `BEDS24_REFRESH_TOKEN` — échangé contre un access token de 24 h, il porte
  *   `write:bookings`. Sert au dashboard et à l'écriture des consignes de ménage.
  * - `BEDS24_PUBLIC_REFRESH_TOKEN` — refresh token en **lecture seule**, utilisé uniquement
- *   par les deux lectures servies au public (`disponibilites`, `sejourMinimum`).
+ *   par les deux lectures servies au public (`disponibilites`, `contraintes`).
  *
  * Le second n'est pas un long life token, bien que ceux-là ne puissent techniquement porter
  * que des scopes de lecture : ils expirent au bout de 90 jours **fermes**. Un refresh token
@@ -297,41 +297,68 @@ export async function disponibilites(du: string, au: string): Promise<Record<str
   return fusion;
 }
 
+export type Contraintes = {
+  /** Séjour minimum par date. */
+  minima: Record<string, number>;
+  /** Dates où l'arrivée est interdite. */
+  sansArrivee: string[];
+  /** Dates où le départ est interdit. */
+  sansDepart: string[];
+};
+
 /**
- * Séjour minimum par date, tel que **Beyond Pricing** le pousse dans Beds24.
+ * Contraintes de séjour par date : minimum de nuits, et jours fermés à l'arrivée ou au départ.
  *
- * Ce n'est pas le `minStay` de la room, qui vaut 1 et ne veut rien dire : la vraie contrainte
- * est portée date par date au calendrier — relevé le 2026-08-29, 2 nuits en général et
- * **6 nuits sur les fêtes de fin d'année**. Le calendrier du site doit la respecter, sinon il
- * laisse sélectionner des séjours que le tunnel de réservation refusera ensuite.
+ * **Le séjour minimum** est celui que pousse Beyond Pricing, et non le `minStay` de la room,
+ * qui vaut 1 et ne veut rien dire : la vraie contrainte est portée date par date au
+ * calendrier — relevé le 2026-08-29, 2 nuits en général et 6 nuits en haute saison.
+ *
+ * **Les jours fermés** viennent de l'`override` du calendrier, c'est-à-dire de la rotation du
+ * samedi posée pendant les vacances scolaires d'hiver (voir CLAUDE.md). `blackout` n'est pas
+ * repris ici : une date fermée l'est déjà par `disponibilites()`. `exception` non plus, ce
+ * n'est pas une règle d'arrivée mais un renvoi aux booking rules de la période exceptionnelle.
+ *
+ * Les deux sortent du **même appel** : elles viennent du même endpoint, et Beds24 facture au
+ * nombre de requêtes.
+ *
+ * Sans ces contraintes, le calendrier du site laisse sélectionner des séjours que la page de
+ * réservation Beds24 refuse ensuite — elle répond « Pas de check-in 24 févr. » et un prix nul,
+ * ce qui donne un tunnel qui s'arrête sans expliquer pourquoi.
  */
-export async function sejourMinimum(du: string, au: string): Promise<Record<string, number>> {
+export async function contraintes(du: string, au: string): Promise<Contraintes> {
   const propertyId = process.env.BEDS24_PROPERTY_ID;
   if (!propertyId) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
 
   const { data = [] } = await appeler<{
-    data: { calendar?: { from: string; to: string; minStay?: number }[] }[];
+    data: { calendar?: { from: string; to: string; minStay?: number; override?: string }[] }[];
   }>(
     "/inventory/rooms/calendar",
-    { propertyId, startDate: du, endDate: au, includeMinStay: "true" },
+    { propertyId, startDate: du, endDate: au, includeMinStay: "true", includeOverride: "true" },
     false,
     true,
   );
 
   const minima: Record<string, number> = {};
+  const sansArrivee = new Set<string>();
+  const sansDepart = new Set<string>();
+
   for (const room of data) {
     for (const tranche of room.calendar ?? []) {
-      if (tranche.minStay == null) continue;
+      const fermeArrivee = tranche.override === "noCheckIn" || tranche.override === "noCheckInOrCheckOut";
+      const fermeDepart = tranche.override === "noCheckOut" || tranche.override === "noCheckInOrCheckOut";
+      if (tranche.minStay == null && !fermeArrivee && !fermeDepart) continue;
       // Beds24 compacte les jours consécutifs de même valeur en une tranche [from, to].
       for (let j = tranche.from; j <= tranche.to; ) {
-        minima[j] = Math.max(minima[j] ?? 0, tranche.minStay);
+        if (tranche.minStay != null) minima[j] = Math.max(minima[j] ?? 0, tranche.minStay);
+        if (fermeArrivee) sansArrivee.add(j);
+        if (fermeDepart) sansDepart.add(j);
         const d = new Date(`${j}T00:00:00Z`);
         d.setUTCDate(d.getUTCDate() + 1);
         j = d.toISOString().slice(0, 10);
       }
     }
   }
-  return minima;
+  return { minima, sansArrivee: [...sansArrivee].sort(), sansDepart: [...sansDepart].sort() };
 }
 
 /** Prix au calendrier — ceux que pousse Beyond Pricing. Sert à la projection. */

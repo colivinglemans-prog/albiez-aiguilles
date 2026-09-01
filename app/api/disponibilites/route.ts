@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { disponibilites, sejourMinimum } from "@/lib/beds24";
+import { contraintes, disponibilites } from "@/lib/beds24";
 
 /**
  * Disponibilités du logement, pour le calendrier de la vitrine.
@@ -7,8 +7,8 @@ import { disponibilites, sejourMinimum } from "@/lib/beds24";
  * **Route publique**, volontairement : elle est hors du `matcher` du proxy, qui ne couvre que
  * `/` et `/dashboard/:path*`.
  *
- * Elle ne renvoie que des **dates, des booléens et des durées minimales** — aucun montant,
- * aucun nom de voyageur, aucune référence de réservation. C'est ce qui la rend publiable :
+ * Elle ne renvoie que des **dates, des booléens, des durées minimales et des jours fermés à
+ * l'arrivée ou au départ** — aucun montant, aucun nom de voyageur, aucune référence. C'est ce qui la rend publiable :
  * un visiteur apprend qu'une nuit est prise, rien de plus.
  *
  * Les prix ne transitent pas par ici non plus : c'est la page de réservation Beds24 qui les
@@ -35,11 +35,18 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const [dates, minStay] = await Promise.all([
+    const [dates, regles] = await Promise.all([
       disponibilites(du, au),
-      sejourMinimum(du, au),
+      contraintes(du, au),
     ]);
-    return NextResponse.json({ dates, minStay });
+    // `sansArrivee` / `sansDepart` portent la rotation du samedi des vacances d'hiver. Sans
+    // elles, le calendrier laisse choisir une arrivée que la page Beds24 refuse ensuite.
+    return NextResponse.json({
+      dates,
+      minStay: regles.minima,
+      sansArrivee: regles.sansArrivee,
+      sansDepart: regles.sansDepart,
+    });
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
     console.error("Disponibilités indisponibles :", message);

@@ -155,10 +155,16 @@ seul écart entre le calendrier réel et ce que propose le script.
 (vérifié le 2026-09-01). Le script le contrôle avant d'écrire et s'arrête proprement ; il faut
 sinon régénérer un token avec ce scope.
 
-⚠️ **Le calendrier public du site ne connaît pas encore ces règles** : `/api/disponibilites` ne
-lit que les disponibilités et `sejourMinimum` que `minStay`. Un visiteur peut donc sélectionner
-une arrivée en mercredi que la page de réservation Beds24 refusera ensuite. À corriger en
-lisant `includeOverride` dans `lib/beds24.ts`.
+**Le calendrier du site reflète ces règles**, il ne les déduit pas : `contraintes()` lit
+`includeOverride` dans le même appel que le séjour minimum et renvoie `sansArrivee` /
+`sansDepart`, que `/api/disponibilites` sert au composant. Aucun test sur le jour de la
+semaine côté site — la règle vit dans Beds24, et deux définitions divergeraient à la première
+exception.
+
+Sans ça, le tunnel s'arrêtait sans expliquer pourquoi : la sélection passait, puis la page
+Beds24 répondait « Pas de check-in 24 févr. » avec un prix nul. Le moteur de réservation, lui,
+a toujours appliqué la règle — c'est vérifiable sans navigateur avec
+`node scripts/devis-beds24.mjs 2027-02-24 2027-03-03`, qui renvoie ce `warn`.
 
 ## Frais fixes par canal
 

@@ -30,6 +30,8 @@ const SEJOUR_MINIMUM_PAR_DEFAUT = 2;
 
 type Dispos = Record<string, boolean>;
 type Minima = Record<string, number>;
+/** Dates fermées à l'arrivée ou au départ, indexées pour un test en O(1). */
+type Fermetures = Record<string, true>;
 type EtatCase =
   | "passe"
   | "indisponible"
@@ -63,6 +65,8 @@ export default function CalendrierReservation() {
   const [survol, setSurvol] = useState<string | null>(null);
   const [dispos, setDispos] = useState<Record<string, Dispos>>({});
   const [minima, setMinima] = useState<Minima>({});
+  const [sansArrivee, setSansArrivee] = useState<Fermetures>({});
+  const [sansDepart, setSansDepart] = useState<Fermetures>({});
   const [chargement, setChargement] = useState(false);
   const [modale, setModale] = useState(false);
   const [adultes, setAdultes] = useState(2);
@@ -97,6 +101,12 @@ export default function CalendrierReservation() {
           });
         }
         if (data.minStay) setMinima((prec) => ({ ...prec, ...(data.minStay as Minima) }));
+        // Les fermetures s'accumulent au fil des mois visités, comme les minima : la réponse
+        // ne couvre que la fenêtre demandée, et repartir de zéro rouvrirait les mois déjà vus.
+        const indexer = (jours: unknown) =>
+          Object.fromEntries((Array.isArray(jours) ? jours : []).map((j) => [String(j), true as const]));
+        setSansArrivee((prec) => ({ ...prec, ...indexer(data.sansArrivee) }));
+        setSansDepart((prec) => ({ ...prec, ...indexer(data.sansDepart) }));
       } catch {
         // Silence volontaire : sans données, toutes les dates restent non sélectionnables.
         // Mieux vaut un calendrier inerte qu'une réservation prise sur une dispo inventée.
@@ -154,8 +164,17 @@ export default function CalendrierReservation() {
     return n;
   }
 
+  /**
+   * Rotation du samedi : pendant les vacances scolaires d'hiver, l'`override` du calendrier
+   * Beds24 ferme l'arrivée et le départ tous les autres jours. La règle est posée dans Beds24
+   * et vaut pour les trois canaux — le site ne fait que la refléter, sans jamais la déduire
+   * d'un jour de la semaine, sinon les deux définitions divergeraient à la première exception.
+   */
+  const arriveeFermee = (jour: string) => sansArrivee[jour] === true;
+  const departFerme = (jour: string) => sansDepart[jour] === true;
+
   function arriveeValide(jour: string): boolean {
-    if (estPasse(jour) || !estLibre(jour)) return false;
+    if (estPasse(jour) || !estLibre(jour) || arriveeFermee(jour)) return false;
     return nuitsLibresDepuis(jour) >= minimumDe(jour);
   }
 
@@ -165,6 +184,7 @@ export default function CalendrierReservation() {
    */
   function departValide(jour: string): boolean {
     if (!arrivee || jour <= arrivee) return false;
+    if (departFerme(jour)) return false;
     if (jour < ajouterJours(arrivee, minimumDe(arrivee))) return false;
     for (let d = ajouterJours(arrivee, 1); d < jour; d = ajouterJours(d, 1)) {
       if (!estLibre(d)) return false;
