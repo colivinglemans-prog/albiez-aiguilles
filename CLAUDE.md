@@ -63,8 +63,14 @@ Projet Vercel **`albiez-aiguilles`** (équipe `colivinglemans-progs-projects`), 
 depuis la CLI comme Barbusse :
 
 ```bash
-npx vercel --prod
+npx vercel deploy --prod --scope colivinglemans-progs-projects
 ```
+
+⚠️ **Le `--scope` n'est pas décoratif.** Sans lui, `npx vercel --prod` répond
+`{"status":"error","reason":"deploy_failed","message":"Not authorized"}` (constaté le
+2026-09-01) alors que `vercel whoami`, `vercel teams ls` et `vercel project ls` passent tous
+les trois : la lecture trouve l'équipe, l'écriture non. Le message ne dit rien de la portée,
+d'où la fausse piste d'un token expiré.
 
 ⚠️ **Le preset de framework doit rester `nextjs`** sur le projet. Il était vide au départ,
 parce que le projet a été créé par `vercel project add` et non par le flux interactif de la
