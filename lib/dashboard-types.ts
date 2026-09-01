@@ -31,6 +31,18 @@ export interface Sejour {
   reserveLe?: string | null;
   fraisMenage?: number | null;
   taxeSejourCollecteeParLeCanal?: number | null;
+  /**
+   * Taxe de séjour surcollectée, quand le séjour comporte des mineurs.
+   *
+   * Beds24 ne sait pas exonérer les mineurs d'une taxe en **pourcentage** : leur support l'a
+   * confirmé le 2026-09-01, `per: "adult"` n'est honoré que par les items à montant fixe et
+   * aucune configuration n'y remédie. La correction à la main est donc une routine, et ce
+   * champ dit combien corriger au lieu de laisser refaire le calcul.
+   *
+   * `null` dès qu'il n'y a pas de mineur ou pas de ligne de taxe sur la facture — ce qui
+   * couvre tous les canaux : Airbnb et Booking ne font pas passer la taxe par Beds24.
+   */
+  surcollecteTaxe?: { collectee: number; due: number; ecart: number } | null;
   source: "archive" | "beds24";
   /** Séjour présent dans les deux sources : à dédoublonner sur `ref`. */
   aussiDansBeds24?: boolean;

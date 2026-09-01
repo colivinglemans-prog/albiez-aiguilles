@@ -558,6 +558,40 @@ change donc de définition au milieu de l'historique : une courbe de brut sur qu
 affiche une croissance qui n'existe pas. Le brut et les commissions restent visibles dans les
 cartes, mais **ne servent jamais à comparer les années**.
 
+La commission des séjours vivants vient du champ `commission` de `/bookings`, que l'API
+renseigne bel et bien — 94,86 € sur 510 € chez Airbnb, 61,95 € sur 336,70 € chez Booking,
+soit 18,4 à 18,6 %. Elle valait `0` jusqu'au 2026-09-01, sur la foi d'un commentaire affirmant
+`invoiceItems` inexploitables : le net des réservations vivantes était donc surestimé
+d'environ 18 %. `commissions` dans les statistiques se déduit de `brut − net` et s'est
+corrigé tout seul.
+
+Reliquat assumé : en direct, `commission` vaut 0 et les 1,92 % de Stripe n'y figurent pas. On
+ne les modélise pas — ils sont connus exactement dans Stripe, et une constante dans le code
+deviendrait fausse au premier changement de tarif.
+
+### La surcollecte de taxe de séjour est calculée, pas à recalculer
+
+`Sejour.surcollecteTaxe` porte `{ collectee, due, ecart }` dès qu'un séjour comporte des
+mineurs **et** qu'une ligne de taxe figure sur sa facture. Le calcul est un simple ratio :
+les mineurs étant exonérés et le barème assis sur le coût *par personne*, le dû vaut le
+collecté rapporté à la part des adultes. Vérifié : 24,50 € pour 4 adultes + 2 enfants donne
+16,33 € dus et 8,17 € de trop — les mêmes chiffres que ceux dérivés du barème 3CMA par un
+chemin indépendant.
+
+L'écart s'affiche dans la fiche d'un séjour, sur le calendrier du dashboard : c'est l'endroit
+où l'on ouvre une réservation pour agir dessus. Jamais pour le rôle `menage`.
+
+Deux points de fragilité, assumés :
+
+- **La ligne de taxe se reconnaît au libellé** (`/taxe de s[eé]jour/i`) et non au `subType` :
+  Beds24 range la taxe parmi les extras, au même `subType: 11` que le ménage et le linge, seul
+  l'hébergement ayant un code propre (`8`). Renommer l'upsell item 3 dans Beds24 fait
+  disparaître la correction de l'affichage — un silence, pas un faux montant.
+- **Le chemin complet attend une première réservation directe avec mineurs.** Aucune n'existe
+  encore : les séjours Airbnb et Booking ne portent pas de ligne de taxe, donc le champ vaut
+  `null` partout aujourd'hui, ce qui est le bon comportement mais ne teste que la branche
+  négative.
+
 ### Deux jeux de données dans `/api/dashboard/stats`
 
 | Jeu | Sert à | Filtré par la période ? |

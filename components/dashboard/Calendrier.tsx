@@ -586,6 +586,21 @@ export default function Calendrier({
                   <dt className="text-slate-500">Net</dt>
                   <dd className="font-medium text-slate-900">{euros(popup.sejour.net)}</dd>
                 </div>
+                {/* La commission ne s'affiche que si elle existe : en direct elle vaut zéro,
+                    et une ligne à 0,00 € ferait croire à une donnée manquante. */}
+                {popup.sejour.commission > 0 && (
+                  <div className="flex justify-between gap-3">
+                    <dt className="text-slate-500">Commission</dt>
+                    <dd className="text-slate-900">
+                      {euros(popup.sejour.commission)}
+                      <span className="ml-1 text-slate-400">
+                        {popup.sejour.brut > 0
+                          ? `(${Math.round((popup.sejour.commission / popup.sejour.brut) * 100)} %)`
+                          : ""}
+                      </span>
+                    </dd>
+                  </div>
+                )}
                 <div className="flex justify-between gap-3">
                   <dt className="text-slate-500">€ / nuit</dt>
                   <dd className="text-slate-900">
@@ -613,6 +628,26 @@ export default function Calendrier({
               </div>
             )}
           </dl>
+
+          {/*
+            * Surcollecte de taxe de séjour : Beds24 taxe les mineurs, qui en sont exonérés de
+            * plein droit, et aucune configuration n'y remédie (support Beds24, 2026-09-01).
+            * Le montant s'affiche ici parce que c'est l'endroit où l'on ouvre une réservation
+            * pour agir dessus — la correction se fait à la main dans Beds24.
+            */}
+          {!menage && popup.sejour.surcollecteTaxe && (
+            <div className="mt-3 rounded-md bg-amber-50 px-2.5 py-2 text-xs text-amber-900">
+              <p className="font-semibold">Taxe de séjour à corriger</p>
+              <p className="mt-1">
+                {euros(popup.sejour.surcollecteTaxe.collectee)} collectés,{" "}
+                {euros(popup.sejour.surcollecteTaxe.due)} dus —{" "}
+                <strong>{euros(popup.sejour.surcollecteTaxe.ecart)} de trop</strong>.
+              </p>
+              <p className="mt-1 text-amber-800">
+                Beds24 taxe les mineurs, qui en sont exonérés.
+              </p>
+            </div>
+          )}
 
           <Notes
             sejour={popup.sejour}

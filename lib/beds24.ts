@@ -131,8 +131,33 @@ async function appeler<T>(
   return res.json() as Promise<T>;
 }
 
+/**
+ * Ligne de facture Beds24.
+ *
+ * `subType` discrimine la nature : **8** pour l'hébergement, **11** pour les extras — ménage,
+ * linge, remise, taxe de séjour s'y mêlent. La taxe se reconnaît donc au libellé, pas au
+ * `subType`.
+ */
+interface LigneFacture {
+  subType?: number;
+  description?: string;
+  amount?: number;
+  lineTotal?: number;
+}
+
+/**
+ * Libellé de la ligne de taxe de séjour, tel que Beds24 le reprend de l'upsell item 3.
+ *
+ * Le reconnaître au texte est fragile, et c'est assumé : renommé dans Beds24, la correction
+ * disparaît simplement de l'affichage. Un silence vaut mieux qu'un montant faux sur une ligne
+ * qui sert à déclarer une taxe.
+ */
+const LIBELLE_TAXE_SEJOUR = /taxe de s[eé]jour/i;
+
 interface BookingBeds24 {
   id: number;
+  commission?: number;
+  invoiceItems?: LigneFacture[];
   arrival: string;
   departure: string;
   status?: string;
@@ -152,16 +177,47 @@ const nuitsEntre = (a: string, b: string) =>
   Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
 
 /**
+ * Part de taxe de séjour collectée à tort, faute d'exonération des mineurs.
+ *
+ * Beds24 assied la taxe en pourcentage sur la totalité de l'hébergement, sans regarder la
+ * répartition adultes/enfants. Le montant dû est donc celui collecté rapporté à la part des
+ * adultes : les mineurs sont exonérés de plein droit (article L.2333-31 du CGCT), et le
+ * barème 3CMA assied le tarif sur le coût **par personne** — diviser par les occupants puis
+ * multiplier par les seuls adultes revient exactement à ce ratio.
+ *
+ * Volontairement indépendant du canal : c'est la présence d'une ligne de taxe qui déclenche
+ * le calcul. Aujourd'hui seul le direct en porte une, mais le jour où un canal s'y mettrait,
+ * le même écart s'appliquerait sans qu'on ait à y penser.
+ */
+function surcollecteTaxe(b: BookingBeds24): Sejour["surcollecteTaxe"] {
+  const enfants = b.numChild ?? 0;
+  const occupants = (b.numAdult ?? 0) + enfants;
+  if (enfants <= 0 || occupants <= 0) return null;
+
+  const ligne = (b.invoiceItems ?? []).find((l) => LIBELLE_TAXE_SEJOUR.test(l.description ?? ""));
+  const collectee = Number(ligne?.lineTotal ?? 0);
+  if (collectee <= 0) return null;
+
+  const due = (collectee * (occupants - enfants)) / occupants;
+  return { collectee, due, ecart: collectee - due };
+}
+
+/**
  * Réservations vivantes, ramenées au type `Sejour`.
  *
  * `apiReference` porte le numéro de réservation du canal — c'est la clé de dédoublonnage
  * avec l'archive. À défaut, on retombe sur l'id Beds24, qui ne collisionnera avec aucune
  * référence de canal.
  *
- * Le `brut` de Beds24 est `price`, dont la sémantique dépend de la configuration du compte.
- * Faute de `invoiceItems` exploitables sur ce compte encore neuf, on prend `price` tel quel
- * pour le brut **et** pour le net : la commission des séjours vivants sera donc nulle, ce
- * qui est faux mais visible, plutôt qu'estimé au doigt mouillé.
+ * Le `brut` de Beds24 est `price` et la commission du canal vient de `commission`, que l'API
+ * renseigne bel et bien — relevé le 2026-09-01 : 94,86 € sur 510 € chez Airbnb, 61,95 € sur
+ * 336,70 € chez Booking. Le net les soustrait. Auparavant net valait brut, ce qui surestimait
+ * le net d'environ 18 % sur toutes les réservations vivantes.
+ *
+ * Reliquat connu : en direct, `commission` vaut 0 et les 1,92 % de Stripe n'y figurent pas.
+ * Le net direct est donc surestimé d'autant. On ne les modélise pas — ils sont connus
+ * exactement dans Stripe, et une estimation dans le code deviendrait fausse au premier
+ * changement de tarif.
  */
 export async function sejoursBeds24(params: {
   arriveeDu: string;
@@ -171,23 +227,31 @@ export async function sejoursBeds24(params: {
 }): Promise<Sejour[]> {
   const { data = [] } = await appeler<{ data: BookingBeds24[] }>(
     "/bookings",
-    { arrivalFrom: params.arriveeDu, arrivalTo: params.arriveeAu },
+    {
+      arrivalFrom: params.arriveeDu,
+      arrivalTo: params.arriveeAu,
+      // Les lignes de facture isolent l'hébergement et la taxe de séjour, seule façon de
+      // chiffrer la surcollecte sur les mineurs.
+      includeInvoiceItems: "true",
+    },
     params.frais,
   );
 
   return data
     .filter((b) => !STATUTS_EXCLUS.has((b.status ?? "").toLowerCase()))
     .map((b) => {
-      const prix = Number(b.price ?? 0);
+      const brut = Number(b.price ?? 0);
+      const commission = Number(b.commission ?? 0);
       return {
         ref: b.apiReference?.trim() || `beds24-${b.id}`,
         canal: normaliserCanal(b.referer, b.channel),
         arrivee: b.arrival,
         depart: b.departure,
         nuits: nuitsEntre(b.arrival, b.departure),
-        brut: prix,
-        net: prix,
-        commission: 0,
+        brut,
+        net: brut - commission,
+        commission,
+        surcollecteTaxe: surcollecteTaxe(b),
         reserveLe: b.bookingTime?.slice(0, 10) ?? null,
         source: "beds24" as const,
         statut: b.status,
