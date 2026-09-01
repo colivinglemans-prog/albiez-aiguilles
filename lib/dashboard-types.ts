@@ -136,6 +136,8 @@ export interface CanauxAnnee {
   annee: number;
   total: number;
   enCours: boolean;
+  /** Année future : seules les réservations déjà prises y figurent, d'où le « à date ». */
+  aVenir: boolean;
   canaux: { canal: string; sejours: number; revenu: number; part: number }[];
 }
 
@@ -144,18 +146,25 @@ export interface ComparaisonAnnee {
   /** Cumul du 1er janvier au même jour de l'année, pour comparer à fenêtre égale. */
   cumulADate: number;
   nuitsADate: number;
-  /** Variation du cumul à date par rapport à l'année précédente, en %. */
+  /**
+   * Variation du cumul à date par rapport à l'année précédente, en %.
+   * Nulle sur une année à venir : son carnet ne fait que commencer, le pourcentage
+   * annoncerait un effondrement qui n'existe pas.
+   */
   variationADate: number | null;
-  /** Total de l'année entière. Absent pour l'année en cours. */
+  /** Total de l'année entière. Absent pour l'année en cours ; « à date » pour une année à venir. */
   totalAnnee: number | null;
   /**
    * Variation du total de l'année pleine par rapport à l'année pleine précédente, en %.
-   * Nulle sur la première année et sur l'année en cours : comparer un exercice clos à une
-   * projection ne produirait pas un vrai pourcentage.
+   * Nulle sur la première année, sur l'année en cours et sur les années à venir : comparer
+   * un exercice clos à une projection ou à un carnet qui s'ouvre ne produirait pas un vrai
+   * pourcentage.
    */
   variationTotale: number | null;
   /** Année encore en cours : `totalAnnee` est une projection, pas un constat. */
   enCours: boolean;
+  /** Année future : `totalAnnee` n'est que ce qui est déjà réservé, à date. */
+  aVenir: boolean;
   projection?: number;
 }
 

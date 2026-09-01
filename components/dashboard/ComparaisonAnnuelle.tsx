@@ -11,6 +11,10 @@ const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
  *
  * **Fin d'année** : les années closes, plus la projection de l'année en cours — sans
  * pourcentage, parce que comparer un constat à une estimation n'en produirait pas un vrai.
+ *
+ * **Années à venir** : elles s'affichent « à date », pour ce qui est déjà réservé, et ne
+ * portent jamais de pourcentage. Une réservation prise dix-huit mois à l'avance ferait
+ * autrement chuter l'année de 96 % contre une année complète.
  */
 export default function ComparaisonAnnuelle({
   comparaison,
@@ -28,7 +32,8 @@ export default function ComparaisonAnnuelle({
   ][Number(mois) - 1];
   const fenetre = `1ᵉʳ janvier → ${Number(jour)} ${moisLong}`;
 
-  const closes = comparaison.filter((c) => !c.enCours);
+  const closes = comparaison.filter((c) => !c.enCours && !c.aVenir);
+  const aVenir = comparaison.filter((c) => c.aVenir);
   const enCours = comparaison.find((c) => c.enCours);
   const maxADate = Math.max(...comparaison.map((c) => c.cumulADate), 1);
 
@@ -50,6 +55,7 @@ export default function ComparaisonAnnuelle({
                 }`}
               >
                 {c.annee}
+                {c.aVenir && <span className="ml-1 text-xs text-slate-400">à date</span>}
               </span>
 
               <div className="h-6 flex-1 overflow-hidden rounded-md bg-slate-100">
@@ -79,7 +85,8 @@ export default function ComparaisonAnnuelle({
           ))}
         </div>
         <p className="mt-2 text-xs text-slate-400">
-          Le pourcentage compare au cumul de l&apos;année précédente arrêté au même jour.
+          Le pourcentage compare au cumul de l&apos;année précédente arrêté au même jour. Les
+          années à venir n&apos;en portent pas : leur carnet s&apos;ouvre à peine.
         </p>
       </div>
 
@@ -88,6 +95,16 @@ export default function ComparaisonAnnuelle({
           Fin d&apos;année
         </p>
         <div className="mt-3 flex flex-wrap gap-x-8 gap-y-3">
+          {[...aVenir].reverse().map((c) => (
+            <div key={c.annee}>
+              <p className="text-sm text-slate-500">
+                {c.annee} <span className="text-slate-400">· à date</span>
+              </p>
+              <p className="text-xl font-bold text-slate-900">
+                {c.totalAnnee != null ? euros(c.totalAnnee) : "—"}
+              </p>
+            </div>
+          ))}
           {enCours && (
             <div>
               <p className="text-sm text-slate-500">
@@ -121,6 +138,8 @@ export default function ComparaisonAnnuelle({
           Les pourcentages ne comparent que des exercices clos entre eux. La projection de{" "}
           {annee} n&apos;en porte pas : la confronter à une année close donnerait un chiffre
           trompeur.
+          {aVenir.length > 0 &&
+            " Les années suivantes affichent le seul montant déjà réservé, à date."}
         </p>
       </div>
     </section>

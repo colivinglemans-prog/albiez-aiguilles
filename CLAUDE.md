@@ -613,6 +613,11 @@ sa barre ne dirait que « l'activité n'avait pas commencé » en écrasant l'é
 maintient seule : on garde à partir de la première année dont le premier séjour tombe en
 janvier.
 
+Les **années à venir** portent le drapeau `aVenir` et **jamais de pourcentage**. Une seule
+réservation prise dix-huit mois à l'avance affichait « −96,6 % » sur 2027 : un carnet qui
+s'ouvre confronté à une année complète. Leur montant reste affiché, mais libellé « à date »
+— même convention que l'année en cours dans la répartition par canal.
+
 ### Recettes sans nuits
 
 `archive.recettes` porte du revenu réel **sans nuits** : kits drap/serviette facturés à part,

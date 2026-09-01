@@ -34,7 +34,7 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
 
   const lignes = data.map((a) => {
     const ligne: Record<string, number | string> = {
-      annee: a.enCours ? `${a.annee} (à date)` : String(a.annee),
+      annee: a.enCours || a.aVenir ? `${a.annee} (à date)` : String(a.annee),
     };
     for (const canal of canauxPresents) {
       ligne[canal] = a.canaux.find((x) => x.canal === canal)?.revenu ?? 0;
@@ -90,7 +90,9 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
             <div className="flex items-baseline justify-between">
               <span className="font-medium text-slate-900">
                 {a.annee}
-                {a.enCours && <span className="ml-1 text-xs text-slate-400">à date</span>}
+                {(a.enCours || a.aVenir) && (
+                  <span className="ml-1 text-xs text-slate-400">à date</span>
+                )}
               </span>
               <span className="font-semibold text-slate-900">{euros(a.total)}</span>
             </div>
@@ -123,7 +125,9 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
             <tr key={a.annee} className="border-t border-slate-100">
               <td className="whitespace-nowrap py-2 pr-3 font-medium text-slate-900">
                 {a.annee}
-                {a.enCours && <span className="ml-1 text-xs text-slate-400">à date</span>}
+                {(a.enCours || a.aVenir) && (
+                  <span className="ml-1 text-xs text-slate-400">à date</span>
+                )}
               </td>
               {canauxPresents.map((canal) => {
                 const e = a.canaux.find((x) => x.canal === canal);

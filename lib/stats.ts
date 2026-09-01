@@ -217,6 +217,7 @@ export function canauxParAnnee(sejours: Sejour[], recettes: RecetteSansNuits[]):
         annee,
         total: arrondi(total),
         enCours: annee === anneeCourante,
+        aVenir: annee > anneeCourante,
         canaux: CANAUX.filter((c) => m.has(c)).map((canal) => ({
           canal,
           sejours: m.get(canal)!.sejours,
@@ -271,6 +272,10 @@ export function comparerAnnees(
     const b = cumuls.get(annee)!;
     const precedente = i > 0 ? cumuls.get(annees[i - 1])! : null;
     const enCours = annee === anneeCourante;
+    // Une année à venir ne porte aucun pourcentage : une seule réservation prise deux ans à
+    // l'avance afficherait sinon un « −96,6 % » qui ne compare rien. Son montant reste utile,
+    // mais comme un carnet à date, pas comme un bilan.
+    const aVenir = annee > anneeCourante;
     // La variation d'année pleine ne se calcule qu'entre deux exercices clos. L'année en
     // cours en est exclue — son total n'est qu'une projection — et l'année qui suit
     // immédiatement la première l'est aussi tant que celle-ci n'est pas close.
@@ -280,15 +285,16 @@ export function comparerAnnees(
       cumulADate: arrondi(b.aDate),
       nuitsADate: b.nuitsADate,
       variationADate:
-        precedente && precedente.aDate > 0
+        !aVenir && precedente && precedente.aDate > 0
           ? arrondi(((b.aDate - precedente.aDate) / precedente.aDate) * 100)
           : null,
       totalAnnee: enCours ? null : arrondi(b.total),
       variationTotale:
-        !enCours && precedenteClose && precedente && precedente.total > 0
+        !enCours && !aVenir && precedenteClose && precedente && precedente.total > 0
           ? arrondi(((b.total - precedente.total) / precedente.total) * 100)
           : null,
       enCours,
+      aVenir,
       ...(enCours && projectionAnneeCourante != null
         ? { projection: arrondi(projectionAnneeCourante) }
         : {}),
