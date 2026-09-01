@@ -492,17 +492,27 @@ adulte qui traînait initialement était faux sur la méthode *et* absent du bar
 L'item est désormais `{type: "obligatoryPercentTax", amount: 5.5, per: "adult", period:
 "daily"}` — 5 % plus 10 % de part départementale. La base est juste : hébergement **remisé**,
 **hors ménage**. Mais **`per: "adult"` reste sans effet** : `4 adultes + 1 enfant` donne
-exactement `5 adultes`, et `4 adultes + 2 enfants` exactement `6 adultes`, au centime. À
-signaler au support Beds24 — le régime proportionnel français est le régime par défaut de tout
-meublé non classé, pas un cas exotique.
+exactement `5 adultes`, et `4 adultes + 2 enfants` exactement `6 adultes`, au centime.
 
-**Ticket ouvert chez Beds24 le 2026-08-31.** L'argument central est que le même champ
-`per: "adult"` fonctionne avec le type forfaitaire : l'ancien réglage `obligatoryTax` à
-2,20 € facturait 61,60 € sur 7 nuits pour 4 adultes + 2 enfants, soit `2,20 × 4 adultes × 7`,
-les mineurs bien ignorés. C'est donc un défaut et non une fonctionnalité manquante.
+**Confirmé par le support Beds24 le 2026-09-01** (ticket ouvert la veille) : les items en
+pourcentage se calculent *par réservation ou par chambre uniquement*, `per: "adult"` n'est
+honoré que par les items à montant fixe, et **aucune configuration ne permet d'exonérer les
+mineurs d'une taxe en pourcentage**. Ce n'est donc pas un réglage à trouver : la correction
+manuelle est une **routine permanente**, pas une mesure d'attente. Le support a transmis une
+demande d'évolution, l'exonération étant une obligation légale française.
 
-En attendant : corriger à la main sur les réservations avec mineurs, et **reverser à la 3CMA
-l'intégralité du collecté**. Surcollecter et tout reverser est une irrégularité mineure ;
+L'argument qui a fait passer le ticket de « demande de fonctionnalité » à « défaut » : le
+même champ `per: "adult"` fonctionne avec le type forfaitaire — l'ancien réglage
+`obligatoryTax` à 2,20 € facturait 61,60 € sur 7 nuits pour 4 adultes + 2 enfants, soit
+`2,20 × 4 adultes × 7`, les mineurs bien ignorés.
+
+**La surcollecte ne concerne que le canal direct.** Vérifié sur les réservations vivantes :
+`tax` vaut `0` sur les séjours Airbnb et Booking, dont les factures ne portent aucune ligne de
+taxe de séjour. Airbnb la collecte et la reverse lui-même, correctement (méthode
+proportionnelle, mineurs exonérés). Pour Booking, elle n'apparaît nulle part — à clarifier.
+
+La routine : corriger à la main la ligne de taxe sur les réservations **directes** avec
+mineurs, et **reverser à la 3CMA l'intégralité du collecté**. Surcollecter et tout reverser est une irrégularité mineure ;
 garder la différence serait autre chose. Surtout, ne pas abaisser le taux pour compenser en
 moyenne — ce serait sous-déclarer sur tous les séjours d'adultes. Formule de l'écart :
 `5,5 % × hébergement remisé × (enfants ÷ occupants)`.
