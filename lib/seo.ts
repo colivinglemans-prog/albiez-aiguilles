@@ -84,14 +84,31 @@ export function articleJsonLd(params: {
 /**
  * Données structurées schema.org du logement.
  * Sert aux résultats enrichis de Google sur les requêtes d'hébergement.
+ *
+ * `imagePath` est un chemin public (`/images/...`) : l'absolu est construit ici, une
+ * URL relative n'ayant pas de sens hors du document pour un consommateur de JSON-LD.
  */
-export function apartmentJsonLd(locale: Locale, description: string) {
+export function apartmentJsonLd(
+  locale: Locale,
+  description: string,
+  imagePath?: string,
+) {
   return {
     "@context": "https://schema.org",
-    "@type": "Apartment",
+    // Deux types pour une seule entité : `Apartment` décrit le **lieu** (surface,
+    // couchages, équipements), `LodgingBusiness` l'**activité** de location.
+    //
+    // Le second n'est pas décoratif. Google n'accepte `aggregateRating` que sur une
+    // liste fermée de types, dont `LocalBusiness` — dont `LodgingBusiness` hérite.
+    // `Apartment` seul n'en fait pas partie : la Search Console rejetait tout le bloc
+    // en « type d'objet non valide pour le champ <parent_node> », et l'élément entier
+    // devenait inéligible aux résultats enrichis. Ne pas retirer `LodgingBusiness`
+    // sans retirer `aggregateRating` en même temps.
+    "@type": ["Apartment", "LodgingBusiness"],
     name: SITE_NAME,
     description,
     url: `${SITE_URL}/${locale}`,
+    ...(imagePath ? { image: `${SITE_URL}${imagePath}` } : {}),
     numberOfBedrooms: PROPERTY.capacity.bedrooms,
     numberOfBathroomsTotal: PROPERTY.capacity.bathrooms,
     floorSize: {

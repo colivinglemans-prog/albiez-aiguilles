@@ -64,7 +64,9 @@ export default async function HomePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(apartmentJsonLd(locale, t.home.seo.description)),
+          __html: JSON.stringify(
+            apartmentJsonLd(locale, t.home.seo.description, heroPhoto?.src),
+          ),
         }}
       />
 

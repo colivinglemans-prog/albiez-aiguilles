@@ -947,8 +947,9 @@ problème : on arrive sur `/fr/ski` depuis Google ou depuis un lien Airbnb, pas 
 l'accueil, et on n'y apprenait ni le nombre de couchages, ni le kit linge, ni les 50
 marches. Le contenu partagé se paie en duplication SEO — c'est assumé, et compensé par
 des `<title>`, descriptions et H1 distincts, des canonical propres à chaque page, un haut
-de page unique, et le **JSON-LD `Apartment` déclaré sur la seule page d'accueil** (une
-seule entité pour un seul logement — ne pas le dupliquer sur les pages de saison).
+de page unique, et le **JSON-LD du logement déclaré sur la seule page d'accueil** (une
+seule entité pour un seul logement — ne pas le dupliquer sur les pages de saison ; voir
+« Avis » pour son double type).
 
 Corollaire : les ancres de navigation visent la **page courante**. `anchorBase(pathname,
 locale)` (`lib/anchors.ts`) rend `/fr/ski#appartement` depuis `/fr/ski`, et retombe sur
@@ -1073,7 +1074,20 @@ demanderait d'activer `dangerouslyAllowSVG`.
 
 `data/reviews.json` contient la note de synthèse (4,96 / 49 avis, Coup de cœur voyageurs)
 et les 49 avis relevés le 2026-08-06. La note de synthèse alimente le `aggregateRating`
-schema.org, qui pilote les étoiles dans les résultats Google.
+schema.org de la page d'accueil.
+
+Ce `aggregateRating` impose le **double type** `["Apartment", "LodgingBusiness"]` sur le
+bloc JSON-LD (`lib/seo.ts`). Google n'accepte la note que sur une liste fermée de types,
+dont `LocalBusiness` — dont `LodgingBusiness` hérite ; `Apartment` n'en fait pas partie.
+Avec `Apartment` seul, la Search Console rejetait l'élément entier (« type d'objet non
+valide pour le champ `<parent_node>` », 2026-09-03) et il ne pouvait plus prétendre à
+aucun résultat enrichi. Les deux vont donc de pair : retirer `LodgingBusiness` oblige à
+retirer `aggregateRating`.
+
+À savoir tout de même : Google ignore les avis *auto-hébergés* d'une entreprise sur
+elle-même pour l'affichage des étoiles. Le balisage est désormais valide, mais les
+étoiles ne sont pas garanties pour autant — la valeur du bloc est d'abord d'être lisible
+par les autres moteurs et agrégateurs.
 
 Chaque avis porte une **`period`** — `hiver` (déc-mars), `ete` (juil-août) ou
 `hors-saison` — à ne pas confondre avec `Season`, qui ne connaît que deux valeurs parce
