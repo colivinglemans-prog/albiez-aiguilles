@@ -751,6 +751,15 @@ export const fr: Dictionary = {
     radiatorSwitchTitle: "Un radiateur ne chauffe pas ?",
     radiatorSwitchText:
       "Chaque radiateur, sèche-serviette compris, a un interrupteur à bascule 0 / 1 caché derrière l'appareil. Il doit être sur 1. Vérifiez-le avant de chercher plus loin : c'est la cause la plus fréquente.",
+    cutleryTitle: "Où sont les couverts ?",
+    cutleryText:
+      "Dans le tiroir de la table, et non dans les meubles de la cuisine. C'est la question qu'on nous pose le plus souvent : maintenant vous savez.",
+    coffeeTitle: "Le café",
+    coffeeMachines:
+      "Trois façons de le préparer : une Nespresso à capsules, une cafetière filtre, et une cafetière italienne — un moka, sans doute laissé là par un voyageur italien et resté depuis. L'Italie est à deux cols d'ici.",
+    coffeeSupplies: (meters) =>
+      `Quelques capsules vous attendent pour le café de l'arrivée. Pour la suite, le Sherpa du front de neige, à ${meters} m du chalet, vend capsules et café moulu. Prévoyez des filtres papier si vous visez la cafetière filtre ; pour le moka, du café moulu fin et la plaque de cuisson suffisent.`,
+    coffeeShopLabel: "Faire ses courses à Albiez",
     manualsTitle: "Notices des appareils",
     manualsText:
       "Les notices des appareils électroniques sont rangées dans le tiroir du petit meuble.",

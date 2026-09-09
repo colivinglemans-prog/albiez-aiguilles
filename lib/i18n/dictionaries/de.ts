@@ -756,6 +756,15 @@ export const de: Dictionary = {
     radiatorSwitchTitle: "Ein Heizkörper wird nicht warm?",
     radiatorSwitchText:
       "Jeder Heizkörper, auch der Handtuchheizkörper, hat einen Kippschalter 0 / 1 hinter dem Gerät. Er muss auf 1 stehen. Prüfen Sie das zuerst: es ist die häufigste Ursache.",
+    cutleryTitle: "Wo ist das Besteck?",
+    cutleryText:
+      "In der Schublade des Tisches, nicht in den Küchenschränken. Es ist die Frage, die uns am häufigsten gestellt wird — jetzt wissen Sie es.",
+    coffeeTitle: "Der Kaffee",
+    coffeeMachines:
+      "Drei Wege zum Kaffee: eine Nespresso mit Kapseln, eine Filterkaffeemaschine und eine italienische Moka — wohl von einem italienischen Gast zurückgelassen und seither hiergeblieben. Italien liegt zwei Pässe entfernt.",
+    coffeeSupplies: (meters) =>
+      `Ein paar Kapseln warten auf Sie, für den Kaffee nach der Ankunft. Danach verkauft der Sherpa am Pistenzugang, ${meters} m von der Wohnung entfernt, Kapseln wie gemahlenen Kaffee. Bringen Sie Papierfilter mit, wenn Sie die Filtermaschine nutzen möchten; für die Moka genügen fein gemahlener Kaffee und das Kochfeld.`,
+    coffeeShopLabel: "Einkaufen in Albiez",
     manualsTitle: "Bedienungsanleitungen",
     manualsText:
       "Die Anleitungen der Elektrogeräte liegen in der Schublade des kleinen Möbels.",

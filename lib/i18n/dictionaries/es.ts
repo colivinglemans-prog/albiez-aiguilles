@@ -756,6 +756,15 @@ export const es: Dictionary = {
     radiatorSwitchTitle: "¿Un radiador no calienta?",
     radiatorSwitchText:
       "Cada radiador, incluido el toallero, tiene un interruptor basculante 0 / 1 escondido detrás del aparato. Debe estar en 1. Compruébelo antes de buscar más lejos: es la causa más frecuente.",
+    cutleryTitle: "¿Dónde están los cubiertos?",
+    cutleryText:
+      "En el cajón de la mesa, no en los muebles de la cocina. Es la pregunta que más nos hacen: ya lo sabe.",
+    coffeeTitle: "El café",
+    coffeeMachines:
+      "Tres maneras de prepararlo: una Nespresso de cápsulas, una cafetera de filtro y una cafetera italiana — una moka, seguramente olvidada por un viajero italiano y allí quedó. Italia está a dos puertos de montaña de aquí.",
+    coffeeSupplies: (meters) =>
+      `Encontrará unas cápsulas para el café de la llegada. Después, el Sherpa junto a las pistas, a ${meters} m del chalet, vende cápsulas y café molido. Traiga filtros de papel si piensa usar la cafetera de filtro; para la moka, basta con café molido fino y la placa de cocina.`,
+    coffeeShopLabel: "Hacer la compra en Albiez",
     manualsTitle: "Manuales de los aparatos",
     manualsText:
       "Los manuales de los aparatos electrónicos están guardados en el cajón del mueble pequeño.",

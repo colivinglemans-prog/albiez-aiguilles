@@ -1211,7 +1211,7 @@ d'urgence composables d'un doigt (ligne entière cliquable).
 | Fichier | Rôle |
 |---------|------|
 | `lib/arrival.ts` | Étapes (clé + nom de fichier photo), repères du tableau électrique, numéros d'urgence. |
-| `lib/i18n/dictionaries/{fr,en}.ts` | Bloc `guide` — tous les textes. |
+| `lib/i18n/dictionaries/{fr,en,es,it,de}.ts` | Bloc `guide` — tous les textes. |
 | `public/images/guide-arrivee/` | Photos numérotées `01-` à `09-`. |
 
 Les étapes sont appariées à leur photo **par nom de fichier**, pas par position : une photo
@@ -1222,9 +1222,20 @@ décaler silencieusement toutes les suivantes. Le numéro affiché, lui, est la 
 Les couleurs de `PANEL_MARKERS` reprennent les cadres dessinés sur la photo du tableau
 électrique : en changer une impose de refaire l'annotation de l'image.
 
-Deux valeurs de la page viennent de `property.ts` et non des dictionnaires — le nombre de
-marches (`access.steps`) et le numéro de la porte (`unit`), qui est aussi celui du casier
-à skis.
+Trois valeurs de la page viennent de `property.ts` et non des dictionnaires — le nombre de
+marches (`access.steps`), le numéro de la porte (`unit`), qui est aussi celui du casier
+à skis, et la distance du Sherpa (l'entrée `shops` de `DISTANCES`), reprise par la section
+café. Les dictionnaires ne portent que les mots : `stairsNote`, `unitNote` et
+`coffeeSupplies` sont des fonctions qui reçoivent le chiffre, ce qui laisse aussi chaque
+langue tourner sa phrase autour.
+
+Le manuel de la maison couvre le tableau électrique, l'interrupteur caché des radiateurs,
+**le tiroir de la table où sont les couverts** — la question la plus posée du séjour — et
+**le café** : Nespresso à capsules, cafetière filtre et moka italienne, avec quelques
+capsules fournies pour l'arrivée et le renvoi vers l'article des commerces pour la suite.
+Ce renvoi est un lien **sous** le paragraphe, pas dans la phrase : découper une phrase
+autour d'un lien ne survit pas à cinq langues. C'est la même convention que le renvoi au
+guide sous les activités (`activitiesMore`).
 
 ## Photos
 

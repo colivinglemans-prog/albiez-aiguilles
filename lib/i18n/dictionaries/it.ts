@@ -756,6 +756,15 @@ export const it: Dictionary = {
     radiatorSwitchTitle: "Un radiatore non scalda?",
     radiatorSwitchText:
       "Ogni radiatore, scaldasalviette compreso, ha un interruttore a bilanciere 0 / 1 nascosto dietro l'apparecchio. Deve essere su 1. Verificatelo prima di cercare altrove: è la causa più frequente.",
+    cutleryTitle: "Dove sono le posate?",
+    cutleryText:
+      "Nel cassetto del tavolo, non nei mobili della cucina. È la domanda che ci fanno più spesso: ora lo sapete.",
+    coffeeTitle: "Il caffè",
+    coffeeMachines:
+      "Tre modi per prepararlo: una Nespresso a capsule, una caffettiera a filtro e una moka — dimenticata quasi certamente da un viaggiatore italiano e rimasta qui da allora. L'Italia è a due colli di distanza.",
+    coffeeSupplies: (meters) =>
+      `Qualche capsula vi attende per il caffè dell'arrivo. Poi lo Sherpa all'accesso alle piste, a ${meters} m dallo chalet, vende capsule e caffè macinato. Portate dei filtri di carta se puntate alla caffettiera a filtro; per la moka bastano una macinatura fine e il piano di cottura.`,
+    coffeeShopLabel: "Fare la spesa ad Albiez",
     manualsTitle: "Istruzioni degli apparecchi",
     manualsText:
       "Le istruzioni degli apparecchi elettronici sono riposte nel cassetto del mobiletto.",

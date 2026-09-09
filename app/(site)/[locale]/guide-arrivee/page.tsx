@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, LOCALES } from "@/lib/i18n";
-import { SITE_URL, PROPERTY } from "@/lib/property";
+import { SITE_URL, PROPERTY, DISTANCES } from "@/lib/property";
 import {
   ARRIVAL_PHOTO_DIR,
   ARRIVAL_STEPS,
@@ -14,6 +14,17 @@ import {
 import { getPhoto } from "@/lib/photos";
 
 const PATH = "guide-arrivee";
+
+/** Article des commerces du village, vers lequel renvoie la section café. */
+const SHOPPING_POST_SLUG = "faire-ses-courses-a-albiez";
+
+/*
+ * Le Sherpa est le commerce de la liste des distances : la section café reprend
+ * ce chiffre au lieu de le recopier dans les cinq dictionnaires. Le `!` est
+ * volontaire — une entrée « shops » absente de `DISTANCES` est un bug à voir
+ * tout de suite, pas une distance à masquer.
+ */
+const SHOPS_DISTANCE_M = DISTANCES.ete.find((d) => d.key === "shops")!.meters;
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -180,6 +191,21 @@ export default async function ArrivalGuidePage({
 
         <h3 className="mt-10 text-lg font-semibold">{g.radiatorSwitchTitle}</h3>
         <p className="mt-3 text-secondary">{g.radiatorSwitchText}</p>
+
+        <h3 className="mt-10 text-lg font-semibold">{g.cutleryTitle}</h3>
+        <p className="mt-3 text-secondary">{g.cutleryText}</p>
+
+        <h3 className="mt-10 text-lg font-semibold">{g.coffeeTitle}</h3>
+        <p className="mt-3 text-secondary">{g.coffeeMachines}</p>
+        <p className="mt-3 text-secondary">{g.coffeeSupplies(SHOPS_DISTANCE_M)}</p>
+        {/* Renvoi sous le paragraphe, et non dans la phrase : c'est la même
+            convention que le renvoi au guide sous les activités. */}
+        <Link
+          href={`/${locale}/guide/${SHOPPING_POST_SLUG}`}
+          className="mt-3 inline-block text-sm font-semibold text-accent underline-offset-4 hover:underline"
+        >
+          {g.coffeeShopLabel} &rarr;
+        </Link>
 
         <h3 className="mt-10 text-lg font-semibold">{g.manualsTitle}</h3>
         <p className="mt-3 text-secondary">{g.manualsText}</p>

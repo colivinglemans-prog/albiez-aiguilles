@@ -404,6 +404,23 @@ export interface Dictionary {
     panelHotWaterNote: string;
     radiatorSwitchTitle: string;
     radiatorSwitchText: string;
+    /** Le tiroir de la table : c'est la question la plus posée du séjour. */
+    cutleryTitle: string;
+    cutleryText: string;
+    coffeeTitle: string;
+    coffeeMachines: string;
+    /**
+     * La distance du Sherpa vient de `DISTANCES` (`property.ts`), pas du
+     * dictionnaire : c'est aussi ce qui laisse chaque langue tourner sa phrase
+     * plutôt que d'insérer un « à 250 m » traduit mot à mot.
+     */
+    coffeeSupplies: (meters: number) => string;
+    /**
+     * Libellé du renvoi vers l'article des commerces, sous le paragraphe plutôt
+     * qu'en lien dans la phrase : découper une phrase autour d'un lien ne survit
+     * pas à cinq langues.
+     */
+    coffeeShopLabel: string;
     manualsTitle: string;
     manualsText: string;
     checkoutTitle: string;

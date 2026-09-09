@@ -732,6 +732,15 @@ export const en: Dictionary = {
     radiatorSwitchTitle: "A radiator not heating?",
     radiatorSwitchText:
       "Every radiator, towel rail included, has a 0 / 1 rocker switch hidden behind it. It needs to be on 1. Check that before looking any further: it is by far the most common cause.",
+    cutleryTitle: "Where is the cutlery?",
+    cutleryText:
+      "In the table drawer, not in the kitchen units. It is the question we get asked most often — now you know.",
+    coffeeTitle: "Coffee",
+    coffeeMachines:
+      "Three ways to make it: a Nespresso capsule machine, a filter coffee maker, and an Italian moka pot — most likely left behind by an Italian guest and never claimed since. Italy is two mountain passes from here.",
+    coffeeSupplies: (meters) =>
+      `A few capsules are waiting for you, enough for the coffee you will want on arrival. After that, the Sherpa supermarket by the slopes, ${meters} m from the chalet, sells both capsules and ground coffee. Bring paper filters if you are aiming for the filter machine; for the moka pot, finely ground coffee and the hob are all it takes.`,
+    coffeeShopLabel: "Food shopping in Albiez",
     manualsTitle: "Appliance manuals",
     manualsText:
       "The manuals for the electronic appliances are kept in the drawer of the small cabinet.",
