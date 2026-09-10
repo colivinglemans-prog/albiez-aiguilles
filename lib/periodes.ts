@@ -132,6 +132,15 @@ export interface BandePeriode {
   libelle: string;
   /** Type de la période dominante du segment : c'est lui qui donne la couleur. */
   type: "vacances" | "fete";
+  /**
+   * Lettres des zones qui composent le libellé — « A », « B », « C ».
+   *
+   * À ne pas confondre avec `sources`, qui peut contenir une zone **absente** du libellé :
+   * celle qui sortait au week-end de bascule absorbé (voir `fusionnerBascules`). Pour savoir
+   * si une zone donnée est en vacances sur la bande telle qu'elle s'affiche, c'est cette
+   * liste qu'il faut lire, jamais `sources`.
+   */
+  zones: string[];
   /** Premier jour du segment, inclus (YYYY-MM-DD). */
   debut: string;
   /** Dernier jour du segment, inclus (YYYY-MM-DD). */
@@ -218,7 +227,9 @@ function fusionnerBascules(bandes: BandeBrute[]): BandeBrute[] {
  * en vacances ce jour-là. La semaine du Jour de l'An tombant en plein dans les vacances de
  * Noël, elle hérite de ses zones — ce sont bien elles qui sont en congés.
  */
-function libelleDuJour(actives: Periode[]): { libelle: string; type: "vacances" | "fete" } {
+function libelleDuJour(
+  actives: Periode[],
+): { libelle: string; type: "vacances" | "fete"; zones: string[] } {
   const dominante = [...actives].sort(
     (a, b) => (POIDS[b.nom] ?? 0) - (POIDS[a.nom] ?? 0) || a.zone.localeCompare(b.zone),
   )[0];
@@ -235,6 +246,7 @@ function libelleDuJour(actives: Periode[]): { libelle: string; type: "vacances" 
   return {
     libelle: zones.length > 0 ? `${court} ${zones.join("+")}` : court,
     type: dominante.type,
+    zones,
   };
 }
 
@@ -261,7 +273,7 @@ export function bandesPeriodes(
       continue;
     }
 
-    const { libelle, type } = libelleDuJour(actives);
+    const { libelle, type, zones } = libelleDuJour(actives);
     const courante = bandes[bandes.length - 1];
     if (courante && courante.libelle === libelle && courante.fin === addDays(jour, -1)) {
       courante.fin = jour;
@@ -273,7 +285,7 @@ export function bandesPeriodes(
       continue;
     }
 
-    bandes.push({ libelle, type, debut: jour, fin: jour, sources: [...actives] });
+    bandes.push({ libelle, type, zones, debut: jour, fin: jour, sources: [...actives] });
   }
 
   // Les bascules se fusionnent avant le rognage : une bascule posée sur le 1er du mois doit
