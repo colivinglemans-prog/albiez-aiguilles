@@ -136,8 +136,81 @@ export interface BandePeriode {
   debut: string;
   /** Dernier jour du segment, inclus (YYYY-MM-DD). */
   fin: string;
-  /** Les périodes réellement actives sur le segment, pour l'infobulle. */
+  /**
+   * La composition commence bien ce jour-là, elle ne vient pas du mois précédent.
+   *
+   * Le calendrier en a besoin pour choisir entre une bascule en demi-journée et une bande
+   * coupée au bord du mois. Pas d'équivalent pour la fin, et ce n'est pas un oubli : la
+   * bande s'arrête à la moitié du **lendemain** du dernier jour, et ce jour de transition
+   * sort de la fenêtre exactement quand la bande touche son bord droit.
+   */
+  debutReel: boolean;
+  /**
+   * Les périodes actives sur le segment, pour l'infobulle — plus, le cas échéant, la zone
+   * sortante d'un week-end de bascule absorbé (voir `fusionnerBascules`). Le libellé
+   * simplifie, l'infobulle continue de dire toute la vérité.
+   */
   sources: Periode[];
+}
+
+/** Une bande avant que la fenêtre ne soit rognée : `debutReel` n'a pas encore de sens. */
+type BandeBrute = Omit<BandePeriode, "debutReel">;
+
+/** Sur-ensemble strict, par identité : les `sources` sont les objets de la liste d'entrée. */
+function estSurEnsembleStrict(grand: Periode[], petit: Periode[]): boolean {
+  return grand.length > petit.length && petit.every((p) => grand.includes(p));
+}
+
+/**
+ * Le dernier week-end d'une zone est le premier week-end de la suivante.
+ *
+ * Les vacances nationales durent seize jours, du samedi au dimanche, et les zones démarrent
+ * de sept en sept : deux zones qui se relaient se chevauchent donc **toujours** exactement
+ * deux jours. Ce chevauchement n'est pas une information. Il ne dit pas que trois zones
+ * partent ensemble, il dit que l'une rentre quand l'autre part — et il produisait une bande
+ * de deux jours coincée entre les deux vraies : « PRINTEMPS A+B+C » les 17-18 avril 2027,
+ * entre « A+C » et « A+B ».
+ *
+ * On la donne donc à la bande suivante, qui démarre au jour de bascule. Avec les
+ * demi-cellules du calendrier, « A+C » s'arrête à la moitié du samedi et « A+B » repart de
+ * l'autre moitié : la convention des séjours qui se relaient le même jour.
+ *
+ * Le test est étroit à dessein — au plus deux jours, deux voisines contiguës de même type,
+ * et une composition sur-ensemble **strict** des deux. Un « ASCENSION A+B+C » d'un seul jour
+ * n'a pas de voisine contiguë et n'est pas un sur-ensemble : il survit, comme il le doit.
+ */
+function fusionnerBascules(bandes: BandeBrute[]): BandeBrute[] {
+  const restantes = [...bandes];
+  const sortie: BandeBrute[] = [];
+
+  for (let i = 0; i < restantes.length; i++) {
+    const b = restantes[i];
+    const precedente = sortie[sortie.length - 1];
+    const suivante = restantes[i + 1];
+
+    const bascule =
+      precedente != null &&
+      suivante != null &&
+      precedente.fin === addDays(b.debut, -1) &&
+      suivante.debut === addDays(b.fin, 1) &&
+      suivante.type === b.type &&
+      b.fin <= addDays(b.debut, 1) &&
+      estSurEnsembleStrict(b.sources, precedente.sources) &&
+      estSurEnsembleStrict(b.sources, suivante.sources);
+
+    if (bascule) {
+      restantes[i + 1] = {
+        ...suivante,
+        debut: b.debut,
+        sources: [...b.sources, ...suivante.sources.filter((p) => !b.sources.includes(p))],
+      };
+      continue;
+    }
+
+    sortie.push(b);
+  }
+
+  return sortie;
 }
 
 /**
@@ -169,15 +242,20 @@ function libelleDuJour(actives: Periode[]): { libelle: string; type: "vacances" 
  * Découpe [premier, dernier] en bandes homogènes : un jour sans période n'en produit aucune,
  * et deux jours consécutifs de même libellé n'en produisent qu'une. Les bornes sont donc déjà
  * ramenées à la fenêtre demandée, l'appelant n'a rien à rogner.
+ *
+ * Le balayage commence **la veille** de la fenêtre. C'est le seul moyen de distinguer une
+ * bande qui commence vraiment le 1er du mois d'une bande qui continue depuis le mois
+ * précédent — distinction dont le calendrier a besoin, et qu'un test sur les seules dates
+ * des périodes sources rate quand la composition change parce qu'une zone *sort*.
  */
 export function bandesPeriodes(
   periodes: Periode[],
   premier: string,
   dernier: string,
 ): BandePeriode[] {
-  const bandes: BandePeriode[] = [];
+  const bandes: BandeBrute[] = [];
 
-  for (let jour = premier; jour <= dernier; jour = addDays(jour, 1)) {
+  for (let jour = addDays(premier, -1); jour <= dernier; jour = addDays(jour, 1)) {
     const actives = periodes.filter((p) => p.debut <= jour && p.fin >= jour);
     if (actives.length === 0) {
       continue;
@@ -198,5 +276,13 @@ export function bandesPeriodes(
     bandes.push({ libelle, type, debut: jour, fin: jour, sources: [...actives] });
   }
 
-  return bandes;
+  // Les bascules se fusionnent avant le rognage : une bascule posée sur le 1er du mois doit
+  // pouvoir voir la bande de la veille pour être reconnue.
+  return fusionnerBascules(bandes)
+    .filter((b) => b.fin >= premier)
+    .map((b) => ({
+      ...b,
+      debut: b.debut < premier ? premier : b.debut,
+      debutReel: b.debut >= premier,
+    }));
 }

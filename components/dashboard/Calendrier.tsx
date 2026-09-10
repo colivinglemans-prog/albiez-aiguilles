@@ -107,6 +107,21 @@ function placer<T>(
   return parSemaine;
 }
 
+/**
+ * Périodes scolaires et fêtes : filet fin sous le libellé, et non pilule pleine.
+ *
+ * Une période n'est pas un objet réservable, elle ne doit pas se lire comme un séjour.
+ * Trois différences cumulées — pas d'aplat, texte coloré au lieu de blanc, filet de 3 px
+ * au lieu d'une pilule de 24 — pour que la distinction tienne aussi en niveaux de gris.
+ * Elle réglait au passage une collision bien réelle : l'ancien `#e11d48` des fêtes était
+ * à un cheveu de l'Airbnb `#FF385C`, et l'ancien `#6366f1` des vacances de l'Abritel
+ * `#1668E3`. Les teintes restent de la même famille, elles ne pèsent plus pareil.
+ */
+const PALETTE_PERIODE = {
+  vacances: { filet: "#818cf8", texte: "#4338ca" },
+  fete: { filet: "#fb7185", texte: "#be123c" },
+} as const;
+
 /** Arrondis : pleins aux deux bouts, sinon du seul côté où la barre s'arrête vraiment. */
 function arrondis(gauche: boolean, droite: boolean): string {
   if (gauche && droite) return "rounded-full";
@@ -302,22 +317,31 @@ export default function Calendrier({
   /**
    * Une seule ligne de bandes : `bandesPeriodes` a déjà fusionné les zones d'une même période
    * (« Noël A+B+C ») et découpé aux jours où la composition change (« Hiver A » → « Hiver
-   * A+B »). Les bandes ne se chevauchent donc jamais, et `placer` les range toutes sur la
-   * ligne 0.
+   * A+B »). Les bandes ne se chevauchent donc jamais.
+   *
+   * Elles se relaient **en demi-journées**, exactement comme deux séjours dont l'un part le
+   * jour où l'autre arrive : une composition prend effet à la moitié de son premier jour et
+   * cesse à la moitié du jour où elle change. D'où `demiCellules` à `true` et une fin portée
+   * au *lendemain* du dernier jour de la composition — sans quoi « PRINTEMPS A+C » et
+   * « PRINTEMPS A+B » se disputaient le samedi de bascule en pleines cases.
    */
   const segmentsPeriodes = useMemo(() => {
-    const barres = bandesPeriodes(periodes, premier, dernier).map((b) => ({
-      source: b,
-      couleur: b.type === "fete" ? "#e11d48" : "#6366f1",
-      libelle: b.libelle,
-      debutJour: Number(b.debut.slice(8, 10)),
-      finJour: Number(b.fin.slice(8, 10)),
-      // Une bande qui s'arrête au bord du mois est coupée, pas terminée : pas d'arrondi.
-      borneDebut: b.debut > premier || b.sources.some((p) => p.debut === premier),
-      borneFin: b.fin < dernier || b.sources.some((p) => p.fin === dernier),
-    }));
-    return placer(barres, decalage, false);
-  }, [periodes, premier, dernier, decalage]);
+    const barres = bandesPeriodes(periodes, premier, dernier).map((b) => {
+      // Le jour de transition est le lendemain de la composition. Hors du mois, la bande
+      // court jusqu'au bord droit : elle vaut alors pour toute la dernière journée.
+      const transitionDansLeMois = b.fin < dernier;
+      return {
+        source: b,
+        couleur: PALETTE_PERIODE[b.type].filet,
+        libelle: b.libelle,
+        debutJour: Number(b.debut.slice(8, 10)),
+        finJour: transitionDansLeMois ? Number(b.fin.slice(8, 10)) + 1 : nbJours,
+        borneDebut: b.debutReel,
+        borneFin: transitionDansLeMois,
+      };
+    });
+    return placer(barres, decalage, true);
+  }, [periodes, premier, dernier, nbJours, decalage]);
 
   const saisonDuJour = (jour: string) => saisons.find((s) => jour >= s.debut && jour <= s.fin);
 
@@ -354,7 +378,7 @@ export default function Calendrier({
         </button>
       </div>
 
-      <div className="grid grid-cols-7 border-b border-slate-200 pb-2">
+      <div className="grid grid-cols-7 border-b border-slate-300 pb-2">
         {JOURS.map((j) => (
           <div key={j} className="text-center text-xs font-medium text-slate-500">
             {j}
@@ -369,7 +393,21 @@ export default function Calendrier({
         const lignesPeriodes = barresPeriodes.reduce((n, b) => Math.max(n, b.ligne + 1), 0);
 
         return (
-          <div key={w} className="grid grid-cols-7 border-b border-slate-100">
+          <div key={w} className="relative grid grid-cols-7 border-b border-slate-200">
+            {/*
+             * Filets de colonnes, en position absolue et non sur les cases : une case ne
+             * couvre que la ligne des numéros, et le trait s'arrêtait donc avant les barres
+             * — impossible d'aligner à l'œil la fin d'un séjour sur son jour. Hors flux, la
+             * couche traverse toute la hauteur de la semaine. Elle est *avant* les barres
+             * dans le DOM, donc elle passe au-dessus des fonds de saison et en dessous des
+             * séjours : les filets ne coupent aucune pilule.
+             */}
+            <div className="pointer-events-none absolute inset-0 grid grid-cols-7" aria-hidden>
+              {Array.from({ length: 7 }, (_, col) => (
+                <div key={col} className={col < 6 ? "border-r border-slate-200" : ""} />
+              ))}
+            </div>
+
             {Array.from({ length: 7 }, (_, col) => {
               const jourDuMois = w * 7 + col - decalage + 1;
               const dansLeMois = jourDuMois >= 1 && jourDuMois <= nbJours;
@@ -379,7 +417,7 @@ export default function Calendrier({
               return (
                 <div
                   key={col}
-                  className={`relative min-h-[2.5rem] border-r border-slate-50 px-1.5 pt-1 last:border-r-0 ${
+                  className={`relative min-h-[2.5rem] px-1.5 pt-1 ${
                     !dansLeMois
                       ? "bg-slate-50/50"
                       : saison?.saison === "hiver"
@@ -405,26 +443,52 @@ export default function Calendrier({
             {lignesPeriodes > 0 && (
               <div className="col-span-7 px-0.5 pt-0.5">
                 {Array.from({ length: lignesPeriodes }, (_, ligne) => (
-                  <div key={ligne} className="relative mt-0.5 h-5">
+                  <div key={ligne} className="relative mt-0.5 h-[1.15rem]">
                     {barresPeriodes
                       .filter((b) => b.ligne === ligne)
-                      .map((b) => (
+                      .map((b) => {
+                        // Mêmes demi-cellules que les séjours : une composition qui cesse
+                        // n'occupe que la moitié gauche de son jour de bascule, celle qui
+                        // prend le relais que la moitié droite.
+                        const demi = CELLULE / 2;
+                        const retraitGauche = b.borneDebut ? demi : 0;
+                        const retraitDroite = b.borneFin ? demi : 0;
+                        return (
                         <div
                           key={`${b.source.debut}-${b.debutCol}`}
-                          className={`absolute top-0 h-full overflow-hidden truncate px-1.5 text-left text-[10px] font-semibold uppercase tracking-wide text-white ${arrondis(
-                            b.borneDebut,
-                            b.borneFin,
-                          )}`}
+                          className="absolute top-0 h-full"
                           style={{
-                            left: `${b.debutCol * CELLULE}%`,
-                            width: `${(b.finCol - b.debutCol + 1) * CELLULE}%`,
-                            backgroundColor: b.couleur,
+                            left: `${b.debutCol * CELLULE + retraitGauche}%`,
+                            width: `${
+                              (b.finCol - b.debutCol + 1) * CELLULE - retraitGauche - retraitDroite
+                            }%`,
                           }}
                           title={infobulleBande(b.source)}
                         >
-                          {b.premierSegment && b.libelle}
+                          {/* Le libellé n'apparaît que sur le premier segment ; les semaines
+                              suivantes ne portent que le filet, à la même hauteur. */}
+                          <div
+                            className="truncate px-1 text-left text-[10px] font-semibold uppercase leading-[0.85rem] tracking-wide"
+                            style={{ color: PALETTE_PERIODE[b.source.type].texte }}
+                          >
+                            {b.premierSegment && b.libelle}
+                          </div>
+                          {/* Les 3 px de retrait s'ajoutent à la demi-cellule : sans eux les
+                              deux filets se toucheraient pile au milieu du samedi de bascule
+                              et n'en feraient qu'un, ce que l'arrondi des pilules évite pour
+                              les séjours. Aucun retrait du côté où la bande est coupée par le
+                              bord du mois : là, elle continue. */}
+                          <div
+                            className="h-[3px] rounded-full"
+                            style={{
+                              backgroundColor: b.couleur,
+                              marginLeft: b.borneDebut ? 3 : 0,
+                              marginRight: b.borneFin ? 3 : 0,
+                            }}
+                          />
                         </div>
-                      ))}
+                        );
+                      })}
                   </div>
                 ))}
               </div>
@@ -502,11 +566,17 @@ export default function Calendrier({
           Saison du lac
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="inline-block h-3 w-6 rounded-full bg-indigo-500" />
+          <span
+            className="inline-block h-[3px] w-6 rounded-full"
+            style={{ backgroundColor: PALETTE_PERIODE.vacances.filet }}
+          />
           Vacances scolaires
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="inline-block h-3 w-6 rounded-full bg-rose-600" />
+          <span
+            className="inline-block h-[3px] w-6 rounded-full"
+            style={{ backgroundColor: PALETTE_PERIODE.fete.filet }}
+          />
           Fêtes
         </span>
         <span className="flex items-center gap-1.5">

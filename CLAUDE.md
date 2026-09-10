@@ -650,6 +650,31 @@ lignes à l'intérieur de chaque semaine. Le fond des cases porte la saison de l
 domaine ouvert, ambre saison du lac), une rangée de barres porte les vacances scolaires par
 zone et les semaines de fêtes, une autre les séjours.
 
+**Les filets de colonnes sont une couche hors flux, pas des bordures de cases.** Une case ne
+couvre que la ligne des numéros : un `border-r` posé dessus s'arrête avant les barres, et on
+ne peut plus aligner la fin d'un séjour sur son jour. Les filets vivent donc dans un
+`absolute inset-0 grid grid-cols-7` qui traverse toute la hauteur de la semaine. Ils ne
+peuvent pas être des éléments de grille étendus sur `grid-row: 1 / -1` : le placement
+automatique refuse les cellules déjà occupées et repousserait les sept cases en deuxième
+ligne. Placés *avant* les barres dans le DOM, ils passent au-dessus des fonds de saison et
+en dessous des séjours, donc ne coupent aucune pilule. Hiérarchie des traits :
+`slate-300` pour l'en-tête des jours, `slate-200` pour la grille.
+
+**Une période n'est pas un séjour, et ne se dessine pas comme lui.** Les séjours sont des
+pilules pleines à texte blanc ; les vacances et les fêtes sont un **libellé coloré souligné
+d'un filet de 3 px**, sans aplat (`PALETTE_PERIODE` dans `Calendrier.tsx`). Les deux familles
+partageaient auparavant la même grammaire — pilule saturée, texte blanc, hauteurs voisines —
+et jusqu'aux teintes : le `#e11d48` des fêtes était à un cheveu de l'Airbnb `#FF385C`, le
+`#6366f1` des vacances de l'Abritel `#1668E3`. Trois différences cumulées (pas d'aplat, texte
+coloré, filet fin) valent mieux qu'un simple écart de teinte : la lecture tient aussi en
+niveaux de gris et pour un daltonien.
+
+Le filet remplace l'arrondi comme signal de continuation : il **se retire de 3 px du côté où
+la période s'arrête vraiment** et file jusqu'au bord de la semaine quand elle continue.
+`arrondis()` ne sert donc plus qu'aux séjours. Ce retrait est aussi ce qui sépare deux
+périodes qui s'enchaînent dans la même semaine — sans lui, deux filets bord à bord n'en
+feraient qu'un.
+
 **Les demi-cellules sont le point délicat.** Une barre qui se termine le jour J n'occupe que
 la moitié gauche de sa case, une barre qui commence le jour J que la moitié droite. Deux
 séjours qui s'enchaînent le même jour partagent donc une ligne au lieu de s'empiler — ce qui
@@ -667,9 +692,37 @@ déc. 2025   20→26 NOËL A+B+C          27→31 JOUR DE L'AN A+B+C
 févr. 2027  06→12 HIVER C   13→19 HIVER A+C   20→21 HIVER A+B+C   22→28 HIVER A+B
 ```
 
+**Le week-end de bascule ne produit pas de bande.** Les vacances nationales durent seize jours
+du samedi au dimanche et les zones démarrent de sept en sept : deux zones qui se relaient se
+chevauchent donc *toujours* exactement deux jours, le dernier week-end de l'une étant le
+premier de l'autre. Ce chevauchement ne dit pas que trois zones partent ensemble, il dit que
+l'une rentre quand l'autre part — et il fabriquait une bande de deux jours coincée entre les
+deux vraies (« PRINTEMPS A+B+C » les 17-18 avril 2027, entre « A+C » et « A+B »).
+`fusionnerBascules` la donne à la bande suivante, qui démarre au samedi de bascule ; avec les
+demi-cellules, « A+C » s'arrête à la moitié du samedi et « A+B » repart de l'autre moitié.
+Sur 2025-2028 cela retire cinq bandes, toutes samedi→dimanche.
+
+Le test est **étroit à dessein** : au plus deux jours, deux voisines contiguës de même type, et
+une composition sur-ensemble *strict* des deux. Un « ASCENSION A+B+C » ou un « ÉTÉ A+B+C »
+d'un seul jour — le ministère ne publie que leur date de début, d'où `finNonPubliee` — n'a pas
+de voisine contiguë et n'est pas un sur-ensemble : il survit, comme il le doit. Les périodes de
+la bande absorbée restent dans `sources` : le libellé simplifie, l'infobulle continue de dire
+toute la vérité, zone sortante comprise.
+
+**Les bandes se relaient en demi-journées, comme les séjours.** Une composition prend effet à
+la moitié de son premier jour et cesse à la moitié du jour où elle change — d'où `demiCellules`
+à `true` pour les périodes aussi, et une fin portée au **lendemain** du dernier jour de la
+composition. Les 3 px de retrait du filet s'ajoutent à la demi-cellule : sans eux les deux
+filets se toucheraient pile au milieu du samedi et n'en feraient qu'un, ce que l'arrondi des
+pilules évite pour les séjours. `bandesPeriodes` balaie donc **la veille** de la fenêtre, seul
+moyen de distinguer une bande qui commence vraiment le 1er du mois d'une bande qui continue
+depuis le mois précédent (`debutReel`) — un test sur les seules dates des périodes sources rate
+le cas où la composition change parce qu'une zone *sort*. Pas d'équivalent pour la fin : le
+jour de transition sort de la fenêtre exactement quand la bande touche son bord droit.
+
 La semaine du Jour de l'An tombe en plein dans les vacances de Noël : elle en hérite les zones
 — ce sont bien elles qui sont en congés — et garde sa couleur de fête (rose contre l'indigo des
-vacances). Le libellé compact ne dit pas de quelles périodes il est fait, donc le détail (nom
+vacances, tous deux en filet). Le libellé compact ne dit pas de quelles périodes il est fait, donc le détail (nom
 complet, zone, dates réelles, une ligne par période) se lit dans l'infobulle au survol.
 
 ### Deux rôles : `admin` et `menage`
