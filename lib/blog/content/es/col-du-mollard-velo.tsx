@@ -91,8 +91,10 @@ export default function Article() {
         del día es la que lleva de vuelta a casa. El balcón, por su parte, seca un maillot en una hora.
       </p>
       <p>
-        Un punto que anticipar: <strong>el guardaesquís no está dimensionado para una bicicleta</strong>. Prevea
-        subirla al apartamento o dejarla en el aparcamiento, sabiendo que unos cincuenta escalones separan ambos.
+        Un punto que conviene anticipar, porque es concreto:{" "}
+        <strong>el guardaesquís no está dimensionado para una bicicleta</strong>. Dos
+        soluciones in situ: atarla en el rellano, que está cubierto y protegido, o meterla
+        en el balcón. Cuente unos cincuenta escalones desde el aparcamiento.
       </p>
       <p>
         Para las BTT y los patinetes eléctricos, vea nuestro artículo{" "}

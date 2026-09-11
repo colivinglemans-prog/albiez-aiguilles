@@ -13,10 +13,14 @@ import {
   alternatesFor,
   articleJsonLd,
   blogPostPath,
+  eventJsonLd,
   openGraphLocales,
 } from "@/lib/seo";
 import { SITE_URL } from "@/lib/property";
 import { getPhoto } from "@/lib/photos";
+import { formatDate } from "@sejour/socle/lib/dates";
+import { EVENTS, nextEdition } from "@/lib/events";
+import { EventBanner } from "@/components/public/EventBanner";
 import {
   BLOG_POSTS,
   getLocalizedPost,
@@ -37,6 +41,34 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "turin-depuis-albiez": {
+    fr: () => import("@/lib/blog/content/fr/turin-depuis-albiez"),
+    en: () => import("@/lib/blog/content/en/turin-depuis-albiez"),
+    de: () => import("@/lib/blog/content/de/turin-depuis-albiez"),
+    es: () => import("@/lib/blog/content/es/turin-depuis-albiez"),
+    it: () => import("@/lib/blog/content/it/turin-depuis-albiez"),
+  },
+  "marmotte-granfondo-alpes-albiez": {
+    fr: () => import("@/lib/blog/content/fr/marmotte-granfondo-alpes-albiez"),
+    en: () => import("@/lib/blog/content/en/marmotte-granfondo-alpes-albiez"),
+    de: () => import("@/lib/blog/content/de/marmotte-granfondo-alpes-albiez"),
+    es: () => import("@/lib/blog/content/es/marmotte-granfondo-alpes-albiez"),
+    it: () => import("@/lib/blog/content/it/marmotte-granfondo-alpes-albiez"),
+  },
+  "albiez-camp-de-base-grands-cols": {
+    fr: () => import("@/lib/blog/content/fr/albiez-camp-de-base-grands-cols"),
+    en: () => import("@/lib/blog/content/en/albiez-camp-de-base-grands-cols"),
+    de: () => import("@/lib/blog/content/de/albiez-camp-de-base-grands-cols"),
+    es: () => import("@/lib/blog/content/es/albiez-camp-de-base-grands-cols"),
+    it: () => import("@/lib/blog/content/it/albiez-camp-de-base-grands-cols"),
+  },
+  "celti-cimes-festival-albiez": {
+    fr: () => import("@/lib/blog/content/fr/celti-cimes-festival-albiez"),
+    en: () => import("@/lib/blog/content/en/celti-cimes-festival-albiez"),
+    de: () => import("@/lib/blog/content/de/celti-cimes-festival-albiez"),
+    es: () => import("@/lib/blog/content/es/celti-cimes-festival-albiez"),
+    it: () => import("@/lib/blog/content/it/celti-cimes-festival-albiez"),
+  },
   "randonnees-balisees-albiez": {
     fr: () => import("@/lib/blog/content/fr/randonnees-balisees-albiez"),
     en: () => import("@/lib/blog/content/en/randonnees-balisees-albiez"),
@@ -223,12 +255,37 @@ export default async function GuidePost({
 
   const related = relatedPosts(post);
 
+  // La date du build, pas celle du visiteur : la page est statique. Voir `EventBanner`
+  // pour pourquoi c'est le catalogue, et non l'horloge, qui garantit la fraîcheur.
+  // `formatDate` et non `toISOString()` : ce dernier rend le jour UTC, qui est la veille
+  // pour un build lancé en soirée depuis la France.
+  const event = post.event
+    ? nextEdition(EVENTS, post.event, formatDate(new Date()))
+    : undefined;
+
   return (
     <div data-season={post.season ?? undefined}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* Déclaré seulement quand l'organisateur a publié ses dates : voir `eventJsonLd`. */}
+      {event?.confirmed && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              eventJsonLd({
+                name: event.name,
+                start: event.start,
+                end: event.end,
+                commune: event.commune,
+                url: event.url,
+              }),
+            ),
+          }}
+        />
+      )}
 
       <article className="mx-auto max-w-3xl px-6 py-12">
         <nav className="text-sm text-secondary">
@@ -256,16 +313,47 @@ export default async function GuidePost({
           <p className="mt-4 text-lg text-secondary">{loc.description}</p>
         </header>
 
+        {event && <EventBanner locale={locale} event={event} />}
+
         {photo && (
-          <Image
-            src={photo.src}
-            alt={loc.title}
-            width={photo.width}
-            height={photo.height}
-            priority
-            sizes="(min-width: 768px) 48rem, 100vw"
-            className="mt-8 h-auto w-full rounded-2xl"
-          />
+          <figure className="mt-8">
+            <Image
+              src={photo.src}
+              alt={loc.title}
+              width={photo.width}
+              height={photo.height}
+              priority
+              sizes="(min-width: 768px) 48rem, 100vw"
+              className="h-auto w-full rounded-2xl"
+            />
+            {/*
+              La mention de licence n'est pas décorative : sur une image en CC BY ou
+              CC BY-SA, c'est elle qui rend l'usage licite. Les liens sortent vers la page
+              source et vers le texte de la licence, comme la licence l'exige.
+            */}
+            {post.imageCredit && (
+              <figcaption className="mt-2 text-xs text-secondary">
+                {t.blog.photoCredit}{" "}
+                <a
+                  href={post.imageCredit.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  {post.imageCredit.author}
+                </a>{" "}
+                —{" "}
+                <a
+                  href={post.imageCredit.licenseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  {post.imageCredit.license}
+                </a>
+              </figcaption>
+            )}
+          </figure>
         )}
 
         <div className="prose-article mt-10">

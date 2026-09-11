@@ -90,8 +90,10 @@ export default function Article() {
         della giornata è quella che riporta a casa. Il balcone, poi, asciuga una maglia in un'ora.
       </p>
       <p>
-        Un punto da mettere in conto: <strong>il deposito sci non è dimensionato per una bici</strong>. Prevedete di
-        portarla in appartamento o di lasciarla al parcheggio, sapendo che una cinquantina di gradini separano i due.
+        Un punto da prevedere, perché è concreto:{" "}
+        <strong>il deposito sci non è dimensionato per una bici</strong>. Due soluzioni sul
+        posto: legarla sul pianerottolo, che è coperto e riparato, o portarla sul balcone.
+        Dal parcheggio sono una cinquantina di gradini.
       </p>
       <p>
         Per le mountain bike e i monopattini elettrici, vedete il nostro articolo{" "}

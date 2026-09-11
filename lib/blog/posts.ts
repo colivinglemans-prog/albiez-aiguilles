@@ -30,6 +30,32 @@ export interface BlogPostMeta {
    * d'accent de la carte. `null` pour un sujet valable toute l'année.
    */
   season: Season | null;
+  /**
+   * Crédit de la photo de couverture. **Obligatoire** dès que l'image est sous une
+   * licence à attribution (CC BY, CC BY-SA) : sans lui, l'usage est une violation de
+   * licence, pas une négligence de mise en page. Rendu en légende sous la photo.
+   *
+   * Absent pour nos propres photos, qui sont la règle — ce champ ne sert qu'aux images
+   * empruntées, quand nous n'avons rien de nous à montrer.
+   */
+  imageCredit?: {
+    /** Nom de l'auteur tel qu'il doit apparaître. */
+    author: string;
+    /** Page source de l'image (Wikimedia Commons, etc.). */
+    sourceUrl: string;
+    /** Nom court de la licence, ex. « CC BY-SA 4.0 ». */
+    license: string;
+    /** URL du texte de la licence. */
+    licenseUrl: string;
+  };
+  /**
+   * Clé d'un événement de `lib/events.ts`, quand l'article en couvre un.
+   *
+   * Fait apparaître l'encart « prochaine édition » en tête de l'article, et le nœud
+   * `Event` des données structurées si les dates sont officielles. L'encart disparaît de
+   * lui-même une fois l'édition passée : l'article reste, il n'a plus de date à annoncer.
+   */
+  event?: string;
   locales: Record<Locale, LocalizedPost>;
 }
 
@@ -42,6 +68,340 @@ export interface BlogPostMeta {
  * par langue, qui se déclarent mutuellement en hreflang.
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
+  {
+    slug: "turin-depuis-albiez",
+    date: "2026-09-11",
+    // Pas de photo de Turin à nous : celle-ci vient de Wikimedia Commons, d'où le crédit.
+    image: "blog/turin-piazza-san-carlo.jpg",
+    imageCredit: {
+      author: "Benjamin Smith",
+      sourceUrl:
+        "https://commons.wikimedia.org/wiki/File:Torino_-_Piazza_San_Carlo_-_1.jpg",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    },
+    // Ni été ni hiver : le train et le tunnel fonctionnent toute l'année. Seul le col du
+    // Mont-Cenis est saisonnier, et l'article le dit.
+    season: null,
+    locales: {
+      fr: {
+        title: "Turin depuis Albiez : une journée, ou la suite du voyage",
+        description:
+          "Turin est à deux heures d'Albiez. Train depuis Saint-Jean-de-Maurienne en 1 h 56, tunnel du Fréjus, col du Mont-Cenis l'été : comment y aller, que voir en une journée, et les deux pièges à éviter.",
+        excerpt:
+          "La première grande ville italienne est de l'autre côté du massif, pas au bout d'un voyage.",
+        keywords: [
+          "Turin depuis la Maurienne",
+          "excursion Turin Savoie",
+          "train Saint-Jean-de-Maurienne Turin",
+          "tunnel du Fréjus voiture",
+          "col du Mont-Cenis Italie",
+        ],
+      },
+      en: {
+        title: "Turin from Albiez: a day out, or the next leg",
+        description:
+          "Turin is two hours from Albiez. Train from Saint-Jean-de-Maurienne in 1 hr 56, the Fréjus tunnel, the Col du Mont-Cenis in summer: how to get there, what to see in a day, and two traps to avoid.",
+        excerpt:
+          "The first major Italian city sits on the other side of the massif, not at the end of a journey.",
+        keywords: [
+          "Turin from the French Alps",
+          "day trip Turin from Savoie",
+          "train Saint-Jean-de-Maurienne Turin",
+          "Fréjus tunnel by car",
+          "Col du Mont-Cenis Italy",
+        ],
+      },
+      de: {
+        title: "Turin ab Albiez: ein Tagesausflug oder die nächste Etappe",
+        description:
+          "Turin liegt zwei Stunden von Albiez. Zug ab Saint-Jean-de-Maurienne in 1 Std. 56, Fréjus-Tunnel, Col du Mont-Cenis im Sommer: Anreise, was man an einem Tag sieht, und zwei Fallen.",
+        excerpt:
+          "Die erste große italienische Stadt liegt jenseits des Massivs, nicht am Ende einer Reise.",
+        keywords: [
+          "Turin ab Maurienne",
+          "Tagesausflug Turin Savoyen",
+          "Zug Saint-Jean-de-Maurienne Turin",
+          "Fréjus-Tunnel Auto",
+          "Col du Mont-Cenis Italien",
+        ],
+      },
+      es: {
+        title: "Turín desde Albiez: una jornada, o la continuación del viaje",
+        description:
+          "Turín está a dos horas de Albiez. Tren desde Saint-Jean-de-Maurienne en 1 h 56, túnel del Fréjus, col du Mont-Cenis en verano: cómo ir, qué ver en un día y las dos trampas que evitar.",
+        excerpt:
+          "La primera gran ciudad italiana está al otro lado del macizo, no al final de un viaje.",
+        keywords: [
+          "Turín desde la Maurienne",
+          "excursión a Turín desde Saboya",
+          "tren Saint-Jean-de-Maurienne Turín",
+          "túnel del Fréjus en coche",
+          "col du Mont-Cenis Italia",
+        ],
+      },
+      it: {
+        title: "Torino da Albiez: una giornata, o il seguito del viaggio",
+        description:
+          "Torino è a due ore da Albiez. Treno da Saint-Jean-de-Maurienne in 1 h 56, traforo del Fréjus, colle del Moncenisio d'estate: come arrivarci, cosa vedere in un giorno e due trappole da evitare.",
+        excerpt:
+          "La prima grande città italiana si trova dall'altra parte del massiccio, non in fondo a un viaggio.",
+        keywords: [
+          "Torino dalla Maurienne",
+          "gita a Torino dalla Savoia",
+          "treno Saint-Jean-de-Maurienne Torino",
+          "traforo del Fréjus in auto",
+          "colle del Moncenisio",
+        ],
+      },
+    },
+  },
+  {
+    slug: "marmotte-granfondo-alpes-albiez",
+    date: "2026-09-11",
+    // La croix du col de la Croix de Fer : c'est le col qui sépare Albiez de
+    // Bourg-d'Oisans, donc le sujet même de l'article. Nous n'avons pas de photo à nous
+    // là-haut, d'où l'emprunt et le crédit.
+    image: "blog/col-de-la-croix-de-fer.jpg",
+    imageCredit: {
+      author: "JrPol",
+      sourceUrl:
+        "https://commons.wikimedia.org/wiki/File:Het_ijzeren_kruis_op_Col_de_la_Croix-de-Fer.jpg",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    },
+    season: "ete",
+    event: "marmotte",
+    locales: {
+      fr: {
+        title: "Préparer la Marmotte Granfondo Alpes depuis Albiez",
+        description:
+          "La Marmotte se court le 27 juin 2027, de Bourg-d'Oisans à l'Alpe d'Huez. Reconnaître le Glandon, le Télégraphe et le Galibier depuis Albiez, dormir à 1 600 m, et la date d'ouverture des inscriptions.",
+        excerpt:
+          "7 500 dossards épuisés en une journée. Albiez n'est pas l'endroit où dormir le matin de la course — c'est l'endroit où passer la semaine d'avant.",
+        keywords: [
+          "Marmotte Granfondo Alpes 2027",
+          "hébergement Marmotte Granfondo",
+          "reconnaissance Glandon Galibier",
+          "séjour vélo Maurienne",
+          "inscription Marmotte 2027",
+        ],
+      },
+      en: {
+        title: "Preparing for the Marmotte Granfondo Alpes from Albiez",
+        description:
+          "The Marmotte runs on 27 June 2027, Bourg-d'Oisans to Alpe d'Huez. Reconnoitring the Glandon, Télégraphe and Galibier from Albiez, sleeping at 1,600 m, and when entries open.",
+        excerpt:
+          "7,500 places gone in a day. Albiez is not where to sleep on race morning — it is where to spend the week before.",
+        keywords: [
+          "Marmotte Granfondo Alpes 2027",
+          "Marmotte Granfondo accommodation",
+          "Glandon Galibier recon",
+          "cycling training camp Maurienne",
+          "Marmotte 2027 entry",
+        ],
+      },
+      de: {
+        title: "Die Marmotte Granfondo Alpes von Albiez aus vorbereiten",
+        description:
+          "Die Marmotte findet am 27. Juni 2027 statt, von Bourg-d'Oisans zur Alpe d'Huez. Glandon, Télégraphe und Galibier von Albiez aus besichtigen, auf 1 600 m schlafen, und wann die Anmeldung öffnet.",
+        excerpt:
+          "7 500 Startplätze in einem Tag vergeben. Albiez ist nicht der Ort zum Schlafen am Rennmorgen — sondern der Ort für die Woche davor.",
+        keywords: [
+          "Marmotte Granfondo Alpes 2027",
+          "Unterkunft Marmotte Granfondo",
+          "Glandon Galibier Streckenbesichtigung",
+          "Rennrad Trainingslager Maurienne",
+          "Marmotte 2027 Anmeldung",
+        ],
+      },
+      es: {
+        title: "Preparar la Marmotte Granfondo Alpes desde Albiez",
+        description:
+          "La Marmotte se corre el 27 de junio de 2027, de Bourg-d'Oisans a Alpe d'Huez. Reconocer el Glandon, el Télégraphe y el Galibier desde Albiez, dormir a 1 600 m y cuándo abren las inscripciones.",
+        excerpt:
+          "7 500 dorsales agotados en un día. Albiez no es donde dormir la mañana de la carrera: es donde pasar la semana anterior.",
+        keywords: [
+          "Marmotte Granfondo Alpes 2027",
+          "alojamiento Marmotte Granfondo",
+          "reconocimiento Glandon Galibier",
+          "concentración ciclista Maurienne",
+          "inscripción Marmotte 2027",
+        ],
+      },
+      it: {
+        title: "Preparare la Marmotte Granfondo Alpes da Albiez",
+        description:
+          "La Marmotte si corre il 27 giugno 2027, da Bourg-d'Oisans all'Alpe d'Huez. Ricognizione di Glandon, Télégraphe e Galibier da Albiez, dormire a 1 600 m e quando aprono le iscrizioni.",
+        excerpt:
+          "7 500 pettorali esauriti in un giorno. Albiez non è dove dormire la mattina della gara: è dove passare la settimana prima.",
+        keywords: [
+          "Marmotte Granfondo Alpes 2027",
+          "alloggio Marmotte Granfondo",
+          "ricognizione Glandon Galibier",
+          "ritiro ciclismo Maurienne",
+          "iscrizione Marmotte 2027",
+        ],
+      },
+    },
+  },
+  {
+    slug: "albiez-camp-de-base-grands-cols",
+    date: "2026-09-11",
+    image: "blog/col-du-mollard-velo.jpg",
+    season: "ete",
+    locales: {
+      fr: {
+        title: "Albiez, camp de base des grands cols de Maurienne",
+        description:
+          "Mollard, Croix de Fer, Glandon, Télégraphe, Galibier : altitudes, accès depuis Albiez sans repasser par la vallée, montées sur routes fermées aux voitures et épreuves qui passent par là.",
+        excerpt:
+          "On dort à 1 600 m et on descend d'abord : la dernière difficulté de la journée est celle qui ramène à la maison.",
+        keywords: [
+          "séjour vélo Maurienne",
+          "cols Croix de Fer Glandon Albiez",
+          "col du Mollard vélo",
+          "cols réservés Maurienne",
+          "camp de base vélo Alpes",
+        ],
+      },
+      en: {
+        title: "Albiez, base camp for the great Maurienne passes",
+        description:
+          "Mollard, Croix de Fer, Glandon, Télégraphe, Galibier: altitudes, access from Albiez without going back through the valley, car-free climbing mornings and the events that come through.",
+        excerpt:
+          "You sleep at 1,600 m and descend first: the last climb of the day is the one that takes you home.",
+        keywords: [
+          "cycling holiday Maurienne",
+          "Croix de Fer Glandon from Albiez",
+          "Col du Mollard cycling",
+          "car-free passes Maurienne",
+          "Alps cycling base camp",
+        ],
+      },
+      de: {
+        title: "Albiez, Basislager der großen Maurienne-Pässe",
+        description:
+          "Mollard, Croix de Fer, Glandon, Télégraphe, Galibier: Höhen, Zufahrt von Albiez ohne Umweg durchs Tal, autofreie Auffahrten und die Rennen, die hier durchkommen.",
+        excerpt:
+          "Man schläft auf 1 600 m und fährt zuerst hinunter: die letzte Schwierigkeit des Tages ist der Heimweg.",
+        keywords: [
+          "Radurlaub Maurienne",
+          "Croix de Fer Glandon ab Albiez",
+          "Col du Mollard Rennrad",
+          "autofreie Pässe Maurienne",
+          "Basislager Rennrad Alpen",
+        ],
+      },
+      es: {
+        title: "Albiez, campo base de los grandes puertos de la Maurienne",
+        description:
+          "Mollard, Croix de Fer, Glandon, Télégraphe, Galibier: altitudes, acceso desde Albiez sin volver a pasar por el valle, subidas por carreteras cerradas al coche y pruebas que pasan por aquí.",
+        excerpt:
+          "Se duerme a 1 600 m y se baja primero: la última dificultad del día es la que devuelve a casa.",
+        keywords: [
+          "viaje en bici Maurienne",
+          "Croix de Fer Glandon desde Albiez",
+          "col du Mollard en bici",
+          "puertos cerrados al coche Maurienne",
+          "campo base ciclista Alpes",
+        ],
+      },
+      it: {
+        title: "Albiez, campo base dei grandi colli della Maurienne",
+        description:
+          "Mollard, Croix de Fer, Glandon, Télégraphe, Galibier: quote, accesso da Albiez senza ripassare per la valle, salite su strade chiuse alle auto e gare che passano di qui.",
+        excerpt:
+          "Si dorme a 1 600 m e si scende prima: l'ultima difficoltà della giornata è quella che riporta a casa.",
+        keywords: [
+          "soggiorno in bici Maurienne",
+          "Croix de Fer Glandon da Albiez",
+          "col du Mollard in bici",
+          "colli chiusi alle auto Maurienne",
+          "campo base ciclismo Alpi",
+        ],
+      },
+    },
+  },
+  {
+    slug: "celti-cimes-festival-albiez",
+    date: "2026-09-11",
+    image: "activites-ete/95-albiez-ete-1.jpg",
+    season: "ete",
+    event: "celti-cimes",
+    locales: {
+      fr: {
+        title: "Celti'Cimes : le festival de musique irlandaise d'Albiez",
+        description:
+          "Quatre jours de musique irlandaise fin juillet à Albiez-Montrond et Albiez-le-Jeune : stages d'instruments, concerts, bal folk, sessions dans les bars du village. Programme, tarifs et où dormir.",
+        excerpt:
+          "Un festival où la moitié du public vient apprendre — et où un stagiaire reste cinq nuits, pas une.",
+        keywords: [
+          "Celti'Cimes",
+          "festival musique irlandaise Albiez",
+          "où dormir Celti'Cimes",
+          "festival celtique Savoie",
+          "stage musique irlandaise Alpes",
+        ],
+      },
+      en: {
+        title: "Celti'Cimes: the Irish music festival in Albiez",
+        description:
+          "Four days of Irish music in late July across Albiez-Montrond and Albiez-le-Jeune: instrument workshops, concerts, a folk ball and sessions in the village bars. Programme, fees and where to stay.",
+        excerpt:
+          "A festival where half the audience comes to learn — and where a participant stays five nights, not one.",
+        keywords: [
+          "Celti'Cimes",
+          "Irish music festival France",
+          "where to stay Celti'Cimes",
+          "Celtic festival Savoie",
+          "Irish music workshop Alps",
+        ],
+      },
+      de: {
+        title: "Celti'Cimes: das irische Musikfestival von Albiez",
+        description:
+          "Vier Tage irische Musik Ende Juli in Albiez-Montrond und Albiez-le-Jeune: Instrumentalkurse, Konzerte, Folk-Ball und Sessions in den Dorfbars. Programm, Gebühren und Unterkunft.",
+        excerpt:
+          "Ein Festival, bei dem die Hälfte des Publikums zum Lernen kommt — und bei dem man fünf Nächte bleibt, nicht eine.",
+        keywords: [
+          "Celti'Cimes",
+          "irisches Musikfestival Frankreich",
+          "Unterkunft Celti'Cimes",
+          "keltisches Festival Savoyen",
+          "Irish-Music-Kurs Alpen",
+        ],
+      },
+      es: {
+        title: "Celti'Cimes: el festival de música irlandesa de Albiez",
+        description:
+          "Cuatro días de música irlandesa a finales de julio en Albiez-Montrond y Albiez-le-Jeune: cursos de instrumento, conciertos, baile folk y sesiones en los bares. Programa, tarifas y alojamiento.",
+        excerpt:
+          "Un festival donde la mitad del público viene a aprender — y donde un alumno se queda cinco noches, no una.",
+        keywords: [
+          "Celti'Cimes",
+          "festival música irlandesa Francia",
+          "dónde dormir Celti'Cimes",
+          "festival celta Saboya",
+          "curso música irlandesa Alpes",
+        ],
+      },
+      it: {
+        title: "Celti'Cimes: il festival di musica irlandese di Albiez",
+        description:
+          "Quattro giorni di musica irlandese a fine luglio ad Albiez-Montrond e Albiez-le-Jeune: stage di strumento, concerti, ballo folk e sessioni nei bar del paese. Programma, tariffe e dove dormire.",
+        excerpt:
+          "Un festival in cui metà del pubblico viene a imparare — e in cui un allievo resta cinque notti, non una.",
+        keywords: [
+          "Celti'Cimes",
+          "festival musica irlandese Francia",
+          "dove dormire Celti'Cimes",
+          "festival celtico Savoia",
+          "stage musica irlandese Alpi",
+        ],
+      },
+    },
+  },
   {
     slug: "randonnees-balisees-albiez",
     date: "2026-08-07",

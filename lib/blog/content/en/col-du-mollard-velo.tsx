@@ -95,9 +95,10 @@ export default function Article() {
         dries a jersey in an hour.
       </p>
       <p>
-        One thing to plan for: <strong>the ski locker is not sized for a bike</strong>.
-        Expect to carry it up into the apartment or leave it at the car park — with around
-        fifty steps between the two.
+        One thing to plan for, because it is concrete:{" "}
+        <strong>the ski locker is not sized for a bike</strong>. Two options on site: lock
+        it on the landing, which is covered and sheltered, or bring it onto the balcony.
+        Allow about fifty steps up from the car park.
       </p>
       <p>
         For mountain bikes and e-scooters, see our article on{" "}

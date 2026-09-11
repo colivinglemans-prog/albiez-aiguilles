@@ -624,6 +624,13 @@ export const en: Dictionary = {
     },
     back: "← Back to the guide",
     relatedTitle: "Read next",
+    photoCredit: "Photo:",
+    event: {
+      label: "Next edition",
+      toBeConfirmed: (periode) => `Dates not published yet — ${periode}`,
+      stay: (du, au) => `Suggested stay: ${du} to ${au}`,
+      button: "Check availability",
+    },
     cta: {
       title: "Staying in Albiez",
       text: "Our apartment sits in the Mollard hamlet, 250 m from the slopes and from the start of the trails. Sleeps up to 6, south-facing balcony looking straight at the Aiguilles d'Arves.",

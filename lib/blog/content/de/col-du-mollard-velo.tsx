@@ -92,9 +92,10 @@ export default function Article() {
         Schwierigkeit des Tages ist die, die nach Hause führt. Der Balkon trocknet ein Trikot in einer Stunde.
       </p>
       <p>
-        Ein Punkt zum Vorausdenken: <strong>der Skiraum ist nicht für ein Fahrrad ausgelegt</strong>. Planen Sie
-        ein, es in die Wohnung zu tragen oder auf dem Parkplatz zu lassen – wobei etwa fünfzig Stufen die beiden
-        trennen.
+        Eines ist einzuplanen, ganz konkret:{" "}
+        <strong>Der Skiraum ist nicht für ein Fahrrad bemessen</strong>. Zwei Möglichkeiten
+        vor Ort: es auf dem überdachten, geschützten Treppenabsatz anschließen oder auf den
+        Balkon stellen. Vom Parkplatz sind es rund fünfzig Stufen.
       </p>
       <p>
         Zu Mountainbikes und E-Scootern siehe unseren Artikel{" "}

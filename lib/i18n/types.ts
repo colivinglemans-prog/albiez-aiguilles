@@ -351,6 +351,27 @@ export interface Dictionary {
     };
     back: string;
     relatedTitle: string;
+    /**
+     * Préfixe de la légende de crédit photo, suivi de l'auteur et de la licence.
+     * N'apparaît que sur les articles dont l'image est empruntée.
+     */
+    photoCredit: string;
+    /**
+     * Encart de tête des articles d'événement (voir `lib/events.ts`). N'apparaît que
+     * tant que l'édition annoncée n'est pas passée.
+     */
+    event: {
+      /** Surtitre de l'encart. */
+      label: string;
+      /**
+       * Remplace les dates tant que l'organisateur ne les a pas publiées. Reçoit le mois
+       * et l'année déjà formatés — on annonce « juillet 2027 », jamais un jour supposé.
+       */
+      toBeConfirmed: (periode: string) => string;
+      /** Fenêtre de séjour conseillée, bornes déjà formatées. */
+      stay: (du: string, au: string) => string;
+      button: string;
+    };
     /** Encart de fin d'article — c'est lui qui ramène le lecteur vers la réservation. */
     cta: { title: string; text: string; button: string };
     seo: { title: string; description: string; keywords: string[] };

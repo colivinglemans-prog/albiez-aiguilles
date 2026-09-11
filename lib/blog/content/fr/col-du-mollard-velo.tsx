@@ -98,9 +98,10 @@ export default function Article() {
         sèche un maillot en une heure.
       </p>
       <p>
-        Un point à anticiper : <strong>le casier à skis n'est pas dimensionné pour un
-        vélo</strong>. Prévoyez de le monter dans l'appartement ou de le laisser sur le
-        parking, sachant qu'une cinquantaine de marches séparent les deux.
+        Un point à anticiper, parce qu'il est concret :{" "}
+        <strong>le casier à skis n'est pas dimensionné pour un vélo</strong>. Deux
+        solutions sur place : l'attacher sur le palier, qui est couvert et protégé, ou le
+        rentrer sur le balcon. Comptez une cinquantaine de marches depuis le parking.
       </p>
       <p>
         Pour les VTT et les trottinettes électriques, voir notre article{" "}

@@ -1468,9 +1468,10 @@ Il vit dans `property.ts` et le dictionnaire ne fournit que son libellé.
 
 ## Le guide (blog)
 
-`/{locale}/guide` — 17 articles dans les cinq langues sur Albiez-Montrond : randonnées
-balisées, domaine skiable, loueurs, ESF, commerces, fromagerie coopérative, lac, col du
-Mollard, refuge, activités d'été. Soit 85 pages d'article.
+`/{locale}/guide` — 21 articles dans les cinq langues sur Albiez-Montrond et ses environs :
+randonnées balisées, domaine skiable, loueurs, ESF, commerces, fromagerie coopérative, lac,
+col du Mollard, refuge, activités d'été, plus les **articles d'événement** (Celti'Cimes, la
+Marmotte, les grands cols) et une excursion à Turin. Soit 105 pages d'article.
 
 | Fichier | Rôle |
 |---------|------|
@@ -1478,7 +1479,9 @@ Mollard, refuge, activités d'été. Soit 85 pages d'article.
 | `lib/blog/content/{fr,en,de,es,it}/<slug>.tsx` | Le corps de l'article, en JSX presque nu. Les `<Link>` internes sont préfixés en dur par la langue du fichier — y compris les liens de saison, qui prennent le slug localisé (`/de/sommer`, `/es/verano`, `/it/estate`). |
 | `app/[locale]/guide/page.tsx` | Index — résout les photos côté serveur et passe les cartes au filtre. |
 | `components/public/GuideFilter.tsx` | Filtre de saison + grille de cartes (composant **client**). |
-| `app/[locale]/guide/[slug]/page.tsx` | Article + JSON-LD + encart de réservation + « À lire aussi ». |
+| `app/[locale]/guide/[slug]/page.tsx` | Article + JSON-LD + encart d'événement + encart de réservation + « À lire aussi ». |
+| `lib/events.ts` | `EVENTS` — le catalogue des événements datés du secteur, et les fonctions qui le lisent. |
+| `components/public/EventBanner.tsx` | L'encart « prochaine édition » en tête d'un article d'événement. |
 | `lib/blog/ArticleImage.tsx` | Photo au fil d'un article (`<ArticleImage src="dossier/fichier.jpg" alt caption />`). Même traitement que les couvertures : dimensions relevées au build, aucun recadrage, figure absente si le fichier manque. |
 | `.prose-article` (`@sejour/socle/ui/theme.css`) | Toute la typographie du corps d'article, plus la classe `.facts` des encadrés pratiques. Les couleurs viennent des `--site-prose-*` posés dans `app/globals.css`. |
 
@@ -1488,7 +1491,7 @@ n'existe qu'à une seule adresse par langue, et les cinq se déclarent mutuellem
 d'équivalent « naturel » dans les autres langues.
 
 Les composants d'article sont **importés paresseusement** dans `CONTENT` (`[slug]/page.tsx`) :
-quatre-vingt-cinq imports en tête de fichier pour n'en rendre qu'un seul alourdiraient
+cent cinq imports en tête de fichier pour n'en rendre qu'un seul alourdiraient
 chaque page. Les chemins doivent rester des **littéraux** — une expression
 `content/${locale}/${slug}` ferait perdre au bundler son analyse statique, et c'est la
 raison de la longueur de cette table. Un fichier créé sans son entrée dans `CONTENT` donne
@@ -1511,17 +1514,72 @@ compteurs — *Toute l'année* (par défaut, tout est affiché), *Hiver*, *Été
 `season: null` reste visible **sous chaque filtre** : « faire ses courses » ou « la
 boulangerie » servent autant en février qu'en août, et les exclure d'une saison donnerait
 une liste techniquement juste et pratiquement inutilisable. D'où des compteurs qui ne
-s'additionnent pas (17 / 11 / 12) — un encart l'explique dès qu'une saison est
+s'additionnent pas (21 / 12 / 16) — un encart l'explique dès qu'une saison est
 sélectionnée.
 
 Le filtre étant client, l'index résout les photos côté serveur et passe des cartes déjà
-mesurées. Les **17 cartes sont dans le HTML initial** (le filtre part sur « tout »), donc
+mesurées. Les **21 cartes sont dans le HTML initial** (le filtre part sur « tout »), donc
 le filtrage ne coûte rien au référencement.
 
 **Ajouter un article** : une entrée dans `BLOG_POSTS` (cinq blocs de métadonnées), cinq
 fichiers dans `content/{fr,en,de,es,it}/`, une entrée de cinq lignes dans `CONTENT`. Le
 sitemap et l'index suivent tout seuls. Avancer **article par article, les cinq langues d'un
 coup** : les articles sont indépendants, et une entrée de `CONTENT` oubliée ne se voit pas.
+S'il couvre un événement daté, ajouter aussi son entrée dans `EVENTS` et le champ `event` ;
+si sa photo est empruntée, remplir `imageCredit`. Voir les deux sections ci-dessous.
+
+### Les articles d'événement
+
+Un article peut porter `event: "<clé>"`, qui pointe vers une entrée de `EVENTS`
+(`lib/events.ts`). Il gagne alors deux choses : l'encart **« prochaine édition »** en tête
+de page, et le nœud **`Event`** des données structurées.
+
+```ts
+export interface LocalEvent {
+  key: string;        // la clé de jointure, jamais affichée
+  name: string;       // le nom de l'organisateur, non traduit
+  start: string;      // YYYY-MM-DD, inclus
+  end: string;        // inclus ; égal à start pour un événement d'un jour
+  commune: string;    // pour le JSON-LD et l'encart
+  confirmed: boolean; // les dates sont-elles officielles ?
+  url?: string;
+}
+```
+
+**`confirmed` est la pièce maîtresse, et c'est un fait, pas un drapeau.** À `false`, les
+dates du catalogue sont une projection calée sur le jour de semaine de l'édition
+précédente : l'encart n'affiche alors que le mois (« Dates non encore publiées — juillet
+2027 »), et **le JSON-LD `Event` n'est pas émis du tout**. On ne déclare pas une date
+supposée à Google, qui l'afficherait comme un fait dans un résultat enrichi.
+
+**La fraîcheur vient du catalogue, pas d'une horloge.** `EventBanner` est un composant
+serveur, et aucune page de ce site ne déclare `revalidate` : les 105 pages du guide sont
+générées une fois par déploiement. Une édition passée se **retire à la main** de `EVENTS`,
+exactement comme `WINTER_OPENING` se met à jour chaque année. Le filtrage par date de
+`nextEdition()` n'est qu'un filet, qui fait disparaître l'encart au déploiement suivant si
+le ménage a été oublié. L'alternative — calculer la date chez le visiteur — sortirait
+l'encart du HTML initial sur une page dont l'événement est le sujet.
+
+Le module est écrit **pour être extrait un jour** vers `@sejour/socle` : fonctions pures,
+catalogue passé en paramètre plutôt que lu, aucune dépendance à l'i18n ni au JSX. Barbusse
+a son propre `lib/events.ts` de même forme, et les trois divergences d'Albiez (`key` plutôt
+que le nom comme clé de jointure, `confirmed` plutôt qu'un « (à confirmer) » dans le nom,
+et `commune`) ont été actées comme la version qui montera.
+
+⚠️ Les dates non confirmées sont à reprendre auprès des organisateurs et de l'office de
+tourisme d'Albiez (04 79 59 30 48) dès que les programmes sortent, au printemps.
+
+### Crédit photo
+
+`BlogPostMeta.imageCredit` rend une légende sous la couverture, avec deux liens : la page
+source et le texte de la licence. Il est **obligatoire dès que l'image est sous licence à
+attribution** (CC BY, CC BY-SA) — sans lui, l'usage est une violation de licence, pas une
+négligence de mise en page.
+
+Il est absent de la quasi-totalité des articles, et c'est normal : la règle reste nos
+propres photos. Il ne sert que quand nous n'avons rien de nous à montrer — aujourd'hui la
+piazza San Carlo à Turin et la croix du col de la Croix de Fer, toutes deux CC BY-SA 4.0
+depuis Wikimedia Commons. Jamais de visuel de presse d'organisateur.
 
 `react/no-unescaped-entities` est **désactivé sur `lib/blog/content/**`** (voir
 `eslint.config.mjs`) : la règle vise les `>` et `}` tapés par accident, et sur de la prose

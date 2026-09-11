@@ -642,6 +642,13 @@ export const fr: Dictionary = {
     },
     back: "← Retour au guide",
     relatedTitle: "À lire aussi",
+    photoCredit: "Photo :",
+    event: {
+      label: "Prochaine édition",
+      toBeConfirmed: (periode) => `Dates non encore publiées — ${periode}`,
+      stay: (du, au) => `Séjour conseillé : du ${du} au ${au}`,
+      button: "Voir les disponibilités",
+    },
     cta: {
       title: "Séjourner à Albiez",
       text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon plein sud face aux Aiguilles d'Arves.",
