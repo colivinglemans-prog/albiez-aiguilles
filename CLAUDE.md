@@ -838,6 +838,81 @@ Deux pièges de l'API, tous deux traités :
   `cache: "no-store"` : sans ça, une consigne enregistrée restait invisible une minute, et la
   personne du ménage qui rafraîchissait voyait l'ancienne version.
 
+### Le bandeau de navigation
+
+`components/dashboard/DashboardNav.tsx` — un bandeau pleine largeur, hors du conteneur des
+pages, avec le titre du site à gauche (cliquable vers `/dashboard`), les liens, et la
+déconnexion à droite. Sous `md`, tout passe dans un tiroir latéral : le dashboard se consulte
+au téléphone, souvent en mode application, et quatre liens alignés y débordaient.
+
+Le tiroir **reste dans le DOM**, seulement translaté hors écran. Monté au clic, il n'aurait
+pas d'état de départ à animer et apparaîtrait d'un coup. Il se referme au `onClick` de chaque
+lien et **non par un effet sur `pathname`** : la fermeture est la conséquence directe du clic,
+et la faire depuis un `useEffect` déclenche un rendu en cascade que le lint refuse.
+
+Deux liens sortent du dashboard. **« Guide voyageur »** (`/fr/guide-arrivee`, nouvel onglet,
+admin seulement) : c'est l'administrateur qui l'envoie aux voyageurs, et il doit pouvoir le
+relire sans perdre le calendrier. **« Retour au site »** (`/`) n'a **pas** de condition de
+rôle, contrairement à Barbusse : la vitrine est publique, et la personne du ménage y trouve
+l'adresse et l'accès du logement.
+
+### Vue admin / vue viewer
+
+Un bouton sur le calendrier, visible du seul administrateur, bascule l'affichage dans celui
+de la personne du ménage — pour vérifier ce qu'on lui montre, et surtout ce qu'on ne lui
+montre pas, avant de lui laisser une consigne.
+
+⚠️ **C'est un basculement d'affichage, jamais un contrôle de sécurité, et il ne faut pas s'en
+servir comme tel.** Le cloisonnement réel est serveur : le rôle est porté par le JWT, le
+proxy refuse les pages interdites, et `/api/dashboard/calendrier` projette sa réponse sur une
+forme réduite pour le rôle `viewer` — les montants et le canal n'atteignent jamais le
+navigateur. En « vue viewer », l'administrateur a bel et bien reçu les montants : les masquer
+à l'écran ne les retire pas de la réponse déjà chargée.
+
+### Partage voyageur
+
+`components/dashboard/PartageVoyageur.tsx`, dans la fiche d'un séjour, **admin uniquement**.
+Ce qu'on envoie avant une arrivée tient en deux choses — le lien du guide d'arrivée et le
+code de la boîte à clés — et les deux se copient depuis l'écran où l'on regarde déjà le
+séjour, plutôt qu'en rouvrant le site pour recomposer l'URL et en cherchant le code dans un
+ancien message. Trois lignes : le lien du guide, le message complet prêt à coller, le code.
+
+**Les cinq langues sont proposées à égalité, sans présélection.** Barbusse met en avant la
+langue probable d'après le pays du voyageur ; impossible ici, et c'est voulu — les jetons
+Beds24 d'Albiez ne portent pas `read:bookings-personal`, donc ni pays, ni prénom, ni e-mail
+n'entrent dans le site (`Sejour` n'a même pas de champ nom). Le message n'est donc pas
+nominatif, et ajouter le scope pour personnaliser une formule de politesse échangerait une
+donnée de voyageur contre trois mots.
+
+Les textes vivent dans `lib/partage-voyageur.ts`, `Record<Locale, …>` : élargir `Locale` rend
+rouge la table, comme partout ailleurs. Ils **vouvoient dans les cinq langues**, comme
+`guide.codeNote` des dictionnaires — un message tutoyant introduirait la page qu'il annonce
+sur un autre ton. Le col du Mollard garde son nom français partout : c'est ce qui est écrit
+sur les panneaux que le voyageur va chercher des yeux.
+
+Le presse-papier peut être refusé (contexte non sécurisé, mode application) : le texte est
+alors affiché sélectionné pour une copie à la main, plutôt que d'échouer en silence.
+
+#### Le code de la boîte à clés
+
+**Un code unique et statique** : Albiez a une boîte à clés mécanique, pas une serrure
+connectée. Il n'y a donc rien à demander par réservation, et `/api/dashboard/code-acces` ne
+prend aucun identifiant de séjour — contrairement à Barbusse, dont le PIN Nuki est propre à
+chaque séjour et n'existe qu'à J-6. Le bloc s'affiche par conséquent aussi sur un séjour
+archivé, où il ne sert à rien : l'y masquer demanderait un test qui laisserait croire qu'il
+existe un code par réservation.
+
+⚠️ **Le dépôt est public : la valeur ne doit apparaître nulle part dans le code**, ni dans un
+commentaire, ni dans un test, ni dans un log — les journaux de production se lisent depuis
+plus d'endroits que la réponse d'une route. Elle vit dans `ALBIEZ_CODE_BOITE_A_CLES` et n'est
+servie que par une route **admin uniquement** (`guard.denyNonAdmin`, comme l'écriture des
+consignes) : vérifié à l'exécution, 401 en anonyme, **403 en `viewer`**, 200 pour
+l'administrateur. Variable absente ⇒ `code: null`, l'interface le dit et les liens du guide
+continuent de servir.
+
+C'est la même règle que la page `/{locale}/guide-arrivee`, qui n'écrit jamais le code : elle
+annonce qu'il est envoyé par message. Ce bloc est l'outil qui envoie ce message.
+
 ### Le graphe est écrit portable
 
 `components/dashboard/RevenueChart.tsx` ne connaît ni Albiez, ni Beds24, ni les canaux : il ne
@@ -895,10 +970,13 @@ saison ». Trois décisions qui ont demandé un aller-retour :
 | `DASHBOARD_PASSWORD` | Mot de passe administrateur. |
 | `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne, rôle `viewer`. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. `DASHBOARD_PASSWORD_VIEWER_*` est accepté aussi : le code a changé de nom, pas les variables. |
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
+| `ALBIEZ_CODE_BOITE_A_CLES` | Code de la boîte à clés, servi au seul administrateur par `/api/dashboard/code-acces`. **Jamais dans le code** : le dépôt est public. |
 
-**Les quatre premières sont posées dans les trois environnements** depuis le 2026-09-11. Les
-cinq autres restent **production seulement** : ce sont des `Secret` chez Vercel, dont la valeur
-ne se relit pas — les reporter en preview demanderait de les ressaisir à la main.
+**Posées dans les trois environnements** depuis le 2026-09-11 : les quatre jetons Beds24,
+`CRON_SECRET` et `ALBIEZ_CODE_BOITE_A_CLES` (relevé sur `vercel env ls`, pas supposé). Restent
+**production seulement** `HISTORIQUE_ALBIEZ`, les deux mots de passe et `DASHBOARD_SECRET` :
+ce sont des `Secret` chez Vercel, dont la valeur ne se relit pas — les reporter en preview
+demanderait de les ressaisir à la main.
 
 ⚠️ **Conséquence : une preview ne permet pas de valider un écran qui dépend du dashboard.**
 `DASHBOARD_SECRET` et les mots de passe manquant, la connexion y échoue. Les disponibilités

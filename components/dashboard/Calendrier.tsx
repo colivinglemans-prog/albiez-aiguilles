@@ -5,6 +5,7 @@ import { bandesPeriodes, type BandePeriode, type Periode } from "@sejour/socle/l
 import type { BandeauSaison } from "@/lib/seasons";
 import type { Sejour } from "@/lib/dashboard-types";
 import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
+import PartageVoyageur from "@/components/dashboard/PartageVoyageur";
 
 const MOIS = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -604,7 +605,9 @@ export default function Calendrier({
       {popup && (
         <div
           data-popup
-          className="absolute z-20 w-64 rounded-xl bg-white p-4 shadow-xl ring-1 ring-slate-200"
+          // `w-72` et non `w-64` : les cinq pastilles de langue du bloc de partage tiennent
+          // alors sur une seule ligne au lieu de se replier en deux.
+          className="absolute z-20 w-72 rounded-xl bg-white p-4 shadow-xl ring-1 ring-slate-200"
           style={{ top: popup.haut, left: Math.max(0, popup.gauche) }}
         >
           <div className="flex items-center gap-2">
@@ -704,6 +707,14 @@ export default function Calendrier({
               setNotesLocales((n) => ({ ...n, [popup.sejour.idBeds24!]: texte }))
             }
           />
+
+          {/*
+            * Le bloc de partage ne dépend d'aucun champ du séjour : le code de la boîte à
+            * clés est le même pour tout le monde et le guide est public. Il s'affiche donc
+            * aussi sur un séjour archivé, où il ne sert à rien — mais l'y masquer demanderait
+            * un test qui laisserait croire qu'il existe un code par réservation.
+            */}
+          {!viewer && <PartageVoyageur />}
         </div>
       )}
     </div>
