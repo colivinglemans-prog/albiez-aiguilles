@@ -4,21 +4,24 @@ import { normalizeChannel as normaliserCanal } from "@sejour/socle/lib/channels"
 /**
  * Client Beds24 v2 pour Albiez.
  *
- * **Deux tokens, deux privilèges**, comme chez Barbusse :
+ * **Trois tokens, trois privilèges** — même architecture que Barbusse depuis le 2026-09-11 :
  *
- * - `BEDS24_REFRESH_TOKEN` — échangé contre un access token de 24 h, il porte
- *   `write:bookings`. Sert au dashboard et à l'écriture des consignes de ménage.
- * - `BEDS24_PUBLIC_REFRESH_TOKEN` — refresh token en **lecture seule**, utilisé uniquement
- *   par les deux lectures servies au public (`disponibilites`, `contraintes`).
+ * | Variable | deviceName | Scopes | Chemin servi |
+ * |---|---|---|---|
+ * | `BEDS24_PUBLIC_REFRESH_TOKEN` | `albiez-public-2026-09` | `read:inventory`, `read:properties` | `/api/disponibilites`, vitrine |
+ * | `BEDS24_READ_REFRESH_TOKEN` | `albiez-lecture-2026-09` | + `read:bookings`, `read:bookings-financial` | dashboard |
+ * | `BEDS24_REFRESH_TOKEN` | `albiez-ecriture-2026-09` | `read:bookings`, `write:bookings` | consignes de ménage |
  *
- * Le second n'est pas un long life token, bien que ceux-là ne puissent techniquement porter
- * que des scopes de lecture : ils expirent au bout de 90 jours **fermes**. Un refresh token
- * expire lui aussi — 30 jours — mais l'échéance **glisse à chaque usage** (visible dans
- * Beds24 → Settings → API : le token d'écriture, créé le 28/08 à 15:50, expirait le 30/09 à
- * 19:58, l'heure de son dernier appel). Un token que le site interroge en continu ne s'éteint
- * donc jamais, là où le long life token aurait imposé un renouvellement manuel en pleine
- * saison. Le privilège reste restreint par les scopes de l'invite code, pas par la nature du
- * token.
+ * Le découpage suit les chemins, pas les verbes : le point d'entrée public ne sait rien des
+ * réservations, la lecture du dashboard ne sait pas écrire, et l'écriture ne voit pas
+ * l'argent — les trois vérifiés contre l'API, pas supposés. L'ancien jeton unique portait dix
+ * scopes, dont `write:bookings-personal` et `write:bookings-financial` que rien n'utilisait.
+ *
+ * **Les trois sont des refresh tokens, aucun long life.** Un long life ne peut techniquement
+ * porter que des scopes de lecture, ce qui forcerait de toute façon un second token pour
+ * l'écriture ; et surtout sa durée de vie est incertaine. Un refresh token meurt après
+ * 30 jours sans usage, mais l'échéance glisse à chaque échange — d'où le cron keepalive, qui
+ * les entretient tous les trois plutôt que de parier sur le trafic.
  */
 const API = "https://api.beds24.com/v2";
 
@@ -53,36 +56,105 @@ async function echanger(refreshToken: string, usage: string): Promise<string> {
   return token;
 }
 
-/** Token d'écriture — dashboard, consignes de ménage. Porte `write:bookings`. */
-async function accessToken(): Promise<string> {
+/**
+ * Token d'**écriture** — consignes de ménage, et rien d'autre.
+ *
+ * `deviceName: albiez-ecriture-2026-09`, scopes `read:bookings` et `write:bookings`. Il ne
+ * voit ni `price`, ni `commission`, ni `invoiceItems` : vérifié contre l'API le 2026-09-11,
+ * pas supposé. Un chemin qui n'a besoin que d'annoter une réservation n'a pas à pouvoir lire
+ * le chiffre d'affaires.
+ */
+async function tokenEcriture(): Promise<string> {
   const rt = process.env.BEDS24_REFRESH_TOKEN;
   if (!rt) throw new Error("BEDS24_REFRESH_TOKEN n'est pas défini");
   return echanger(rt, "écriture");
 }
 
 /**
- * Token des lectures servies au **public**.
+ * Token de **lecture** du dashboard — séjours, montants, commissions.
  *
- * `BEDS24_PUBLIC_REFRESH_TOKEN` est un refresh token dont l'invite code ne demandait que
- * `read:inventory` et `read:properties` — `deviceName: albiez-site-public`, créé le
- * 2026-08-31 via `scripts/beds24-setup.mjs`.
+ * `deviceName: albiez-lecture-2026-09`, scopes `read:bookings`, `read:bookings-financial`,
+ * `read:inventory`, `read:properties`. Pas de `read:bookings-personal` : ce site ne lit aucun
+ * nom ni contact, le type `Sejour` n'a même pas de champ pour ça.
  *
- * Un refresh token et non un long life token, alors que ce dernier ne peut *techniquement*
- * porter que des scopes de lecture : le long life expire au bout de **90 jours**, et une
- * échéance manuelle sur le chemin qui encaisse les réservations est une dette. Ce sont les
- * scopes de l'invite code qui restreignent le privilège, pas la nature du token.
+ * Les deux scopes d'inventaire ne sont pas un oubli : ils font vivre le repli du chemin
+ * public quand son propre token est révoqué.
  *
  * Sans la variable, on retombe sur le token d'écriture pour ne pas bloquer le développement
- * local — mais la production doit l'avoir.
+ * local — mais ce dernier ne voit pas les montants, et le dashboard afficherait des zéros.
+ */
+async function tokenLecture(): Promise<string> {
+  const rt = process.env.BEDS24_READ_REFRESH_TOKEN;
+  if (rt && rt.trim()) return echanger(rt.trim(), "lecture");
+  console.warn(
+    "BEDS24_READ_REFRESH_TOKEN absent : les lectures du dashboard utilisent le token " +
+      "d'écriture, qui ne porte pas read:bookings-financial — les montants seront vides.",
+  );
+  return tokenEcriture();
+}
+
+/**
+ * Token des lectures servies au **public**.
+ *
+ * `BEDS24_PUBLIC_REFRESH_TOKEN` ne porte que `read:inventory` et `read:properties` —
+ * `deviceName: albiez-public-2026-09`. Présenté à `/bookings`, Beds24 répond
+ * `401 Token not valid` : vérifié le 2026-09-11. S'il fuite, l'attaquant apprend quelles
+ * dates sont libres, information que la page affiche déjà.
+ *
+ * Sans la variable, on retombe sur le token de **lecture** — jamais sur celui d'écriture.
+ * Le chemin le plus exposé du site ne doit à aucun moment, même dégradé, tenir un jeton
+ * capable d'écrire. La production doit évidemment avoir la variable.
  */
 async function tokenPublic(): Promise<string> {
   const rt = process.env.BEDS24_PUBLIC_REFRESH_TOKEN;
   if (rt && rt.trim()) return echanger(rt.trim(), "public");
   console.warn(
-    "BEDS24_PUBLIC_REFRESH_TOKEN absent : les lectures publiques utilisent le token " +
-      "d'écriture. Créer un refresh token en lecture seule avant de déployer.",
+    "BEDS24_PUBLIC_REFRESH_TOKEN absent : les lectures publiques utilisent le token de " +
+      "lecture. Créer un refresh token read:inventory + read:properties avant de déployer.",
   );
-  return accessToken();
+  return tokenLecture();
+}
+
+/**
+ * Entretient les trois refresh tokens — appelé par le cron hebdomadaire.
+ *
+ * Beds24 invalide un refresh token qui n'a pas servi depuis 30 jours, et aucun des trois ne
+ * s'entretient de façon fiable tout seul : l'écriture ne sert qu'à poser une consigne de
+ * ménage, le dashboard n'est ouvert que par intermittence, et le trafic de la vitrine est
+ * encore faible. Pire, deux des trois morts seraient **silencieuses** : le repli prendrait le
+ * relais et le site continuerait de fonctionner en ayant reperdu la séparation des
+ * privilèges, sans que rien ne le signale.
+ *
+ * L'échange est forcé hors cache : c'est lui qui repousse l'échéance, pas la lecture d'un
+ * access token encore valide gardé en mémoire.
+ *
+ * Les trois sont tentés même si le premier échoue — un token mort ne doit pas en entraîner
+ * un second.
+ */
+export type EtatToken = { ok: true } | { ok: false; erreur: string };
+
+export async function entretenirTokens(): Promise<Record<string, EtatToken>> {
+  const voies: Array<[string, string | undefined]> = [
+    ["public", process.env.BEDS24_PUBLIC_REFRESH_TOKEN],
+    ["lecture", process.env.BEDS24_READ_REFRESH_TOKEN],
+    ["ecriture", process.env.BEDS24_REFRESH_TOKEN],
+  ];
+
+  const etats: Record<string, EtatToken> = {};
+  for (const [nom, rt] of voies) {
+    if (!rt || !rt.trim()) {
+      etats[nom] = { ok: false, erreur: "variable d'environnement absente" };
+      continue;
+    }
+    try {
+      accesEnCache.delete(rt.trim());
+      await echanger(rt.trim(), nom);
+      etats[nom] = { ok: true };
+    } catch (e) {
+      etats[nom] = { ok: false, erreur: e instanceof Error ? e.message : String(e) };
+    }
+  }
+  return etats;
 }
 
 async function appeler<T>(
@@ -95,13 +167,15 @@ async function appeler<T>(
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
 
   /**
-   * Le token public est un **long life token de 90 jours**. Le jour où il expire, la route
-   * de disponibilités renverrait 502 et le calendrier du site afficherait un logement
-   * indisponible sur toutes les dates — un calendrier muet, sans que rien ne le signale.
+   * Le token public peut être révoqué, ou mourir faute d'usage — Beds24 invalide un refresh
+   * token qui n'a pas servi depuis 30 jours. Sans repli, la route de disponibilités
+   * renverrait 502 et le calendrier afficherait un logement indisponible sur toutes les
+   * dates : un calendrier muet, sans que rien ne le signale.
    *
-   * D'où un repli : sur 401, on refait l'appel avec le token d'écriture. On perd la
-   * séparation des privilèges le temps de renouveler, ce qui vaut mieux qu'un tunnel de
-   * réservation éteint en pleine saison. L'avertissement dans les logs dit quoi faire.
+   * D'où un repli sur 401 — vers le token de **lecture**, qui porte lui aussi
+   * `read:inventory` et `read:properties`. Surtout pas vers celui d'écriture : le chemin le
+   * plus exposé du site ne doit jamais, même dégradé, tenir un jeton capable d'écrire.
+   * L'avertissement dans les logs dit quoi régénérer.
    */
   const appel = (token: string) => fetch(url, {
     headers: { token },
@@ -114,17 +188,17 @@ async function appeler<T>(
     ...(frais ? { cache: "no-store" as const } : { next: { revalidate: 60 } }),
   });
 
-  let res = await appel(public_ ? await tokenPublic() : await accessToken());
+  let res = await appel(public_ ? await tokenPublic() : await tokenLecture());
 
   if (res.status === 401 && public_ && process.env.BEDS24_PUBLIC_REFRESH_TOKEN) {
-    // Un refresh token n'expire pas sur une horloge, mais il peut être révoqué. Le repli
-    // évite qu'une révocation éteigne le calendrier de réservation sans prévenir.
+    // Un refresh token n'expire pas sur une horloge, mais il peut être révoqué — ou mourir
+    // après 30 jours sans usage. Le repli évite que ça éteigne le calendrier sans prévenir.
     console.error(
-      "BEDS24_PUBLIC_REFRESH_TOKEN refusé (401) — révoqué ? Repli sur le token d'écriture. " +
+      "BEDS24_PUBLIC_REFRESH_TOKEN refusé (401) — révoqué ? Repli sur le token de lecture. " +
         "En régénérer un dans Beds24 → Settings → Apps & Integrations → API, avec les seuls " +
         "scopes read:inventory et read:properties.",
     );
-    res = await appel(await accessToken());
+    res = await appel(await tokenLecture());
   }
 
   if (!res.ok) throw new Error(`Beds24 ${chemin} ${res.status} : ${(await res.text()).slice(0, 200)}`);
@@ -401,7 +475,7 @@ export async function prixParNuit(params: { du: string; au: string }): Promise<R
  * alors que rien ne l'a été.
  */
 export async function ecrireNotes(id: number, notes: string): Promise<void> {
-  const token = await accessToken();
+  const token = await tokenEcriture();
   const res = await fetch(`${API}/bookings`, {
     method: "POST",
     headers: { token, "Content-Type": "application/json" },
