@@ -11,8 +11,8 @@ import type {
   Beds24AvailabilityRoom,
   Beds24Booking,
   Beds24CalendarRoom,
-  Beds24InvoiceItem,
 } from "@sejour/socle/lib/beds24-types";
+import { ecartDeCollecte } from "@sejour/socle/lib/taxe-sejour";
 
 /**
  * Client Beds24 v2 pour Albiez.
@@ -20,8 +20,8 @@ import type {
  * Le transport — échange des jetons, cache d'access tokens, repli, écriture de note,
  * réexpansion des tranches de calendrier — vient de `@sejour/socle/lib/beds24-client`. Ne
  * restent ici que les **noms des variables d'environnement**, la traduction vers `Sejour`, et
- * les deux calculs qui n'appartiennent qu'à ce bien : la surcollecte de taxe et les
- * contraintes de séjour.
+ * `contraintes()`, le seul calcul qui n'appartienne encore qu'à ce bien. La surcollecte de
+ * taxe est partie au socle au Lot 4 (`ecartDeCollecte`).
  *
  * **Trois tokens, trois privilèges** — même architecture que Barbusse depuis le 2026-09-11 :
  *
@@ -102,43 +102,6 @@ export function entretenirTokens(): Promise<Record<string, EtatToken>> {
 }
 
 /**
- * Libellé de la ligne de taxe de séjour, tel que Beds24 le reprend de l'upsell item 3.
- *
- * Le reconnaître au texte est fragile, et c'est assumé : renommé dans Beds24, la correction
- * disparaît simplement de l'affichage. Un silence vaut mieux qu'un montant faux sur une ligne
- * qui sert à déclarer une taxe.
- */
-const LIBELLE_TAXE_SEJOUR = /taxe de s[eé]jour/i;
-
-/**
- * Part de taxe de séjour collectée à tort, faute d'exonération des mineurs.
- *
- * Beds24 assied la taxe en pourcentage sur la totalité de l'hébergement, sans regarder la
- * répartition adultes/enfants. Le montant dû est donc celui collecté rapporté à la part des
- * adultes : les mineurs sont exonérés de plein droit (article L.2333-31 du CGCT), et le
- * barème 3CMA assied le tarif sur le coût **par personne** — diviser par les occupants puis
- * multiplier par les seuls adultes revient exactement à ce ratio.
- *
- * Volontairement indépendant du canal : c'est la présence d'une ligne de taxe qui déclenche
- * le calcul. Aujourd'hui seul le direct en porte une, mais le jour où un canal s'y mettrait,
- * le même écart s'appliquerait sans qu'on ait à y penser.
- */
-function surcollecteTaxe(b: Beds24Booking): Sejour["surcollecteTaxe"] {
-  const enfants = b.numChild ?? 0;
-  const occupants = (b.numAdult ?? 0) + enfants;
-  if (enfants <= 0 || occupants <= 0) return null;
-
-  const ligne = (b.invoiceItems ?? []).find((l: Beds24InvoiceItem) =>
-    LIBELLE_TAXE_SEJOUR.test(l.description ?? ""),
-  );
-  const collectee = Number(ligne?.lineTotal ?? 0);
-  if (collectee <= 0) return null;
-
-  const due = (collectee * (occupants - enfants)) / occupants;
-  return { collectee, due, ecart: collectee - due };
-}
-
-/**
  * Réservations vivantes, ramenées au type canonique.
  *
  * `apiReference` porte le numéro de réservation du canal — c'est la clé de dédoublonnage
@@ -186,7 +149,11 @@ export async function sejoursBeds24(params: {
         gross,
         net: gross - commission,
         commission,
-        surcollecteTaxe: surcollecteTaxe(b),
+        // Monté au socle au Lot 4, sans un chiffre de changé : l'exonération des mineurs
+        // (art. L.2333-31 du CGCT) n'était écrite qu'ici, et le moteur de taxe de séjour de
+        // l'autre site ne l'avait pas. Les deux ont fusionné dans `ecartDeCollecte`, qui ne
+        // demande aucun barème — c'est le collecté qui sert de base, pas la délibération.
+        surcollecteTaxe: ecartDeCollecte(b),
         // Tronqué au jour : le délai de réservation et la convention « à la réservation »
         // raisonnent en jours calendaires, pas à la seconde.
         bookedAt: b.bookingTime?.slice(0, 10) ?? null,

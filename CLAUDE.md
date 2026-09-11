@@ -387,8 +387,8 @@ d'écrire.
 `lib/beds24.ts` ne fait plus d'HTTP : l'échange des jetons, le cache d'access tokens, les
 replis, l'écriture de note et la réexpansion des tranches de calendrier vivent dans
 `createBeds24Client` (`@sejour/socle/lib/beds24-client`). Ne restent ici que les **noms des
-variables d'environnement**, la traduction vers `Sejour`, et les deux calculs propres à ce
-bien : `surcollecteTaxe()` et `contraintes()`.
+variables d'environnement**, la traduction vers `Sejour`, et `contraintes()`, le seul calcul
+qui n'appartienne encore qu'à ce bien — `surcollecteTaxe()` est parti au socle au Lot 4.
 
 Les replis sont **deux champs distincts et non un drapeau**. `whenMissing` dit quoi faire
 quand la variable n'est pas définie — une configuration incomplète, connue d'avance ;
@@ -661,12 +661,22 @@ deviendrait fausse au premier changement de tarif.
 
 ### La surcollecte de taxe de séjour est calculée, pas à recalculer
 
+**Le calcul vient du socle depuis le Lot 4** : `ecartDeCollecte`
+(`@sejour/socle/lib/taxe-sejour`). Ce n'était pas un doublon du moteur de taxe de séjour de
+l'autre site — c'était une règle que ce moteur n'avait pas, l'exonération des mineurs au
+titre de l'article L.2333-31 du CGCT. Les deux ont fusionné dans le même module, et aucune
+n'a disparu : `computeTaxeSejour` répond à *combien est dû* depuis un barème communal,
+`ecartDeCollecte` à *combien a été collecté en trop* depuis la ligne de facture. La seconde
+ne demande **aucune configuration**, ce qui est la raison pour laquelle ce site peut
+l'utiliser sans être branché sur le reste du réglementaire — il n'a ni facture, ni
+déclaration de taxe, ni module fiscal, et sa SCI est à l'IS avec une comptabilité chez Indy.
+
 `Sejour.surcollecteTaxe` porte `{ collectee, due, ecart }` dès qu'un séjour comporte des
 mineurs **et** qu'une ligne de taxe figure sur sa facture. Le calcul est un simple ratio :
 les mineurs étant exonérés et le barème assis sur le coût *par personne*, le dû vaut le
 collecté rapporté à la part des adultes. Vérifié : 24,50 € pour 4 adultes + 2 enfants donne
 16,33 € dus et 8,17 € de trop — les mêmes chiffres que ceux dérivés du barème 3CMA par un
-chemin indépendant.
+chemin indépendant, et les mêmes avant et après le passage au socle.
 
 L'écart s'affiche dans la fiche d'un séjour, sur le calendrier du dashboard : c'est l'endroit
 où l'on ouvre une réservation pour agir dessus. Jamais pour le rôle `viewer`.
