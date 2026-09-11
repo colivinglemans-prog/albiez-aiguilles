@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { CANAUX, COULEUR_CANAL } from "@/lib/canal";
+import { CHANNELS as CANAUX, CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
 import type { CanauxAnnee } from "@/lib/dashboard-types";
 
 const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;

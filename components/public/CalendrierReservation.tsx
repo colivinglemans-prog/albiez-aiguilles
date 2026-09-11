@@ -5,13 +5,13 @@ import { LOCALE_META, useTranslation } from "@/lib/i18n";
 import { PROPERTY } from "@/lib/property";
 import { formatPeriode, HIVERS } from "@/lib/seasons";
 import {
-  ajouterJours,
-  ajouterMois,
-  cleMois,
-  formatJour,
-  joursDuMois,
-  premierJourDuMois,
-} from "@/lib/calendrier-utils";
+  addDays as ajouterJours,
+  addMonths as ajouterMois,
+  monthKey as cleMois,
+  formatDate as formatJour,
+  daysInMonth as joursDuMois,
+  firstDayOfMonth as premierJourDuMois,
+} from "@sejour/socle/lib/dates";
 
 /**
  * Calendrier de réservation directe, porté de celui du Mans.
@@ -77,12 +77,12 @@ export default function CalendrierReservation() {
   const charger = useCallback(
     async (force = false) => {
       const cle1 = cleMois(annee, mois);
-      const cle2 = cleMois(mois2.annee, mois2.mois);
+      const cle2 = cleMois(mois2.year, mois2.month);
       if (!force && dispos[cle1] && dispos[cle2]) return;
 
       setChargement(true);
       try {
-        const dernier = joursDuMois(mois2.annee, mois2.mois);
+        const dernier = joursDuMois(mois2.year, mois2.month);
         const res = await fetch(
           `/api/disponibilites?du=${cle1}-01&au=${cle2}-${String(dernier).padStart(2, "0")}`,
           // `no-store` côté navigateur : une disponibilité périmée ferait sélectionner des
@@ -145,8 +145,8 @@ export default function CalendrierReservation() {
   function decaler(n: number) {
     if (n < 0 && !peutReculer) return;
     const m = ajouterMois(annee, mois, n);
-    setAnnee(m.annee);
-    setMois(m.mois);
+    setAnnee(m.year);
+    setMois(m.month);
   }
 
   const estLibre = (jour: string) => dispos[jour.slice(0, 7)]?.[jour] === true;
@@ -249,8 +249,8 @@ export default function CalendrierReservation() {
     HIVERS.some((h) => jour >= h.debut && jour <= h.fin);
 
   const debutFenetre = `${annee}-${String(mois + 1).padStart(2, "0")}-01`;
-  const finFenetre = `${mois2.annee}-${String(mois2.mois + 1).padStart(2, "0")}-${String(
-    joursDuMois(mois2.annee, mois2.mois),
+  const finFenetre = `${mois2.year}-${String(mois2.month + 1).padStart(2, "0")}-${String(
+    joursDuMois(mois2.year, mois2.month),
   ).padStart(2, "0")}`;
   const hiverVisible = HIVERS.find((h) => h.debut <= finFenetre && h.fin >= debutFenetre);
   const periodeVisible = hiverVisible
@@ -282,7 +282,7 @@ export default function CalendrierReservation() {
               {t.calendar.monthNames[mois]} {annee}
             </span>
             <span className="hidden md:inline">
-              {t.calendar.monthNames[mois2.mois]} {mois2.annee}
+              {t.calendar.monthNames[mois2.month]} {mois2.year}
             </span>
           </div>
           <button
@@ -309,8 +309,8 @@ export default function CalendrierReservation() {
           />
           <div className="hidden md:block">
             <Grille
-              annee={mois2.annee}
-              mois={mois2.mois}
+              annee={mois2.year}
+              mois={mois2.month}
               etatDe={etatDe}
               onClic={clic}
               onSurvol={(j) => arrivee && !depart && setSurvol(j)}

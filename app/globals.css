@@ -1,148 +1,42 @@
 @import "tailwindcss";
+@import "@sejour/socle/ui/theme.css";
 
-@theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #16212b;
-  --color-secondary: #5d6b78;
-  --color-border: #dfe4e9;
-  --color-light-bg: #f5f7f9;
+/*
+ * Les valeurs du site. La structure — les noms des tokens, la mise en forme des articles,
+ * `.hide-scrollbar`, le respect de `prefers-reduced-motion` — vient du socle ; ici on ne
+ * pose que ce qui fait l'identité du logement : le bleu alpin, et l'accent de saison.
+ */
+:root {
+  --site-background: #ffffff;
+  --site-foreground: #16212b;
+  --site-secondary: #5d6b78;
+  --site-border: #dfe4e9;
+  --site-light-bg: #f5f7f9;
 
   /* Bleu alpin, constant sur tout le site : c'est l'identité du logement. */
-  --color-primary: #1b4965;
-  --color-primary-dark: #123449;
+  --site-primary: #1b4965;
+  --site-primary-dark: #123449;
 
-  /* Accent piloté par la saison — voir les blocs [data-season] ci-dessous. */
-  --color-accent: var(--season-accent);
-  --color-accent-dark: var(--season-accent-dark);
-  --color-accent-soft: var(--season-accent-soft);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Couleurs du corps des articles du guide. */
+  --site-prose-body: #3a4650;
+  --site-prose-lead: #4a5761;
 }
 
 /*
- * Le thème de saison n'est pas une classe conditionnelle sur chaque élément :
- * on redéfinit trois variables sur un conteneur, et toutes les utilitaires
- * `*-accent` du sous-arbre suivent. Changer de saison = changer un attribut.
+ * Le thème de saison n'est pas une classe conditionnelle sur chaque élément : on redéfinit
+ * l'accent sur un conteneur, et toutes les utilitaires `*-accent` du sous-arbre suivent.
+ * Changer de saison = changer un attribut. C'est aussi la raison d'être du `inline` sur le
+ * `@theme` du socle : sans lui, la valeur serait figée à la compilation.
  */
 :root,
 [data-season="hiver"] {
-  --season-accent: #2c7da0;
-  --season-accent-dark: #1f5f7a;
-  --season-accent-soft: #eaf4f8;
+  --site-accent: #2c7da0;
+  --site-accent-dark: #1f5f7a;
+  --site-accent-soft: #eaf4f8;
 }
 
 [data-season="ete"] {
-  --season-accent: #4f7a3f;
-  --season-accent-dark: #3b5d2f;
-  --season-accent-soft: #eef4ea;
-}
-
-html {
-  color-scheme: light only;
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: #ffffff;
-  color: #16212b;
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-}
-
-[id] {
-  scroll-margin-top: 5rem;
-}
-
-/*
- * Mise en forme du corps des articles du guide.
- *
- * Une classe unique posée sur le conteneur plutôt que des utilitaires sur chaque
- * balise : le contenu des articles est du JSX presque nu (`<h2>`, `<p>`, `<ul>`),
- * ce qui le rend lisible à l'écriture et permet de changer la typographie de tout
- * le guide d'un seul endroit.
- */
-.prose-article {
-  color: #3a4650;
-  line-height: 1.75;
-}
-.prose-article .lead {
-  font-size: 1.0625rem;
-  color: #4a5761;
-  margin-bottom: 2rem;
-}
-.prose-article h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-}
-.prose-article h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #16212b;
-  margin-top: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-.prose-article p {
-  margin-bottom: 1.25rem;
-}
-.prose-article ul,
-.prose-article ol {
-  margin-bottom: 1.25rem;
-  padding-left: 1.5rem;
-}
-.prose-article ul {
-  list-style-type: disc;
-}
-.prose-article ol {
-  list-style-type: decimal;
-}
-.prose-article li {
-  margin-bottom: 0.4rem;
-}
-.prose-article strong {
-  color: #16212b;
-  font-weight: 600;
-}
-.prose-article a {
-  color: var(--color-accent-dark);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.prose-article a:hover {
-  color: var(--color-primary);
-}
-/* Encadré de faits pratiques (adresse, horaires, tarifs) en fin de section. */
-.prose-article .facts {
-  margin: 1.75rem 0;
-  border-left: 3px solid var(--color-accent);
-  background: var(--color-light-bg);
-  border-radius: 0 0.75rem 0.75rem 0;
-  padding: 1rem 1.25rem;
-  font-size: 0.9375rem;
-}
-.prose-article .facts p:last-child,
-.prose-article .facts ul:last-child {
-  margin-bottom: 0;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+  --site-accent: #4f7a3f;
+  --site-accent-dark: #3b5d2f;
+  --site-accent-soft: #eef4ea;
 }

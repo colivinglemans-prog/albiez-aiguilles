@@ -13,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import type { RevenueChartData } from "@/lib/dashboard-types";
-import { COULEUR_CANAL } from "@/lib/canal";
+import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
 
 /**
  * Revenus mensuels, en deux lectures.

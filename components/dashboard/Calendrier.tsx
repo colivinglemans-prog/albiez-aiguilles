@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { bandesPeriodes, type BandePeriode, type Periode } from "@/lib/periodes";
+import { bandesPeriodes, type BandePeriode, type Periode } from "@sejour/socle/lib/periodes";
 import type { BandeauSaison } from "@/lib/seasons";
 import type { Sejour } from "@/lib/dashboard-types";
-import { COULEUR_CANAL } from "@/lib/canal";
+import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
 
 const MOIS = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",

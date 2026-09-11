@@ -55,3 +55,7 @@ next-env.d.ts
 /data/archive-albiez.json
 /data/archive-albiez.env.txt
 # data/vacances-scolaires.json est au contraire VERSIONNE : donnee publique du ministere.
+
+# Les definitions d agents sont synchronisees depuis le depot socle,
+# qui en est la source de verite. Les versionner ici les ferait diverger.
+/.claude/agents/

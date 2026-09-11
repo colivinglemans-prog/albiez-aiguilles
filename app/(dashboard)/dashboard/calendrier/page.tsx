@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { Periode } from "@/lib/periodes";
+import type { Periode } from "@sejour/socle/lib/periodes";
 import type { BandeauSaison } from "@/lib/seasons";
 import type { Sejour } from "@/lib/dashboard-types";
 import Calendrier from "@/components/dashboard/Calendrier";

@@ -11,7 +11,13 @@
  * fabriquer des données.
  */
 
-export type Canal = "Airbnb" | "Booking.com" | "Abritel" | "Direct";
+import type { Channel } from "@sejour/socle/lib/channels";
+
+/**
+ * Le canal de distribution est défini par le socle (`Channel`). L'alias français reste le
+ * nom utilisé dans tout le dashboard, dont le vocabulaire est français de bout en bout.
+ */
+export type Canal = Channel;
 
 export interface Sejour {
   /** Identifiant du canal : code de confirmation, numéro de réservation, id Stripe. */

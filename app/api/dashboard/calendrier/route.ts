@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { Sejour } from "@/lib/dashboard-types";
 import { fusionner, sejoursArchives } from "@/lib/archive";
 import { sejoursBeds24 } from "@/lib/beds24";
-import { PERIODES } from "@/lib/periodes";
+import { PERIODES } from "@sejour/socle/lib/periodes";
 import { saisonsEntre } from "@/lib/seasons";
 import { ajouterJours, aujourdhui } from "@/lib/stats";
 import { COOKIE_NAME, roleDuToken } from "@/lib/auth";

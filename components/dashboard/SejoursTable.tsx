@@ -1,5 +1,5 @@
 import type { SejourAffiche } from "@/lib/dashboard-types";
-import { COULEUR_CANAL } from "@/lib/canal";
+import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
 
 const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
 const jourCourt = (iso: string) =>

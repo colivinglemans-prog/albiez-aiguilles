@@ -132,7 +132,7 @@ soit le sync type) et le moteur de réservation direct.
 à partir des vacances scolaires, ni un test sur le jour de la semaine : Beds24 fait foi, et
 une seconde définition divergerait dès la première exception — une semaine rouverte en
 janvier, un samedi fermé pour travaux. Un script a existé une demi-journée qui calculait ces
-dates depuis `data/vacances-scolaires.json` et les écrivait par l'API : **supprimé le
+dates depuis les vacances scolaires du socle et les écrivait par l'API : **supprimé le
 2026-09-01**, le jour même où les dates réellement posées s'en sont écartées. Ne pas le
 réintroduire.
 
@@ -682,7 +682,7 @@ est le cas courant en pleine saison.
 
 **Une seule bande de vacances à la fois.** Peindre une barre par ligne de données donnait
 quatre barres empilées la semaine de Noël — « Noël », « Noël A », « Noël B », « Noël C » —
-pour une seule information : tout le monde est en vacances. `bandesPeriodes` (`lib/periodes.ts`)
+pour une seule information : tout le monde est en vacances. `bandesPeriodes` (`@sejour/socle/lib/periodes`)
 parcourt donc le mois jour par jour, fusionne les zones d'une même période dans le libellé, et
 ne coupe que là où la composition change. C'est justement ce découpage qui porte l'information,
 puisque le nombre de zones en vacances mesure la pression sur la demande :
@@ -1021,8 +1021,10 @@ La saison n'est pas un état client mais une **donnée de route**. Trois pièces
    `FEATURED_SEASON_OVERRIDE` force la saison quand la réalité commerciale ne suit
    pas le calendrier (saison complète en avance, ouverture décalée).
 2. L'attribut `data-season` posé sur le conteneur de page.
-3. Trois variables CSS (`--season-accent*`) redéfinies par `[data-season]` dans
-   `app/globals.css`. Toutes les utilitaires `*-accent` du sous-arbre suivent.
+3. Trois variables CSS (`--site-accent*`) redéfinies par `[data-season]` dans
+   `app/globals.css`. Toutes les utilitaires `*-accent` du sous-arbre suivent — c'est
+   `@sejour/socle/ui/theme.css` qui les mappe, en `@theme inline` pour que la valeur
+   reste un `var()` et non une couleur figée à la compilation.
 
 Conséquence : changer la couleur d'une saison = éditer un bloc CSS, pas les composants.
 Le header et le footer restent en bleu alpin (`primary`), volontairement hors saison.
@@ -1198,7 +1200,7 @@ Mollard, refuge, activités d'été. Soit 85 pages d'article.
 | `components/public/GuideFilter.tsx` | Filtre de saison + grille de cartes (composant **client**). |
 | `app/[locale]/guide/[slug]/page.tsx` | Article + JSON-LD + encart de réservation + « À lire aussi ». |
 | `lib/blog/ArticleImage.tsx` | Photo au fil d'un article (`<ArticleImage src="dossier/fichier.jpg" alt caption />`). Même traitement que les couvertures : dimensions relevées au build, aucun recadrage, figure absente si le fichier manque. |
-| `.prose-article` (`app/globals.css`) | Toute la typographie du corps d'article, plus la classe `.facts` des encadrés pratiques. |
+| `.prose-article` (`@sejour/socle/ui/theme.css`) | Toute la typographie du corps d'article, plus la classe `.facts` des encadrés pratiques. Les couleurs viennent des `--site-prose-*` posés dans `app/globals.css`. |
 
 **Le slug est commun aux cinq langues**, contrairement aux slugs de saison : un article
 n'existe qu'à une seule adresse par langue, et les cinq se déclarent mutuellement en

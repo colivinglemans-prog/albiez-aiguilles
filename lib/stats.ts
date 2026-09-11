@@ -7,7 +7,7 @@ import type {
   RevenueChartData,
   Sejour,
 } from "@/lib/dashboard-types";
-import { CANAUX } from "@/lib/canal";
+import { CHANNELS as CANAUX } from "@sejour/socle/lib/channels";
 
 /**
  * Calculs du dashboard.

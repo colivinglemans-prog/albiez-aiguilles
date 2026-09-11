@@ -1,5 +1,5 @@
 import type { Sejour } from "@/lib/dashboard-types";
-import { normaliserCanal } from "@/lib/canal";
+import { normalizeChannel as normaliserCanal } from "@sejour/socle/lib/channels";
 
 /**
  * Client Beds24 v2 pour Albiez.
