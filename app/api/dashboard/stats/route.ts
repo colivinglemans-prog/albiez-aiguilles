@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { guard } from "@/lib/auth";
 import type { ModeRevenu, Sejour, StatsDashboard } from "@/lib/dashboard-types";
 import { fusionner, origineArchive, recettesArchivees, sejoursArchives } from "@/lib/archive";
 import { prixParNuit, sejoursBeds24 } from "@/lib/beds24";
@@ -42,7 +43,19 @@ function bornes(periode: string, premierSejour: string | null): { du: string; au
   }
 }
 
+/**
+ * Le payload le plus précieux du dashboard : `revenuTotal`, `revenuNet`, les commissions par
+ * canal, le TJM, la comparaison pluriannuelle.
+ *
+ * **Admin uniquement, vérifié ici.** Sa seule protection était `proxy.ts`, et l'histoire de
+ * ce fichier dit pourquoi ça ne suffit pas : `/api/dashboard/:path*` a manqué au matcher
+ * jusqu'au 2026-08-31, et cette route a répondu 200 à n'importe qui pendant tout ce temps.
+ * Un matcher est une liste, une liste s'oublie — et rien dans le code ne le signale.
+ */
 export async function GET(request: NextRequest) {
+  const refus = await guard.denyNonAdmin(request);
+  if (refus) return refus;
+
   const params = request.nextUrl.searchParams;
   const mode = (params.get("mode") ?? "reparti") as ModeRevenu;
   const periode = params.get("periode") ?? "toute";

@@ -64,7 +64,7 @@ export interface Sejour {
   /**
    * Note interne, stockée dans le champ `notes` de Beds24 — et non `comments`, qui est la
    * remarque du voyageur et s'imprime sur les factures. Visible en lecture par le rôle
-   * `menage` : c'est là qu'on écrit « changer les draps du canapé ».
+   * `viewer` : c'est là qu'on écrit « changer les draps du canapé ».
    */
   notes?: string;
   /**

@@ -146,7 +146,7 @@ function infobulleBande(bande: BandePeriode): string {
 /**
  * Note interne d'une réservation.
  *
- * Lecture seule pour le rôle `menage` — la note est écrite *pour* lui, pas *par* lui — et
+ * Lecture seule pour le rôle `viewer` — la note est écrite *pour* lui, pas *par* lui — et
  * éditable par l'administrateur. Un séjour archivé n'a pas d'identifiant Beds24 : il n'est
  * pas annotable, et on le dit plutôt que d'afficher un champ qui échouerait à l'envoi.
  */
@@ -250,7 +250,7 @@ export default function Calendrier({
   periodes,
   saisons,
   onMois,
-  menage = false,
+  viewer = false,
 }: {
   mois: string;
   sejours: Sejour[];
@@ -261,7 +261,7 @@ export default function Calendrier({
    * Vue ménage : pas de montants, pas de canaux. Les montants sont déjà absents de la réponse
    * d'API pour ce rôle ; ce drapeau ne fait qu'adapter l'affichage.
    */
-  menage?: boolean;
+  viewer?: boolean;
 }) {
   const [popup, setPopup] = useState<{ sejour: Sejour; haut: number; gauche: number } | null>(null);
   const conteneur = useRef<HTMLDivElement>(null);
@@ -295,8 +295,8 @@ export default function Calendrier({
         const finitDansLeMois = s.depart <= dernier;
         return {
           source: s,
-          couleur: menage ? "#64748b" : COULEUR_CANAL[s.canal],
-          libelle: menage
+          couleur: viewer ? "#64748b" : COULEUR_CANAL[s.canal],
+          libelle: viewer
             ? `${s.nuits} n${s.voyageurs != null ? ` · ${s.voyageurs} voy.` : ""}`
             : `${s.canal} · ${s.nuits} n${s.voyageurs != null ? ` · ${s.voyageurs} voy.` : ""}`,
           debutJour: commenceDansLeMois ? Number(s.arrivee.slice(8, 10)) : 1,
@@ -306,7 +306,7 @@ export default function Calendrier({
         };
       });
     return placer(barres, decalage, true);
-  }, [sejours, premier, dernier, nbJours, decalage, menage]);
+  }, [sejours, premier, dernier, nbJours, decalage, viewer]);
 
   /** La note la plus fraîche : celle qu'on vient d'écrire l'emporte sur celle du chargement. */
   const noteDe = (s: Sejour) =>
@@ -529,7 +529,7 @@ export default function Calendrier({
                               backgroundColor: b.couleur,
                             }}
                             title={
-                              menage
+                              viewer
                                 ? `${b.source.arrivee} → ${b.source.depart}`
                                 : `${b.source.canal} · ${b.source.arrivee} → ${b.source.depart} · ${euros(b.source.net)}`
                             }
@@ -583,7 +583,7 @@ export default function Calendrier({
           <span aria-hidden>📝</span>
           Consigne sur le séjour
         </span>
-        {menage ? (
+        {viewer ? (
           <span className="flex items-center gap-1.5">
             <span className="inline-block h-3 w-6 rounded-full bg-slate-500" />
             Logement occupé
@@ -610,10 +610,10 @@ export default function Calendrier({
           <div className="flex items-center gap-2">
             <span
               className="inline-block h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: menage ? "#64748b" : COULEUR_CANAL[popup.sejour.canal] }}
+              style={{ backgroundColor: viewer ? "#64748b" : COULEUR_CANAL[popup.sejour.canal] }}
             />
             <p className="font-semibold text-slate-900">
-              {menage ? "Séjour" : popup.sejour.canal}
+              {viewer ? "Séjour" : popup.sejour.canal}
             </p>
           </div>
           <dl className="mt-2.5 space-y-1 text-xs">
@@ -635,7 +635,7 @@ export default function Calendrier({
                 )}
               </dd>
             </div>
-            {!menage && (
+            {!viewer && (
               <>
                 <div className="flex justify-between gap-3">
                   <dt className="text-slate-500">Net</dt>
@@ -682,7 +682,7 @@ export default function Calendrier({
             * Le montant s'affiche ici parce que c'est l'endroit où l'on ouvre une réservation
             * pour agir dessus — la correction se fait à la main dans Beds24.
             */}
-          {!menage && popup.sejour.surcollecteTaxe && (
+          {!viewer && popup.sejour.surcollecteTaxe && (
             <div className="mt-3 rounded-md bg-amber-50 px-2.5 py-2 text-xs text-amber-900">
               <p className="font-semibold">Taxe de séjour à corriger</p>
               <p className="mt-1">
@@ -699,7 +699,7 @@ export default function Calendrier({
           <Notes
             sejour={popup.sejour}
             valeur={noteDe(popup.sejour)}
-            lectureSeule={menage}
+            lectureSeule={viewer}
             onEnregistre={(texte) =>
               setNotesLocales((n) => ({ ...n, [popup.sejour.idBeds24!]: texte }))
             }

@@ -1,72 +1,55 @@
-import { SignJWT, jwtVerify } from "jose";
-import { cookies } from "next/headers";
+import { createAuth } from "@sejour/socle/lib/auth";
+import { createRouteGuard } from "@sejour/socle/lib/auth-guard";
 
 /**
- * Authentification du dashboard, reprise telle quelle de Barbusse : un mot de passe unique
- * en variable d'environnement, un JWT signé HS256 posé en cookie httpOnly. Pas de base de
- * données — le dashboard n'a qu'un seul utilisateur.
+ * Authentification du dashboard — configuration locale du mécanisme du socle.
+ *
+ * Le JWT, le cookie, le repli de rôle et la résolution des mots de passe nommés vivent dans
+ * `@sejour/socle/lib/auth`. Ne restent ici que les valeurs propres à ce site.
+ *
+ * ⚠️ **Ce module ne doit jamais importer `next/headers`** : `proxy.ts` s'en sert et tourne en
+ * runtime edge. La pose et le retrait du cookie sont dans `@sejour/socle/lib/auth-cookie`,
+ * importés directement par les deux routes de connexion/déconnexion, qui tournent en Node.
  */
-const COOKIE_NAME = "dashboard_token";
 
 /**
  * Deux rôles, deux usages qui n'ont rien à voir.
  *
- * `admin` voit tout. `menage` n'a accès qu'au calendrier, **sans aucun montant** : la
- * personne qui fait le ménage a besoin de savoir quand la maison se libère et quand elle se
+ * `admin` voit tout. `viewer` n'a accès qu'au calendrier, **sans aucun montant** : la
+ * personne qui fait le ménage a besoin de savoir quand le logement se libère et quand il se
  * remplit, pas de ce que rapporte un séjour.
+ *
+ * Anciennement `menage`, renommé le 2026-09-11 pour s'aligner sur Barbusse : le rôle ne se
+ * réduit plus au ménage — c'est un accès en lecture, qui pilote aussi le chauffage là-bas.
  */
-export type Role = "admin" | "menage";
+export type Role = "admin" | "viewer";
 
-function getSecret() {
-  const secret = process.env.DASHBOARD_SECRET;
-  if (!secret) throw new Error("DASHBOARD_SECRET n'est pas défini");
-  return new TextEncoder().encode(secret);
-}
+export const auth = createAuth<Role>({
+  adminRole: "admin",
+  restrictedRole: "viewer",
+  // En cas de doute, le moins de droits possible. C'est le comportement historique d'ici,
+  // retenu contre celui de Barbusse, qui retombait sur `admin`.
+  fallbackRole: "viewer",
+  roles: ["admin", "viewer"],
+  /*
+   * ⚠️ **Les deux préfixes sont acceptés, et c'est délibéré.**
+   *
+   * Les variables de production s'appellent encore `DASHBOARD_PASSWORD_MENAGE*` sur Vercel.
+   * Leur valeur y est un `Secret` illisible après coup : un renommage raté couperait l'accès
+   * de la personne qui fait le ménage sans moyen de le rétablir. Le code passe donc à
+   * `viewer` sans attendre les variables, et la bascule des noms côté Vercel pourra se faire
+   * plus tard, à froid, sans coupure — les deux formes marchant en même temps.
+   */
+  restrictedPasswordPrefixes: ["DASHBOARD_PASSWORD_MENAGE", "DASHBOARD_PASSWORD_VIEWER"],
+});
 
-export async function createToken(role: Role = "admin"): Promise<string> {
-  return new SignJWT({ role })
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("90d")
-    .sign(getSecret());
-}
+/** Contrôle de rôle dans un handler de route : la deuxième porte, après le proxy. */
+export const guard = createRouteGuard(auth);
 
-export async function verifyToken(token: string): Promise<boolean> {
-  try {
-    await jwtVerify(token, getSecret());
-    return true;
-  } catch {
-    return false;
-  }
-}
+export const COOKIE_NAME = auth.cookieName;
 
-/**
- * Rôle porté par le jeton. Un jeton illisible retombe sur `menage` et non sur `admin` :
- * en cas de doute, le moins de droits possible.
- */
-export async function roleDuToken(token: string): Promise<Role> {
-  try {
-    const { payload } = await jwtVerify(token, getSecret());
-    return payload.role === "admin" ? "admin" : "menage";
-  } catch {
-    return "menage";
-  }
-}
+export const createToken = auth.createToken;
+export const verifyToken = auth.verifyToken;
 
-export async function setAuthCookie(token: string) {
-  const cookieStore = await cookies();
-  cookieStore.set(COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 90,
-    path: "/",
-  });
-}
-
-export async function removeAuthCookie() {
-  const cookieStore = await cookies();
-  cookieStore.delete(COOKIE_NAME);
-}
-
-export { COOKIE_NAME };
+/** Conservé sous son nom d'origine : ses appelants le connaissent ainsi. */
+export const roleDuToken = auth.roleFromToken;

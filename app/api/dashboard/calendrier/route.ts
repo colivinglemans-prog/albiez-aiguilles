@@ -33,39 +33,61 @@ export async function GET(request: NextRequest) {
     // immédiatement plutôt qu'au bout d'une minute.
     live = await sejoursBeds24({ arriveeDu: du, arriveeAu: au, frais: true });
   } catch (e) {
-    beds24Erreur = e instanceof Error ? e.message : String(e);
+    // Le détail reste dans les logs. Il est construit avec le chemin interne appelé et
+    // 200 caractères de la réponse de Beds24 (`lib/beds24.ts`), qui peuvent porter des
+    // indices sur la configuration du compte — et il partait tel quel jusqu'au rôle
+    // restreint. C'est déjà ce que fait la route publique `/api/disponibilites`.
+    console.error("Beds24 injoignable pour le calendrier :", e instanceof Error ? e.message : String(e));
+    beds24Erreur = "Beds24 momentanément injoignable";
   }
 
   const role = await roleDuToken(request.cookies.get(COOKIE_NAME)?.value ?? "");
   const tous = fusionner(live, archives).filter((s) => s.depart >= du && s.arrivee <= au);
 
   /**
-   * Pour le rôle `menage`, les montants sont retirés **de la réponse**, pas seulement de
+   * Pour le rôle `viewer`, les montants sont retirés **de la réponse**, pas seulement de
    * l'affichage. Masquer côté client laisserait les chiffres dans le navigateur, à un
    * clic-droit « inspecter » de distance.
    *
    * Le canal disparaît aussi : savoir qu'un séjour vient d'Airbnb ou de Booking n'aide en
    * rien à faire le ménage, et c'est une information commerciale.
    */
-  const sejours =
-    role === "menage"
-      ? tous.map((s) => ({
-          ref: s.ref,
-          canal: "Direct" as const,
-          arrivee: s.arrivee,
-          depart: s.depart,
-          nuits: s.nuits,
-          brut: 0,
-          net: 0,
-          commission: 0,
-          source: s.source,
-          // Les notes restent : elles sont écrites POUR la personne qui fait le ménage.
-          // C'est le seul champ qu'elle a besoin de lire au-delà des dates.
-          notes: s.notes,
-          idBeds24: s.idBeds24,
-          // Le nombre de voyageurs reste : c'est le nombre de lits à faire.
-          voyageurs: s.voyageurs,
-        }))
+  const sejours: Sejour[] =
+    role === "viewer"
+      ? tous.map(
+          (s, i) =>
+            ({
+              /*
+               * Identifiant **synthétique**, et non `s.ref`.
+               *
+               * Sur une réservation vivante, `ref` vaut `apiReference` : le code de
+               * confirmation du canal. Un `HM…` dit « Airbnb » à qui sait lire, alors que la
+               * projection force `canal: "Direct"` juste en dessous — la liste blanche
+               * masquait le canal et la référence le dénonçait. Il ne sert ici que de clé
+               * React, une clé stable d'un rendu à l'autre suffit donc.
+               */
+              ref: `sejour-${s.arrivee}-${s.depart}-${i}`,
+              canal: "Direct" as const,
+              arrivee: s.arrivee,
+              depart: s.depart,
+              nuits: s.nuits,
+              brut: 0,
+              net: 0,
+              commission: 0,
+              source: s.source,
+              // Les notes restent : elles sont écrites POUR la personne qui fait le ménage.
+              // C'est le seul champ qu'elle a besoin de lire au-delà des dates.
+              notes: s.notes,
+              idBeds24: s.idBeds24,
+              // Le nombre de voyageurs reste : c'est le nombre de lits à faire.
+              voyageurs: s.voyageurs,
+              /*
+               * `satisfies Sejour` et non un simple objet : la forme réduite n'était
+               * contrainte par rien. Un champ ajouté à `Sejour` demain — sensible ou non —
+               * ne serait pas signalé ici, et un champ recopié par mégarde non plus.
+               */
+            }) satisfies Sejour,
+        )
       : tous;
 
   return NextResponse.json({

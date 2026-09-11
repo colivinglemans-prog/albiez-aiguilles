@@ -9,7 +9,7 @@ import DashboardNav from "@/components/dashboard/DashboardNav";
 
 interface Reponse {
   mois: string;
-  role: "admin" | "menage";
+  role: "admin" | "viewer";
   sejours: Sejour[];
   periodes: Periode[];
   saisons: BandeauSaison[];
@@ -44,7 +44,7 @@ export default function CalendrierPage() {
 
       <h1 className="text-2xl font-bold text-slate-900">Calendrier</h1>
       <p className="mb-6 mt-0.5 text-sm text-slate-500">
-        {data?.role === "menage"
+        {data?.role === "viewer"
           ? "Saison de la station en fond, vacances scolaires par zone, séjours en gris. Un séjour marqué 📝 porte une consigne — kit draps et serviettes, heure d'arrivée… — à lire en cliquant dessus."
           : "Saison de la station en fond, vacances scolaires par zone, séjours par canal. Cliquez sur un séjour pour y laisser une consigne de ménage — kit draps et serviettes, heure d'arrivée… — qui le marquera d'un 📝."}
       </p>
@@ -67,7 +67,7 @@ export default function CalendrierPage() {
           periodes={data.periodes}
           saisons={data.saisons}
           onMois={setMois}
-          menage={data.role === "menage"}
+          viewer={data.role === "viewer"}
         />
       )}
     </div>

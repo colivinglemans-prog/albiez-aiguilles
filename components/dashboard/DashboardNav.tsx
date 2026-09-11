@@ -11,9 +11,9 @@ const LIENS = [
 /**
  * `role` arrive de la réponse d'API et peut manquer au premier rendu : on affiche alors la
  * navigation complète le temps du chargement. Ce n'est pas une faille — le proxy refuse déjà
- * l'accès aux pages interdites, et l'API ne renvoie pas les montants au rôle `menage`.
+ * l'accès aux pages interdites, et l'API ne renvoie pas les montants au rôle `viewer`.
  */
-export default function DashboardNav({ role }: { role?: "admin" | "menage" }) {
+export default function DashboardNav({ role }: { role?: "admin" | "viewer" }) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -26,7 +26,7 @@ export default function DashboardNav({ role }: { role?: "admin" | "menage" }) {
   return (
     <nav className="mb-6 flex items-center justify-between gap-4">
       <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
-        {LIENS.filter((l) => !l.adminSeul || role !== "menage").map((l) => (
+        {LIENS.filter((l) => !l.adminSeul || role !== "viewer").map((l) => (
           <Link
             key={l.href}
             href={l.href}

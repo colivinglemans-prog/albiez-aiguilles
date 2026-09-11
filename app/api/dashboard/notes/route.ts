@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { COOKIE_NAME, roleDuToken } from "@/lib/auth";
+import { guard } from "@/lib/auth";
 import { ecrireNotes } from "@/lib/beds24";
 
 /**
  * Écriture d'une note interne sur une réservation.
  *
- * **Admin uniquement.** Le rôle `menage` lit les notes — elles sont écrites pour lui — mais
+ * **Admin uniquement.** Le rôle `viewer` lit les notes — elles sont écrites pour lui — mais
  * ne les modifie pas. Le contrôle est ici et pas seulement dans l'interface : un bouton
  * masqué n'empêche personne d'appeler la route à la main.
  *
@@ -13,9 +13,8 @@ import { ecrireNotes } from "@/lib/beds24";
  * `notes` de Beds24, et un séjour archivé n'y existe plus.
  */
 export async function POST(request: NextRequest) {
-  if ((await roleDuToken(request.cookies.get(COOKIE_NAME)?.value ?? "")) !== "admin") {
-    return NextResponse.json({ erreur: "Réservé à l'administrateur" }, { status: 403 });
-  }
+  const refus = await guard.denyNonAdmin(request);
+  if (refus) return refus;
 
   const { id, notes } = (await request.json().catch(() => ({}))) as {
     id?: number;

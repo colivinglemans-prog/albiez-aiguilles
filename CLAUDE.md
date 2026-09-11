@@ -570,8 +570,10 @@ c'est ce qui explique le 409 € qu'on croyait figé alors que le total annonça
 ## Dashboard privé (`/dashboard`)
 
 Espace interne, **hors de `[locale]`** : en français seulement, jamais indexé. Deux pages —
-statistiques et calendrier — protégées par un mot de passe unique et un JWT en cookie
-(`lib/auth.ts`, repris de Barbusse).
+statistiques et calendrier — protégées par un mot de passe unique et un JWT en cookie.
+La mécanique vit désormais dans `@sejour/socle/lib/auth` (voir sa CLAUDE.md, section
+« Lot 1 ») ; `lib/auth.ts` n'en garde que la configuration : les rôles, le repli et les
+préfixes de mots de passe.
 
 ### Deux layouts racines
 
@@ -616,7 +618,7 @@ collecté rapporté à la part des adultes. Vérifié : 24,50 € pour 4 adultes
 chemin indépendant.
 
 L'écart s'affiche dans la fiche d'un séjour, sur le calendrier du dashboard : c'est l'endroit
-où l'on ouvre une réservation pour agir dessus. Jamais pour le rôle `menage`.
+où l'on ouvre une réservation pour agir dessus. Jamais pour le rôle `viewer`.
 
 Deux points de fragilité, assumés :
 
@@ -755,21 +757,49 @@ La semaine du Jour de l'An tombe en plein dans les vacances de Noël : elle en h
 vacances, tous deux en filet). Le libellé compact ne dit pas de quelles périodes il est fait, donc le détail (nom
 complet, zone, dates réelles, une ligne par période) se lit dans l'infobulle au survol.
 
-### Deux rôles : `admin` et `menage`
+### Deux rôles : `admin` et `viewer`
 
-| | `admin` | `menage` |
+**`menage` s'appelle `viewer` depuis le 2026-09-11.** Le rôle ne se réduit plus au ménage —
+c'est un accès en lecture, et Barbusse lui fait aussi piloter le chauffage. Le renommage rend
+le socle commun aux deux sites.
+
+| | `admin` | `viewer` |
 |---|---|---|
-| Statistiques | oui | **redirigé vers le calendrier** |
+| Statistiques | oui | **403 — vérifié deux fois** (proxy + route) |
 | Montants et canaux | oui | **absents de la réponse d'API**, pas seulement de l'écran |
 | Consignes de ménage | écriture | **lecture** |
 
 Les mots de passe : `DASHBOARD_PASSWORD` pour l'admin, et **toute** variable commençant par
-`DASHBOARD_PASSWORD_MENAGE` pour le ménage — ce qui permet d'en donner un par personne
-(`DASHBOARD_PASSWORD_MENAGE_Sylvie`) et d'en révoquer un sans changer celui des autres.
+`DASHBOARD_PASSWORD_MENAGE` — ou `DASHBOARD_PASSWORD_VIEWER` — pour le rôle restreint, ce qui
+permet d'en donner un par personne (`DASHBOARD_PASSWORD_MENAGE_Sylvie`) et d'en révoquer un
+sans changer celui des autres.
+
+⚠️ **Les deux préfixes sont acceptés, et les variables Vercel n'ont pas été renommées.**
+Leur valeur de production est un `Secret` illisible après coup : un renommage raté couperait
+l'accès de la personne du ménage sans moyen de le rétablir. Le code est passé à `viewer` sans
+attendre ; la bascule des noms pourra se faire à froid, les deux formes marchant en même temps.
 
 ⚠️ Le filtrage est fait **côté serveur** : le proxy bloque les pages, et
 `/api/dashboard/calendrier` remet les montants à zéro avant d'envoyer. Masquer côté client
 laisserait les chiffres dans le navigateur.
+
+Trois détails de la projection `viewer`, chacun pour une raison précise :
+
+- **`ref` est synthétique** (`sejour-<arrivee>-<depart>-<i>`). Sur une réservation vivante,
+  `ref` vaut `apiReference` : le code de confirmation du canal. Un `HM…` dit « Airbnb » à qui
+  sait lire, alors que la projection force `canal: "Direct"` — la liste blanche masquait le
+  canal et la référence le dénonçait. Il ne sert que de clé React.
+- **`satisfies Sejour`** sur le littéral : la forme réduite n'était contrainte par rien, un
+  champ ajouté à `Sejour` demain ne serait pas signalé.
+- **`beds24Erreur` est générique** (« Beds24 momentanément injoignable »). Le message d'origine
+  porte le chemin interne appelé et 200 caractères de la réponse Beds24 ; il reste dans les
+  logs serveur, comme le fait déjà `/api/disponibilites`.
+
+**`/api/dashboard/stats` se défend elle-même.** Elle n'avait aucun contrôle de rôle et sa seule
+protection était `proxy.ts` — or ce même matcher a manqué `/api/dashboard/:path*` jusqu'au
+2026-08-31, et cette route a répondu 200 à n'importe qui pendant tout ce temps. Le payload le
+plus précieux du dashboard ne doit pas dépendre d'un seul point. Vérifié en retirant l'entrée
+du matcher : 403 en `viewer`, 401 en anonyme.
 
 ### Nombre de voyageurs
 
@@ -863,7 +893,7 @@ saison ». Trois décisions qui ont demandé un aller-retour :
 | `CRON_SECRET` | Porte du cron keepalive. Sa seule protection : la route n'est pas couverte par le matcher de `proxy.ts`. |
 | `HISTORIQUE_ALBIEZ` | Archive des quatre canaux, forme compacte produite par `build-archive.mjs`. |
 | `DASHBOARD_PASSWORD` | Mot de passe administrateur. |
-| `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne du ménage. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. |
+| `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne, rôle `viewer`. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. `DASHBOARD_PASSWORD_VIEWER_*` est accepté aussi : le code a changé de nom, pas les variables. |
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
 
 **Les quatre premières sont posées dans les trois environnements** depuis le 2026-09-11. Les
@@ -947,7 +977,8 @@ contenu sans équivalent « naturel » d'une langue à l'autre ne rapporterait r
 
 ### Négociation de la langue et `<html lang>`
 
-`proxy.ts` à la racine (nom de Next 16, `middleware.ts` étant déprécié) ne traite que `/` :
+`proxy.ts` à la racine (nom de Next 16, `middleware.ts` étant déprécié) configure
+`createDashboardProxy` du socle. Pour la langue, il ne traite que `/` :
 il lit `Accept-Language`, trie les tags par poids `q=`, retient le premier que le site
 parle **sur la langue de base** (`de-AT` → `/de`) et retombe sur `DEFAULT_LOCALE`. Le reste
 du site étant déjà préfixé et rendu statiquement, le faire passer par le proxy coûterait
