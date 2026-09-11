@@ -356,15 +356,45 @@ chevauchaient deux autres séjours. Une **annulation** dont seuls des frais ont 
 les dates ont été relouées. Le montant est conservé, les nuits ne sont plus comptées — sans
 quoi 2026 affichait 8 nuits vendues qui n'existent pas.
 
-## Beds24 — deux tokens, et le piège de l'invite code
+## Beds24 — trois tokens, et le piège de l'invite code
 
-| Variable | Nature | Scopes | Sert à |
+Un jeton par **chemin**, pas par verbe. Rotation complète le 2026-09-11 : l'ancien jeton
+unique portait dix scopes, dont `write:bookings-personal`, `write:bookings-financial` et
+`read:channels` que rien n'utilisait.
+
+| Variable | `deviceName` | Scopes | Sert à |
 |---|---|---|---|
-| `BEDS24_REFRESH_TOKEN` | refresh token | lecture + `write:bookings` | Dashboard, consignes de ménage |
-| `BEDS24_PUBLIC_REFRESH_TOKEN` | refresh token | `read:inventory`, `read:properties` | **Uniquement** `/api/disponibilites` |
+| `BEDS24_PUBLIC_REFRESH_TOKEN` | `albiez-public-2026-09` | `read:inventory`, `read:properties` | `/api/disponibilites`, vitrine |
+| `BEDS24_READ_REFRESH_TOKEN` | `albiez-lecture-2026-09` | + `read:bookings`, `read:bookings-financial` | dashboard |
+| `BEDS24_REFRESH_TOKEN` | `albiez-ecriture-2026-09` | `read:bookings`, `write:bookings` | consignes de ménage |
 
-`deviceName` respectifs : `albiez-aiguilles-site` et `albiez-site-public`. Ils apparaissent
-dans *Beds24 → Settings → Apps & Integrations → API → Refresh Tokens*.
+Les trois sont des **refresh tokens**, aucun long life. Vérifié contre l'API, pas supposé : le
+jeton public reçoit `401` sur `/bookings`, celui d'écriture ne voit ni `price`, ni
+`commission`, ni `invoiceItems`.
+
+**Aucun `read:bookings-personal`** — ce site ne lit aucun nom ni contact, le type `Sejour` n'a
+pas de champ pour ça. C'est ce qui le distingue de Barbusse, qui en a besoin pour ses factures.
+
+Les deux scopes d'inventaire sur le jeton de lecture ne sont pas un oubli : ils font vivre le
+repli du chemin public. **Ce repli va vers la lecture, jamais vers l'écriture** — le point
+d'entrée le plus exposé du site ne doit à aucun moment, même dégradé, tenir un jeton capable
+d'écrire.
+
+### Le cron keepalive
+
+`/api/cron/beds24-keepalive`, en-tête `Authorization: Bearer $CRON_SECRET`, planifié
+**hebdomadairement sur cron-job.org**. Il force l'échange des trois refresh tokens hors cache.
+
+Beds24 invalide un refresh token inutilisé depuis 30 jours, et aucun des trois ne s'entretient
+seul : l'écriture ne sert qu'aux consignes de ménage, le dashboard n'est ouvert que par
+intermittence, le trafic de la vitrine est encore faible. Le site a perdu ses disponibilités le
+2026-09-11 pendant une rotation — symptôme : un calendrier qui affiche « aucune disponibilité »
+sans que rien d'autre ne paraisse cassé.
+
+Deux des trois morts seraient **silencieuses** : le repli prendrait le relais et le tunnel
+continuerait de fonctionner en ayant reperdu la séparation des privilèges. Pas d'alerte e-mail
+ici — ce site n'a pas de service d'envoi, la route renvoie 500 et c'est la notification d'échec
+de cron-job.org qui prévient.
 
 ⚠️ **Un invite code n'est pas un refresh token**, et la confusion coûte cher — elle a brûlé
 trois codes le 2026-08-31. Présenté à `/authentication/token` avec l'en-tête `refreshToken:`,
@@ -826,16 +856,29 @@ saison ». Trois décisions qui ont demandé un aller-retour :
 
 | Variable | Rôle |
 |----------|------|
-| `BEDS24_REFRESH_TOKEN` | Échangé contre un access token de 24 h. Voir la section Beds24. |
+| `BEDS24_PUBLIC_REFRESH_TOKEN` | Chemin public. Voir la section Beds24. |
+| `BEDS24_READ_REFRESH_TOKEN` | Lectures du dashboard. Voir la section Beds24. |
+| `BEDS24_REFRESH_TOKEN` | Écriture des consignes de ménage. Voir la section Beds24. |
 | `BEDS24_PROPERTY_ID` | Propriété `346417`, jamais en dur. |
+| `CRON_SECRET` | Porte du cron keepalive. Sa seule protection : la route n'est pas couverte par le matcher de `proxy.ts`. |
 | `HISTORIQUE_ALBIEZ` | Archive des quatre canaux, forme compacte produite par `build-archive.mjs`. |
 | `DASHBOARD_PASSWORD` | Mot de passe administrateur. |
 | `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne du ménage. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. |
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
 
-**Les cinq sont posées en production** depuis le 2026-08-29, et vérifiées de bout en bout :
-mot de passe refusé puis accepté, archive chargée depuis la variable, Beds24 joignable depuis
-Vercel, chiffres identiques au local.
+**Les quatre premières sont posées dans les trois environnements** depuis le 2026-09-11. Les
+cinq autres restent **production seulement** : ce sont des `Secret` chez Vercel, dont la valeur
+ne se relit pas — les reporter en preview demanderait de les ressaisir à la main.
+
+⚠️ **Conséquence : une preview ne permet pas de valider un écran qui dépend du dashboard.**
+`DASHBOARD_SECRET` et les mots de passe manquant, la connexion y échoue. Les disponibilités
+publiques, elles, fonctionnent en preview depuis le 2026-09-11.
+
+⚠️ **`vercel env add --force` ne remplace pas toujours une variable `Secret` existante**, et
+échoue en silence si l'on masque sa sortie. Pour une rotation, faire `vercel env rm` puis
+`vercel env add`, et **relire les âges** avec `vercel env ls` — sachant que l'âge affiché est
+la date de création, pas de mise à jour. La vérification qui tranche est le keepalive, qui
+échange réellement chaque jeton et dit lequel a échoué.
 
 ⚠️ `HISTORIQUE_ALBIEZ` pèse **26,8 Ko à lui seul**. Vercel plafonne le total des variables
 d'un déploiement à 64 Ko : il reste de la marge, mais **la regénérer après chaque nouvel
