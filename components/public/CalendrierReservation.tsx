@@ -113,12 +113,28 @@ export default function CalendrierReservation() {
       } finally {
         setChargement(false);
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
+    /*
+     * `dispos` et `mois2` sont volontairement absents, et la directive est ici plutôt qu'au
+     * milieu du corps — où elle ne portait sur rien et laissait l'avertissement passer.
+     *
+     * `dispos` n'est lu que par le court-circuit de cache en tête de fonction. L'inclure
+     * recréerait `charger` à chaque réponse reçue, donc relancerait l'effet qui l'appelle,
+     * donc rechargerait — une boucle. `mois2` se dérive de `annee` et `mois`, déjà listés.
+     */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [annee, mois],
   );
 
+  /*
+   * Chargement initial et à chaque changement de mois. `charger` pose `setChargement(true)`
+   * avant son premier `await`, ce que `react-hooks/set-state-in-effect` signale : la règle
+   * vise les états dérivés des props, qui provoquent un rendu en cascade inutile. Ici il
+   * s'agit d'aller chercher des données au réseau, et le drapeau de chargement est l'objet
+   * même de ce premier rendu — l'écrire autrement rendrait le code moins clair, pas plus sûr.
+   */
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     charger();
   }, [charger]);
 

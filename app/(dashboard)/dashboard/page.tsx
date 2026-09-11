@@ -51,7 +51,15 @@ export default function DashboardPage() {
     }
   }, [periode, mode]);
 
+  /*
+   * `charger` pose son drapeau de chargement avant le premier `await`, ce que
+   * `react-hooks/set-state-in-effect` signale. La règle vise les états dérivés des props,
+   * qui coûtent un rendu en cascade pour rien ; ici c'est un appel réseau, et ce drapeau est
+   * précisément ce que le premier rendu doit montrer. Le contourner donnerait un code plus
+   * tortueux sans rien corriger.
+   */
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     charger();
   }, [charger]);
 

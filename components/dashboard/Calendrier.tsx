@@ -55,16 +55,21 @@ function Notes({
   lectureSeule: boolean;
   onEnregistre: (texte: string) => void;
 }) {
+  /*
+   * Pas d'effet de remise à zéro ici : c'est l'appelant qui pose une `key` sur le séjour, et
+   * React remonte donc ce composant quand on passe d'une barre à l'autre du même rendu.
+   * L'état repart de `valeur` tout seul.
+   *
+   * L'effet qui faisait ce travail dérivait un état à partir des props, ce que
+   * `react-hooks/set-state-in-effect` signale à juste titre : il provoquait un second rendu
+   * à chaque changement de séjour. Il avait de surcroît un défaut discret — il dépendait
+   * aussi de `valeur`, si bien qu'enregistrer une note remettait `etat` à « repos » et
+   * effaçait le « Enregistré » que l'on venait d'afficher. La `key` ne porte que sur la
+   * référence du séjour, donc ce message survit maintenant à sa propre sauvegarde.
+   */
   const [texte, setTexte] = useState(valeur);
   const [etat, setEtat] = useState<"repos" | "envoi" | "ok" | "erreur">("repos");
   const [message, setMessage] = useState("");
-
-  // Le popup est remonté à chaque ouverture, mais pas quand on passe d'une barre à l'autre
-  // du même rendu : sans cette remise à zéro, la note du séjour précédent resterait affichée.
-  useEffect(() => {
-    setTexte(valeur);
-    setEtat("repos");
-  }, [sejour.ref, valeur]);
 
   if (lectureSeule) {
     if (!valeur) return null;
@@ -593,6 +598,10 @@ export default function Calendrier({
           )}
 
           <Notes
+            // Remonte l'éditeur quand on passe d'un séjour à l'autre sans fermer le popup :
+            // sans ça, la note du précédent resterait affichée. La `key` ne porte que sur la
+            // référence, pour qu'enregistrer une note ne remonte pas le composant.
+            key={popup.sejour.ref}
             sejour={popup.sejour}
             valeur={noteDe(popup.sejour)}
             lectureSeule={viewer}
