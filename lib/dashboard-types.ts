@@ -16,6 +16,23 @@
 
 import type { Channel } from "@sejour/socle/lib/channels";
 import type { Booking } from "@sejour/socle/lib/booking";
+import type {
+  ChannelYear,
+  RevenueChartData,
+  RevenueExtra,
+  RevenueMode,
+  YearComparison,
+} from "@sejour/socle/lib/stats";
+
+/**
+ * Les calculs du dashboard — ventilation du revenu, graphe, comparaison annuelle, occupation
+ * — sont montés dans `@sejour/socle/lib/stats` au Lot 3. Ce fichier ne garde donc que les
+ * types **propres à ce bien** : le séjour augmenté de ses quatre colonnes locales, la forme
+ * du fichier d'archive, et la charge utile de `/api/dashboard/stats`.
+ *
+ * Les types du socle sont réexportés ici pour que les composants gardent un import unique.
+ */
+export type { ChannelYear, RevenueChartData, RevenueExtra, RevenueMode, YearComparison };
 
 /**
  * Le canal de distribution est défini par le socle (`Channel`). L'alias français reste le
@@ -55,13 +72,13 @@ export interface Sejour extends Booking {
 /**
  * Recette sans nuits : elle compte dans le revenu, jamais dans l'occupation.
  * Trois origines, toutes réelles et toutes déjà vérifiées à l'import.
+ *
+ * Elle étend `RevenueExtra` du socle — `date`, `channel`, `net` — et ajoute ce que ce bien
+ * est seul à porter : la référence, le brut, la nature et le rapprochement bancaire.
  */
-export interface RecetteSansNuits {
+export interface RecetteSansNuits extends RevenueExtra {
   ref: string;
-  canal: Canal;
-  date: string | null;
   brut: number;
-  net: number;
   nature: "supplement" | "frais_annulation" | "sejour_sans_dates";
   libelle?: string;
   /**
@@ -99,76 +116,21 @@ export interface SejourArchive {
   anneeDeduite?: boolean;
 }
 
+/**
+ * Une recette telle que **le fichier** l'écrit : `canal`, comme `SejourArchive` écrit
+ * `arrivee` et `depart`. La traduction vers `RecetteSansNuits` se fait au chargement
+ * (`lib/archive.ts`), au même endroit et pour la même raison que celle des séjours.
+ */
+export interface RecetteArchive extends Omit<RecetteSansNuits, "channel"> {
+  canal: Canal;
+}
+
 export interface Archive {
   genereLe: string;
   avertissement: string;
   totauxParCanal: Record<string, number>;
   sejours: SejourArchive[];
-  recettes: RecetteSansNuits[];
-}
-
-/** Convention d'imputation du revenu dans le temps. Reprise de Barbusse. */
-export type ModeRevenu = "reparti" | "arrivee" | "depart" | "reservation";
-
-export interface MoisRevenu {
-  /** YYYY-MM */
-  mois: string;
-  revenu: number;
-  nuits: number;
-}
-
-/**
- * Contrat de données du graphe — volontairement ignorant du bien et du canal.
- *
- * `parCanal` est indexé **par année** : la vue par canal a besoin d'une année à la fois
- * (empiler quatre canaux × quatre années serait illisible), mais toutes sont envoyées d'un
- * coup pour que changer d'année ne déclenche pas un aller-retour serveur.
- */
-export interface RevenueChartData {
-  parAnnee: Record<string, number | string>[];
-  parCanal: Record<string, Record<string, number | string>[]>;
-  annees: number[];
-  canaux: string[];
-  anneeCourante: number;
-  /** 1-12 : au-delà, les mois ne sont pas écoulés et s'affichent en opacité réduite. */
-  dernierMoisEcoule: number;
-}
-
-/** Répartition par canal pour une année — la comparaison du mix d'une année sur l'autre. */
-export interface CanauxAnnee {
-  annee: number;
-  total: number;
-  enCours: boolean;
-  /** Année future : seules les réservations déjà prises y figurent, d'où le « à date ». */
-  aVenir: boolean;
-  canaux: { canal: string; sejours: number; revenu: number; part: number }[];
-}
-
-export interface ComparaisonAnnee {
-  annee: number;
-  /** Cumul du 1er janvier au même jour de l'année, pour comparer à fenêtre égale. */
-  cumulADate: number;
-  nuitsADate: number;
-  /**
-   * Variation du cumul à date par rapport à l'année précédente, en %.
-   * Nulle sur une année à venir : son carnet ne fait que commencer, le pourcentage
-   * annoncerait un effondrement qui n'existe pas.
-   */
-  variationADate: number | null;
-  /** Total de l'année entière. Absent pour l'année en cours ; « à date » pour une année à venir. */
-  totalAnnee: number | null;
-  /**
-   * Variation du total de l'année pleine par rapport à l'année pleine précédente, en %.
-   * Nulle sur la première année, sur l'année en cours et sur les années à venir : comparer
-   * un exercice clos à une projection ou à un carnet qui s'ouvre ne produirait pas un vrai
-   * pourcentage.
-   */
-  variationTotale: number | null;
-  /** Année encore en cours : `totalAnnee` est une projection, pas un constat. */
-  enCours: boolean;
-  /** Année future : `totalAnnee` n'est que ce qui est déjà réservé, à date. */
-  aVenir: boolean;
-  projection?: number;
+  recettes: RecetteArchive[];
 }
 
 export interface StatsDashboard {
@@ -187,15 +149,15 @@ export interface StatsDashboard {
   delaiMoyenReservation: number | null;
   partDirecte: { revenu: number; sejours: number };
   occupation90Jours: number;
-  repartitionCanaux: { canal: string; sejours: number; revenu: number }[];
+  repartitionCanaux: { channel: string; stays: number; revenue: number }[];
   /**
    * Les trois blocs suivants sont calculés sur **tout l'historique**, jamais sur la période
    * sélectionnée : comparer les années est leur seule raison d'être, et un filtre de période
    * les réduirait à une seule barre.
    */
   graphe: RevenueChartData;
-  comparaison: ComparaisonAnnee[];
-  canauxParAnnee: CanauxAnnee[];
+  comparaison: YearComparison[];
+  canauxParAnnee: ChannelYear[];
   sejoursRecents: SejourAffiche[];
   meilleursSejours: SejourAffiche[];
   recettesHorsNuits: { total: number; nombre: number };

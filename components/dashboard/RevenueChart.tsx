@@ -14,6 +14,13 @@ import {
 } from "recharts";
 import type { RevenueChartData } from "@/lib/dashboard-types";
 import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
+import {
+  CHART_AXIS,
+  CHART_GRID,
+  CHART_LEGEND,
+  CHART_TOOLTIP_STYLE,
+  chartEuro,
+} from "@sejour/socle/lib/chart-theme";
 
 /**
  * Revenus mensuels, en deux lectures.
@@ -33,18 +40,16 @@ import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
 /** Bleus de plus en plus soutenus : l'année la plus récente est la plus foncée. */
 const TEINTES_ANNEES = ["#bae6fd", "#7dd3fc", "#38bdf8", "#0284c7", "#075985"];
 
-const euros = (v: number) => `${Math.round(v).toLocaleString("fr-FR")} €`;
-
 export default function RevenueChart({ data }: { data: RevenueChartData }) {
   const [vue, setVue] = useState<"annee" | "canal">("annee");
   const [masquees, setMasquees] = useState<Set<number>>(new Set());
   // La vue par canal empile déjà quatre séries : y superposer plusieurs années la rendrait
   // illisible. Une année à la fois, choisie ici, sans aller-retour serveur — toutes les
-  // années sont déjà dans `data.parCanal`.
-  const [anneeCanal, setAnneeCanal] = useState(data.anneeCourante);
+  // années sont déjà dans `data.byChannel`.
+  const [anneeCanal, setAnneeCanal] = useState(data.currentYear);
 
-  const anneesVisibles = data.annees.filter((a) => !masquees.has(a));
-  const lignesCanal = data.parCanal[String(anneeCanal)] ?? [];
+  const anneesVisibles = data.years.filter((a) => !masquees.has(a));
+  const lignesCanal = data.byChannel[String(anneeCanal)] ?? [];
 
   function basculer(annee: number) {
     setMasquees((prec) => {
@@ -58,11 +63,11 @@ export default function RevenueChart({ data }: { data: RevenueChartData }) {
 
   const couleurAnnee = (annee: number) =>
     TEINTES_ANNEES[
-      Math.max(0, TEINTES_ANNEES.length - data.annees.length) + data.annees.indexOf(annee)
+      Math.max(0, TEINTES_ANNEES.length - data.years.length) + data.years.indexOf(annee)
     ] ?? "#0284c7";
 
   const libelleAnnee = (annee: number) =>
-    annee === data.anneeCourante ? `${annee} (à date)` : String(annee);
+    annee === data.currentYear ? `${annee} (à date)` : String(annee);
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
@@ -81,7 +86,7 @@ export default function RevenueChart({ data }: { data: RevenueChartData }) {
               onChange={(e) => setAnneeCanal(Number(e.target.value))}
               className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs text-slate-600 focus:border-sky-500 focus:outline-none"
             >
-              {data.annees.map((annee) => (
+              {data.years.map((annee) => (
                 <option key={annee} value={annee}>
                   {annee}
                 </option>
@@ -91,7 +96,7 @@ export default function RevenueChart({ data }: { data: RevenueChartData }) {
 
           {vue === "annee" && (
             <div className="flex flex-wrap gap-1.5">
-              {data.annees.map((annee) => {
+              {data.years.map((annee) => {
                 const visible = !masquees.has(annee);
                 return (
                   <button
@@ -133,30 +138,15 @@ export default function RevenueChart({ data }: { data: RevenueChartData }) {
 
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={vue === "annee" ? data.parAnnee : lignesCanal} barGap={2}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-            <XAxis
-              dataKey="mois"
-              tick={{ fontSize: 12, fill: "#94a3b8" }}
-              tickLine={false}
-              axisLine={false}
-            />
-            <YAxis
-              tick={{ fontSize: 12, fill: "#94a3b8" }}
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(v) => `${v} €`}
-            />
+          <BarChart data={vue === "annee" ? data.byYear : lignesCanal} barGap={2}>
+            <CartesianGrid {...CHART_GRID} />
+            <XAxis dataKey="month" {...CHART_AXIS} />
+            <YAxis {...CHART_AXIS} tickFormatter={(v) => `${v} €`} />
             <Tooltip
-              formatter={(valeur, nom) => [euros(Number(valeur)), String(nom)]}
-              contentStyle={{
-                borderRadius: 12,
-                border: "none",
-                boxShadow: "0 4px 14px rgba(15,23,42,0.1)",
-                fontSize: 13,
-              }}
+              formatter={(valeur, nom) => [chartEuro(Number(valeur)), String(nom)]}
+              contentStyle={CHART_TOOLTIP_STYLE}
             />
-            <Legend iconType="circle" wrapperStyle={{ fontSize: 12, color: "#64748b" }} />
+            <Legend {...CHART_LEGEND} />
 
             {vue === "annee"
               ? anneesVisibles.map((annee) => (
@@ -169,14 +159,14 @@ export default function RevenueChart({ data }: { data: RevenueChartData }) {
                     fill={couleurAnnee(annee)}
                     radius={[3, 3, 0, 0]}
                   >
-                    {data.parAnnee.map((_, mois) => (
+                    {data.byYear.map((_, mois) => (
                       // L'année en cours est incomplète : ses mois non écoulés sont
                       // estompés, pour qu'un creux de fin d'année ne se lise pas comme un
                       // effondrement.
                       <Cell
                         key={mois}
                         fillOpacity={
-                          annee === data.anneeCourante && mois + 1 > data.dernierMoisEcoule
+                          annee === data.currentYear && mois + 1 > data.lastElapsedMonth
                             ? 0.3
                             : 1
                         }
@@ -184,7 +174,7 @@ export default function RevenueChart({ data }: { data: RevenueChartData }) {
                     ))}
                   </Bar>
                 ))
-              : data.canaux.map((canal) => (
+              : data.channels.map((canal) => (
                   <Bar
                     key={canal}
                     dataKey={canal}

@@ -1,6 +1,12 @@
 import { readFileSync } from "node:fs";
 import { createArchive } from "@sejour/socle/lib/archive";
-import type { Archive, RecetteSansNuits, Sejour, SejourArchive } from "@/lib/dashboard-types";
+import type {
+  Archive,
+  RecetteArchive,
+  RecetteSansNuits,
+  Sejour,
+  SejourArchive,
+} from "@/lib/dashboard-types";
 
 /**
  * Archive des quatre canaux, antérieure au branchement Beds24 du 2026-08-28.
@@ -88,6 +94,14 @@ function enSejour(s: SejourArchive): Sejour {
 }
 
 /**
+ * Même traduction pour les recettes : seul `canal` change de nom, pour rejoindre le
+ * `channel` de `RevenueExtra` qu'attendent les calculs du socle.
+ */
+function enRecette({ canal, ...reste }: RecetteArchive): RecetteSansNuits {
+  return { ...reste, channel: canal };
+}
+
+/**
  * La clé de dédoublonnage est `ref`, et non un `id` : nos lignes archivées n'en ont pas.
  *
  * Le tri par date d'arrivée est conservé — le dashboard affiche la fusion telle quelle, et
@@ -106,7 +120,7 @@ const sejours = createArchive<Sejour, Origine>({
 const recettes = createArchive<RecetteSansNuits, Origine>({
   load: () => {
     const { archive, origine } = fichier();
-    return { items: archive.recettes, origin: origine };
+    return { items: archive.recettes.map(enRecette), origin: origine };
   },
   key: (r) => r.ref,
   fields: { arrival: (r) => r.date },

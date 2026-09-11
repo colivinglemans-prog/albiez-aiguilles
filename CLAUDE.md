@@ -597,6 +597,18 @@ La mécanique vit désormais dans `@sejour/socle/lib/auth` (voir sa CLAUDE.md, s
 « Lot 1 ») ; `lib/auth.ts` n'en garde que la configuration : les rôles, le repli et les
 préfixes de mots de passe.
 
+### La navigation vient du socle
+
+`components/dashboard/DashboardNav.tsx` ne contient plus que **des données** : le nom du bien,
+la liste des écrans et le lien de retour à la vitrine. La structure — liens filtrés par rôle,
+tiroir mobile translaté hors écran, blocage du défilement du corps, déconnexion — vit dans
+`@sejour/socle/components/DashboardNav`. Les deux sites en avaient chacun 213 lignes, de même
+structure ligne pour ligne depuis que celui d'ici a convergé.
+
+Le lien « Retour au site » porte son propre `adminOnly` : il reste **visible au rôle restreint
+ici**, la personne du ménage y trouvant l'adresse et l'accès au logement, là où Barbusse le
+réserve à l'administrateur.
+
 ### Deux layouts racines
 
 `app/(site)/[locale]/layout.tsx` et `app/(dashboard)/layout.tsx` écrivent chacun leur
@@ -670,6 +682,44 @@ Deux points de fragilité, assumés :
   `null` partout aujourd'hui, ce qui est le bon comportement mais ne teste que la branche
   négative.
 
+### Les calculs viennent du socle (`@sejour/socle/lib/stats`)
+
+`lib/stats.ts` n'existe plus ici : il est monté tel quel dans le socle au Lot 3, renommé en
+anglais technique. Il avait été écrit portable dès l'origine et le disait — « cette fonction
+ne connaît ni Albiez, ni Beds24 : elle prend des séjours et rend des lignes » ; ce qui le
+retenait n'était pas sa forme mais son entrée, et le `Booking` canonique du Lot 2 l'a levée.
+
+| Ancien nom (ici) | Nouveau nom (socle) |
+|---|---|
+| `ventiler` | `spreadRevenue` |
+| `nuitsDuSejour` | `stayNights` |
+| `mouvements` | `revenueMovements` |
+| `construireGraphe` | `buildRevenueChart` |
+| `canauxParAnnee` | `channelsByYear` |
+| `comparerAnnees` | `compareYears` |
+| `nuitsOccupees` | `occupiedNights` |
+| `repartitionCanaux` | `channelBreakdown` |
+| `ajouterJours` | `addDays` (`lib/dates`, déjà là) |
+| `joursEntre` | `daysBetween` (`lib/dates`, ajouté) |
+| `aujourdhui` | `todayParis` (`lib/time`, déjà là) |
+| `ModeRevenu` `"reparti" \| "arrivee" \| "depart" \| "reservation"` | `RevenueMode` `"averagedPerNight" \| "byCheckIn" \| "byCheckOut" \| "byBookingDate"` |
+
+Les trois derniers helpers **existaient déjà dans le socle sous un autre nom** : `ajouterJours`
+et `addDays` rendent le même jour sur les 16 434 couples testés de 2023 à 2028, changements
+d'heure compris — l'un compose en UTC, l'autre en heure locale, et pour une chaîne
+« YYYY-MM-DD » les deux se rejoignent toujours.
+
+**Les valeurs des libellés affichés n'ont pas bougé** : le sélecteur dit toujours « Réparti par
+nuit », seule la valeur envoyée à l'API change. Les champs des types de sortie, eux, passent en
+anglais (`cumulADate` → `toDate`, `parAnnee` → `byYear`, `canal` → `channel`…) : la charge utile
+de `/api/dashboard/stats` change donc de **noms de clés**, jamais de **valeurs** — vérifié sur
+les seize combinaisons période × mode.
+
+Ce qui **reste ici** : `StatsDashboard`, dont les champs gardent leur français parce que c'est
+la charge utile de ce site et rien d'autre ; `RecetteSansNuits`, qui étend le `RevenueExtra` du
+socle avec ce que ce bien est seul à porter ; et la traduction des recettes du fichier
+d'archive (`canal` → `channel`), au même endroit et pour la même raison que celle des séjours.
+
 ### Deux jeux de données dans `/api/dashboard/stats`
 
 | Jeu | Sert à | Filtré par la période ? |
@@ -737,6 +787,17 @@ automatique refuse les cellules déjà occupées et repousserait les sept cases 
 ligne. Placés *avant* les barres dans le DOM, ils passent au-dessus des fonds de saison et
 en dessous des séjours, donc ne coupent aucune pilule. Hiérarchie des traits :
 `slate-300` pour l'en-tête des jours, `slate-200` pour la grille.
+
+**Le moteur de placement vient du socle** (`@sejour/socle/lib/calendar-lanes`) : `placeSegments`,
+`Segment`, `laneCount`, `roundedEnds`, `periodTooltip` et `PERIOD_PALETTE`. La fonction
+s'appelait `placer<T>` ici et était écrite **deux fois en ligne** chez Barbusse, avec les mêmes
+noms de variables ; son paramètre délicat, `demiCellules`, est devenu une granularité nommée
+(`"half-day"` / `"full-day"`) — une donnée plutôt qu'un booléen.
+
+**L'enveloppe, elle, ne monte pas.** Les fonds de saison de la station, la popup avec net,
+commission et surcollecte de taxe, le bloc de partage voyageur n'ont pas d'équivalent en face,
+où l'enveloppe porte des barres d'événements de circuit et des rayures « non confirmé ». Deux
+composants honnêtes valent mieux qu'un composant à slots que personne ne relit.
 
 **Une période n'est pas un séjour, et ne se dessine pas comme lui.** Les séjours sont des
 pilules pleines à texte blanc ; les vacances et les fêtes sont un **libellé coloré souligné
@@ -963,9 +1024,19 @@ annonce qu'il est envoyé par message. Ce bloc est l'outil qui envoie ce message
 ### Le graphe est écrit portable
 
 `components/dashboard/RevenueChart.tsx` ne connaît ni Albiez, ni Beds24, ni les canaux : il ne
-lit que `RevenueChartData`. **Barbusse doit le reprendre** quand il aura assez d'années à
-comparer — il n'aura qu'à produire la même forme. Les barres sont côte à côte parce qu'elles
-n'ont **pas de `stackId`** ; en ajouter un les empilerait.
+lit que `RevenueChartData`, qui vient désormais du socle. **Barbusse doit le reprendre** quand
+il aura assez d'années à comparer — il n'aura qu'à produire la même forme. Les barres sont côte
+à côte parce qu'elles n'ont **pas de `stackId`** ; en ajouter un les empilerait.
+
+Son habillage — grille pointillée sans verticales, ticks sans ligne ni axe, infobulle arrondie
+à 12 px, légende à pastilles rondes — vient de `@sejour/socle/lib/chart-theme` (`CHART_GRID`,
+`CHART_AXIS`, `CHART_TOOLTIP_STYLE`, `CHART_LEGEND`, `chartEuro`). Il était recopié dans chaque
+graphe des deux sites, et divergeait déjà d'une rampe de gris : ce sont les valeurs d'ici qui
+ont été retenues.
+
+**La forme d'un graphe, elle, reste un choix par site.** Le camembert a été abandonné ici — il
+ne répondait qu'à « quelle est ma dépendance aujourd'hui », la vraie question étant « comment
+évolue-t-elle » — et Barbusse le garde. Le socle fournit les briques, pas la composition.
 
 ## Saisons de la station
 

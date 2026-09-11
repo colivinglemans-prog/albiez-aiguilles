@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { ModeRevenu, StatsDashboard } from "@/lib/dashboard-types";
+import type { RevenueMode, StatsDashboard } from "@/lib/dashboard-types";
 import StatsCards from "@/components/dashboard/StatsCards";
 import RevenueChart from "@/components/dashboard/RevenueChart";
 import ComparaisonAnnuelle from "@/components/dashboard/ComparaisonAnnuelle";
@@ -16,18 +16,23 @@ const PERIODES = [
   { valeur: "toute", libelle: "Tout l'historique" },
 ];
 
-const MODES: { valeur: ModeRevenu; libelle: string }[] = [
-  { valeur: "reparti", libelle: "Réparti par nuit" },
-  { valeur: "arrivee", libelle: "Par arrivée" },
-  { valeur: "depart", libelle: "Par départ" },
-  { valeur: "reservation", libelle: "Par date de réservation" },
+/**
+ * Les quatre conventions d'imputation portent depuis le Lot 3 les noms anglais du socle —
+ * ceux qu'écrivait déjà Barbusse. Seules les valeurs envoyées à l'API changent ; les libellés
+ * affichés, eux, sont inchangés.
+ */
+const MODES: { valeur: RevenueMode; libelle: string }[] = [
+  { valeur: "averagedPerNight", libelle: "Réparti par nuit" },
+  { valeur: "byCheckIn", libelle: "Par arrivée" },
+  { valeur: "byCheckOut", libelle: "Par départ" },
+  { valeur: "byBookingDate", libelle: "Par date de réservation" },
 ];
 
 type Reponse = StatsDashboard & { beds24Erreur?: string | null };
 
 export default function DashboardPage() {
   const [periode, setPeriode] = useState("annee");
-  const [mode, setMode] = useState<ModeRevenu>("reparti");
+  const [mode, setMode] = useState<RevenueMode>("averagedPerNight");
   const [stats, setStats] = useState<Reponse | null>(null);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState("");
@@ -68,7 +73,7 @@ export default function DashboardPage() {
           <div className="flex flex-wrap items-center gap-2">
             <select
               value={mode}
-              onChange={(e) => setMode(e.target.value as ModeRevenu)}
+              onChange={(e) => setMode(e.target.value as RevenueMode)}
               className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 focus:border-sky-500 focus:outline-none"
             >
               {MODES.map((m) => (

@@ -1,20 +1,19 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { guard } from "@/lib/auth";
-import type { ModeRevenu, Sejour, StatsDashboard } from "@/lib/dashboard-types";
+import type { RevenueMode, Sejour, StatsDashboard } from "@/lib/dashboard-types";
 import { fusionner, origineArchive, recettesArchivees, sejoursArchives } from "@/lib/archive";
 import { prixParNuit, sejoursBeds24 } from "@/lib/beds24";
 import { periodeLabel } from "@sejour/socle/lib/periodes";
+import { addDays, daysBetween } from "@sejour/socle/lib/dates";
+import { todayParis } from "@sejour/socle/lib/time";
 import {
-  ajouterJours,
-  aujourdhui,
-  canauxParAnnee,
-  comparerAnnees,
-  construireGraphe,
-  joursEntre,
-  nuitsOccupees,
-  repartitionCanaux,
-  ventiler,
-} from "@/lib/stats";
+  buildRevenueChart,
+  channelBreakdown,
+  channelsByYear,
+  compareYears,
+  occupiedNights,
+  spreadRevenue,
+} from "@sejour/socle/lib/stats";
 
 const arrondi = (n: number) => Math.round(n * 100) / 100;
 
@@ -28,13 +27,13 @@ const arrondi = (n: number) => Math.round(n * 100) / 100;
  * d'occupation en sortait mécaniquement écrasé.
  */
 function bornes(periode: string, premierSejour: string | null): { du: string; au: string } {
-  const today = aujourdhui();
+  const today = todayParis();
   const annee = Number(today.slice(0, 4));
   switch (periode) {
     case "annee":
       return { du: `${annee}-01-01`, au: `${annee}-12-31` };
     case "12m":
-      return { du: ajouterJours(today, -365), au: today };
+      return { du: addDays(today, -365), au: today };
     case "precedente":
       return { du: `${annee - 1}-01-01`, au: `${annee - 1}-12-31` };
     case "toute":
@@ -57,7 +56,7 @@ export async function GET(request: NextRequest) {
   if (refus) return refus;
 
   const params = request.nextUrl.searchParams;
-  const mode = (params.get("mode") ?? "reparti") as ModeRevenu;
+  const mode = (params.get("mode") ?? "averagedPerNight") as RevenueMode;
   const periode = params.get("periode") ?? "toute";
   const tousArchives = sejoursArchives();
   const { du, au } = bornes(
@@ -73,7 +72,7 @@ export async function GET(request: NextRequest) {
   // de comparaison ont besoin de l'historique complet, et le compte tient dans une requête.
   let live: Sejour[] = [];
   let beds24Erreur: string | null = null;
-  const anneeMax = Number(aujourdhui().slice(0, 4)) + 1;
+  const anneeMax = Number(todayParis().slice(0, 4)) + 1;
   try {
     live = await sejoursBeds24({
       arriveeDu: tousArchives[0]?.arrival ?? "2023-01-01",
@@ -118,7 +117,7 @@ export async function GET(request: NextRequest) {
     (r) => !r.date || Number(r.date.slice(0, 4)) >= premiereAnneeComparable,
   );
 
-  const today = aujourdhui();
+  const today = todayParis();
   const revenuNet = sejours.reduce((s, x) => s + x.net, 0) + recettes.reduce((s, r) => s + r.net, 0);
   const revenuBrut = sejours.reduce((s, x) => s + x.gross, 0) + recettes.reduce((s, r) => s + r.brut, 0);
   const nuitsVendues = sejours.reduce((s, x) => s + x.nights, 0);
@@ -126,8 +125,8 @@ export async function GET(request: NextRequest) {
   // Occupation sur la partie ÉCOULÉE de la période seulement. Compter les mois à venir
   // comme des nuits invendues écraserait le taux sans rien dire d'utile.
   const finEcoulee = au < today ? au : today;
-  const joursEcoules = Math.max(1, joursEntre(du, finEcoulee) + 1);
-  const nuitsOccupeesEcoulees = nuitsOccupees(sejours, du, finEcoulee);
+  const joursEcoules = Math.max(1, daysBetween(du, finEcoulee) + 1);
+  const nuitsOccupeesEcoulees = occupiedNights(sejours, du, finEcoulee);
 
   // Projection de l'année en cours : réalisé + confirmé à venir + tendance sur les jours
   // encore libres, valorisés au prix que pousse Beyond Pricing quand il est disponible.
@@ -138,20 +137,20 @@ export async function GET(request: NextRequest) {
   // regarde « l'année précédente » ou « 12 derniers mois » n'y change rien.
   const dansAnnee = tout.filter((s) => s.arrival >= debutAnnee && s.arrival <= finAnnee);
   const realise = dansAnnee
-    .flatMap((s) => ventiler(s, mode))
-    .filter((v) => v.jour <= today)
-    .reduce((s, v) => s + v.montant, 0);
+    .flatMap((s) => spreadRevenue(s, mode))
+    .filter((v) => v.day <= today)
+    .reduce((s, v) => s + v.amount, 0);
   const confirme = dansAnnee
-    .flatMap((s) => ventiler(s, mode))
-    .filter((v) => v.jour > today)
-    .reduce((s, v) => s + v.montant, 0);
+    .flatMap((s) => spreadRevenue(s, mode))
+    .filter((v) => v.day > today)
+    .reduce((s, v) => s + v.amount, 0);
 
   let projection = realise + confirme;
   try {
     const prix = await prixParNuit({ du: today, au: finAnnee });
     const nuitsPrises = new Set(
       dansAnnee.flatMap((s) =>
-        Array.from({ length: s.nights }, (_, i) => ajouterJours(s.arrival, i)),
+        Array.from({ length: s.nights }, (_, i) => addDays(s.arrival, i)),
       ),
     );
     const tauxRealise = joursEcoules > 0 ? nuitsOccupeesEcoulees / joursEcoules : 0;
@@ -185,7 +184,7 @@ export async function GET(request: NextRequest) {
       const avec = sejours.filter((s) => s.bookedAt);
       if (avec.length === 0) return null;
       return Math.round(
-        avec.reduce((s, x) => s + Math.max(0, joursEntre(x.bookedAt!, x.arrival)), 0) / avec.length,
+        avec.reduce((s, x) => s + Math.max(0, daysBetween(x.bookedAt!, x.arrival)), 0) / avec.length,
       );
     })(),
     partDirecte: {
@@ -204,13 +203,13 @@ export async function GET(request: NextRequest) {
     },
     // Les 90 jours à venir débordent de toute période passée : calcul sur `tout`.
     occupation90Jours: arrondi(
-      (nuitsOccupees(tout, today, ajouterJours(today, 90)) / 90) * 100,
+      (occupiedNights(tout, today, addDays(today, 90)) / 90) * 100,
     ),
-    repartitionCanaux: repartitionCanaux(sejours),
+    repartitionCanaux: channelBreakdown(sejours),
     // Sur `comparables`, jamais sur `sejours` : voir le commentaire des deux jeux de données.
-    graphe: construireGraphe(comparables, recettesComparables, mode),
-    comparaison: comparerAnnees(comparables, recettesComparables, mode, projection),
-    canauxParAnnee: canauxParAnnee(comparables, recettesComparables),
+    graphe: buildRevenueChart(comparables, recettesComparables, mode),
+    comparaison: compareYears(comparables, recettesComparables, mode, projection),
+    canauxParAnnee: channelsByYear(comparables, recettesComparables),
     sejoursRecents: avecPeriode(
       [...sejours]
         .sort((a, b) => (b.bookedAt ?? b.arrival).localeCompare(a.bookedAt ?? a.arrival))

@@ -11,9 +11,14 @@ import {
   YAxis,
 } from "recharts";
 import { CHANNELS as CANAUX, CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
-import type { CanauxAnnee } from "@/lib/dashboard-types";
-
-const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
+import type { ChannelYear } from "@/lib/dashboard-types";
+import {
+  CHART_AXIS,
+  CHART_GRID,
+  CHART_LEGEND,
+  CHART_TOOLTIP_STYLE,
+  chartEuro as euros,
+} from "@sejour/socle/lib/chart-theme";
 
 /**
  * Répartition par canal, année par année.
@@ -25,19 +30,19 @@ const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
  * Le tableau sous le graphe porte les pourcentages, que l'empilement rend impossibles à
  * estimer à l'œil quand les totaux annuels diffèrent.
  */
-export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
+export default function CanauxChart({ data }: { data: ChannelYear[] }) {
   if (data.length === 0) return null;
 
   const canauxPresents = CANAUX.filter((c) =>
-    data.some((a) => a.canaux.some((x) => x.canal === c && x.revenu > 0)),
+    data.some((a) => a.channels.some((x) => x.channel === c && x.revenue > 0)),
   );
 
   const lignes = data.map((a) => {
     const ligne: Record<string, number | string> = {
-      annee: a.enCours || a.aVenir ? `${a.annee} (à date)` : String(a.annee),
+      annee: a.ongoing || a.upcoming ? `${a.year} (à date)` : String(a.year),
     };
     for (const canal of canauxPresents) {
-      ligne[canal] = a.canaux.find((x) => x.canal === canal)?.revenu ?? 0;
+      ligne[canal] = a.channels.find((x) => x.channel === canal)?.revenue ?? 0;
     }
     return ligne;
   });
@@ -52,29 +57,14 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
       <div className="mt-4 h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={lignes}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-            <XAxis
-              dataKey="annee"
-              tick={{ fontSize: 12, fill: "#94a3b8" }}
-              tickLine={false}
-              axisLine={false}
-            />
-            <YAxis
-              tick={{ fontSize: 12, fill: "#94a3b8" }}
-              tickLine={false}
-              axisLine={false}
-              tickFormatter={(v) => `${v} €`}
-            />
+            <CartesianGrid {...CHART_GRID} />
+            <XAxis dataKey="annee" {...CHART_AXIS} />
+            <YAxis {...CHART_AXIS} tickFormatter={(v) => `${v} €`} />
             <Tooltip
               formatter={(v, nom) => [euros(Number(v)), String(nom)]}
-              contentStyle={{
-                borderRadius: 12,
-                border: "none",
-                boxShadow: "0 4px 14px rgba(15,23,42,0.1)",
-                fontSize: 13,
-              }}
+              contentStyle={CHART_TOOLTIP_STYLE}
             />
-            <Legend iconType="circle" wrapperStyle={{ fontSize: 12, color: "#64748b" }} />
+            <Legend {...CHART_LEGEND} />
             {canauxPresents.map((canal) => (
               <Bar key={canal} dataKey={canal} stackId="canaux" fill={COULEUR_CANAL[canal]} />
             ))}
@@ -86,21 +76,21 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
           Aucun conteneur défilant — les pourcentages sont justement ce qu'on vient lire. */}
       <ul className="mt-4 space-y-3 md:hidden">
         {[...data].reverse().map((a) => (
-          <li key={a.annee} className="rounded-xl bg-slate-50 p-3">
+          <li key={a.year} className="rounded-xl bg-slate-50 p-3">
             <div className="flex items-baseline justify-between">
               <span className="font-medium text-slate-900">
-                {a.annee}
-                {(a.enCours || a.aVenir) && (
+                {a.year}
+                {(a.ongoing || a.upcoming) && (
                   <span className="ml-1 text-xs text-slate-400">à date</span>
                 )}
               </span>
               <span className="font-semibold text-slate-900">{euros(a.total)}</span>
             </div>
             <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-500">
-              {a.canaux.map((c) => (
-                <span key={c.canal} className="whitespace-nowrap">
-                  {c.canal} {euros(c.revenu)}{" "}
-                  <span className="text-slate-400">({Math.round(c.part)} %)</span>
+              {a.channels.map((c) => (
+                <span key={c.channel} className="whitespace-nowrap">
+                  {c.channel} {euros(c.revenue)}{" "}
+                  <span className="text-slate-400">({Math.round(c.share)} %)</span>
                 </span>
               ))}
             </div>
@@ -122,22 +112,22 @@ export default function CanauxChart({ data }: { data: CanauxAnnee[] }) {
         </thead>
         <tbody>
           {[...data].reverse().map((a) => (
-            <tr key={a.annee} className="border-t border-slate-100">
+            <tr key={a.year} className="border-t border-slate-100">
               <td className="whitespace-nowrap py-2 pr-3 font-medium text-slate-900">
-                {a.annee}
-                {(a.enCours || a.aVenir) && (
+                {a.year}
+                {(a.ongoing || a.upcoming) && (
                   <span className="ml-1 text-xs text-slate-400">à date</span>
                 )}
               </td>
               {canauxPresents.map((canal) => {
-                const e = a.canaux.find((x) => x.canal === canal);
+                const e = a.channels.find((x) => x.channel === canal);
                 return (
                   <td key={canal} className="whitespace-nowrap py-2 pr-3 text-right">
                     {e ? (
                       <>
-                        <span className="text-slate-900">{euros(e.revenu)}</span>
+                        <span className="text-slate-900">{euros(e.revenue)}</span>
                         <span className="ml-1.5 text-xs text-slate-400">
-                          {Math.round(e.part)} %
+                          {Math.round(e.share)} %
                         </span>
                       </>
                     ) : (

@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { bandesPeriodes, type BandePeriode, type Periode } from "@sejour/socle/lib/periodes";
+import { bandesPeriodes, type Periode } from "@sejour/socle/lib/periodes";
 import type { BandeauSaison } from "@/lib/seasons";
 import type { Sejour } from "@/lib/dashboard-types";
 import { CHANNEL_COLORS as COULEUR_CANAL } from "@sejour/socle/lib/channels";
+import {
+  PERIOD_PALETTE,
+  laneCount,
+  periodTooltip,
+  placeSegments,
+  roundedEnds,
+} from "@sejour/socle/lib/calendar-lanes";
 import PartageVoyageur from "@/components/dashboard/PartageVoyageur";
 
 const MOIS = [
@@ -18,131 +25,17 @@ const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
 const jourISO = (annee: number, mois0: number, jour: number) =>
   `${annee}-${String(mois0 + 1).padStart(2, "0")}-${String(jour).padStart(2, "0")}`;
 
-/** Un segment de barre, tel qu'il sera peint dans une semaine donnée. */
-interface Segment<T> {
-  source: T;
-  couleur: string;
-  libelle: string;
-  /** Colonnes 0-6 dans la semaine. */
-  debutCol: number;
-  finCol: number;
-  /** Ligne d'empilement à l'intérieur de la semaine. */
-  ligne: number;
-  /** La borne réelle tombe dans ce segment : arrondir et rentrer d'une demi-cellule. */
-  borneDebut: boolean;
-  borneFin: boolean;
-  premierSegment: boolean;
-}
-
-/**
- * Répartit des barres en lignes à l'intérieur de chaque semaine, sans chevauchement.
+/*
+ * Le moteur de placement — `placeSegments`, les arrondis, l'infobulle de bande et la palette
+ * des périodes — est monté dans `@sejour/socle/lib/calendar-lanes` au Lot 3. Il était écrit
+ * ici sous le nom `placer<T>` et **deux fois en ligne** chez Barbusse, avec les mêmes noms de
+ * variables. Le paramètre délicat, `demiCellules`, y est devenu une granularité nommée.
  *
- * `demiCellules` est le point délicat, repris du calendrier du Mans : une barre qui se
- * termine le jour J n'occupe que la moitié gauche de la case, et une barre qui commence le
- * jour J n'occupe que la moitié droite. Deux séjours qui s'enchaînent le même jour peuvent
- * donc partager la même ligne au lieu de s'empiler — ce qui est exactement ce qui se passe
- * en pleine saison, où les rotations sont quotidiennes.
+ * Ce qui reste ici est l'enveloppe, et elle ne monte pas : fonds de saison de la station,
+ * popup de séjour avec net, commission et surcollecte de taxe, bloc de partage voyageur. Elle
+ * n'a pas d'équivalent chez Barbusse, dont l'enveloppe porte des barres d'événements du
+ * circuit et des rayures « non confirmé ».
  */
-function placer<T>(
-  barres: {
-    source: T;
-    couleur: string;
-    libelle: string;
-    debutJour: number;
-    finJour: number;
-    borneDebut: boolean;
-    borneFin: boolean;
-  }[],
-  decalagePremierJour: number,
-  demiCellules: boolean,
-): Map<number, Segment<T>[]> {
-  const parSemaine = new Map<number, Segment<T>[]>();
-  const lignesParSemaine = new Map<number, [number, number][][]>();
-
-  for (const barre of barres) {
-    const celluleDebut = decalagePremierJour + barre.debutJour - 1;
-    const celluleFin = decalagePremierJour + barre.finJour - 1;
-    const semaineDebut = Math.floor(celluleDebut / 7);
-    const semaineFin = Math.floor(celluleFin / 7);
-
-    for (let w = semaineDebut; w <= semaineFin; w++) {
-      const debutSemaine = w * 7;
-      const visDebut = Math.max(celluleDebut, debutSemaine);
-      const visFin = Math.min(celluleFin, debutSemaine + 6);
-      const col0 = visDebut - debutSemaine;
-      const col1 = visFin - debutSemaine;
-
-      const borneDebut = w === semaineDebut && barre.borneDebut;
-      const borneFin = w === semaineFin && barre.borneFin;
-      // En demi-cellules : +1 si la barre démarre à la moitié de sa case, -1 si elle finit
-      // à la moitié de la sienne. Sans ça, deux séjours consécutifs se croiseraient.
-      const gauche = col0 * 2 + (demiCellules && borneDebut ? 1 : 0);
-      const droite = col1 * 2 + 1 - (demiCellules && borneFin ? 1 : 0);
-
-      if (!lignesParSemaine.has(w)) lignesParSemaine.set(w, []);
-      const lignes = lignesParSemaine.get(w)!;
-      let ligne = 0;
-      while (
-        ligne < lignes.length &&
-        lignes[ligne].some(([s, e]) => gauche <= e && droite >= s)
-      ) {
-        ligne++;
-      }
-      if (ligne === lignes.length) lignes.push([]);
-      lignes[ligne].push([gauche, droite]);
-
-      if (!parSemaine.has(w)) parSemaine.set(w, []);
-      parSemaine.get(w)!.push({
-        source: barre.source,
-        couleur: barre.couleur,
-        libelle: barre.libelle,
-        debutCol: col0,
-        finCol: col1,
-        ligne,
-        borneDebut,
-        borneFin,
-        premierSegment: w === semaineDebut,
-      });
-    }
-  }
-  return parSemaine;
-}
-
-/**
- * Périodes scolaires et fêtes : filet fin sous le libellé, et non pilule pleine.
- *
- * Une période n'est pas un objet réservable, elle ne doit pas se lire comme un séjour.
- * Trois différences cumulées — pas d'aplat, texte coloré au lieu de blanc, filet de 3 px
- * au lieu d'une pilule de 24 — pour que la distinction tienne aussi en niveaux de gris.
- * Elle réglait au passage une collision bien réelle : l'ancien `#e11d48` des fêtes était
- * à un cheveu de l'Airbnb `#FF385C`, et l'ancien `#6366f1` des vacances de l'Abritel
- * `#1668E3`. Les teintes restent de la même famille, elles ne pèsent plus pareil.
- */
-const PALETTE_PERIODE = {
-  vacances: { filet: "#818cf8", texte: "#4338ca" },
-  fete: { filet: "#fb7185", texte: "#be123c" },
-} as const;
-
-/** Arrondis : pleins aux deux bouts, sinon du seul côté où la barre s'arrête vraiment. */
-function arrondis(gauche: boolean, droite: boolean): string {
-  if (gauche && droite) return "rounded-full";
-  if (gauche) return "rounded-l-full";
-  if (droite) return "rounded-r-full";
-  return "";
-}
-
-/**
- * Infobulle d'une bande : le libellé compact ne dit pas de quelles périodes il est fait, donc
- * le détail — nom complet, zone, dates réelles — se lit au survol, une ligne par période.
- */
-function infobulleBande(bande: BandePeriode): string {
-  return bande.sources
-    .map(
-      (p) =>
-        `${p.nom}${p.zone === "Toutes" ? "" : ` — ${p.zone}`} · ${p.debut} → ${p.fin}`,
-    )
-    .join("\n");
-}
 
 /**
  * Note interne d'une réservation.
@@ -296,17 +189,17 @@ export default function Calendrier({
         const finitDansLeMois = s.departure <= dernier;
         return {
           source: s,
-          couleur: viewer ? "#64748b" : COULEUR_CANAL[s.channel],
-          libelle: viewer
+          colour: viewer ? "#64748b" : COULEUR_CANAL[s.channel],
+          label: viewer
             ? `${s.nights} n${s.guests != null ? ` · ${s.guests} voy.` : ""}`
             : `${s.channel} · ${s.nights} n${s.guests != null ? ` · ${s.guests} voy.` : ""}`,
-          debutJour: commenceDansLeMois ? Number(s.arrival.slice(8, 10)) : 1,
-          finJour: finitDansLeMois ? Number(s.departure.slice(8, 10)) : nbJours,
-          borneDebut: commenceDansLeMois,
-          borneFin: finitDansLeMois,
+          startDay: commenceDansLeMois ? Number(s.arrival.slice(8, 10)) : 1,
+          endDay: finitDansLeMois ? Number(s.departure.slice(8, 10)) : nbJours,
+          startsHere: commenceDansLeMois,
+          endsHere: finitDansLeMois,
         };
       });
-    return placer(barres, decalage, true);
+    return placeSegments(barres, decalage, "half-day");
   }, [sejours, premier, dernier, nbJours, decalage, viewer]);
 
   /** La note la plus fraîche : celle qu'on vient d'écrire l'emporte sur celle du chargement. */
@@ -333,15 +226,15 @@ export default function Calendrier({
       const transitionDansLeMois = b.fin < dernier;
       return {
         source: b,
-        couleur: PALETTE_PERIODE[b.type].filet,
-        libelle: b.libelle,
-        debutJour: Number(b.debut.slice(8, 10)),
-        finJour: transitionDansLeMois ? Number(b.fin.slice(8, 10)) + 1 : nbJours,
-        borneDebut: b.debutReel,
-        borneFin: transitionDansLeMois,
+        colour: PERIOD_PALETTE[b.type].line,
+        label: b.libelle,
+        startDay: Number(b.debut.slice(8, 10)),
+        endDay: transitionDansLeMois ? Number(b.fin.slice(8, 10)) + 1 : nbJours,
+        startsHere: b.debutReel,
+        endsHere: transitionDansLeMois,
       };
     });
-    return placer(barres, decalage, true);
+    return placeSegments(barres, decalage, "half-day");
   }, [periodes, premier, dernier, nbJours, decalage]);
 
   const saisonDuJour = (jour: string) => saisons.find((s) => jour >= s.debut && jour <= s.fin);
@@ -390,8 +283,8 @@ export default function Calendrier({
       {Array.from({ length: semaines }, (_, w) => {
         const barresSejours = segmentsSejours.get(w) ?? [];
         const barresPeriodes = segmentsPeriodes.get(w) ?? [];
-        const lignesSejours = barresSejours.reduce((n, b) => Math.max(n, b.ligne + 1), 0);
-        const lignesPeriodes = barresPeriodes.reduce((n, b) => Math.max(n, b.ligne + 1), 0);
+        const lignesSejours = laneCount(barresSejours);
+        const lignesPeriodes = laneCount(barresPeriodes);
 
         return (
           <div key={w} className="relative grid grid-cols-7 border-b border-slate-200">
@@ -446,33 +339,33 @@ export default function Calendrier({
                 {Array.from({ length: lignesPeriodes }, (_, ligne) => (
                   <div key={ligne} className="relative mt-0.5 h-[1.15rem]">
                     {barresPeriodes
-                      .filter((b) => b.ligne === ligne)
+                      .filter((b) => b.row === ligne)
                       .map((b) => {
                         // Mêmes demi-cellules que les séjours : une composition qui cesse
                         // n'occupe que la moitié gauche de son jour de bascule, celle qui
                         // prend le relais que la moitié droite.
                         const demi = CELLULE / 2;
-                        const retraitGauche = b.borneDebut ? demi : 0;
-                        const retraitDroite = b.borneFin ? demi : 0;
+                        const retraitGauche = b.startsHere ? demi : 0;
+                        const retraitDroite = b.endsHere ? demi : 0;
                         return (
                         <div
-                          key={`${b.source.debut}-${b.debutCol}`}
+                          key={`${b.source.debut}-${b.startCol}`}
                           className="absolute top-0 h-full"
                           style={{
-                            left: `${b.debutCol * CELLULE + retraitGauche}%`,
+                            left: `${b.startCol * CELLULE + retraitGauche}%`,
                             width: `${
-                              (b.finCol - b.debutCol + 1) * CELLULE - retraitGauche - retraitDroite
+                              (b.endCol - b.startCol + 1) * CELLULE - retraitGauche - retraitDroite
                             }%`,
                           }}
-                          title={infobulleBande(b.source)}
+                          title={periodTooltip(b.source)}
                         >
                           {/* Le libellé n'apparaît que sur le premier segment ; les semaines
                               suivantes ne portent que le filet, à la même hauteur. */}
                           <div
                             className="truncate px-1 text-left text-[10px] font-semibold uppercase leading-[0.85rem] tracking-wide"
-                            style={{ color: PALETTE_PERIODE[b.source.type].texte }}
+                            style={{ color: PERIOD_PALETTE[b.source.type].text }}
                           >
-                            {b.premierSegment && b.libelle}
+                            {b.isFirstSegment && b.label}
                           </div>
                           {/* Les 3 px de retrait s'ajoutent à la demi-cellule : sans eux les
                               deux filets se toucheraient pile au milieu du samedi de bascule
@@ -482,9 +375,9 @@ export default function Calendrier({
                           <div
                             className="h-[3px] rounded-full"
                             style={{
-                              backgroundColor: b.couleur,
-                              marginLeft: b.borneDebut ? 3 : 0,
-                              marginRight: b.borneFin ? 3 : 0,
+                              backgroundColor: b.colour,
+                              marginLeft: b.startsHere ? 3 : 0,
+                              marginRight: b.endsHere ? 3 : 0,
                             }}
                           />
                         </div>
@@ -500,14 +393,14 @@ export default function Calendrier({
                 {Array.from({ length: lignesSejours }, (_, ligne) => (
                   <div key={ligne} className="relative mt-0.5 h-6">
                     {barresSejours
-                      .filter((b) => b.ligne === ligne)
+                      .filter((b) => b.row === ligne)
                       .map((b) => {
                         const demi = CELLULE / 2;
-                        const retraitGauche = b.borneDebut ? demi : 0;
-                        const retraitDroite = b.borneFin ? demi : 0;
+                        const retraitGauche = b.startsHere ? demi : 0;
+                        const retraitDroite = b.endsHere ? demi : 0;
                         return (
                           <button
-                            key={`${b.source.ref}-${b.debutCol}`}
+                            key={`${b.source.ref}-${b.startCol}`}
                             data-barre
                             onClick={(e) => {
                               const r = e.currentTarget.getBoundingClientRect();
@@ -518,16 +411,16 @@ export default function Calendrier({
                                 gauche: Math.min(r.left - c.left, c.width - 260),
                               });
                             }}
-                            className={`absolute top-0 h-full cursor-pointer overflow-hidden truncate px-1.5 text-left text-[11px] font-medium text-white transition-opacity hover:opacity-90 ${arrondis(
-                              b.borneDebut,
-                              b.borneFin,
+                            className={`absolute top-0 h-full cursor-pointer overflow-hidden truncate px-1.5 text-left text-[11px] font-medium text-white transition-opacity hover:opacity-90 ${roundedEnds(
+                              b.startsHere,
+                              b.endsHere,
                             )}`}
                             style={{
-                              left: `${b.debutCol * CELLULE + retraitGauche}%`,
+                              left: `${b.startCol * CELLULE + retraitGauche}%`,
                               width: `${
-                                (b.finCol - b.debutCol + 1) * CELLULE - retraitGauche - retraitDroite
+                                (b.endCol - b.startCol + 1) * CELLULE - retraitGauche - retraitDroite
                               }%`,
-                              backgroundColor: b.couleur,
+                              backgroundColor: b.colour,
                             }}
                             title={
                               viewer
@@ -540,10 +433,10 @@ export default function Calendrier({
                                 📝
                               </span>
                             )}
-                            {b.premierSegment && (
+                            {b.isFirstSegment && (
                               <span className="hidden sm:inline">
                                 {noteDe(b.source) ? " " : ""}
-                                {b.libelle}
+                                {b.label}
                               </span>
                             )}
                           </button>
@@ -569,14 +462,14 @@ export default function Calendrier({
         <span className="flex items-center gap-1.5">
           <span
             className="inline-block h-[3px] w-6 rounded-full"
-            style={{ backgroundColor: PALETTE_PERIODE.vacances.filet }}
+            style={{ backgroundColor: PERIOD_PALETTE.vacances.line }}
           />
           Vacances scolaires
         </span>
         <span className="flex items-center gap-1.5">
           <span
             className="inline-block h-[3px] w-6 rounded-full"
-            style={{ backgroundColor: PALETTE_PERIODE.fete.filet }}
+            style={{ backgroundColor: PERIOD_PALETTE.fete.line }}
           />
           Fêtes
         </span>

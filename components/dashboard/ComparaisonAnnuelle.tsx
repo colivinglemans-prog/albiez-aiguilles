@@ -1,4 +1,4 @@
-import type { ComparaisonAnnee } from "@/lib/dashboard-types";
+import type { YearComparison } from "@/lib/dashboard-types";
 
 const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
 
@@ -20,7 +20,7 @@ export default function ComparaisonAnnuelle({
   comparaison,
   jourDeReference,
 }: {
-  comparaison: ComparaisonAnnee[];
+  comparaison: YearComparison[];
   jourDeReference: string;
 }) {
   if (comparaison.length === 0) return null;
@@ -32,10 +32,10 @@ export default function ComparaisonAnnuelle({
   ][Number(mois) - 1];
   const fenetre = `1ᵉʳ janvier → ${Number(jour)} ${moisLong}`;
 
-  const closes = comparaison.filter((c) => !c.enCours && !c.aVenir);
-  const aVenir = comparaison.filter((c) => c.aVenir);
-  const enCours = comparaison.find((c) => c.enCours);
-  const maxADate = Math.max(...comparaison.map((c) => c.cumulADate), 1);
+  const closes = comparaison.filter((c) => !c.ongoing && !c.upcoming);
+  const aVenir = comparaison.filter((c) => c.upcoming);
+  const enCours = comparaison.find((c) => c.ongoing);
+  const maxADate = Math.max(...comparaison.map((c) => c.toDate), 1);
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
@@ -48,36 +48,36 @@ export default function ComparaisonAnnuelle({
 
         <div className="mt-3 space-y-2">
           {[...comparaison].reverse().map((c) => (
-            <div key={c.annee} className="flex items-center gap-3">
+            <div key={c.year} className="flex items-center gap-3">
               <span
                 className={`w-16 shrink-0 text-sm ${
-                  c.enCours ? "font-semibold text-slate-900" : "text-slate-500"
+                  c.ongoing ? "font-semibold text-slate-900" : "text-slate-500"
                 }`}
               >
-                {c.annee}
-                {c.aVenir && <span className="ml-1 text-xs text-slate-400">à date</span>}
+                {c.year}
+                {c.upcoming && <span className="ml-1 text-xs text-slate-400">à date</span>}
               </span>
 
               <div className="h-6 flex-1 overflow-hidden rounded-md bg-slate-100">
                 <div
-                  className={`h-full rounded-md ${c.enCours ? "bg-sky-500" : "bg-sky-200"}`}
-                  style={{ width: `${(c.cumulADate / maxADate) * 100}%` }}
+                  className={`h-full rounded-md ${c.ongoing ? "bg-sky-500" : "bg-sky-200"}`}
+                  style={{ width: `${(c.toDate / maxADate) * 100}%` }}
                 />
               </div>
 
               <span className="w-24 shrink-0 text-right text-sm font-medium text-slate-900">
-                {euros(c.cumulADate)}
+                {euros(c.toDate)}
               </span>
 
               <span className="w-28 shrink-0 text-right text-sm">
-                {c.variationADate == null ? (
+                {c.changeToDate == null ? (
                   <span className="text-slate-300">—</span>
                 ) : (
                   <span
-                    className={c.variationADate >= 0 ? "text-emerald-600" : "text-rose-600"}
+                    className={c.changeToDate >= 0 ? "text-emerald-600" : "text-rose-600"}
                   >
-                    {c.variationADate >= 0 ? "▲" : "▼"}{" "}
-                    {Math.abs(c.variationADate).toFixed(1).replace(".", ",")} %
+                    {c.changeToDate >= 0 ? "▲" : "▼"}{" "}
+                    {Math.abs(c.changeToDate).toFixed(1).replace(".", ",")} %
                   </span>
                 )}
               </span>
@@ -96,19 +96,19 @@ export default function ComparaisonAnnuelle({
         </p>
         <div className="mt-3 flex flex-wrap gap-x-8 gap-y-3">
           {[...aVenir].reverse().map((c) => (
-            <div key={c.annee}>
+            <div key={c.year}>
               <p className="text-sm text-slate-500">
-                {c.annee} <span className="text-slate-400">· à date</span>
+                {c.year} <span className="text-slate-400">· à date</span>
               </p>
               <p className="text-xl font-bold text-slate-900">
-                {c.totalAnnee != null ? euros(c.totalAnnee) : "—"}
+                {c.yearTotal != null ? euros(c.yearTotal) : "—"}
               </p>
             </div>
           ))}
           {enCours && (
             <div>
               <p className="text-sm text-slate-500">
-                {enCours.annee} <span className="text-slate-400">· projeté</span>
+                {enCours.year} <span className="text-slate-400">· projeté</span>
               </p>
               <p className="text-xl font-bold text-slate-900">
                 {enCours.projection != null ? euros(enCours.projection) : "—"}
@@ -116,19 +116,19 @@ export default function ComparaisonAnnuelle({
             </div>
           )}
           {[...closes].reverse().map((c) => (
-            <div key={c.annee}>
-              <p className="text-sm text-slate-500">{c.annee}</p>
+            <div key={c.year}>
+              <p className="text-sm text-slate-500">{c.year}</p>
               <p className="text-xl font-bold text-slate-900">
-                {c.totalAnnee != null ? euros(c.totalAnnee) : "—"}
+                {c.yearTotal != null ? euros(c.yearTotal) : "—"}
               </p>
-              {c.variationTotale != null && (
+              {c.changeYearTotal != null && (
                 <p
                   className={`text-xs font-medium ${
-                    c.variationTotale >= 0 ? "text-emerald-600" : "text-rose-600"
+                    c.changeYearTotal >= 0 ? "text-emerald-600" : "text-rose-600"
                   }`}
                 >
-                  {c.variationTotale >= 0 ? "▲" : "▼"}{" "}
-                  {Math.abs(c.variationTotale).toFixed(1).replace(".", ",")} % vs {c.annee - 1}
+                  {c.changeYearTotal >= 0 ? "▲" : "▼"}{" "}
+                  {Math.abs(c.changeYearTotal).toFixed(1).replace(".", ",")} % vs {c.year - 1}
                 </p>
               )}
             </div>

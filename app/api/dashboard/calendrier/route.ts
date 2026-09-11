@@ -4,7 +4,8 @@ import { fusionner, sejoursArchives } from "@/lib/archive";
 import { sejoursBeds24 } from "@/lib/beds24";
 import { PERIODES } from "@sejour/socle/lib/periodes";
 import { saisonsEntre } from "@/lib/seasons";
-import { ajouterJours, aujourdhui } from "@/lib/stats";
+import { addDays } from "@sejour/socle/lib/dates";
+import { todayParis } from "@sejour/socle/lib/time";
 import { COOKIE_NAME, roleDuToken } from "@/lib/auth";
 
 /**
@@ -15,15 +16,15 @@ import { COOKIE_NAME, roleDuToken } from "@/lib/auth";
  * sur les semaines voisines.
  */
 export async function GET(request: NextRequest) {
-  const mois = request.nextUrl.searchParams.get("mois") ?? aujourdhui().slice(0, 7);
+  const mois = request.nextUrl.searchParams.get("mois") ?? todayParis().slice(0, 7);
   const [annee, m] = mois.split("-").map(Number);
   if (!annee || !m || m < 1 || m > 12) {
     return NextResponse.json({ erreur: "Paramètre `mois` attendu au format YYYY-MM" }, { status: 400 });
   }
 
   const premier = `${annee}-${String(m).padStart(2, "0")}-01`;
-  const du = ajouterJours(premier, -40);
-  const au = ajouterJours(premier, 71);
+  const du = addDays(premier, -40);
+  const au = addDays(premier, 71);
 
   const archives = sejoursArchives({ arriveeDu: du, arriveeAu: au });
   let live: Sejour[] = [];
