@@ -183,7 +183,7 @@ function Notes({
     );
   }
 
-  if (sejour.idBeds24 == null) {
+  if (sejour.id == null) {
     return (
       <p className="mt-3 text-xs text-slate-400">
         Séjour archivé : il n&apos;existe plus dans Beds24 et ne peut pas recevoir de note.
@@ -198,7 +198,7 @@ function Notes({
       const res = await fetch("/api/dashboard/notes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: sejour.idBeds24, notes: texte }),
+        body: JSON.stringify({ id: sejour.id, notes: texte }),
       });
       if (!res.ok) {
         const { erreur } = await res.json().catch(() => ({ erreur: "Échec de l'enregistrement" }));
@@ -289,19 +289,19 @@ export default function Calendrier({
 
   const segmentsSejours = useMemo(() => {
     const barres = sejours
-      .filter((s) => s.arrivee <= dernier && s.depart >= premier)
-      .sort((a, b) => a.arrivee.localeCompare(b.arrivee))
+      .filter((s) => s.arrival <= dernier && s.departure >= premier)
+      .sort((a, b) => a.arrival.localeCompare(b.arrival))
       .map((s) => {
-        const commenceDansLeMois = s.arrivee >= premier;
-        const finitDansLeMois = s.depart <= dernier;
+        const commenceDansLeMois = s.arrival >= premier;
+        const finitDansLeMois = s.departure <= dernier;
         return {
           source: s,
-          couleur: viewer ? "#64748b" : COULEUR_CANAL[s.canal],
+          couleur: viewer ? "#64748b" : COULEUR_CANAL[s.channel],
           libelle: viewer
-            ? `${s.nuits} n${s.voyageurs != null ? ` · ${s.voyageurs} voy.` : ""}`
-            : `${s.canal} · ${s.nuits} n${s.voyageurs != null ? ` · ${s.voyageurs} voy.` : ""}`,
-          debutJour: commenceDansLeMois ? Number(s.arrivee.slice(8, 10)) : 1,
-          finJour: finitDansLeMois ? Number(s.depart.slice(8, 10)) : nbJours,
+            ? `${s.nights} n${s.guests != null ? ` · ${s.guests} voy.` : ""}`
+            : `${s.channel} · ${s.nights} n${s.guests != null ? ` · ${s.guests} voy.` : ""}`,
+          debutJour: commenceDansLeMois ? Number(s.arrival.slice(8, 10)) : 1,
+          finJour: finitDansLeMois ? Number(s.departure.slice(8, 10)) : nbJours,
           borneDebut: commenceDansLeMois,
           borneFin: finitDansLeMois,
         };
@@ -311,8 +311,8 @@ export default function Calendrier({
 
   /** La note la plus fraîche : celle qu'on vient d'écrire l'emporte sur celle du chargement. */
   const noteDe = (s: Sejour) =>
-    (s.idBeds24 != null && notesLocales[s.idBeds24] !== undefined
-      ? notesLocales[s.idBeds24]
+    (s.id != null && notesLocales[s.id] !== undefined
+      ? notesLocales[s.id]
       : s.notes) ?? "";
 
   /**
@@ -531,8 +531,8 @@ export default function Calendrier({
                             }}
                             title={
                               viewer
-                                ? `${b.source.arrivee} → ${b.source.depart}`
-                                : `${b.source.canal} · ${b.source.arrivee} → ${b.source.depart} · ${euros(b.source.net)}`
+                                ? `${b.source.arrival} → ${b.source.departure}`
+                                : `${b.source.channel} · ${b.source.arrival} → ${b.source.departure} · ${euros(b.source.net)}`
                             }
                           >
                             {noteDe(b.source) && (
@@ -613,27 +613,27 @@ export default function Calendrier({
           <div className="flex items-center gap-2">
             <span
               className="inline-block h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: viewer ? "#64748b" : COULEUR_CANAL[popup.sejour.canal] }}
+              style={{ backgroundColor: viewer ? "#64748b" : COULEUR_CANAL[popup.sejour.channel] }}
             />
             <p className="font-semibold text-slate-900">
-              {viewer ? "Séjour" : popup.sejour.canal}
+              {viewer ? "Séjour" : popup.sejour.channel}
             </p>
           </div>
           <dl className="mt-2.5 space-y-1 text-xs">
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">Séjour</dt>
               <dd className="text-right text-slate-900">
-                {popup.sejour.arrivee} → {popup.sejour.depart}
+                {popup.sejour.arrival} → {popup.sejour.departure}
               </dd>
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">Nuits</dt>
-              <dd className="text-slate-900">{popup.sejour.nuits}</dd>
+              <dd className="text-slate-900">{popup.sejour.nights}</dd>
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">Voyageurs</dt>
               <dd className="text-slate-900">
-                {popup.sejour.voyageurs ?? (
+                {popup.sejour.guests ?? (
                   <span className="text-slate-400">non renseigné</span>
                 )}
               </dd>
@@ -652,8 +652,8 @@ export default function Calendrier({
                     <dd className="text-slate-900">
                       {euros(popup.sejour.commission)}
                       <span className="ml-1 text-slate-400">
-                        {popup.sejour.brut > 0
-                          ? `(${Math.round((popup.sejour.commission / popup.sejour.brut) * 100)} %)`
+                        {popup.sejour.gross > 0
+                          ? `(${Math.round((popup.sejour.commission / popup.sejour.gross) * 100)} %)`
                           : ""}
                       </span>
                     </dd>
@@ -662,7 +662,7 @@ export default function Calendrier({
                 <div className="flex justify-between gap-3">
                   <dt className="text-slate-500">€ / nuit</dt>
                   <dd className="text-slate-900">
-                    {popup.sejour.nuits > 0 ? euros(popup.sejour.net / popup.sejour.nuits) : "—"}
+                    {popup.sejour.nights > 0 ? euros(popup.sejour.net / popup.sejour.nights) : "—"}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-3">
@@ -672,7 +672,7 @@ export default function Calendrier({
                 <div className="flex justify-between gap-3">
                   <dt className="text-slate-500">Source</dt>
                   <dd className="text-slate-900">
-                    {popup.sejour.source === "beds24" ? "Beds24" : "Archive"}
+                    {popup.sejour.source === "live" ? "Beds24" : "Archive"}
                   </dd>
                 </div>
               </>
@@ -704,7 +704,7 @@ export default function Calendrier({
             valeur={noteDe(popup.sejour)}
             lectureSeule={viewer}
             onEnregistre={(texte) =>
-              setNotesLocales((n) => ({ ...n, [popup.sejour.idBeds24!]: texte }))
+              setNotesLocales((n) => ({ ...n, [popup.sejour.id!]: texte }))
             }
           />
 

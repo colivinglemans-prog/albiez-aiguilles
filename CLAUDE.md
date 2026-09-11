@@ -372,13 +372,35 @@ Les trois sont des **refresh tokens**, aucun long life. Vérifié contre l'API, 
 jeton public reçoit `401` sur `/bookings`, celui d'écriture ne voit ni `price`, ni
 `commission`, ni `invoiceItems`.
 
-**Aucun `read:bookings-personal`** — ce site ne lit aucun nom ni contact, le type `Sejour` n'a
-pas de champ pour ça. C'est ce qui le distingue de Barbusse, qui en a besoin pour ses factures.
+**Aucun `read:bookings-personal`** — ce site ne lit aucun nom ni contact. C'est ce qui le
+distingue de Barbusse, qui en a besoin pour ses factures. Le `Booking` du socle a bien des
+champs pour ça, tous **optionnels** et précisément pour cette raison : ils restent vides ici,
+et aucun calcul du socle ne doit en dépendre.
 
 Les deux scopes d'inventaire sur le jeton de lecture ne sont pas un oubli : ils font vivre le
 repli du chemin public. **Ce repli va vers la lecture, jamais vers l'écriture** — le point
 d'entrée le plus exposé du site ne doit à aucun moment, même dégradé, tenir un jeton capable
 d'écrire.
+
+### Le transport vient du socle
+
+`lib/beds24.ts` ne fait plus d'HTTP : l'échange des jetons, le cache d'access tokens, les
+replis, l'écriture de note et la réexpansion des tranches de calendrier vivent dans
+`createBeds24Client` (`@sejour/socle/lib/beds24-client`). Ne restent ici que les **noms des
+variables d'environnement**, la traduction vers `Sejour`, et les deux calculs propres à ce
+bien : `surcollecteTaxe()` et `contraintes()`.
+
+Les replis sont **deux champs distincts et non un drapeau**. `whenMissing` dit quoi faire
+quand la variable n'est pas définie — une configuration incomplète, connue d'avance ;
+`whenRefused` dit quoi faire quand le jeton est refusé. La voie de lecture a le premier
+(repli sur l'écriture en développement local) mais **pas le second** : reprendre un 401 avec
+le jeton d'écriture rendrait les séjours sans leurs montants, et le dashboard afficherait des
+zéros au lieu d'une erreur.
+
+Les tranches `[from, to]` de Beds24 se réexpansent par `expandSpans`, en **UTC**. Les quatre
+copies qu'avaient les deux sites n'étaient pas d'accord entre elles : deux d'entre elles
+faisaient `new Date(jour + "T00:00:00")` puis `toISOString()`, ce qui décale d'un jour vers le
+passé pendant les huit mois d'heure d'été. Ce site ne l'avait pas, Barbusse si.
 
 ### Le cron keepalive
 
@@ -582,13 +604,30 @@ préfixes de mots de passe.
 routes** — c'est la raison du déplacement de `app/[locale]` vers `app/(site)/[locale]`. Les
 parenthèses n'apparaissent pas dans les URLs, `/fr` et `/dashboard` sont inchangés.
 
-### `Sejour`, et non `Beds24Booking`
+### `Booking` du socle, et non `Beds24Booking`
 
-Le type canonique est `Sejour` (`lib/dashboard-types.ts`) : **les deux sources s'y ramènent**,
-l'archive comme le live. Barbusse fait l'inverse et donne à son archive la forme
-`Beds24Booking` ; impossible ici, nos séjours archivés n'ayant ni `id` numérique, ni
-`propertyId`, ni nom de voyageur. Les inventer pour satisfaire un type serait fabriquer des
-données.
+Le type canonique est **`Booking` (`@sejour/socle/lib/booking`)** depuis le Lot 2 : les deux
+sources s'y ramènent, l'archive comme le live. C'est le modèle d'ici qui est monté au socle —
+Barbusse faisait l'inverse et donnait à son archive la forme `Beds24Booking` ; impossible ici,
+nos séjours archivés n'ayant ni `id` numérique, ni `propertyId`, ni nom de voyageur. Les
+inventer pour satisfaire un type serait fabriquer des données. Barbusse a migré.
+
+`Sejour` (`lib/dashboard-types.ts`) n'est plus qu'un `Booking` **plus quatre champs** que ce
+bien est seul à porter : `surcollecteTaxe`, `fraisMenage`, `taxeSejourCollecteeParLeCanal`,
+`anneeDeduite`.
+
+Les noms de champs sont ceux du socle — anglais technique : `arrival`, `departure`, `nights`,
+`gross`, `net`, `commission`, `channel`, `bookedAt`, `guests`, `id`, `source`. Le `source`
+vaut `"live"` ou `"archive"` (l'ancien `"beds24"` a disparu). Les champs d'identité du
+voyageur (`firstName`, `email`, `phone`, `country`…) existent sur `Booking` mais **restent
+vides ici** : ce site ne porte pas le scope `read:bookings-personal`, et rien ne doit pousser
+à le réclamer pour les remplir.
+
+Le **fichier** d'archive, lui, garde ses clés françaises (`arrivee`, `depart`, `brut`,
+`canal`…) : c'est un export figé, le renommer obligerait à régénérer l'archive et à repousser
+`HISTORIQUE_ALBIEZ` sur Vercel pour un gain nul. `lib/archive.ts` traduit au chargement — la
+même frontière que celle qui sépare `Beds24Booking` de `Booking`, décrite par le type
+`SejourArchive`.
 
 ### La série de référence est le net, pas le brut
 
@@ -674,6 +713,13 @@ l'exécution et non par `import` statique — le fichier est gitignoré, un impo
 
 Dédoublonnage live / archive sur la **référence de réservation** (`apiReference` côté Beds24),
 le live gagnant. Aucune date de coupure en dur.
+
+Le mécanisme — filtrer comme le fait l'API, dédoublonner en laissant gagner le live — vient de
+`createArchive` (`@sejour/socle/lib/archive`). Ne restent ici que les trois choses qui sont
+propres à ce bien : **d'où le fichier se charge** (la cascade ci-dessus, que Barbusse n'a pas
+besoin d'avoir puisque son dépôt est privé), **quelle clé dédoublonne** (`ref` et non `id`) et
+**comment ses lignes se traduisent**. Les recettes sans nuits sont une seconde archive sur le
+même fichier, avec `date` pour borne.
 
 ### Calendrier (`/dashboard/calendrier`)
 
@@ -785,9 +831,9 @@ laisserait les chiffres dans le navigateur.
 
 Trois détails de la projection `viewer`, chacun pour une raison précise :
 
-- **`ref` est synthétique** (`sejour-<arrivee>-<depart>-<i>`). Sur une réservation vivante,
+- **`ref` est synthétique** (`sejour-<arrival>-<departure>-<i>`). Sur une réservation vivante,
   `ref` vaut `apiReference` : le code de confirmation du canal. Un `HM…` dit « Airbnb » à qui
-  sait lire, alors que la projection force `canal: "Direct"` — la liste blanche masquait le
+  sait lire, alors que la projection force `channel: "Direct"` — la liste blanche masquait le
   canal et la référence le dénonçait. Il ne sert que de clé React.
 - **`satisfies Sejour`** sur le littéral : la forme réduite n'était contrainte par rien, un
   champ ajouté à `Sejour` demain ne serait pas signalé.
@@ -880,7 +926,8 @@ ancien message. Trois lignes : le lien du guide, le message complet prêt à col
 **Les cinq langues sont proposées à égalité, sans présélection.** Barbusse met en avant la
 langue probable d'après le pays du voyageur ; impossible ici, et c'est voulu — les jetons
 Beds24 d'Albiez ne portent pas `read:bookings-personal`, donc ni pays, ni prénom, ni e-mail
-n'entrent dans le site (`Sejour` n'a même pas de champ nom). Le message n'est donc pas
+n'entrent dans le site (les champs d'identité de `Booking` restent vides ici). Le message
+n'est donc pas
 nominatif, et ajouter le scope pour personnaliser une formule de politesse échangerait une
 donnée de voyageur contre trois mots.
 

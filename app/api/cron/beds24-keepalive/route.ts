@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
   if (echecs.length > 0) {
     for (const [nom, etat] of echecs) {
       console.error(
-        `[beds24-keepalive] ${nom} : ${"erreur" in etat ? etat.erreur : "échec"}. ` +
+        `[beds24-keepalive] ${nom} : ${"error" in etat ? etat.error : "échec"}. ` +
           "Régénérer un invite code dans Beds24 → Settings → Apps & Integrations → API, " +
           "avec les seuls scopes de cette voie (voir l'en-tête de lib/beds24.ts), " +
           "l'échanger via /authentication/setup — jamais /authentication/token, qui consomme " +

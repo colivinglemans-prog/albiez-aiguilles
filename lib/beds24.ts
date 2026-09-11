@@ -1,8 +1,27 @@
 import type { Sejour } from "@/lib/dashboard-types";
 import { normalizeChannel as normaliserCanal } from "@sejour/socle/lib/channels";
+import { nightsBetween } from "@sejour/socle/lib/booking";
+import { isExcludedStatus } from "@sejour/socle/lib/booking-status";
+import {
+  createBeds24Client,
+  expandSpans,
+  type Beds24RouteState,
+} from "@sejour/socle/lib/beds24-client";
+import type {
+  Beds24AvailabilityRoom,
+  Beds24Booking,
+  Beds24CalendarRoom,
+  Beds24InvoiceItem,
+} from "@sejour/socle/lib/beds24-types";
 
 /**
  * Client Beds24 v2 pour Albiez.
+ *
+ * Le transport — échange des jetons, cache d'access tokens, repli, écriture de note,
+ * réexpansion des tranches de calendrier — vient de `@sejour/socle/lib/beds24-client`. Ne
+ * restent ici que les **noms des variables d'environnement**, la traduction vers `Sejour`, et
+ * les deux calculs qui n'appartiennent qu'à ce bien : la surcollecte de taxe et les
+ * contraintes de séjour.
  *
  * **Trois tokens, trois privilèges** — même architecture que Barbusse depuis le 2026-09-11 :
  *
@@ -17,103 +36,56 @@ import { normalizeChannel as normaliserCanal } from "@sejour/socle/lib/channels"
  * l'argent — les trois vérifiés contre l'API, pas supposés. L'ancien jeton unique portait dix
  * scopes, dont `write:bookings-personal` et `write:bookings-financial` que rien n'utilisait.
  *
+ * **Pas de `read:bookings-personal`** : ce site ne lit aucun nom ni contact, et le type
+ * `Sejour` n'a même pas de champ rempli pour ça. Le `Booking` du socle en a — Barbusse en a
+ * besoin pour ses factures — mais ils sont optionnels, et rien ici ne doit pousser à réclamer
+ * le scope pour les remplir.
+ *
  * **Les trois sont des refresh tokens, aucun long life.** Un long life ne peut techniquement
  * porter que des scopes de lecture, ce qui forcerait de toute façon un second token pour
  * l'écriture ; et surtout sa durée de vie est incertaine. Un refresh token meurt après
  * 30 jours sans usage, mais l'échéance glisse à chaque échange — d'où le cron keepalive, qui
  * les entretient tous les trois plutôt que de parier sur le trafic.
  */
-const API = "https://api.beds24.com/v2";
+const client = createBeds24Client({
+  defaultRoute: "lecture",
+  routes: {
+    /**
+     * Lectures servies au **public**. S'il fuite, l'attaquant apprend quelles dates sont
+     * libres, information que la page affiche déjà.
+     *
+     * Ses deux replis désignent la voie de **lecture**, jamais celle d'écriture : le chemin
+     * le plus exposé du site ne doit à aucun moment, même dégradé, tenir un jeton capable
+     * d'écrire.
+     */
+    public: {
+      env: "BEDS24_PUBLIC_REFRESH_TOKEN",
+      whenMissing: "lecture",
+      whenRefused: "lecture",
+      hint:
+        "Régénérer un refresh token dans Beds24 → Settings → Apps & Integrations → API, " +
+        "avec les seuls scopes read:inventory et read:properties.",
+    },
+    /**
+     * Lectures du dashboard — séjours, montants, commissions. Les scopes d'inventaire ne
+     * sont pas un oubli : ils font vivre le repli du chemin public.
+     *
+     * Pas de `whenRefused` : reprendre un 401 avec le jeton d'écriture rendrait les séjours
+     * **sans leurs montants**, et le dashboard afficherait des zéros au lieu d'une erreur.
+     */
+    lecture: {
+      env: "BEDS24_READ_REFRESH_TOKEN",
+      whenMissing: "ecriture",
+      hint:
+        "Sans BEDS24_READ_REFRESH_TOKEN, les lectures passent par le jeton d'écriture, qui " +
+        "ne porte pas read:bookings-financial — les montants seront vides.",
+    },
+    /** Écriture des consignes de ménage, et rien d'autre. Aucun repli : c'est un cul-de-sac. */
+    ecriture: { env: "BEDS24_REFRESH_TOKEN" },
+  },
+});
 
-/** Statuts qui ne sont pas du chiffre d'affaires : blocages propriétaire et annulations. */
-const STATUTS_EXCLUS = new Set(["cancelled", "black"]);
-
-/**
- * Access tokens de 24 h, en cache par refresh token.
- *
- * Les deux voies — écriture et publique — partagent le même mécanisme d'échange : les
- * dupliquer aurait laissé deux caches à maintenir, et la marge d'expiration à corriger
- * deux fois le jour où elle s'avère mal choisie.
- */
-const accesEnCache = new Map<string, { token: string; expireLe: number }>();
-
-async function echanger(refreshToken: string, usage: string): Promise<string> {
-  // Marge d'une minute : un token qui expire pendant la requête coûte un 401 inexplicable.
-  const cache = accesEnCache.get(refreshToken);
-  if (cache && cache.expireLe > Date.now() + 60_000) return cache.token;
-
-  const res = await fetch(`${API}/authentication/token`, {
-    headers: { refreshToken },
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    throw new Error(
-      `Beds24 authentication/token ${res.status} (${usage}) : ${(await res.text()).slice(0, 200)}`,
-    );
-  }
-  const { token, expiresIn } = (await res.json()) as { token: string; expiresIn: number };
-  accesEnCache.set(refreshToken, { token, expireLe: Date.now() + expiresIn * 1000 });
-  return token;
-}
-
-/**
- * Token d'**écriture** — consignes de ménage, et rien d'autre.
- *
- * `deviceName: albiez-ecriture-2026-09`, scopes `read:bookings` et `write:bookings`. Il ne
- * voit ni `price`, ni `commission`, ni `invoiceItems` : vérifié contre l'API le 2026-09-11,
- * pas supposé. Un chemin qui n'a besoin que d'annoter une réservation n'a pas à pouvoir lire
- * le chiffre d'affaires.
- */
-async function tokenEcriture(): Promise<string> {
-  const rt = process.env.BEDS24_REFRESH_TOKEN;
-  if (!rt) throw new Error("BEDS24_REFRESH_TOKEN n'est pas défini");
-  return echanger(rt, "écriture");
-}
-
-/**
- * Token de **lecture** du dashboard — séjours, montants, commissions.
- *
- * `deviceName: albiez-lecture-2026-09`, scopes `read:bookings`, `read:bookings-financial`,
- * `read:inventory`, `read:properties`. Pas de `read:bookings-personal` : ce site ne lit aucun
- * nom ni contact, le type `Sejour` n'a même pas de champ pour ça.
- *
- * Les deux scopes d'inventaire ne sont pas un oubli : ils font vivre le repli du chemin
- * public quand son propre token est révoqué.
- *
- * Sans la variable, on retombe sur le token d'écriture pour ne pas bloquer le développement
- * local — mais ce dernier ne voit pas les montants, et le dashboard afficherait des zéros.
- */
-async function tokenLecture(): Promise<string> {
-  const rt = process.env.BEDS24_READ_REFRESH_TOKEN;
-  if (rt && rt.trim()) return echanger(rt.trim(), "lecture");
-  console.warn(
-    "BEDS24_READ_REFRESH_TOKEN absent : les lectures du dashboard utilisent le token " +
-      "d'écriture, qui ne porte pas read:bookings-financial — les montants seront vides.",
-  );
-  return tokenEcriture();
-}
-
-/**
- * Token des lectures servies au **public**.
- *
- * `BEDS24_PUBLIC_REFRESH_TOKEN` ne porte que `read:inventory` et `read:properties` —
- * `deviceName: albiez-public-2026-09`. Présenté à `/bookings`, Beds24 répond
- * `401 Token not valid` : vérifié le 2026-09-11. S'il fuite, l'attaquant apprend quelles
- * dates sont libres, information que la page affiche déjà.
- *
- * Sans la variable, on retombe sur le token de **lecture** — jamais sur celui d'écriture.
- * Le chemin le plus exposé du site ne doit à aucun moment, même dégradé, tenir un jeton
- * capable d'écrire. La production doit évidemment avoir la variable.
- */
-async function tokenPublic(): Promise<string> {
-  const rt = process.env.BEDS24_PUBLIC_REFRESH_TOKEN;
-  if (rt && rt.trim()) return echanger(rt.trim(), "public");
-  console.warn(
-    "BEDS24_PUBLIC_REFRESH_TOKEN absent : les lectures publiques utilisent le token de " +
-      "lecture. Créer un refresh token read:inventory + read:properties avant de déployer.",
-  );
-  return tokenLecture();
-}
+export type EtatToken = Beds24RouteState;
 
 /**
  * Entretient les trois refresh tokens — appelé par le cron hebdomadaire.
@@ -124,99 +96,9 @@ async function tokenPublic(): Promise<string> {
  * encore faible. Pire, deux des trois morts seraient **silencieuses** : le repli prendrait le
  * relais et le site continuerait de fonctionner en ayant reperdu la séparation des
  * privilèges, sans que rien ne le signale.
- *
- * L'échange est forcé hors cache : c'est lui qui repousse l'échéance, pas la lecture d'un
- * access token encore valide gardé en mémoire.
- *
- * Les trois sont tentés même si le premier échoue — un token mort ne doit pas en entraîner
- * un second.
  */
-export type EtatToken = { ok: true } | { ok: false; erreur: string };
-
-export async function entretenirTokens(): Promise<Record<string, EtatToken>> {
-  const voies: Array<[string, string | undefined]> = [
-    ["public", process.env.BEDS24_PUBLIC_REFRESH_TOKEN],
-    ["lecture", process.env.BEDS24_READ_REFRESH_TOKEN],
-    ["ecriture", process.env.BEDS24_REFRESH_TOKEN],
-  ];
-
-  const etats: Record<string, EtatToken> = {};
-  for (const [nom, rt] of voies) {
-    if (!rt || !rt.trim()) {
-      etats[nom] = { ok: false, erreur: "variable d'environnement absente" };
-      continue;
-    }
-    try {
-      accesEnCache.delete(rt.trim());
-      await echanger(rt.trim(), nom);
-      etats[nom] = { ok: true };
-    } catch (e) {
-      etats[nom] = { ok: false, erreur: e instanceof Error ? e.message : String(e) };
-    }
-  }
-  return etats;
-}
-
-async function appeler<T>(
-  chemin: string,
-  params: Record<string, string> = {},
-  frais = false,
-  public_ = false,
-): Promise<T> {
-  const url = new URL(API + chemin);
-  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
-
-  /**
-   * Le token public peut être révoqué, ou mourir faute d'usage — Beds24 invalide un refresh
-   * token qui n'a pas servi depuis 30 jours. Sans repli, la route de disponibilités
-   * renverrait 502 et le calendrier afficherait un logement indisponible sur toutes les
-   * dates : un calendrier muet, sans que rien ne le signale.
-   *
-   * D'où un repli sur 401 — vers le token de **lecture**, qui porte lui aussi
-   * `read:inventory` et `read:properties`. Surtout pas vers celui d'écriture : le chemin le
-   * plus exposé du site ne doit jamais, même dégradé, tenir un jeton capable d'écrire.
-   * L'avertissement dans les logs dit quoi régénérer.
-   */
-  const appel = (token: string) => fetch(url, {
-    headers: { token },
-    // 60 s par défaut : le dashboard n'a pas besoin de la seconde près, et ça évite de
-    // tapisser l'API à chaque changement de période.
-    //
-    // `frais` court-circuite ce cache là où l'on vient d'écrire. Sans lui, une consigne de
-    // ménage enregistrée restait invisible pendant une minute — et la personne du ménage,
-    // qui rafraîchit sa page, voyait l'ancienne version sans comprendre pourquoi.
-    ...(frais ? { cache: "no-store" as const } : { next: { revalidate: 60 } }),
-  });
-
-  let res = await appel(public_ ? await tokenPublic() : await tokenLecture());
-
-  if (res.status === 401 && public_ && process.env.BEDS24_PUBLIC_REFRESH_TOKEN) {
-    // Un refresh token n'expire pas sur une horloge, mais il peut être révoqué — ou mourir
-    // après 30 jours sans usage. Le repli évite que ça éteigne le calendrier sans prévenir.
-    console.error(
-      "BEDS24_PUBLIC_REFRESH_TOKEN refusé (401) — révoqué ? Repli sur le token de lecture. " +
-        "En régénérer un dans Beds24 → Settings → Apps & Integrations → API, avec les seuls " +
-        "scopes read:inventory et read:properties.",
-    );
-    res = await appel(await tokenLecture());
-  }
-
-  if (!res.ok) throw new Error(`Beds24 ${chemin} ${res.status} : ${(await res.text()).slice(0, 200)}`);
-  return res.json() as Promise<T>;
-}
-
-/**
- * Ligne de facture Beds24.
- *
- * `subType` discrimine la nature : **8** pour l'hébergement, **11** pour les extras — ménage,
- * linge, remise, taxe de séjour s'y mêlent. La taxe se reconnaît donc au libellé, pas au
- * `subType`.
- */
-interface LigneFacture {
-  subType?: number;
-  description?: string;
-  amount?: number;
-  lineTotal?: number;
+export function entretenirTokens(): Promise<Record<string, EtatToken>> {
+  return client.keepAlive(["public", "lecture", "ecriture"]);
 }
 
 /**
@@ -227,28 +109,6 @@ interface LigneFacture {
  * qui sert à déclarer une taxe.
  */
 const LIBELLE_TAXE_SEJOUR = /taxe de s[eé]jour/i;
-
-interface BookingBeds24 {
-  id: number;
-  commission?: number;
-  invoiceItems?: LigneFacture[];
-  arrival: string;
-  departure: string;
-  status?: string;
-  price?: number;
-  referer?: string;
-  channel?: string;
-  apiReference?: string;
-  bookingTime?: string;
-  firstName?: string;
-  lastName?: string;
-  notes?: string;
-  numAdult?: number;
-  numChild?: number;
-}
-
-const nuitsEntre = (a: string, b: string) =>
-  Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
 
 /**
  * Part de taxe de séjour collectée à tort, faute d'exonération des mineurs.
@@ -263,12 +123,14 @@ const nuitsEntre = (a: string, b: string) =>
  * le calcul. Aujourd'hui seul le direct en porte une, mais le jour où un canal s'y mettrait,
  * le même écart s'appliquerait sans qu'on ait à y penser.
  */
-function surcollecteTaxe(b: BookingBeds24): Sejour["surcollecteTaxe"] {
+function surcollecteTaxe(b: Beds24Booking): Sejour["surcollecteTaxe"] {
   const enfants = b.numChild ?? 0;
   const occupants = (b.numAdult ?? 0) + enfants;
   if (enfants <= 0 || occupants <= 0) return null;
 
-  const ligne = (b.invoiceItems ?? []).find((l) => LIBELLE_TAXE_SEJOUR.test(l.description ?? ""));
+  const ligne = (b.invoiceItems ?? []).find((l: Beds24InvoiceItem) =>
+    LIBELLE_TAXE_SEJOUR.test(l.description ?? ""),
+  );
   const collectee = Number(ligne?.lineTotal ?? 0);
   if (collectee <= 0) return null;
 
@@ -277,13 +139,13 @@ function surcollecteTaxe(b: BookingBeds24): Sejour["surcollecteTaxe"] {
 }
 
 /**
- * Réservations vivantes, ramenées au type `Sejour`.
+ * Réservations vivantes, ramenées au type canonique.
  *
  * `apiReference` porte le numéro de réservation du canal — c'est la clé de dédoublonnage
  * avec l'archive. À défaut, on retombe sur l'id Beds24, qui ne collisionnera avec aucune
  * référence de canal.
  *
- * Le `brut` de Beds24 est `price` et la commission du canal vient de `commission`, que l'API
+ * Le `gross` de Beds24 est `price` et la commission du canal vient de `commission`, que l'API
  * renseigne bel et bien — relevé le 2026-09-01 : 94,86 € sur 510 € chez Airbnb, 61,95 € sur
  * 336,70 € chez Booking. Le net les soustrait. Auparavant net valait brut, ce qui surestimait
  * le net d'environ 18 % sur toutes les réservations vivantes.
@@ -299,41 +161,42 @@ export async function sejoursBeds24(params: {
   /** Ignorer le cache — à utiliser sur les vues où l'on écrit, comme le calendrier. */
   frais?: boolean;
 }): Promise<Sejour[]> {
-  const { data = [] } = await appeler<{ data: BookingBeds24[] }>(
-    "/bookings",
-    {
+  const { data = [] } = await client.get<{ data: Beds24Booking[] }>("/bookings", {
+    params: {
       arrivalFrom: params.arriveeDu,
       arrivalTo: params.arriveeAu,
       // Les lignes de facture isolent l'hébergement et la taxe de séjour, seule façon de
       // chiffrer la surcollecte sur les mineurs.
       includeInvoiceItems: "true",
     },
-    params.frais,
-  );
+    fresh: params.frais,
+  });
 
   return data
-    .filter((b) => !STATUTS_EXCLUS.has((b.status ?? "").toLowerCase()))
+    .filter((b) => !isExcludedStatus(b.status))
     .map((b) => {
-      const brut = Number(b.price ?? 0);
+      const gross = Number(b.price ?? 0);
       const commission = Number(b.commission ?? 0);
       return {
         ref: b.apiReference?.trim() || `beds24-${b.id}`,
-        canal: normaliserCanal(b.referer, b.channel),
-        arrivee: b.arrival,
-        depart: b.departure,
-        nuits: nuitsEntre(b.arrival, b.departure),
-        brut,
-        net: brut - commission,
+        channel: normaliserCanal(b.referer, b.channel),
+        arrival: b.arrival,
+        departure: b.departure,
+        nights: nightsBetween(b.arrival, b.departure),
+        gross,
+        net: gross - commission,
         commission,
         surcollecteTaxe: surcollecteTaxe(b),
-        reserveLe: b.bookingTime?.slice(0, 10) ?? null,
-        source: "beds24" as const,
-        statut: b.status,
-        idBeds24: b.id,
+        // Tronqué au jour : le délai de réservation et la convention « à la réservation »
+        // raisonnent en jours calendaires, pas à la seconde.
+        bookedAt: b.bookingTime?.slice(0, 10) ?? null,
+        source: "live" as const,
+        status: b.status,
+        id: b.id,
         notes: b.notes ?? "",
         // `null` et non `0` quand Beds24 ne renseigne rien : zéro voyageur serait un chiffre,
         // l'absence d'information n'en est pas un.
-        voyageurs:
+        guests:
           b.numAdult == null && b.numChild == null
             ? null
             : (b.numAdult ?? 0) + (b.numChild ?? 0),
@@ -355,11 +218,9 @@ export async function disponibilites(du: string, au: string): Promise<Record<str
   const propertyId = process.env.BEDS24_PROPERTY_ID;
   if (!propertyId) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
 
-  const { data = [] } = await appeler<{ data: { availability: Record<string, boolean> }[] }>(
+  const { data = [] } = await client.get<{ data: Beds24AvailabilityRoom[] }>(
     "/inventory/rooms/availability",
-    { propertyId, startDate: du, endDate: au },
-    false,
-    true,
+    { params: { propertyId, startDate: du, endDate: au }, route: "public" },
   );
 
   const fusion: Record<string, boolean> = {};
@@ -403,64 +264,61 @@ export async function contraintes(du: string, au: string): Promise<Contraintes> 
   const propertyId = process.env.BEDS24_PROPERTY_ID;
   if (!propertyId) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
 
-  const { data = [] } = await appeler<{
-    data: { calendar?: { from: string; to: string; minStay?: number; override?: string }[] }[];
-  }>(
+  const { data = [] } = await client.get<{ data: Beds24CalendarRoom[] }>(
     "/inventory/rooms/calendar",
-    { propertyId, startDate: du, endDate: au, includeMinStay: "true", includeOverride: "true" },
-    false,
-    true,
+    {
+      params: {
+        propertyId,
+        startDate: du,
+        endDate: au,
+        includeMinStay: "true",
+        includeOverride: "true",
+      },
+      route: "public",
+    },
   );
 
   const minima: Record<string, number> = {};
-  const sansArrivee = new Set<string>();
-  const sansDepart = new Set<string>();
+  const sansArrivee: Record<string, true> = {};
+  const sansDepart: Record<string, true> = {};
+
+  const ferme = (o: string | undefined, bord: "In" | "Out") =>
+    o === `noCheck${bord}` || o === "noCheckInOrCheckOut";
 
   for (const room of data) {
-    for (const tranche of room.calendar ?? []) {
-      const fermeArrivee = tranche.override === "noCheckIn" || tranche.override === "noCheckInOrCheckOut";
-      const fermeDepart = tranche.override === "noCheckOut" || tranche.override === "noCheckInOrCheckOut";
-      if (tranche.minStay == null && !fermeArrivee && !fermeDepart) continue;
-      // Beds24 compacte les jours consécutifs de même valeur en une tranche [from, to].
-      for (let j = tranche.from; j <= tranche.to; ) {
-        if (tranche.minStay != null) minima[j] = Math.max(minima[j] ?? 0, tranche.minStay);
-        if (fermeArrivee) sansArrivee.add(j);
-        if (fermeDepart) sansDepart.add(j);
-        const d = new Date(`${j}T00:00:00Z`);
-        d.setUTCDate(d.getUTCDate() + 1);
-        j = d.toISOString().slice(0, 10);
-      }
-    }
+    // Le plus grand minimum gagne quand deux rooms se prononcent sur le même jour : une
+    // contrainte de séjour est une borne basse, la relâcher afficherait des séjours refusés.
+    expandSpans(room.calendar, (t) => t.minStay, (avant, apres) => Math.max(avant ?? 0, apres), minima);
+    expandSpans(room.calendar, (t) => (ferme(t.override, "In") ? true : undefined), undefined, sansArrivee);
+    expandSpans(room.calendar, (t) => (ferme(t.override, "Out") ? true : undefined), undefined, sansDepart);
   }
-  return { minima, sansArrivee: [...sansArrivee].sort(), sansDepart: [...sansDepart].sort() };
+
+  return {
+    minima,
+    sansArrivee: Object.keys(sansArrivee).sort(),
+    sansDepart: Object.keys(sansDepart).sort(),
+  };
 }
 
 /** Prix au calendrier — ceux que pousse Beyond Pricing. Sert à la projection. */
 export async function prixParNuit(params: { du: string; au: string }): Promise<Record<string, number>> {
   const propertyId = process.env.BEDS24_PROPERTY_ID;
   if (!propertyId) return {};
-  const { data = [] } = await appeler<{
-    data: { calendar?: { from: string; to: string; price1?: number }[] }[];
-  }>("/inventory/rooms/calendar", {
-    propertyId,
-    startDate: params.du,
-    endDate: params.au,
-    includePrices: "true",
-  });
+  const { data = [] } = await client.get<{ data: Beds24CalendarRoom[] }>(
+    "/inventory/rooms/calendar",
+    {
+      params: {
+        propertyId,
+        startDate: params.du,
+        endDate: params.au,
+        includePrices: "true",
+      },
+    },
+  );
 
+  // Une seule room ici : la dernière valeur gagne, ce qui est le défaut de `expandSpans`.
   const prix: Record<string, number> = {};
-  for (const room of data) {
-    for (const tranche of room.calendar ?? []) {
-      if (tranche.price1 == null) continue;
-      // Beds24 compacte les jours consécutifs de même prix en une tranche [from, to].
-      for (let j = tranche.from; j <= tranche.to; ) {
-        prix[j] = tranche.price1;
-        const d = new Date(`${j}T00:00:00Z`);
-        d.setUTCDate(d.getUTCDate() + 1);
-        j = d.toISOString().slice(0, 10);
-      }
-    }
-  }
+  for (const room of data) expandSpans(room.calendar, (t) => t.price1, undefined, prix);
   return prix;
 }
 
@@ -470,38 +328,10 @@ export async function prixParNuit(params: { du: string; au: string }): Promise<R
  * Le champ visé est `notes` et non `comments` : le second porte la remarque du voyageur et
  * s'imprime sur les documents envoyés au client. `notes` reste interne.
  *
- * Beds24 v2 répond parfois **200 avec `success: false`** dans le tableau de retour : un
- * refus silencieux qu'il faut lire dans le corps, sinon l'interface affiche « enregistré »
- * alors que rien ne l'a été.
+ * Beds24 v2 répond parfois **200 avec `success: false`** dans le tableau de retour : le socle
+ * lit ce refus silencieux dans le corps, sinon l'interface affiche « enregistré » alors que
+ * rien ne l'a été.
  */
-export async function ecrireNotes(id: number, notes: string): Promise<void> {
-  const token = await tokenEcriture();
-  const res = await fetch(`${API}/bookings`, {
-    method: "POST",
-    headers: { token, "Content-Type": "application/json" },
-    body: JSON.stringify([{ id, notes }]),
-    cache: "no-store",
-  });
-  const corps = await res.text();
-  if (!res.ok) {
-    // Un 401 signifie que l'access token est mort avant son expiration annoncée : on vide
-    // l'entrée du cache pour que l'appel suivant en redemande un. Seule celle du token
-    // d'écriture — celle du token public n'a rien à voir avec cet échec.
-    if (res.status === 401 && process.env.BEDS24_REFRESH_TOKEN) {
-      accesEnCache.delete(process.env.BEDS24_REFRESH_TOKEN);
-    }
-    throw new Error(`Beds24 ${res.status} : ${corps.slice(0, 300)}`);
-  }
-  try {
-    const parse = JSON.parse(corps) as { success?: boolean; errors?: unknown; error?: unknown }[];
-    const premier = Array.isArray(parse) ? parse[0] : null;
-    if (premier && premier.success === false) {
-      throw new Error(
-        `Beds24 a refusé l'écriture : ${JSON.stringify(premier.errors ?? premier.error ?? premier).slice(0, 300)}`,
-      );
-    }
-  } catch (e) {
-    if (e instanceof Error && e.message.startsWith("Beds24 a refusé")) throw e;
-    // Corps illisible mais statut 200 : format inattendu, pas une erreur d'écriture.
-  }
+export function ecrireNotes(id: number, notes: string): Promise<void> {
+  return client.updateNotes(id, notes, "ecriture");
 }

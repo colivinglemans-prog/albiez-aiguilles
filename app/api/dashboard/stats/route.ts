@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
   const tousArchives = sejoursArchives();
   const { du, au } = bornes(
     periode,
-    tousArchives.length > 0 ? tousArchives[0].arrivee : null,
+    tousArchives.length > 0 ? tousArchives[0].arrival : null,
   );
 
   // Beds24 peut être injoignable (token expiré, API en panne) : l'archive doit rester
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
   const anneeMax = Number(aujourdhui().slice(0, 4)) + 1;
   try {
     live = await sejoursBeds24({
-      arriveeDu: tousArchives[0]?.arrivee ?? "2023-01-01",
+      arriveeDu: tousArchives[0]?.arrival ?? "2023-01-01",
       arriveeAu: `${anneeMax}-12-31`,
     });
   } catch (e) {
@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
    * `sejours` sert aux indicateurs et aux tableaux, qui eux décrivent la période choisie.
    */
   const tout = fusionner(live, tousArchives);
-  const sejours = tout.filter((s) => s.arrivee >= du && s.arrivee <= au);
+  const sejours = tout.filter((s) => s.arrival >= du && s.arrival <= au);
 
   /**
    * La première année d'activité est écartée des comparaisons quand elle est tronquée.
@@ -107,11 +107,11 @@ export async function GET(request: NextRequest) {
    * La règle se maintient seule : on garde à partir de la première année dont le premier
    * séjour tombe en janvier. Elle ne demandera aucune retouche l'an prochain.
    */
-  const premier = tout[0]?.arrivee;
+  const premier = tout[0]?.arrival;
   const premiereAnneeComparable = premier
     ? Number(premier.slice(0, 4)) + (premier.slice(5, 7) === "01" ? 0 : 1)
     : 0;
-  const comparables = tout.filter((s) => Number(s.arrivee.slice(0, 4)) >= premiereAnneeComparable);
+  const comparables = tout.filter((s) => Number(s.arrival.slice(0, 4)) >= premiereAnneeComparable);
   const recettes = recettesArchivees({ arriveeDu: du, arriveeAu: au });
   // Recettes sur tout l'historique, pour les mêmes raisons que `comparables`.
   const recettesComparables = recettesArchivees().filter(
@@ -120,8 +120,8 @@ export async function GET(request: NextRequest) {
 
   const today = aujourdhui();
   const revenuNet = sejours.reduce((s, x) => s + x.net, 0) + recettes.reduce((s, r) => s + r.net, 0);
-  const revenuBrut = sejours.reduce((s, x) => s + x.brut, 0) + recettes.reduce((s, r) => s + r.brut, 0);
-  const nuitsVendues = sejours.reduce((s, x) => s + x.nuits, 0);
+  const revenuBrut = sejours.reduce((s, x) => s + x.gross, 0) + recettes.reduce((s, r) => s + r.brut, 0);
+  const nuitsVendues = sejours.reduce((s, x) => s + x.nights, 0);
 
   // Occupation sur la partie ÉCOULÉE de la période seulement. Compter les mois à venir
   // comme des nuits invendues écraserait le taux sans rien dire d'utile.
@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
   const finAnnee = `${anneeCourante}-12-31`;
   // `tout` et non `sejours` : la projection porte sur l'année en cours, que l'utilisateur
   // regarde « l'année précédente » ou « 12 derniers mois » n'y change rien.
-  const dansAnnee = tout.filter((s) => s.arrivee >= debutAnnee && s.arrivee <= finAnnee);
+  const dansAnnee = tout.filter((s) => s.arrival >= debutAnnee && s.arrival <= finAnnee);
   const realise = dansAnnee
     .flatMap((s) => ventiler(s, mode))
     .filter((v) => v.jour <= today)
@@ -151,7 +151,7 @@ export async function GET(request: NextRequest) {
     const prix = await prixParNuit({ du: today, au: finAnnee });
     const nuitsPrises = new Set(
       dansAnnee.flatMap((s) =>
-        Array.from({ length: s.nuits }, (_, i) => ajouterJours(s.arrivee, i)),
+        Array.from({ length: s.nights }, (_, i) => ajouterJours(s.arrival, i)),
       ),
     );
     const tauxRealise = joursEcoules > 0 ? nuitsOccupeesEcoulees / joursEcoules : 0;
@@ -166,8 +166,8 @@ export async function GET(request: NextRequest) {
   const avecPeriode = (liste: Sejour[]) =>
     liste.map((s) => ({
       ...s,
-      periode: periodeLabel(s.arrivee, s.depart),
-      tjm: s.nuits > 0 ? arrondi(s.net / s.nuits) : 0,
+      periode: periodeLabel(s.arrival, s.departure),
+      tjm: s.nights > 0 ? arrondi(s.net / s.nights) : 0,
     }));
 
   const stats: StatsDashboard = {
@@ -182,24 +182,24 @@ export async function GET(request: NextRequest) {
     revpar: arrondi(revenuNet / joursEcoules),
     dureeMoyenneSejour: sejours.length > 0 ? arrondi(nuitsVendues / sejours.length) : 0,
     delaiMoyenReservation: (() => {
-      const avec = sejours.filter((s) => s.reserveLe);
+      const avec = sejours.filter((s) => s.bookedAt);
       if (avec.length === 0) return null;
       return Math.round(
-        avec.reduce((s, x) => s + Math.max(0, joursEntre(x.reserveLe!, x.arrivee)), 0) / avec.length,
+        avec.reduce((s, x) => s + Math.max(0, joursEntre(x.bookedAt!, x.arrival)), 0) / avec.length,
       );
     })(),
     partDirecte: {
       revenu:
         revenuNet > 0
           ? arrondi(
-              (sejours.filter((s) => s.canal === "Direct").reduce((s, x) => s + x.net, 0) /
+              (sejours.filter((s) => s.channel === "Direct").reduce((s, x) => s + x.net, 0) /
                 revenuNet) *
                 100,
             )
           : 0,
       sejours:
         sejours.length > 0
-          ? arrondi((sejours.filter((s) => s.canal === "Direct").length / sejours.length) * 100)
+          ? arrondi((sejours.filter((s) => s.channel === "Direct").length / sejours.length) * 100)
           : 0,
     },
     // Les 90 jours à venir débordent de toute période passée : calcul sur `tout`.
@@ -213,13 +213,13 @@ export async function GET(request: NextRequest) {
     canauxParAnnee: canauxParAnnee(comparables, recettesComparables),
     sejoursRecents: avecPeriode(
       [...sejours]
-        .sort((a, b) => (b.reserveLe ?? b.arrivee).localeCompare(a.reserveLe ?? a.arrivee))
+        .sort((a, b) => (b.bookedAt ?? b.arrival).localeCompare(a.bookedAt ?? a.arrival))
         .slice(0, 8),
     ),
     meilleursSejours: avecPeriode(
       [...sejours]
-        .filter((s) => s.nuits > 0)
-        .sort((a, b) => b.net / b.nuits - a.net / a.nuits)
+        .filter((s) => s.nights > 0)
+        .sort((a, b) => b.net / b.nights - a.net / a.nights)
         .slice(0, 8),
     ),
     recettesHorsNuits: {

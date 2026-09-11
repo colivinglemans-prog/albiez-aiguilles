@@ -56,17 +56,17 @@ export function ventiler(sejour: Sejour, mode: ModeRevenu): { jour: string; mont
   const montant = sejour.net;
   switch (mode) {
     case "arrivee":
-      return [{ jour: sejour.arrivee, montant }];
+      return [{ jour: sejour.arrival, montant }];
     case "depart":
-      return [{ jour: sejour.depart, montant }];
+      return [{ jour: sejour.departure, montant }];
     case "reservation":
-      return [{ jour: sejour.reserveLe ?? sejour.arrivee, montant }];
+      return [{ jour: sejour.bookedAt ?? sejour.arrival, montant }];
     case "reparti":
     default: {
-      if (sejour.nuits <= 0) return [{ jour: sejour.arrivee, montant }];
-      const parNuit = montant / sejour.nuits;
-      return Array.from({ length: sejour.nuits }, (_, i) => ({
-        jour: ajouterJours(sejour.arrivee, i),
+      if (sejour.nights <= 0) return [{ jour: sejour.arrival, montant }];
+      const parNuit = montant / sejour.nights;
+      return Array.from({ length: sejour.nights }, (_, i) => ({
+        jour: ajouterJours(sejour.arrival, i),
         montant: parNuit,
       }));
     }
@@ -75,7 +75,7 @@ export function ventiler(sejour: Sejour, mode: ModeRevenu): { jour: string; mont
 
 /** Les nuits d'un séjour, une par jour — base de tous les calculs d'occupation. */
 export function nuitsDuSejour(sejour: Sejour): string[] {
-  return Array.from({ length: Math.max(0, sejour.nuits) }, (_, i) => ajouterJours(sejour.arrivee, i));
+  return Array.from({ length: Math.max(0, sejour.nights) }, (_, i) => ajouterJours(sejour.arrival, i));
 }
 
 /**
@@ -96,7 +96,7 @@ export function mouvements(
   mode: ModeRevenu,
 ): { jour: string; canal: Canal; montant: number }[] {
   return [
-    ...sejours.flatMap((s) => ventiler(s, mode).map((v) => ({ ...v, canal: s.canal }))),
+    ...sejours.flatMap((s) => ventiler(s, mode).map((v) => ({ ...v, canal: s.channel }))),
     ...recettes
       .filter((r) => r.date)
       .map((r) => ({ jour: r.date as string, canal: r.canal, montant: r.net })),
@@ -196,8 +196,8 @@ export function canauxParAnnee(sejours: Sejour[], recettes: RecetteSansNuits[]):
   const aDate = (jour: string) => Number(jour.slice(0, 4)) !== anneeCourante || jour <= today;
 
   for (const s of sejours) {
-    if (!aDate(s.arrivee)) continue;
-    const e = entree(Number(s.arrivee.slice(0, 4)), s.canal);
+    if (!aDate(s.arrival)) continue;
+    const e = entree(Number(s.arrival.slice(0, 4)), s.channel);
     e.sejours += 1;
     e.revenu += s.net;
   }
@@ -319,10 +319,10 @@ export function nuitsOccupees(sejours: Sejour[], du: string, au: string): number
 export function repartitionCanaux(sejours: Sejour[]): { canal: string; sejours: number; revenu: number }[] {
   const parCanal = new Map<Canal, { sejours: number; revenu: number }>();
   for (const s of sejours) {
-    const e = parCanal.get(s.canal) ?? { sejours: 0, revenu: 0 };
+    const e = parCanal.get(s.channel) ?? { sejours: 0, revenu: 0 };
     e.sejours += 1;
     e.revenu += s.net;
-    parCanal.set(s.canal, e);
+    parCanal.set(s.channel, e);
   }
   return CANAUX.filter((c) => parCanal.has(c)).map((canal) => ({
     canal,

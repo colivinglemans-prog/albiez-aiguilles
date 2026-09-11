@@ -36,13 +36,13 @@ export default function SejoursTable({
   const Canal = ({ s }: { s: SejourAffiche }) => (
     <span
       className="inline-flex items-center gap-1.5 whitespace-nowrap text-slate-600"
-      title={s.source === "beds24" ? "Réservation vivante (Beds24)" : "Archive"}
+      title={s.source === "live" ? "Réservation vivante (Beds24)" : "Archive"}
     >
       <span
         className="inline-block h-2 w-2 shrink-0 rounded-full"
-        style={{ backgroundColor: COULEUR_CANAL[s.canal] }}
+        style={{ backgroundColor: COULEUR_CANAL[s.channel] }}
       />
-      {s.canal}
+      {s.channel}
     </span>
   );
 
@@ -66,24 +66,24 @@ export default function SejoursTable({
       {/* Cartes — petits écrans */}
       <ul className="space-y-3 md:hidden">
         {sejours.map((s) => (
-          <li key={`${s.canal}-${s.ref}`} className="rounded-xl bg-slate-50 p-3">
+          <li key={`${s.channel}-${s.ref}`} className="rounded-xl bg-slate-50 p-3">
             <div className="flex items-baseline justify-between gap-2">
               <span className="text-sm font-medium text-slate-900">
-                {jourCourt(s.arrivee)} <span className="text-slate-400">→</span>{" "}
-                {jourCourt(s.depart)}
+                {jourCourt(s.arrival)} <span className="text-slate-400">→</span>{" "}
+                {jourCourt(s.departure)}
               </span>
               <span className="text-sm font-semibold text-slate-900">{euros(s.net)}</span>
             </div>
             <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
               <Canal s={s} />
-              <span className="text-slate-400">{s.nuits} nuits</span>
-              {s.voyageurs != null && (
-                <span className="text-slate-400">{s.voyageurs} voy.</span>
+              <span className="text-slate-400">{s.nights} nuits</span>
+              {s.guests != null && (
+                <span className="text-slate-400">{s.guests} voy.</span>
               )}
               <span className="text-slate-400">{euros(s.tjm)} / nuit</span>
               {reserveLe && (
                 <span className="text-slate-400">
-                  réservé le {s.reserveLe ? jourCourt(s.reserveLe) : "—"}
+                  réservé le {s.bookedAt ? jourCourt(s.bookedAt) : "—"}
                 </span>
               )}
               <Periode s={s} />
@@ -108,25 +108,25 @@ export default function SejoursTable({
           </thead>
           <tbody>
             {sejours.map((s) => (
-              <tr key={`${s.canal}-${s.ref}`} className="border-t border-slate-100">
+              <tr key={`${s.channel}-${s.ref}`} className="border-t border-slate-100">
                 <td className="whitespace-nowrap py-2.5 pr-3 text-slate-900">
-                  {jourCourt(s.arrivee)}
+                  {jourCourt(s.arrival)}
                   <span className="text-slate-400"> → </span>
-                  {jourCourt(s.depart)}
-                  <span className="ml-1.5 text-xs text-slate-400">{s.nuits} n</span>
+                  {jourCourt(s.departure)}
+                  <span className="ml-1.5 text-xs text-slate-400">{s.nights} n</span>
                 </td>
                 <td className="py-2.5 pr-3">
                   <Canal s={s} />
                 </td>
                 <td className="whitespace-nowrap py-2.5 pr-3 text-right text-slate-600">
-                  {s.voyageurs ?? <span className="text-slate-300" title="Non renseigné dans l&apos;archive">—</span>}
+                  {s.guests ?? <span className="text-slate-300" title="Non renseigné dans l&apos;archive">—</span>}
                 </td>
                 <td className="py-2.5 pr-3">
                   <Periode s={s} />
                 </td>
                 {reserveLe && (
                   <td className="whitespace-nowrap py-2.5 pr-3 text-right text-slate-500">
-                    {s.reserveLe ? jourCourt(s.reserveLe) : "—"}
+                    {s.bookedAt ? jourCourt(s.bookedAt) : "—"}
                   </td>
                 )}
                 <td className="whitespace-nowrap py-2.5 pr-3 text-right text-slate-600">

@@ -1,40 +1,37 @@
 /**
  * Types du dashboard.
  *
- * Choix structurant : `Sejour` est le type canonique, et **les deux sources s'y ramènent** —
- * l'archive des quatre canaux comme les réservations vivantes de Beds24. Le reste du
- * dashboard ne connaît que `Sejour` et ignore d'où il vient.
+ * Choix structurant : **le type canonique est `Booking`, et il vit dans le socle** — les deux
+ * sources s'y ramènent, l'archive des quatre canaux comme les réservations vivantes de
+ * Beds24. Le reste du dashboard ne connaît que lui et ignore d'où il vient.
  *
- * L'alternative, qu'a retenue Barbusse, est de faire porter à l'archive la forme
- * `Beds24Booking`. Elle ne tient pas ici : nos séjours archivés n'ont ni `id` numérique, ni
- * `propertyId`, ni `roomId`, ni nom de voyageur. Les inventer pour satisfaire un type serait
- * fabriquer des données.
+ * L'alternative, qu'avait retenue Barbusse jusqu'au Lot 2, était de faire porter à l'archive
+ * la forme `Beds24Booking`. Elle ne tenait pas ici : nos séjours archivés n'ont ni `id`
+ * numérique, ni `propertyId`, ni `roomId`, ni nom de voyageur. Les inventer pour satisfaire
+ * un type serait fabriquer des données. C'est ce modèle-ci qui est monté au socle.
+ *
+ * `Sejour` n'ajoute que ce qui n'existe qu'ici : la surcollecte de taxe de séjour, les deux
+ * colonnes d'archive sans équivalent vivant, et le drapeau d'année déduite.
  */
 
 import type { Channel } from "@sejour/socle/lib/channels";
+import type { Booking } from "@sejour/socle/lib/booking";
 
 /**
  * Le canal de distribution est défini par le socle (`Channel`). L'alias français reste le
- * nom utilisé dans tout le dashboard, dont le vocabulaire est français de bout en bout.
+ * nom utilisé par tout ce qui est propre à ce site — au premier rang duquel les recettes
+ * sans nuits, dont le vocabulaire est français de bout en bout.
  */
 export type Canal = Channel;
 
-export interface Sejour {
-  /** Identifiant du canal : code de confirmation, numéro de réservation, id Stripe. */
-  ref: string;
-  canal: Canal;
-  /** Première nuit, incluse (YYYY-MM-DD). */
-  arrivee: string;
-  /** Jour du départ, exclu des nuits (YYYY-MM-DD). */
-  depart: string;
-  nuits: number;
-  /** Ce que paie le voyageur, avant prélèvement du canal. */
-  brut: number;
-  /** Ce qui reste après commission du canal. */
-  net: number;
-  commission: number;
-  /** Date de réservation, quand la source la donne — sert au délai de réservation. */
-  reserveLe?: string | null;
+/**
+ * Un séjour d'Albiez : le `Booking` du socle, plus quatre champs que ce bien est seul à
+ * porter.
+ *
+ * Les champs d'identité du voyageur restent vides ici et doivent le rester : ce site ne
+ * porte pas le scope `read:bookings-personal`, et rien dans son dashboard n'en a besoin.
+ */
+export interface Sejour extends Booking {
   fraisMenage?: number | null;
   taxeSejourCollecteeParLeCanal?: number | null;
   /**
@@ -47,38 +44,12 @@ export interface Sejour {
    *
    * `null` dès qu'il n'y a pas de mineur ou pas de ligne de taxe sur la facture — ce qui
    * couvre tous les canaux : Airbnb et Booking ne font pas passer la taxe par Beds24.
+   *
+   * Reste en français : c'est du vocabulaire réglementaire, pas technique.
    */
   surcollecteTaxe?: { collectee: number; due: number; ecart: number } | null;
-  source: "archive" | "beds24";
-  /** Séjour présent dans les deux sources : à dédoublonner sur `ref`. */
-  aussiDansBeds24?: boolean;
   /** L'année du séjour a été déduite de la date d'encaissement, pas lue sur la facture. */
   anneeDeduite?: boolean;
-  statut?: string;
-  /**
-   * Identifiant numérique Beds24, présent uniquement sur les réservations vivantes. C'est la
-   * clé d'écriture des notes : un séjour archivé n'existe plus dans Beds24 et n'est donc pas
-   * annotable.
-   */
-  idBeds24?: number;
-  /**
-   * Note interne, stockée dans le champ `notes` de Beds24 — et non `comments`, qui est la
-   * remarque du voyageur et s'imprime sur les factures. Visible en lecture par le rôle
-   * `viewer` : c'est là qu'on écrit « changer les draps du canapé ».
-   */
-  notes?: string;
-  /**
-   * Nombre de voyageurs, adultes et enfants confondus.
-   *
-   * **Absent de tout l'historique archivé** : aucun des exports de canal ne le porte, ni
-   * Airbnb, ni Booking, ni Abritel. Seules les réservations passées par Beds24 depuis le
-   * 2026-08-28 en ont un. La colonne se remplira donc d'elle-même, et restera vide sur
-   * l'antérieur — ce qui est la vérité, pas un bug d'affichage.
-   *
-   * Elle servira à trancher sur données réelles la tarification par occupation (5ᵉ et 6ᵉ
-   * personne), aujourd'hui réglée au raisonnement faute de mesure.
-   */
-  voyageurs?: number | null;
 }
 
 /**
@@ -102,11 +73,37 @@ export interface RecetteSansNuits {
   rapprocheAvec?: { canal: string; code: string };
 }
 
+/**
+ * Forme **du fichier** d'archive, telle que `scripts/build-archive.mjs` l'écrit — et non
+ * celle du domaine.
+ *
+ * Ses clés sont restées en français : le fichier est un export figé, produit une fois, et le
+ * renommer obligerait à régénérer l'archive et à repousser la variable `HISTORIQUE_ALBIEZ`
+ * sur Vercel pour un gain nul. La traduction vers `Sejour` se fait au chargement
+ * (`lib/archive.ts`), ce qui est exactement le travail d'un adaptateur : c'est la même
+ * frontière que celle qui sépare `Beds24Booking` de `Booking`.
+ */
+export interface SejourArchive {
+  ref: string;
+  canal: Canal;
+  arrivee: string;
+  depart: string;
+  nuits: number;
+  brut: number;
+  net: number;
+  commission: number;
+  reserveLe?: string | null;
+  fraisMenage?: number | null;
+  taxeSejourCollecteeParLeCanal?: number | null;
+  source?: string;
+  anneeDeduite?: boolean;
+}
+
 export interface Archive {
   genereLe: string;
   avertissement: string;
   totauxParCanal: Record<string, number>;
-  sejours: Sejour[];
+  sejours: SejourArchive[];
   recettes: RecetteSansNuits[];
 }
 

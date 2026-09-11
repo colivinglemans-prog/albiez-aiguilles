@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
   }
 
   const role = await roleDuToken(request.cookies.get(COOKIE_NAME)?.value ?? "");
-  const tous = fusionner(live, archives).filter((s) => s.depart >= du && s.arrivee <= au);
+  const tous = fusionner(live, archives).filter((s) => s.departure >= du && s.arrival <= au);
 
   /**
    * Pour le rôle `viewer`, les montants sont retirés **de la réponse**, pas seulement de
@@ -66,21 +66,21 @@ export async function GET(request: NextRequest) {
                * masquait le canal et la référence le dénonçait. Il ne sert ici que de clé
                * React, une clé stable d'un rendu à l'autre suffit donc.
                */
-              ref: `sejour-${s.arrivee}-${s.depart}-${i}`,
-              canal: "Direct" as const,
-              arrivee: s.arrivee,
-              depart: s.depart,
-              nuits: s.nuits,
-              brut: 0,
+              ref: `sejour-${s.arrival}-${s.departure}-${i}`,
+              channel: "Direct" as const,
+              arrival: s.arrival,
+              departure: s.departure,
+              nights: s.nights,
+              gross: 0,
               net: 0,
               commission: 0,
               source: s.source,
               // Les notes restent : elles sont écrites POUR la personne qui fait le ménage.
               // C'est le seul champ qu'elle a besoin de lire au-delà des dates.
               notes: s.notes,
-              idBeds24: s.idBeds24,
+              id: s.id,
               // Le nombre de voyageurs reste : c'est le nombre de lits à faire.
-              voyageurs: s.voyageurs,
+              guests: s.guests,
               /*
                * `satisfies Sejour` et non un simple objet : la forme réduite n'était
                * contrainte par rien. Un champ ajouté à `Sejour` demain — sensible ou non —
