@@ -680,6 +680,45 @@ export const it: Dictionary = {
     tagline: "Appartamento di montagna ad Albiez-Montrond, Savoia.",
   },
 
+  longStay: {
+    heading: "Soggiorni lunghi ad Albiez, fuori stagione",
+    intro:
+      "Durante le vacanze l'appartamento si affitta a settimana. Il resto dell'anno resta vuoto — ed è proprio allora che un soggiorno di più settimane ha senso, per chi lavora in valle e preferisce rientrare la sera nella quiete dei 1 600 metri anziché a bordo strada.",
+    windows: (ouverture, fermeture) =>
+      `Il comprensorio sciistico è aperto dal ${ouverture} al ${fermeture}. Restano due finestre tranquille: dalla chiusura degli impianti alla fine di giugno, e da settembre alla riapertura di dicembre. In questi periodi, e soltanto in questi, proponiamo il soggiorno lungo.`,
+    worksiteTitle: "Il cantiere Torino-Lione",
+    worksiteText:
+      "Il tunnel di base Torino-Lione impiega oltre tremila persone in Maurienne, fino al 2030, e ogni settimana ne arriva una trentina. Trovare alloggio è il primo problema di tutte. Le discenderie di Saint-Martin-la-Porte e di La Praz si trovano un po' più in alto nella stessa valle, sullo stesso asse: non abbiamo misurato quei tragitti, ma restano spostamenti di fondovalle.",
+    commute: (km, minutes) =>
+      `Saint-Jean-de-Maurienne dista ${km} km, una ventina di minuti in discesa — ${minutes} minuti esatti, su una strada sgomberata tutto l'inverno.`,
+    flatTitle: "Quanto vale l'appartamento su più settimane",
+    flatItems: [
+      "Una cucina completa, con forno e lavastoviglie: non si cena fuori sei sere a settimana.",
+      "Un vero letto matrimoniale, più un angolo montagna e un divano letto — spazio per ospiti senza traslocare.",
+      "Un balcone esposto a sud di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
+      "Parcheggio gratuito e serratura connessa: nessuna consegna di chiavi, nessun orario d'arrivo.",
+      "1 600 metri di quota: notti fresche d'estate e aria secca tutto l'anno.",
+    ],
+    limitsTitle: "Che cosa non offriamo",
+    limitsText:
+      "Né le settimane di vacanza scolastica né luglio e agosto: quelle vanno ai villeggianti, è il nostro mestiere e non facciamo eccezioni. Non offriamo nemmeno la singola camera o la coabitazione: è l'appartamento intero, per una persona o per una squadra che va d'accordo.",
+    contactTitle: "Chiedeteci",
+    contactText:
+      "Le condizioni di un soggiorno di più settimane si concordano caso per caso: durata, forma del contratto, pulizie, biancheria. Scriveteci indicando le date e il numero di persone, rispondiamo in fretta.",
+    contactCta: "Scrivere un messaggio",
+    seo: {
+      title: "Alloggio di lunga durata in Maurienne — cantiere Torino-Lione | Albiez",
+      description:
+        "Appartamento ammobiliato ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per soggiorni di più settimane fuori dalla stagione turistica. Per il personale del cantiere Torino-Lione e le trasferte lunghe.",
+      keywords: [
+        "alloggio cantiere Torino-Lione",
+        "affitto lunga durata Maurienne",
+        "appartamento ammobiliato Saint-Jean-de-Maurienne",
+        "affitto più settimane Savoia",
+        "alloggio lavoratori Torino-Lione",
+      ],
+    },
+  },
   legal: {
     title: "Note legali",
     editorTitle: "Editore del sito",

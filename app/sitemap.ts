@@ -42,6 +42,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
 
+    // La page de séjour longue durée. Elle n'est liée depuis nulle part sur le site —
+    // ni navigation, ni index du guide — donc le sitemap est le seul chemin par lequel
+    // un moteur la découvre. Sans cette entrée, elle serait invisible.
+    entries.push({
+      url: `${SITE_URL}/${locale}/sejour-longue-duree`,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: alternates((l) => `/${l}/sejour-longue-duree`),
+    });
+
     // Le guide : l'index, puis un article par slug. Les slugs sont communs aux cinq
     // langues, ce qui rend les `alternates` triviaux à construire.
     entries.push({

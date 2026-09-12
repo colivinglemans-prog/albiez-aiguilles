@@ -658,6 +658,45 @@ export const en: Dictionary = {
     tagline: "Mountain apartment in Albiez-Montrond, Savoie, France.",
   },
 
+  longStay: {
+    heading: "Long stays in Albiez, out of season",
+    intro:
+      "The flat is let by the week during the holidays. The rest of the year it stands empty — and that is exactly when a stay of several weeks makes sense, for anyone working in the valley who would rather come home to quiet at 1,600 metres than to the side of a road.",
+    windows: (ouverture, fermeture) =>
+      `The ski area opens from ${ouverture} to ${fermeture}. That leaves two quiet windows: from the area closing until the end of June, then from September until the December re-opening. Those periods, and only those, are when we offer long stays.`,
+    worksiteTitle: "The Lyon-Turin project",
+    worksiteText:
+      "The Lyon-Turin base tunnel employs more than three thousand people in the Maurienne, through to 2030, with around thirty arriving every week. Finding somewhere to live is the first problem every one of them faces. The access adits at Saint-Martin-la-Porte and La Praz are a little further up the same valley, on the same road — we have not measured those journeys ourselves, but they remain valley commutes.",
+    commute: (km, minutes) =>
+      `Saint-Jean-de-Maurienne is ${km} km away, about twenty minutes downhill — ${minutes} minutes to be exact, on a road cleared all winter.`,
+    flatTitle: "What the flat is worth over several weeks",
+    flatItems: [
+      "A full kitchen, oven and dishwasher: you will not be eating out six nights a week.",
+      "A proper double bed, plus a mountain alcove and a sofa bed — room for visitors without moving out.",
+      "A south-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
+      "Free parking and a smart lock: no key handover, no arrival window.",
+      "1,600 metres of altitude, meaning cool nights in summer and dry air all year.",
+    ],
+    limitsTitle: "What we do not offer",
+    limitsText:
+      "Neither school holiday weeks nor July and August: those go to holidaymakers, that is our trade and we do not bend it. We do not let single rooms or shares either — it is the whole flat, for one person or for a team that gets on.",
+    contactTitle: "Ask us",
+    contactText:
+      "The terms of a multi-week stay are settled case by case: length, form of contract, cleaning, linen. Write to us with your dates and the number of people, and we answer quickly.",
+    contactCta: "Send a message",
+    seo: {
+      title: "Long-term accommodation in the Maurienne — Lyon-Turin project | Albiez",
+      description:
+        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks outside the tourist season. For Lyon-Turin project staff and long work postings.",
+      keywords: [
+        "Lyon-Turin project accommodation",
+        "long term rental Maurienne",
+        "furnished flat Saint-Jean-de-Maurienne",
+        "multi week rental Savoie",
+        "worker accommodation Lyon-Turin",
+      ],
+    },
+  },
   legal: {
     title: "Legal notice",
     editorTitle: "Site publisher",

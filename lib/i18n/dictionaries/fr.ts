@@ -676,6 +676,45 @@ export const fr: Dictionary = {
     tagline: "Appartement de montagne à Albiez-Montrond, Savoie.",
   },
 
+  longStay: {
+    heading: "Séjour longue durée à Albiez, hors saison",
+    intro:
+      "L'appartement se loue à la semaine pendant les vacances. Le reste de l'année, il est vide — et c'est précisément là qu'un séjour de plusieurs semaines a du sens, pour qui travaille dans la vallée et préfère rentrer le soir au calme, à 1 600 mètres, plutôt qu'au bord de la route.",
+    windows: (ouverture, fermeture) =>
+      `Le domaine skiable ouvre du ${ouverture} au ${fermeture}. Restent deux fenêtres creuses : de la fermeture du domaine à la fin juin, puis de septembre à la réouverture de décembre. C'est sur ces périodes-là, et seulement sur celles-là, que nous proposons le séjour long.`,
+    worksiteTitle: "Le chantier Lyon-Turin",
+    worksiteText:
+      "Le chantier du tunnel Lyon-Turin emploie plus de trois mille salariés en Maurienne, jusqu'en 2030, et une trentaine de personnes arrivent chaque semaine. Se loger est le premier problème de tous ceux qui arrivent. Les descenderies de Saint-Martin-la-Porte et de La Praz sont un peu plus haut dans la même vallée, sur le même axe — nous n'avons pas mesuré ces trajets-là, mais l'ordre de grandeur reste celui d'un trajet quotidien de vallée.",
+    commute: (km, minutes) =>
+      `Saint-Jean-de-Maurienne est à ${km} km, une vingtaine de minutes de descente — ${minutes} minutes exactement, et la route est déneigée tout l'hiver.`,
+    flatTitle: "Ce que vaut l'appartement sur plusieurs semaines",
+    flatItems: [
+      "Une cuisine complète, four et lave-vaisselle : on ne mange pas au restaurant six soirs par semaine.",
+      "Un vrai lit double, plus un coin montagne et un canapé-lit — de quoi recevoir sans déménager.",
+      "Un balcon plein sud face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
+      "Un parking gratuit et une serrure connectée : ni remise de clés ni horaire d'arrivée.",
+      "1 600 mètres d'altitude, soit des nuits fraîches en été et de l'air sec toute l'année.",
+    ],
+    limitsTitle: "Ce que nous ne proposons pas",
+    limitsText:
+      "Ni les semaines de vacances scolaires, ni juillet-août : elles vont aux vacanciers, c'est notre métier et nous n'y dérogeons pas. Nous ne proposons pas non plus de chambre seule ni de colocation — c'est l'appartement entier, pour une personne ou pour une équipe qui s'entend.",
+    contactTitle: "Nous consulter",
+    contactText:
+      "Les conditions d'un séjour de plusieurs semaines se discutent au cas par cas : durée, forme du contrat, ménage, linge. Écrivez-nous en indiquant vos dates et le nombre de personnes, nous répondons vite.",
+    contactCta: "Écrire un message",
+    seo: {
+      title: "Logement longue durée en Maurienne — chantier Lyon-Turin | Albiez",
+      description:
+        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, en séjour de plusieurs semaines hors saison touristique. Pour les salariés du chantier Lyon-Turin et les déplacements longs.",
+      keywords: [
+        "logement chantier Lyon-Turin",
+        "hébergement longue durée Maurienne",
+        "meublé Saint-Jean-de-Maurienne",
+        "location plusieurs semaines Savoie",
+        "logement salarié Lyon-Turin",
+      ],
+    },
+  },
   legal: {
     title: "Mentions légales",
     editorTitle: "Éditeur du site",

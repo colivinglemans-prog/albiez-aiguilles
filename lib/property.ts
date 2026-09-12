@@ -163,6 +163,17 @@ export const PROPERTY = {
     babyKitOnRequest: true,
   },
 
+  /**
+   * Trajet vers Saint-Jean-de-Maurienne, pour la page de séjour longue durée.
+   *
+   * En voiture, contrairement à `DISTANCES` qui compte les mètres à pied depuis le
+   * logement. C'est le seul chiffre de trajet dont cette page ait besoin : les
+   * descenderies du chantier Lyon-Turin (Saint-Martin-la-Porte, La Praz) sont un peu plus
+   * haut dans la même vallée, sur le même axe, et nous n'avons pas mesuré ces
+   * trajets-là — la page le dit plutôt que d'avancer un chiffre.
+   */
+  valleyCommute: { km: 18, minutes: 22 },
+
   contact: {
     email: "alexandre.delan@gmail.com",
     phone: "+33620921005",

@@ -680,6 +680,45 @@ export const es: Dictionary = {
     tagline: "Apartamento de montaña en Albiez-Montrond, Saboya.",
   },
 
+  longStay: {
+    heading: "Estancias largas en Albiez, fuera de temporada",
+    intro:
+      "El apartamento se alquila por semanas durante las vacaciones. El resto del año está vacío, y es justo entonces cuando una estancia de varias semanas tiene sentido, para quien trabaja en el valle y prefiere volver por la noche a la calma de los 1 600 metros antes que al borde de la carretera.",
+    windows: (ouverture, fermeture) =>
+      `La estación de esquí abre del ${ouverture} al ${fermeture}. Quedan dos ventanas tranquilas: del cierre de la estación a finales de junio, y de septiembre a la reapertura de diciembre. En esos periodos, y solo en esos, ofrecemos la estancia larga.`,
+    worksiteTitle: "Las obras del Lyon-Turín",
+    worksiteText:
+      "El túnel de base del Lyon-Turín emplea a más de tres mil personas en la Maurienne, hasta 2030, y cada semana llegan unas treinta más. Encontrar alojamiento es el primer problema de todas ellas. Las galerías de acceso de Saint-Martin-la-Porte y La Praz están algo más arriba en el mismo valle, sobre el mismo eje: no hemos medido esos trayectos, pero siguen siendo desplazamientos de valle.",
+    commute: (km, minutes) =>
+      `Saint-Jean-de-Maurienne está a ${km} km, unos veinte minutos de bajada — ${minutes} minutos exactamente, por una carretera despejada todo el invierno.`,
+    flatTitle: "Lo que vale el apartamento durante varias semanas",
+    flatItems: [
+      "Una cocina completa, con horno y lavavajillas: no se cena fuera seis noches por semana.",
+      "Una cama de matrimonio de verdad, más un rincón de montaña y un sofá cama: sitio para recibir sin mudarse.",
+      "Un balcón orientado al sur frente a las Aiguilles d'Arves, y el silencio de un pueblo de 300 habitantes.",
+      "Aparcamiento gratuito y cerradura conectada: ni entrega de llaves ni horario de llegada.",
+      "1 600 metros de altitud: noches frescas en verano y aire seco todo el año.",
+    ],
+    limitsTitle: "Lo que no ofrecemos",
+    limitsText:
+      "Ni las semanas de vacaciones escolares ni julio y agosto: son para los veraneantes, es nuestro oficio y no lo cambiamos. Tampoco ofrecemos habitación suelta ni piso compartido: es el apartamento entero, para una persona o para un equipo que se lleve bien.",
+    contactTitle: "Consúltenos",
+    contactText:
+      "Las condiciones de una estancia de varias semanas se acuerdan caso por caso: duración, forma del contrato, limpieza, ropa de cama. Escríbanos indicando sus fechas y el número de personas; respondemos rápido.",
+    contactCta: "Escribir un mensaje",
+    seo: {
+      title: "Alojamiento de larga duración en la Maurienne — obras del Lyon-Turín | Albiez",
+      description:
+        "Apartamento amueblado en Albiez-Montrond, a 18 km de Saint-Jean-de-Maurienne, para estancias de varias semanas fuera de temporada turística. Para personal de las obras del Lyon-Turín y desplazamientos largos.",
+      keywords: [
+        "alojamiento obras Lyon-Turín",
+        "alquiler larga duración Maurienne",
+        "apartamento amueblado Saint-Jean-de-Maurienne",
+        "alquiler por semanas Saboya",
+        "alojamiento trabajadores Lyon-Turín",
+      ],
+    },
+  },
   legal: {
     title: "Aviso legal",
     editorTitle: "Editor del sitio",

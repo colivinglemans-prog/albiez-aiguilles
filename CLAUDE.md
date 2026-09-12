@@ -1641,6 +1641,43 @@ depuis Wikimedia Commons. Jamais de visuel de presse d'organisateur.
 française, espagnole ou italienne elle ne signale que des apostrophes et des guillemets
 légitimes.
 
+## Séjour longue durée (page discrète, mais indexée)
+
+`/{locale}/sejour-longue-duree` — une page d'atterrissage qui vise les **salariés du
+chantier Lyon-Turin** et les déplacements professionnels longs, sur les périodes creuses.
+
+Ne pas confondre avec le guide d'arrivée ci-dessous : celui-là est `noindex` et absent du
+sitemap, celle-ci est **indexable et au sitemap**. Ce qui la rend discrète n'est pas une
+balise, c'est l'absence de lien : ni dans le header, ni dans le footer, ni dans l'index du
+guide. Un moteur la trouve par le sitemap, un visiteur en la cherchant — pas en se
+promenant sur le site.
+
+**C'est un arbitrage commercial, pas un détail technique.** Le propriétaire ne veut pas
+qu'un vacancier venu chercher du ski tombe sur une page qui parle de chantier : ça
+dévalorise le bien et contredit tout le reste du site. D'où l'absence de lien entrant, et
+d'où l'abandon de l'article de guide compagnon qui figurait dans le plan initial — il
+serait apparu en vignette dans la grille du guide, exactement devant le lecteur qu'on ne
+veut pas refroidir. Le chantier est nommé dans le corps et la meta description parce que
+c'est la requête, nulle part ailleurs.
+
+Le slug est **commun aux cinq langues**, comme `/guide` : la requête visée est française,
+le chantier et la plateforme de mise en relation le sont aussi, et traduire l'adresse ne
+ferait gagner aucun mot-clé. Chemin dans `longStayPath()` (`lib/seo.ts`).
+
+Le contenu vit dans le bloc `longStay` des cinq dictionnaires (`LongStayContent`), et
+**aucune date ni aucun chiffre n'y est écrit** : les dates d'ouverture du domaine viennent
+de `WINTER_OPENING` via `formatPeriode()`, le trajet vers la vallée de
+`PROPERTY.valleyCommute`. Les périodes proposées se déduisent donc toutes seules quand la
+saison change.
+
+Le `<h1>` est écrit dans la page plutôt que délégué à `SectionTitle`, qui rend un `<h2>` :
+c'est le titre de la page, et elle est indexable.
+
+⚠️ **La page dit « nous consulter » et ne chiffre rien.** La forme du contrat d'un séjour de
+plusieurs semaines — bail mobilité ou location meublée de courte durée —, la taxe de
+séjour et le régime LMNP côté SCI n'ont pas été tranchés. Ne rien y promettre de chiffré
+avant cet arbitrage.
+
 ## Guide d'arrivée (page cachée)
 
 `/{locale}/guide-arrivee` — l'itinéraire en photos, du col du Mollard à la boîte à clés.

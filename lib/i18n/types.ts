@@ -93,6 +93,37 @@ export interface SeasonContent<DistanceLabelKey extends string = string> {
   };
 }
 
+/**
+ * La page de séjour longue durée (`/{locale}/sejour-longue-duree`).
+ *
+ * Page à part, hors navigation et hors index du guide : elle vise les salariés du chantier
+ * Lyon-Turin, pas les vacanciers. Le chantier y est nommé parce que c'est la requête, mais
+ * il n'apparaît nulle part ailleurs sur le site — un voyageur venu pour le ski ne doit pas
+ * tomber dessus.
+ */
+export interface LongStayContent {
+  heading: string;
+  intro: string;
+  /**
+   * Les deux fenêtres creuses. Reçoit l'ouverture et la fermeture du domaine **déjà
+   * formatées** : les dates vivent dans `lib/seasons.ts`, jamais dans un dictionnaire.
+   */
+  windows: (ouverture: string, fermeture: string) => string;
+  worksiteTitle: string;
+  worksiteText: string;
+  /** Trajet vers la vallée. Valeurs issues de `PROPERTY.valleyCommute`. */
+  commute: (km: number, minutes: number) => string;
+  flatTitle: string;
+  flatItems: string[];
+  /** Ce que nous ne proposons pas — dit avant qu'on le demande. */
+  limitsTitle: string;
+  limitsText: string;
+  contactTitle: string;
+  contactText: string;
+  contactCta: string;
+  seo: { title: string; description: string; keywords: string[] };
+}
+
 export interface Dictionary {
   header: {
     home: string;
@@ -378,6 +409,7 @@ export interface Dictionary {
     copyright: string;
     tagline: string;
   };
+  longStay: LongStayContent;
   legal: {
     title: string;
     editorTitle: string;

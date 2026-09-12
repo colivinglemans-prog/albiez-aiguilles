@@ -52,6 +52,20 @@ export const seasonPath = (season: Season) => (l: Locale) =>
 export const blogPath = (l: Locale) => `/${l}/guide`;
 
 /**
+ * Chemin de la page de séjour longue durée.
+ *
+ * Slug commun aux cinq langues, comme `/guide` et contrairement aux saisons. La requête
+ * visée est française — « logement chantier Lyon-Turin » — parce que le chantier est en
+ * France et que la plateforme de mise en relation l'est aussi ; traduire l'adresse ne
+ * ferait gagner aucun mot-clé utile.
+ *
+ * La page n'est ni dans la navigation ni dans l'index du guide, mais elle est au sitemap :
+ * elle se trouve en la cherchant, pas en se promenant sur le site. C'est délibéré — un
+ * vacancier venu pour le ski n'a rien à faire sur une page qui parle de chantier.
+ */
+export const longStayPath = (l: Locale) => `/${l}/sejour-longue-duree`;
+
+/**
  * Chemin d'un article. Le slug est commun aux deux langues, contrairement aux
  * saisons : un article n'existe qu'à un seul endroit, seul son contenu est traduit.
  */

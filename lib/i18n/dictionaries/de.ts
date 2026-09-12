@@ -681,6 +681,45 @@ export const de: Dictionary = {
     tagline: "Bergwohnung in Albiez-Montrond, Savoyen.",
   },
 
+  longStay: {
+    heading: "Langzeitaufenthalt in Albiez, außerhalb der Saison",
+    intro:
+      "In den Ferien wird die Wohnung wochenweise vermietet. Den Rest des Jahres steht sie leer — und genau dann ergibt ein Aufenthalt über mehrere Wochen Sinn, für alle, die im Tal arbeiten und abends lieber in die Ruhe auf 1 600 Metern zurückkehren als an den Straßenrand.",
+    windows: (ouverture, fermeture) =>
+      `Das Skigebiet ist vom ${ouverture} bis zum ${fermeture} geöffnet. Es bleiben zwei ruhige Fenster: von der Schließung bis Ende Juni und von September bis zur Wiedereröffnung im Dezember. In diesen Zeiträumen, und nur in diesen, bieten wir Langzeitaufenthalte an.`,
+    worksiteTitle: "Die Baustelle Lyon-Turin",
+    worksiteText:
+      "Der Basistunnel Lyon-Turin beschäftigt in der Maurienne über dreitausend Menschen, und das bis 2030; jede Woche kommen rund dreißig hinzu. Eine Unterkunft zu finden ist für alle das erste Problem. Die Zugangsstollen von Saint-Martin-la-Porte und La Praz liegen etwas weiter oben im selben Tal, an derselben Achse — diese Fahrten haben wir nicht selbst gemessen, doch es bleiben Talwege.",
+    commute: (km, minutes) =>
+      `Saint-Jean-de-Maurienne liegt ${km} km entfernt, etwa zwanzig Minuten bergab — genauer ${minutes} Minuten, auf einer den ganzen Winter geräumten Straße.`,
+    flatTitle: "Was die Wohnung über mehrere Wochen wert ist",
+    flatItems: [
+      "Eine vollständige Küche mit Backofen und Spülmaschine: Man isst nicht sechs Abende die Woche auswärts.",
+      "Ein richtiges Doppelbett, dazu ein Bergalkoven und ein Schlafsofa — Platz für Besuch, ohne umzuziehen.",
+      "Ein Südbalkon mit Blick auf die Aiguilles d'Arves und die Stille eines Dorfs mit 300 Einwohnern.",
+      "Kostenloser Parkplatz und ein smartes Schloss: keine Schlüsselübergabe, kein Ankunftsfenster.",
+      "1 600 Meter Höhe, also kühle Sommernächte und trockene Luft das ganze Jahr.",
+    ],
+    limitsTitle: "Was wir nicht anbieten",
+    limitsText:
+      "Weder Schulferienwochen noch Juli und August: die gehören den Urlaubsgästen, das ist unser Geschäft und davon weichen wir nicht ab. Einzelzimmer oder Wohngemeinschaft bieten wir ebenfalls nicht an — es ist die ganze Wohnung, für eine Person oder für ein Team, das sich versteht.",
+    contactTitle: "Fragen Sie uns",
+    contactText:
+      "Die Bedingungen eines mehrwöchigen Aufenthalts werden im Einzelfall besprochen: Dauer, Vertragsform, Reinigung, Wäsche. Schreiben Sie uns mit Ihren Daten und der Personenzahl, wir antworten schnell.",
+    contactCta: "Nachricht schreiben",
+    seo: {
+      title: "Langzeitunterkunft in der Maurienne — Baustelle Lyon-Turin | Albiez",
+      description:
+        "Möblierte Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für Aufenthalte von mehreren Wochen außerhalb der Feriensaison. Für Beschäftigte der Baustelle Lyon-Turin und lange Einsätze.",
+      keywords: [
+        "Unterkunft Baustelle Lyon-Turin",
+        "Langzeitmiete Maurienne",
+        "möblierte Wohnung Saint-Jean-de-Maurienne",
+        "Wochenmiete Savoyen",
+        "Monteurunterkunft Lyon-Turin",
+      ],
+    },
+  },
   legal: {
     title: "Impressum",
     editorTitle: "Herausgeber der Website",
