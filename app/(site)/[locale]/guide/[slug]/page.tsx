@@ -13,14 +13,14 @@ import {
   alternatesFor,
   articleJsonLd,
   blogPostPath,
-  eventJsonLd,
   openGraphLocales,
 } from "@/lib/seo";
-import { SITE_URL } from "@/lib/property";
+import { PROPERTY, SITE_URL } from "@/lib/property";
 import { getPhoto } from "@/lib/photos";
 import { formatDate } from "@sejour/socle/lib/dates";
-import { EVENTS, nextEdition } from "@/lib/events";
-import { EventBanner } from "@/components/public/EventBanner";
+import { eventJsonLd, nextEdition } from "@sejour/socle/lib/events";
+import EventBanner from "@sejour/socle/components/EventBanner";
+import { EVENTS } from "@/lib/events";
 import {
   BLOG_POSTS,
   getLocalizedPost,
@@ -262,6 +262,9 @@ export default async function GuidePost({
   const event = post.event
     ? nextEdition(EVENTS, post.event, formatDate(new Date()))
     : undefined;
+  const eventNode = event
+    ? eventJsonLd(event, { region: PROPERTY.address.region })
+    : null;
 
   return (
     <div data-season={post.season ?? undefined}>
@@ -269,21 +272,15 @@ export default async function GuidePost({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Déclaré seulement quand l'organisateur a publié ses dates : voir `eventJsonLd`. */}
-      {event?.confirmed && (
+      {/* `eventJsonLd` rend `null` tant que l'organisateur n'a pas publié ses dates : le
+          test de `confirmed` est dans le socle, pas ici, pour qu'aucun appelant ne
+          l'oublie. Balise séparée de celle de l'article — deux blocs JSON-LD indépendants
+          sur une page sont valides et se lisent mieux qu'un `@graph` dont les nœuds n'ont
+          de toute façon rien à se dire. */}
+      {eventNode && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(
-              eventJsonLd({
-                name: event.name,
-                start: event.start,
-                end: event.end,
-                commune: event.commune,
-                url: event.url,
-              }),
-            ),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventNode) }}
         />
       )}
 
@@ -313,7 +310,14 @@ export default async function GuidePost({
           <p className="mt-4 text-lg text-secondary">{loc.description}</p>
         </header>
 
-        {event && <EventBanner locale={locale} event={event} />}
+        {event && (
+          <EventBanner
+            event={event}
+            bcp47={LOCALE_META[locale].bcp47}
+            href={`/${locale}#reserver`}
+            labels={t.blog.event}
+          />
+        )}
 
         {photo && (
           <figure className="mt-8">

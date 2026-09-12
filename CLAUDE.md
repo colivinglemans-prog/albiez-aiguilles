@@ -444,6 +444,18 @@ réagir, ce qui vaut mieux qu'un tunnel de réservation éteint sans prévenir.
 
 ## Réservation directe (vitrine)
 
+> **Lot 5 — le calendrier public vient du socle.** Le composant est monté dans
+> `@sejour/socle/components/ReservationCalendar` : il était à 80 % identique à celui du Mans,
+> et l'en-tête de ce fichier le disait déjà — « porté de celui du Mans ». Huit états de case,
+> table de styles, sélection arrivée/départ, séjour minimum, refetch au retour d'onglet,
+> modale Beds24 : tout est là-bas. `components/public/CalendrierReservation.tsx` ne garde que
+> l'identifiant Beds24, la capacité, la route `/api/disponibilites` et **la bande de saison de
+> ski** (`dayOverlayClass` + `overlayLegend`, qui reçoit la fenêtre affichée pour étiqueter le
+> bon hiver). La **rotation du samedi** n'est pas un paramètre : `sansArrivee` / `sansDepart`
+> arrivent dans la réponse de l'API, et un site qui n'en envoie pas ne voit rien changer. Le
+> moteur de sélection est en plus **sorti du composant** vers `@sejour/socle/lib/stay-selection`
+> — il se teste désormais sans navigateur, sur une vraie réponse Beds24.
+
 `components/public/BookingSection.tsx` rend `CalendrierReservation`, qui interroge Beds24 en
 direct et ouvre son tunnel de paiement dans une modale. Le site **ne fait que choisir des
 dates** : prix, remise directe et encaissement vivent sur la page Beds24. Aucun tarif n'est
@@ -797,6 +809,16 @@ automatique refuse les cellules déjà occupées et repousserait les sept cases 
 ligne. Placés *avant* les barres dans le DOM, ils passent au-dessus des fonds de saison et
 en dessous des séjours, donc ne coupent aucune pilule. Hiérarchie des traits :
 `slate-300` pour l'en-tête des jours, `slate-200` pour la grille.
+
+**Trois couches de barres depuis le Lot 5**, du plus large au plus précis en descendant :
+vacances scolaires et fêtes, puis **les événements du secteur**, puis les séjours. Les
+événements sont placés en granularité `full-day` — une course occupe ses journées entières,
+là où un séjour libère le logement le matin de son départ, et une fête d'un seul jour se
+réduirait à rien si on lui retirait une demi-case de chaque côté. Leur couleur est l'ambre
+`#d97706` : ni l'indigo des vacances, ni le rose des fêtes, ni aucune couleur de canal — et
+surtout pas le vert `#0E9F6E` du Direct, dont un teal aurait été voisin. Le catalogue est
+importé (`EVENTS`) et non reçu en prop, contrairement aux périodes et aux saisons : il est
+statique, il ne vient pas de l'API.
 
 **Le moteur de placement vient du socle** (`@sejour/socle/lib/calendar-lanes`) : `placeSegments`,
 `Segment`, `laneCount`, `roundedEnds`, `periodTooltip` et `PERIOD_PALETTE`. La fonction
@@ -1480,8 +1502,8 @@ Marmotte, les grands cols) et une excursion à Turin. Soit 105 pages d'article.
 | `app/[locale]/guide/page.tsx` | Index — résout les photos côté serveur et passe les cartes au filtre. |
 | `components/public/GuideFilter.tsx` | Filtre de saison + grille de cartes (composant **client**). |
 | `app/[locale]/guide/[slug]/page.tsx` | Article + JSON-LD + encart d'événement + encart de réservation + « À lire aussi ». |
-| `lib/events.ts` | `EVENTS` — le catalogue des événements datés du secteur, et les fonctions qui le lisent. |
-| `components/public/EventBanner.tsx` | L'encart « prochaine édition » en tête d'un article d'événement. |
+| `lib/events.ts` | `EVENTS` — **le catalogue seul** : le type et les fonctions sont montés dans `@sejour/socle/lib/events` au Lot 5. |
+| `@sejour/socle/components/EventBanner` | L'encart « prochaine édition » en tête d'un article d'événement. Monté au socle au Lot 5 ; `components/public/EventBanner.tsx` n'existe plus. |
 | `lib/blog/ArticleImage.tsx` | Photo au fil d'un article (`<ArticleImage src="dossier/fichier.jpg" alt caption />`). Même traitement que les couvertures : dimensions relevées au build, aucun recadrage, figure absente si le fichier manque. |
 | `.prose-article` (`@sejour/socle/ui/theme.css`) | Toute la typographie du corps d'article, plus la classe `.facts` des encadrés pratiques. Les couleurs viennent des `--site-prose-*` posés dans `app/globals.css`. |
 
@@ -1560,11 +1582,17 @@ exactement comme `WINTER_OPENING` se met à jour chaque année. Le filtrage par 
 le ménage a été oublié. L'alternative — calculer la date chez le visiteur — sortirait
 l'encart du HTML initial sur une page dont l'événement est le sujet.
 
-Le module est écrit **pour être extrait un jour** vers `@sejour/socle` : fonctions pures,
-catalogue passé en paramètre plutôt que lu, aucune dépendance à l'i18n ni au JSX. Barbusse
-a son propre `lib/events.ts` de même forme, et les trois divergences d'Albiez (`key` plutôt
-que le nom comme clé de jointure, `confirmed` plutôt qu'un « (à confirmer) » dans le nom,
-et `commune`) ont été actées comme la version qui montera.
+**Le module a été extrait au Lot 5**, comme il était écrit pour l'être : le type
+`LocalEvent` et les fonctions (`nextEdition`, `stayWindow`, `findEventByKey`,
+`findEventOnDay`, `findEventForStay`, `eventJsonLd`) vivent dans `@sejour/socle/lib/events`,
+et **seul le catalogue reste ici**. Les trois divergences d'Albiez ont été retenues telles
+quelles, et Barbusse a migré : `key` comme clé de jointure plutôt que le nom, `confirmed`
+plutôt qu'un « (à confirmer) » collé dans le nom, `commune` (optionnelle dans le socle).
+
+`eventJsonLd` a quitté `lib/seo.ts` en même temps, et il rend désormais **`null`** quand
+l'événement n'est pas confirmé : le test n'est plus à la charge de l'appelant, qui insérait
+avant un `{event?.confirmed && …}` qu'il pouvait oublier. La page d'article ne fait plus que
+poser le nœud quand on lui en rend un.
 
 ⚠️ Les dates non confirmées sont à reprendre auprès des organisateurs et de l'office de
 tourisme d'Albiez (04 79 59 30 48) dès que les programmes sortent, au printemps.

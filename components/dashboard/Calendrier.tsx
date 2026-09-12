@@ -13,12 +13,24 @@ import {
   roundedEnds,
 } from "@sejour/socle/lib/calendar-lanes";
 import PartageVoyageur from "@/components/dashboard/PartageVoyageur";
+import { EVENTS } from "@/lib/events";
 
 const MOIS = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
 ];
 const JOURS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+
+/**
+ * Les événements de la vallée : filet et texte.
+ *
+ * Ni l'indigo des vacances scolaires, ni le rose des fêtes, ni aucune des cinq couleurs de
+ * canal — et surtout pas le vert `#0E9F6E` du Direct, dont un teal aurait été voisin. L'ambre
+ * est la seule famille encore libre sur ce calendrier ; il reste lisible sur le fond
+ * `amber-50/70` de la saison du lac parce que celui-ci est à peine teinté, et le texte est
+ * pris deux crans plus sombre que le filet pour tenir le contraste.
+ */
+const EVENEMENT = { filet: "#d97706", texte: "#92400e" } as const;
 
 const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
 
@@ -242,6 +254,43 @@ export default function Calendrier({
     return placeSegments(barres, decalage, "half-day");
   }, [periodes, premier, dernier, nbJours, decalage]);
 
+  /**
+   * Les événements du secteur, en **cases pleines**.
+   *
+   * Une course ou un festival occupe des journées entières, là où un séjour libère le
+   * logement le matin de son départ : la granularité `full-day` est la bonne, et c'est elle
+   * qui empêche un événement d'une seule journée — une fête de village — de se réduire à
+   * rien une fois retirée une demi-case de chaque côté.
+   *
+   * Vraies lanes, et non une ligne unique comme les bandes de vacances : deux événements de
+   * la vallée peuvent tomber le même week-end, et `bandesPeriodes` n'a rien fusionné ici.
+   *
+   * Le catalogue est importé plutôt que reçu en prop, contrairement aux périodes et aux
+   * saisons : il est statique et connu au build, il ne vient pas de l'API.
+   */
+  const segmentsEvenements = useMemo(() => {
+    const barres = EVENTS.filter((e) => e.start <= dernier && e.end >= premier)
+      .map((e) => {
+        const commenceDansLeMois = e.start >= premier;
+        const finitDansLeMois = e.end <= dernier;
+        const debut = commenceDansLeMois ? Number(e.start.slice(8, 10)) : 1;
+        const fin = finitDansLeMois ? Number(e.end.slice(8, 10)) : nbJours;
+        return {
+          source: e,
+          colour: EVENEMENT.filet,
+          // Le nom complet, jamais tronqué à la main : `truncate` s'en charge selon la place
+          // réelle, et l'infobulle rend le nom entier.
+          label: e.name,
+          startDay: debut,
+          endDay: Math.max(debut, fin),
+          startsHere: commenceDansLeMois,
+          endsHere: finitDansLeMois,
+        };
+      })
+      .sort((a, b) => a.startDay - b.startDay);
+    return placeSegments(barres, decalage, "full-day");
+  }, [premier, dernier, nbJours, decalage]);
+
   const saisonDuJour = (jour: string) => saisons.find((s) => jour >= s.debut && jour <= s.fin);
 
   const decale = (n: number) => {
@@ -288,8 +337,10 @@ export default function Calendrier({
       {Array.from({ length: semaines }, (_, w) => {
         const barresSejours = segmentsSejours.get(w) ?? [];
         const barresPeriodes = segmentsPeriodes.get(w) ?? [];
+        const barresEvenements = segmentsEvenements.get(w) ?? [];
         const lignesSejours = laneCount(barresSejours);
         const lignesPeriodes = laneCount(barresPeriodes);
+        const lignesEvenements = laneCount(barresEvenements);
 
         return (
           <div key={w} className="relative grid grid-cols-7 border-b border-slate-200">
@@ -393,6 +444,57 @@ export default function Calendrier({
               </div>
             )}
 
+            {/* Événements — sous les vacances, au-dessus des séjours : les bandes durent des
+                semaines, les événements des jours, les séjours des nuits. Du plus large au
+                plus précis en descendant. */}
+            {lignesEvenements > 0 && (
+              <div className="col-span-7 px-0.5 pt-0.5">
+                {Array.from({ length: lignesEvenements }, (_, ligne) => (
+                  <div key={ligne} className="relative mt-0.5 h-[1.15rem]">
+                    {barresEvenements
+                      .filter((b) => b.row === ligne)
+                      .map((b) => (
+                        <div
+                          key={`${b.source.key}-${b.startCol}`}
+                          className="absolute top-0 h-full"
+                          style={{
+                            left: `${b.startCol * CELLULE}%`,
+                            width: `${(b.endCol - b.startCol + 1) * CELLULE}%`,
+                          }}
+                          title={
+                            b.source.commune
+                              ? `${b.source.name} — ${b.source.commune}`
+                              : b.source.name
+                          }
+                        >
+                          {/* Pas de demi-cellules ici, contrairement aux bandes et aux
+                              séjours : un événement tient ses journées entières. */}
+                          <div
+                            className="truncate px-1 text-left text-[10px] font-semibold uppercase leading-[0.85rem] tracking-wide"
+                            style={{ color: EVENEMENT.texte }}
+                          >
+                            {b.isFirstSegment && b.label}
+                          </div>
+                          {/* Le filet se retire de 3 px du côté où l'événement s'arrête
+                              vraiment, et file jusqu'au bord de la semaine quand il
+                              continue : c'est ce qui remplace l'arrondi des pilules, et ce
+                              qui empêche deux événements qui s'enchaînent — Celti'Cimes puis
+                              le Trail de l'Étendard fin juillet — de n'en faire qu'un. */}
+                          <div
+                            className="h-[3px] rounded-full"
+                            style={{
+                              backgroundColor: b.colour,
+                              marginLeft: b.startsHere ? 3 : 0,
+                              marginRight: b.endsHere ? 3 : 0,
+                            }}
+                          />
+                        </div>
+                      ))}
+                  </div>
+                ))}
+              </div>
+            )}
+
             {lignesSejours > 0 && (
               <div className="col-span-7 px-0.5 pb-1.5">
                 {Array.from({ length: lignesSejours }, (_, ligne) => (
@@ -477,6 +579,16 @@ export default function Calendrier({
             style={{ backgroundColor: PERIOD_PALETTE.fete.line }}
           />
           Fêtes
+        </span>
+        {/* L'événement figure dans la légende quel que soit le rôle : les filets sont
+            apparus dans la grille, ils doivent être nommés même quand les canaux sont
+            masqués. */}
+        <span className="flex items-center gap-1.5">
+          <span
+            className="inline-block h-[3px] w-6 rounded-full"
+            style={{ backgroundColor: EVENEMENT.filet }}
+          />
+          Événement de la vallée
         </span>
         <span className="flex items-center gap-1.5">
           <span aria-hidden>📝</span>

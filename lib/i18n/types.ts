@@ -1,3 +1,4 @@
+import type { CalendarLabels } from "@sejour/socle/components/ReservationCalendar";
 import type { PeriodeSaison } from "@/lib/seasons";
 import type { SpaceKey } from "../spaces";
 import type { WinterDistanceKey, SummerDistanceKey } from "../property";
@@ -211,29 +212,23 @@ export interface Dictionary {
    * et c'est la page de réservation Beds24 qui l'affiche. Le seul chiffre commercial ici est
    * la remise directe, qui est une politique, pas un tarif.
    */
-  calendar: {
-    loading: string;
+  /**
+   * Section du calendrier de réservation.
+   *
+   * **La seule section commune aux deux sites**, et elle suit le composant : sa forme
+   * partagée est `CalendarLabels`, définie dans le socle avec le calendrier qui la consomme.
+   * Ce qui s'y ajoute ici — les trois libellés d'accessibilité, le nom du second compteur et
+   * la note de capacité — reste propre à Albiez et passe par d'autres props.
+   *
+   * Toute clé retirée de `CalendarLabels` casserait la compilation des cinq dictionnaires,
+   * ce qui est exactement l'effet recherché.
+   */
+  calendar: CalendarLabels & {
     previousMonth: string;
     nextMonth: string;
     close: string;
-    clear: string;
-    bookNow: string;
-    adults: string;
     children: string;
-    selectCheckOut: string;
-    directDiscount: string;
-    nights: (n: number) => string;
-    minStayNote: (n: number) => string;
     capacityNote: (max: number) => string;
-    summary: (
-      nights: number,
-      checkIn: string,
-      checkOut: string,
-      adults: number,
-      children: number,
-    ) => string;
-    monthNames: string[];
-    dayNames: string[];
   };
   booking: {
     title: string;

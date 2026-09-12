@@ -81,52 +81,10 @@ export function articleJsonLd(params: {
   };
 }
 
-/**
- * Données structurées d'un événement couvert par un article.
- *
- * N'est émis que pour un événement dont les dates sont **officielles** (`confirmed`) : une
- * projection calée sur le calendrier de l'année précédente reste une supposition, et Google
- * afficherait `startDate` comme un fait dans un résultat enrichi. Voir `lib/events.ts`.
- *
- * `endDate` porte la fin de journée du dernier jour. Sans heure, schema.org interprète une
- * date nue comme le début de ce jour, et un festival de quatre jours s'afficherait comme
- * terminé dès le matin du dernier.
- *
- * `organizer` est délibérément absent : nous ne sommes pas l'organisateur, et le déclarer
- * serait faux.
- *
- * Émis dans sa propre balise `<script>`, à côté de celle de l'article : deux blocs JSON-LD
- * indépendants sur une page sont valides et se lisent mieux qu'un `@graph` dont les nœuds
- * n'ont de toute façon rien à se dire.
+/*
+ * `eventJsonLd` a quitté ce fichier : il vit dans `@sejour/socle/lib/events`, avec le champ
+ * `confirmed` qui commande son émission. Barbusse en avait besoin et ne l'avait pas.
  */
-export function eventJsonLd(params: {
-  name: string;
-  start: string;
-  end: string;
-  commune: string;
-  url?: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    name: params.name,
-    startDate: params.start,
-    endDate: `${params.end}T23:59:59`,
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    ...(params.url ? { url: params.url } : {}),
-    location: {
-      "@type": "Place",
-      name: params.commune,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: params.commune,
-        addressRegion: PROPERTY.address.region,
-        addressCountry: "FR",
-      },
-    },
-  };
-}
 
 /**
  * Données structurées schema.org du logement.
