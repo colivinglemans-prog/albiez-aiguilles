@@ -402,6 +402,32 @@ copies qu'avaient les deux sites n'étaient pas d'accord entre elles : deux d'en
 faisaient `new Date(jour + "T00:00:00")` puis `toISOString()`, ce qui décale d'un jour vers le
 passé pendant les huit mois d'heure d'été. Ce site ne l'avait pas, Barbusse si.
 
+### Le cron de veille des événements
+
+`/api/cron/events-watch`, en-tête `Authorization: Bearer $CRON_SECRET`, planifié
+**hebdomadairement sur cron-job.org** (le lundi matin). Il rappelle d'aller vérifier les dates
+d'événements qui ne sont pas encore officielles — six des sept entrées de `lib/events.ts` sont
+des projections calées sur l'édition précédente, à reprendre auprès des organisateurs et de
+l'office de tourisme quand les programmes sortent, au printemps.
+
+Les règles sont dans `@sejour/socle/lib/events-watch` ; ce site n'en tient que les seuils,
+`EVENTS_WATCH` à côté du catalogue : une projection à moins de **90 jours** est signalée (à
+120, Le Charoc sonnerait dès février, avant que les programmes existent) ; le catalogue de
+l'année en préparation doit compter au moins **5 entrées** — l'année suivante dès le
+**1er septembre**, l'été passé et les éditions écoulées retirées, l'année en cours avant, donc
+toute l'année ; de **mars à mai**, la fenêtre rappelle qui appeler.
+
+**Sans état** : la même alerte revient chaque lundi tant que le catalogue n'est pas mis à jour,
+et s'éteint seule ensuite. Pas de coupe-circuit — la façon d'arrêter une alerte est de faire ce
+qu'elle demande. `?dry=1` rend les alertes sans rien envoyer, et `&today=YYYY-MM-DD` permet
+alors de les lire à une autre date — la veille se tait des mois d'affilée, c'est le seul moyen
+de la voir parler avant l'heure.
+
+Envoi par **ntfy** (`NTFY_TOPIC`, URL complète du topic — le nom du topic est le secret),
+priorité basse, titre « Veille événements — Albiez ». Un `NTFY_TOPIC` absent vaut un **500**
+et non un envoi ignoré : une veille qui se tait ressemble exactement à une veille qui n'a rien
+à dire, et c'est la notification d'échec de cron-job.org qui prévient.
+
 ### Le cron keepalive
 
 `/api/cron/beds24-keepalive`, en-tête `Authorization: Bearer $CRON_SECRET`, planifié
@@ -1115,7 +1141,8 @@ saison ». Trois décisions qui ont demandé un aller-retour :
 | `BEDS24_READ_REFRESH_TOKEN` | Lectures du dashboard. Voir la section Beds24. |
 | `BEDS24_REFRESH_TOKEN` | Écriture des consignes de ménage. Voir la section Beds24. |
 | `BEDS24_PROPERTY_ID` | Propriété `346417`, jamais en dur. |
-| `CRON_SECRET` | Porte du cron keepalive. Sa seule protection : la route n'est pas couverte par le matcher de `proxy.ts`. |
+| `CRON_SECRET` | Porte des deux crons (keepalive, veille des événements). Leur seule protection : les routes ne sont pas couvertes par le matcher de `proxy.ts`. |
+| `NTFY_TOPIC` | URL complète du topic ntfy de la veille des événements (`https://ntfy.sh/<topic>`). Le nom du topic **est** le secret. Absent, le cron de veille rend 500 plutôt que de se taire. |
 | `HISTORIQUE_ALBIEZ` | Archive des quatre canaux, forme compacte produite par `build-archive.mjs`. |
 | `DASHBOARD_PASSWORD` | Mot de passe administrateur. |
 | `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne, rôle `viewer`. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. `DASHBOARD_PASSWORD_VIEWER_*` est accepté aussi : le code a changé de nom, pas les variables. |

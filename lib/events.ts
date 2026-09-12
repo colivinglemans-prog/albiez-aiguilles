@@ -19,6 +19,7 @@
  * printemps.
  */
 import type { LocalEvent } from "@sejour/socle/lib/events";
+import type { EventWatchConfig } from "@sejour/socle/lib/events-watch";
 
 export type { LocalEvent };
 
@@ -85,3 +86,24 @@ export const EVENTS: LocalEvent[] = [
     confirmed: false,
   },
 ];
+
+/**
+ * Les seuils de la veille des dates, lus par `/api/cron/events-watch` — voir
+ * `@sejour/socle/lib/events-watch` pour ce que chaque règle fait.
+ *
+ * Les programmes sortent au printemps, d'où la fenêtre de mars à mai — et d'où les trois
+ * mois de l'échéance plutôt que quatre : à quatre, Le Charoc sonnerait dès février, un mois
+ * avant que quiconque puisse y répondre. Et dès septembre, l'été passé, les éditions écoulées
+ * sortent du catalogue : celui de l'année suivante doit alors déjà avoir été resemé.
+ */
+export const EVENTS_WATCH: EventWatchConfig = {
+  deadlineDays: 90,
+  catalogGap: { from: "09-01", minEvents: 5 },
+  publicationWindows: [
+    {
+      from: "03-01",
+      to: "05-31",
+      note: "les programmes d'été sortent au printemps — office de tourisme d'Albiez, 04 79 59 30 48.",
+    },
+  ],
+};
