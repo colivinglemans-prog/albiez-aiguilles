@@ -71,10 +71,12 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   {
     slug: "tradi-cimes-albiez",
     date: "2026-09-12",
-    // Photo du village partagée avec l'article Celti'Cimes : nous n'avons pas de cliché
-    // de Tradi'Cimes. À remplacer dès qu'on en aura un, ou qu'on en obtiendra un des
-    // organisateurs — deux articles de festival avec la même couverture, ça se voit.
-    image: "activites-ete/95-albiez-ete-1.jpg",
+    // Le plan d'eau, parce que c'est là que se tient la journée festive du samedi. Faute
+    // d'un cliché de la fête elle-même, une photo du lieu vaut mieux qu'une vue générale
+    // du village — et évite de partager sa couverture avec l'article Celti'Cimes.
+    // À remplacer par une vraie photo de Tradi'Cimes si l'office de tourisme, principal
+    // titulaire des droits sur les clichés existants, nous en autorise une.
+    image: "activites-ete/96-albiez-ete-2.jpg",
     season: "ete",
     event: "tradi-cimes",
     locales: {
