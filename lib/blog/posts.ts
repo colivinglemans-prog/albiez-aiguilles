@@ -69,6 +69,85 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "cross-triathlon-swimrun-albiez",
+    date: "2026-09-12",
+    image: "activites-ete/94-plan-eau-albiez.jpg",
+    season: "ete",
+    event: "cross-triathlon-arves",
+    locales: {
+      fr: {
+        title: "Cross Triathlon et Swimrun des Aiguilles d'Arves, au plan d'eau d'Albiez",
+        description:
+          "Deux épreuves mi-juillet au plan d'eau d'Albiez-Montrond, à 300 m de l'appartement : cross triathlon le matin, swimrun l'après-midi. Formats, distances et horaires, dès 8 ans.",
+        excerpt:
+          "Quatre tranches d'âge, quatre distances, le même plan d'eau — et une épreuve qui dure un jour quand la semaine, elle, reste à prendre.",
+        keywords: [
+          "cross triathlon Aiguilles d'Arves",
+          "swimrun Albiez-Montrond",
+          "triathlon enfant Savoie",
+          "plan d'eau Albiez",
+          "triathlon montagne Maurienne",
+        ],
+      },
+      en: {
+        title: "Cross Triathlon and Swimrun des Aiguilles d'Arves, at the Albiez lake",
+        description:
+          "Two races in mid-July at the Albiez-Montrond lake, 300 m from the flat: cross triathlon in the morning, swimrun in the afternoon. Formats, distances and start times, from age 8.",
+        excerpt:
+          "Four age brackets, four distances, the same lake — and a race that lasts a day when the week is still yours.",
+        keywords: [
+          "cross triathlon Aiguilles d'Arves",
+          "swimrun Albiez-Montrond",
+          "children triathlon French Alps",
+          "Albiez lake swimming",
+          "mountain triathlon Maurienne",
+        ],
+      },
+      de: {
+        title: "Cross-Triathlon und Swimrun des Aiguilles d'Arves, am Badesee von Albiez",
+        description:
+          "Zwei Wettkämpfe Mitte Juli am Badesee von Albiez-Montrond, 300 m von der Wohnung: vormittags Cross-Triathlon, nachmittags Swimrun. Formate, Distanzen und Startzeiten, ab 8 Jahren.",
+        excerpt:
+          "Vier Altersklassen, vier Distanzen, derselbe See — und ein Wettkampf von einem Tag, während die Woche noch offen ist.",
+        keywords: [
+          "Cross-Triathlon Aiguilles d'Arves",
+          "Swimrun Albiez-Montrond",
+          "Kinder-Triathlon Savoyen",
+          "Badesee Albiez",
+          "Bergtriathlon Maurienne",
+        ],
+      },
+      es: {
+        title: "Cross Triatlón y Swimrun des Aiguilles d'Arves, en el lago de Albiez",
+        description:
+          "Dos pruebas a mediados de julio en el lago de Albiez-Montrond, a 300 m del apartamento: cross triatlón por la mañana, swimrun por la tarde. Formatos, distancias y horarios, desde los 8 años.",
+        excerpt:
+          "Cuatro franjas de edad, cuatro distancias, el mismo lago — y una prueba de un día cuando la semana está por estrenar.",
+        keywords: [
+          "cross triatlón Aiguilles d'Arves",
+          "swimrun Albiez-Montrond",
+          "triatlón infantil Saboya",
+          "lago de Albiez",
+          "triatlón de montaña Maurienne",
+        ],
+      },
+      it: {
+        title: "Cross Triathlon e Swimrun des Aiguilles d'Arves, al laghetto di Albiez",
+        description:
+          "Due gare a metà luglio al laghetto di Albiez-Montrond, a 300 m dall'appartamento: cross triathlon la mattina, swimrun il pomeriggio. Formati, distanze e orari, dagli 8 anni.",
+        excerpt:
+          "Quattro fasce d'età, quattro distanze, lo stesso laghetto — e una gara di un giorno, mentre la settimana resta intera.",
+        keywords: [
+          "cross triathlon Aiguilles d'Arves",
+          "swimrun Albiez-Montrond",
+          "triathlon bambini Savoia",
+          "laghetto di Albiez",
+          "triathlon di montagna Maurienne",
+        ],
+      },
+    },
+  },
+  {
     slug: "turin-depuis-albiez",
     date: "2026-09-11",
     // Pas de photo de Turin à nous : celle-ci vient de Wikimedia Commons, d'où le crédit.
