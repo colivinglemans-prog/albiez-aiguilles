@@ -12,16 +12,18 @@ export default function Article() {
         weeks earlier, in the same village.
       </p>
 
-      <h2>Two sites, two moods</h2>
+      <h2>Two days, two places</h2>
       <p>
-        <strong>Place Opinel</strong>, in the Chef-lieu, is where the roads from
-        Saint-Jean-de-Maurienne, Albiez-le-Jeune and Le Mollard meet. That is where Sunday
-        happens, from 9am to 6pm: the market, the demonstrations, the dancing.
+        <strong>Saturday, at the Col du Mollard lake</strong> — 300 metres from the flat.
+        This is the festive day: entertainment, barbecue, bar and music around the water,
+        with the swimming area and paddling pool open and the Aiguilles d'Arves opposite.
+        You walk there from our door, and go back up whenever you like.
       </p>
       <p>
-        <strong>The Mollard lake</strong>, 300 metres from the flat, takes the musical half
-        of the festival, on the grass and facing the Aiguilles d'Arves. You walk there from
-        our door, and go back up whenever you like.
+        <strong>Sunday, on Place Opinel</strong>, in the Chef-lieu — where the roads from
+        Saint-Jean-de-Maurienne, Albiez-le-Jeune and Le Mollard meet. This is the
+        traditional day, from 9am to 6pm: folk dancing, craft workshops and Beaufort
+        cheese-making.
       </p>
 
       <h2>The programme</h2>
@@ -39,6 +41,14 @@ export default function Article() {
         This is what sets Tradi'Cimes apart from a country market: milking, sheepdogs at
         work, cattle presented, farm machinery. The working mountain, shown by the people
         who work it.
+      </p>
+      <p>
+        And <strong>Beaufort cheese made in front of you</strong> — the gesture you
+        otherwise only see through the window of the{" "}
+        <Link href="/en/guide/fromagerie-cooperative-beaufort-des-arves">
+          dairy cooperative
+        </Link>
+        .
       </p>
 
       <h3>Music and dance</h3>
@@ -58,7 +68,8 @@ export default function Article() {
           <strong>When</strong>: two days in early August — Saturday afternoon and evening,
           Sunday 9am to 6pm
           <br />
-          <strong>Where</strong>: Place Opinel in the Chef-lieu, and the Mollard lake
+          <strong>Where</strong>: Saturday at the Col du Mollard lake, Sunday on Place
+          Opinel in the Chef-lieu
           <br />
           <strong>Price</strong>: free
           <br />

@@ -13,16 +13,18 @@ export default function Article() {
         Wochen früher statt, im selben Dorf.
       </p>
 
-      <h2>Zwei Orte, zwei Stimmungen</h2>
+      <h2>Zwei Tage, zwei Orte</h2>
       <p>
-        <strong>Die Place Opinel</strong> im Chef-lieu ist die Kreuzung der Straßen von
-        Saint-Jean-de-Maurienne, Albiez-le-Jeune und Le Mollard. Dort findet der Sonntag
-        statt, von 9 bis 18 Uhr: der Markt, die Vorführungen, die Tänze.
+        <strong>Samstag, am Badesee des Col du Mollard</strong> — 300 Meter von der
+        Wohnung. Das ist der festliche Tag: Animationen, Grillfest, Ausschank und Musik rund
+        ums Wasser, mit geöffnetem Badebereich und Planschbecken und den Aiguilles d'Arves
+        gegenüber. Von unserer Tür geht man zu Fuß hin und kehrt zurück, wann man will.
       </p>
       <p>
-        <strong>Der Badesee von Le Mollard</strong>, 300 Meter von der Wohnung, nimmt die
-        musikalische Hälfte des Festes auf, auf der Wiese mit Blick auf die Aiguilles
-        d'Arves. Von unserer Tür geht man zu Fuß hin und kehrt zurück, wann man will.
+        <strong>Sonntag, auf der Place Opinel</strong> im Chef-lieu — der Kreuzung der
+        Straßen von Saint-Jean-de-Maurienne, Albiez-le-Jeune und Le Mollard. Das ist der
+        traditionelle Tag, von 9 bis 18 Uhr: Volkstänze, Handwerksateliers und
+        Beaufort-Herstellung.
       </p>
 
       <h2>Das Programm</h2>
@@ -40,6 +42,14 @@ export default function Article() {
         Das unterscheidet Tradi'Cimes von einem Bauernmarkt: Melken, Hütehunde bei der
         Arbeit, Rinder werden vorgestellt, Landmaschinen. Der arbeitende Berg, gezeigt von
         denen, die dort arbeiten.
+      </p>
+      <p>
+        Und <strong>die Beaufort-Herstellung vor Ihren Augen</strong> — jener Handgriff, den
+        man sonst nur durch die Scheibe der{" "}
+        <Link href="/de/guide/fromagerie-cooperative-beaufort-des-arves">
+          Molkereigenossenschaft
+        </Link>{" "}
+        sieht.
       </p>
 
       <h3>Musik und Tanz</h3>
@@ -60,7 +70,8 @@ export default function Article() {
           <strong>Wann</strong>: zwei Tage Anfang August — Samstagnachmittag und -abend,
           Sonntag von 9 bis 18 Uhr
           <br />
-          <strong>Wo</strong>: Place Opinel im Chef-lieu und der Badesee von Le Mollard
+          <strong>Wo</strong>: samstags am Badesee des Col du Mollard, sonntags auf der
+          Place Opinel im Chef-lieu
           <br />
           <strong>Preis</strong>: Eintritt frei
           <br />

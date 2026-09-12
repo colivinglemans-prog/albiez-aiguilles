@@ -12,16 +12,18 @@ export default function Article() {
         se tient quinze jours plus tôt, dans le même village.
       </p>
 
-      <h2>Deux lieux, deux ambiances</h2>
+      <h2>Deux jours, deux lieux</h2>
       <p>
-        <strong>La place Opinel</strong>, au Chef-lieu, est le carrefour des routes de
-        Saint-Jean-de-Maurienne, d'Albiez-le-Jeune et du Mollard. C'est là que se tient la
-        journée du dimanche, de 9 h à 18 h : le marché, les démonstrations, les danses.
+        <strong>Le samedi, au plan d'eau du col du Mollard</strong> — à 300 mètres de
+        l'appartement. C'est la journée festive : animations, barbecue, buvette et musique
+        autour de l'eau, avec la baignade et la pataugeoire ouvertes et les Aiguilles
+        d'Arves en face. On y va à pied depuis chez nous, et l'on remonte quand on veut.
       </p>
       <p>
-        <strong>Le plan d'eau du Mollard</strong>, à 300 mètres de l'appartement, accueille
-        l'autre versant de la fête, musical, dans l'herbe et face aux Aiguilles d'Arves. On
-        y va à pied depuis chez nous, et l'on remonte quand on veut.
+        <strong>Le dimanche, place Opinel</strong>, au Chef-lieu — le carrefour des routes
+        de Saint-Jean-de-Maurienne, d'Albiez-le-Jeune et du Mollard. C'est la journée
+        traditionnelle, de 9 h à 18 h : danses folkloriques, ateliers artisanaux et
+        fabrication du Beaufort.
       </p>
 
       <h2>Le programme</h2>
@@ -39,6 +41,14 @@ export default function Article() {
         C'est ce qui distingue Tradi'Cimes d'un marché de pays : la traite, les chiens de
         berger au travail, la présentation des bovins, les engins agricoles. De la montagne
         qui travaille, montrée par ceux qui y travaillent.
+      </p>
+      <p>
+        Et <strong>la fabrication du Beaufort</strong>, faite devant vous — le geste qu'on
+        ne voit d'ordinaire qu'à travers la vitre de la{" "}
+        <Link href="/fr/guide/fromagerie-cooperative-beaufort-des-arves">
+          coopérative laitière
+        </Link>
+        .
       </p>
 
       <h3>Musiques et danses</h3>
@@ -59,7 +69,8 @@ export default function Article() {
           <strong>Quand</strong> : deux jours début août — après-midi et soirée le samedi,
           dimanche de 9 h à 18 h
           <br />
-          <strong>Où</strong> : place Opinel au Chef-lieu, et le plan d'eau du Mollard
+          <strong>Où</strong> : le samedi au plan d'eau du col du Mollard, le dimanche
+          place Opinel au Chef-lieu
           <br />
           <strong>Tarif</strong> : accès libre
           <br />

@@ -12,16 +12,18 @@ export default function Article() {
         quince días antes, en el mismo pueblo.
       </p>
 
-      <h2>Dos lugares, dos ambientes</h2>
+      <h2>Dos días, dos lugares</h2>
       <p>
-        <strong>La plaza Opinel</strong>, en el Chef-lieu, es el cruce de las carreteras de
-        Saint-Jean-de-Maurienne, Albiez-le-Jeune y Le Mollard. Ahí transcurre el domingo, de
-        9 a 18 h: el mercado, las demostraciones, los bailes.
+        <strong>El sábado, en el lago del col du Mollard</strong>, a 300 metros del
+        apartamento. Es la jornada festiva: animaciones, barbacoa, bar y música alrededor
+        del agua, con la zona de baño y la piscina infantil abiertas y las Aiguilles d'Arves
+        enfrente. Se va andando desde nuestra puerta, y se vuelve cuando se quiere.
       </p>
       <p>
-        <strong>El lago del Mollard</strong>, a 300 metros del apartamento, acoge la otra
-        vertiente de la fiesta, la musical, sobre la hierba y frente a las Aiguilles
-        d'Arves. Se va andando desde nuestra puerta, y se vuelve cuando se quiere.
+        <strong>El domingo, en la plaza Opinel</strong>, en el Chef-lieu — el cruce de las
+        carreteras de Saint-Jean-de-Maurienne, Albiez-le-Jeune y Le Mollard. Es la jornada
+        tradicional, de 9 a 18 h: bailes folclóricos, talleres artesanos y elaboración del
+        Beaufort.
       </p>
 
       <h2>El programa</h2>
@@ -39,6 +41,14 @@ export default function Article() {
         Es lo que distingue a Tradi'Cimes de un mercado rural: el ordeño, los perros
         pastores trabajando, la presentación del ganado, la maquinaria agrícola. La montaña
         que trabaja, mostrada por quienes trabajan en ella.
+      </p>
+      <p>
+        Y <strong>la elaboración del Beaufort delante de usted</strong>: el gesto que de
+        ordinario solo se ve tras el cristal de la{" "}
+        <Link href="/es/guide/fromagerie-cooperative-beaufort-des-arves">
+          cooperativa lechera
+        </Link>
+        .
       </p>
 
       <h3>Músicas y danzas</h3>
@@ -58,7 +68,8 @@ export default function Article() {
           <strong>Cuándo</strong>: dos días a principios de agosto — tarde y noche el
           sábado, domingo de 9 a 18 h
           <br />
-          <strong>Dónde</strong>: plaza Opinel, en el Chef-lieu, y el lago del Mollard
+          <strong>Dónde</strong>: el sábado en el lago del col du Mollard, el domingo en la
+          plaza Opinel, en el Chef-lieu
           <br />
           <strong>Precio</strong>: acceso libre
           <br />
