@@ -69,6 +69,87 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "fetes-vallee-des-arves",
+    date: "2026-09-12",
+    image: "ete/exterieur/01-lac-d-albiez-montrond.jpg",
+    // Ni été ni hiver : l'article couvre le calendrier entier, de la Grande Odyssée en
+    // janvier aux fêtes du 15 août. Pas de champ `event` non plus — c'est un agenda, il
+    // ne se rattache à aucune date unique.
+    season: null,
+    locales: {
+      fr: {
+        title: "Les fêtes de la vallée des Arves, classées par temps de route",
+        description:
+          "Fête du Mouton à la Croix de Fer, Instant Beaufort à Saint-Sorlin, Le Charoc à Saint-Jean, 14 juillet et 15 août à Albiez : ce qui se passe autour, et combien de minutes de voiture ça demande vraiment.",
+        excerpt:
+          "En montagne, un village qu'on voit depuis le balcon peut demander une heure de route. D'où ce classement.",
+        keywords: [
+          "fêtes vallée des Arves",
+          "Fête du Mouton Croix de Fer",
+          "Instant Beaufort Saint-Sorlin",
+          "festival Le Charoc Saint-Jean-de-Maurienne",
+          "animations été Albiez",
+        ],
+      },
+      en: {
+        title: "The festivals of the Arves valley, sorted by driving time",
+        description:
+          "Fête du Mouton at the Croix de Fer, Instant Beaufort at Saint-Sorlin, Le Charoc at Saint-Jean, Bastille Day and 15 August in Albiez: what is on nearby, and how many minutes it really takes.",
+        excerpt:
+          "In the mountains, a village you can see from the balcony may be an hour away by road. Hence the ranking.",
+        keywords: [
+          "Arves valley festivals",
+          "Fête du Mouton Croix de Fer",
+          "Instant Beaufort Saint-Sorlin",
+          "Le Charoc festival Saint-Jean-de-Maurienne",
+          "summer events Albiez",
+        ],
+      },
+      de: {
+        title: "Die Feste des Arves-Tals, nach Fahrzeit geordnet",
+        description:
+          "Fête du Mouton am Croix de Fer, Instant Beaufort in Saint-Sorlin, Le Charoc in Saint-Jean, 14. Juli und 15. August in Albiez: was in der Umgebung läuft und wie viele Minuten es wirklich kostet.",
+        excerpt:
+          "Im Gebirge kann ein Dorf, das man vom Balkon sieht, eine Fahrstunde entfernt sein. Daher diese Reihenfolge.",
+        keywords: [
+          "Feste Arves-Tal",
+          "Fête du Mouton Croix de Fer",
+          "Instant Beaufort Saint-Sorlin",
+          "Festival Le Charoc Saint-Jean-de-Maurienne",
+          "Sommerveranstaltungen Albiez",
+        ],
+      },
+      es: {
+        title: "Las fiestas del valle de los Arves, ordenadas por tiempo de carretera",
+        description:
+          "Fête du Mouton en la Croix de Fer, Instant Beaufort en Saint-Sorlin, Le Charoc en Saint-Jean, 14 de julio y 15 de agosto en Albiez: qué ocurre cerca y cuántos minutos de coche exige de verdad.",
+        excerpt:
+          "En la montaña, un pueblo que se ve desde el balcón puede estar a una hora de coche. De ahí esta clasificación.",
+        keywords: [
+          "fiestas valle de los Arves",
+          "Fête du Mouton Croix de Fer",
+          "Instant Beaufort Saint-Sorlin",
+          "festival Le Charoc Saint-Jean-de-Maurienne",
+          "actividades verano Albiez",
+        ],
+      },
+      it: {
+        title: "Le feste della valle delle Arves, ordinate per tempo di strada",
+        description:
+          "Fête du Mouton alla Croix de Fer, Instant Beaufort a Saint-Sorlin, Le Charoc a Saint-Jean, 14 luglio e 15 agosto ad Albiez: che cosa succede attorno e quanti minuti d'auto richiede davvero.",
+        excerpt:
+          "In montagna un paese che si vede dal balcone può essere a un'ora di strada. Da qui questa classifica.",
+        keywords: [
+          "feste valle delle Arves",
+          "Fête du Mouton Croix de Fer",
+          "Instant Beaufort Saint-Sorlin",
+          "festival Le Charoc Saint-Jean-de-Maurienne",
+          "eventi estate Albiez",
+        ],
+      },
+    },
+  },
+  {
     slug: "trail-etendard-espace-trail-arves",
     date: "2026-09-12",
     // Le pic de l'Étendard et son glacier, la montagne qui donne son nom à la course.

@@ -41,6 +41,13 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "fetes-vallee-des-arves": {
+    fr: () => import("@/lib/blog/content/fr/fetes-vallee-des-arves"),
+    en: () => import("@/lib/blog/content/en/fetes-vallee-des-arves"),
+    de: () => import("@/lib/blog/content/de/fetes-vallee-des-arves"),
+    es: () => import("@/lib/blog/content/es/fetes-vallee-des-arves"),
+    it: () => import("@/lib/blog/content/it/fetes-vallee-des-arves"),
+  },
   "trail-etendard-espace-trail-arves": {
     fr: () => import("@/lib/blog/content/fr/trail-etendard-espace-trail-arves"),
     en: () => import("@/lib/blog/content/en/trail-etendard-espace-trail-arves"),
