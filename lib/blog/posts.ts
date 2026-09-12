@@ -69,6 +69,95 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "trail-etendard-espace-trail-arves",
+    date: "2026-09-12",
+    // Le pic de l'Étendard et son glacier, la montagne qui donne son nom à la course.
+    // Nous n'avons pas de photo à nous là-haut : c'est à plus de 3 000 m, au-dessus de
+    // Saint-Sorlin.
+    image: "blog/pic-de-l-etendard.jpg",
+    imageCredit: {
+      author: "Florian Pépellin",
+      sourceUrl:
+        "https://commons.wikimedia.org/wiki/File:%C3%89tendard_et_glacier_de_Saint-Sorlin_(2014).JPG",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+    },
+    season: "ete",
+    event: "trail-etendard",
+    locales: {
+      fr: {
+        title: "Trail de l'Étendard et Espace Trail des Aiguilles d'Arves",
+        description:
+          "L'épreuve traverse les Grandes Rousses début août, de Bourg-d'Oisans à Saint-Sorlin : quatre parcours, 3 624 m de dénivelé sur le 65 km. Et 550 km d'itinéraires balisés le reste de l'année.",
+        excerpt:
+          "Le parcours de la course existe aussi en itinéraire permanent : on peut le courir tout l'été, sans dossard.",
+        keywords: [
+          "Trail de l'Étendard",
+          "Espace Trail Aiguilles d'Arves",
+          "trail Saint-Sorlin-d'Arves",
+          "trail Grandes Rousses",
+          "course montagne Maurienne",
+        ],
+      },
+      en: {
+        title: "Trail de l'Étendard and the Espace Trail des Aiguilles d'Arves",
+        description:
+          "The race crosses the Grandes Rousses in early August, Bourg-d'Oisans to Saint-Sorlin: four courses, 3,624 m of climbing on the 65 km. Plus 550 km of waymarked routes the rest of the year.",
+        excerpt:
+          "The race route also exists as a permanent waymarked trail: you can run it all summer, without a number.",
+        keywords: [
+          "Trail de l'Étendard",
+          "Espace Trail Aiguilles d'Arves",
+          "trail running Saint-Sorlin-d'Arves",
+          "Grandes Rousses trail",
+          "mountain running Maurienne",
+        ],
+      },
+      de: {
+        title: "Trail de l'Étendard und der Espace Trail des Aiguilles d'Arves",
+        description:
+          "Das Rennen überquert Anfang August die Grandes Rousses, von Bourg-d'Oisans nach Saint-Sorlin: vier Strecken, 3 624 Höhenmeter auf den 65 km. Dazu 550 km markierte Wege im Rest des Jahres.",
+        excerpt:
+          "Die Rennstrecke gibt es auch als dauerhaft markierten Weg: man kann sie den ganzen Sommer laufen, ohne Startnummer.",
+        keywords: [
+          "Trail de l'Étendard",
+          "Espace Trail Aiguilles d'Arves",
+          "Trailrunning Saint-Sorlin-d'Arves",
+          "Grandes Rousses Trail",
+          "Berglauf Maurienne",
+        ],
+      },
+      es: {
+        title: "Trail de l'Étendard y el Espace Trail des Aiguilles d'Arves",
+        description:
+          "La prueba atraviesa las Grandes Rousses a principios de agosto, de Bourg-d'Oisans a Saint-Sorlin: cuatro recorridos, 3 624 m de desnivel en el 65 km. Y 550 km señalizados el resto del año.",
+        excerpt:
+          "El recorrido de la carrera existe también como itinerario permanente: puede correrse todo el verano, sin dorsal.",
+        keywords: [
+          "Trail de l'Étendard",
+          "Espace Trail Aiguilles d'Arves",
+          "trail Saint-Sorlin-d'Arves",
+          "trail Grandes Rousses",
+          "carrera de montaña Maurienne",
+        ],
+      },
+      it: {
+        title: "Trail de l'Étendard e l'Espace Trail des Aiguilles d'Arves",
+        description:
+          "La gara attraversa le Grandes Rousses a inizio agosto, da Bourg-d'Oisans a Saint-Sorlin: quattro percorsi, 3 624 m di dislivello sui 65 km. E 550 km di itinerari segnalati nel resto dell'anno.",
+        excerpt:
+          "Il percorso della gara esiste anche come itinerario permanente: lo si può correre tutta l'estate, senza pettorale.",
+        keywords: [
+          "Trail de l'Étendard",
+          "Espace Trail Aiguilles d'Arves",
+          "trail Saint-Sorlin-d'Arves",
+          "trail Grandes Rousses",
+          "corsa in montagna Maurienne",
+        ],
+      },
+    },
+  },
+  {
     slug: "tradi-cimes-albiez",
     date: "2026-09-12",
     // Le plan d'eau, parce que c'est là que se tient la journée festive du samedi. Faute

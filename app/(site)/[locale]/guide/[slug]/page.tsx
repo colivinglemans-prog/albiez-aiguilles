@@ -41,6 +41,13 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "trail-etendard-espace-trail-arves": {
+    fr: () => import("@/lib/blog/content/fr/trail-etendard-espace-trail-arves"),
+    en: () => import("@/lib/blog/content/en/trail-etendard-espace-trail-arves"),
+    de: () => import("@/lib/blog/content/de/trail-etendard-espace-trail-arves"),
+    es: () => import("@/lib/blog/content/es/trail-etendard-espace-trail-arves"),
+    it: () => import("@/lib/blog/content/it/trail-etendard-espace-trail-arves"),
+  },
   "tradi-cimes-albiez": {
     fr: () => import("@/lib/blog/content/fr/tradi-cimes-albiez"),
     en: () => import("@/lib/blog/content/en/tradi-cimes-albiez"),
