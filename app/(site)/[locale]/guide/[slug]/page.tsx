@@ -41,6 +41,13 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "tradi-cimes-albiez": {
+    fr: () => import("@/lib/blog/content/fr/tradi-cimes-albiez"),
+    en: () => import("@/lib/blog/content/en/tradi-cimes-albiez"),
+    de: () => import("@/lib/blog/content/de/tradi-cimes-albiez"),
+    es: () => import("@/lib/blog/content/es/tradi-cimes-albiez"),
+    it: () => import("@/lib/blog/content/it/tradi-cimes-albiez"),
+  },
   "cross-triathlon-swimrun-albiez": {
     fr: () => import("@/lib/blog/content/fr/cross-triathlon-swimrun-albiez"),
     en: () => import("@/lib/blog/content/en/cross-triathlon-swimrun-albiez"),

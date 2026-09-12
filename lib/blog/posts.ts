@@ -69,6 +69,88 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "tradi-cimes-albiez",
+    date: "2026-09-12",
+    // Photo du village partagée avec l'article Celti'Cimes : nous n'avons pas de cliché
+    // de Tradi'Cimes. À remplacer dès qu'on en aura un, ou qu'on en obtiendra un des
+    // organisateurs — deux articles de festival avec la même couverture, ça se voit.
+    image: "activites-ete/95-albiez-ete-1.jpg",
+    season: "ete",
+    event: "tradi-cimes",
+    locales: {
+      fr: {
+        title: "Tradi'Cimes, la fête traditionnelle d'Albiez-Montrond",
+        description:
+          "Deux jours gratuits début août, place Opinel et au plan d'eau du Mollard : marché artisanal, concours de sculpture sur bois, démonstrations agricoles, musiques et danses traditionnelles.",
+        excerpt:
+          "Deux festivals en quinze jours dans un village de 300 habitants — et celui-ci ne coûte rien.",
+        keywords: [
+          "Tradi'Cimes Albiez-Montrond",
+          "fête traditionnelle Savoie",
+          "marché artisanal Maurienne",
+          "démonstrations agricoles Albiez",
+          "festival gratuit Maurienne",
+        ],
+      },
+      en: {
+        title: "Tradi'Cimes, the traditional festival of Albiez-Montrond",
+        description:
+          "Two free days in early August, on Place Opinel and at the Mollard lake: craft market, wood carving competition, farming demonstrations, traditional music and dance.",
+        excerpt:
+          "Two festivals in a fortnight in a village of 300 people — and this one costs nothing.",
+        keywords: [
+          "Tradi'Cimes Albiez-Montrond",
+          "traditional festival Savoie",
+          "craft market French Alps",
+          "farming demonstrations Albiez",
+          "free festival Maurienne",
+        ],
+      },
+      de: {
+        title: "Tradi'Cimes, das Traditionsfest von Albiez-Montrond",
+        description:
+          "Zwei kostenlose Tage Anfang August, auf der Place Opinel und am Badesee von Le Mollard: Handwerksmarkt, Schnitzwettbewerb, landwirtschaftliche Vorführungen, traditionelle Musik und Tänze.",
+        excerpt:
+          "Zwei Festivals in vierzehn Tagen in einem Dorf mit 300 Einwohnern — und dieses kostet nichts.",
+        keywords: [
+          "Tradi'Cimes Albiez-Montrond",
+          "Traditionsfest Savoyen",
+          "Handwerksmarkt Maurienne",
+          "landwirtschaftliche Vorführungen Albiez",
+          "kostenloses Festival Maurienne",
+        ],
+      },
+      es: {
+        title: "Tradi'Cimes, la fiesta tradicional de Albiez-Montrond",
+        description:
+          "Dos días gratuitos a principios de agosto, en la plaza Opinel y en el lago del Mollard: mercado artesanal, concurso de talla de madera, demostraciones agrícolas, músicas y danzas tradicionales.",
+        excerpt:
+          "Dos festivales en quince días en un pueblo de 300 habitantes, y este no cuesta nada.",
+        keywords: [
+          "Tradi'Cimes Albiez-Montrond",
+          "fiesta tradicional Saboya",
+          "mercado artesanal Maurienne",
+          "demostraciones agrícolas Albiez",
+          "festival gratuito Maurienne",
+        ],
+      },
+      it: {
+        title: "Tradi'Cimes, la festa tradizionale di Albiez-Montrond",
+        description:
+          "Due giorni gratuiti a inizio agosto, in piazza Opinel e al laghetto del Mollard: mercato artigianale, concorso di scultura su legno, dimostrazioni agricole, musiche e danze tradizionali.",
+        excerpt:
+          "Due festival in quindici giorni in un paese di 300 abitanti — e questo non costa nulla.",
+        keywords: [
+          "Tradi'Cimes Albiez-Montrond",
+          "festa tradizionale Savoia",
+          "mercato artigianale Maurienne",
+          "dimostrazioni agricole Albiez",
+          "festival gratuito Maurienne",
+        ],
+      },
+    },
+  },
+  {
     slug: "cross-triathlon-swimrun-albiez",
     date: "2026-09-12",
     image: "activites-ete/94-plan-eau-albiez.jpg",
