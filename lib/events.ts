@@ -43,6 +43,11 @@ export const EVENTS: LocalEvent[] = [
     commune: "Le Bourg-d'Oisans",
     confirmed: true,
     url: "https://marmottegranfondoalpes.com/",
+    // Organisateur déclaré à la FFC (velo.ffc.fr, épreuve n° 4169013015) ; sans `url`, le
+    // site de l'épreuve est déjà celui de l'événement et celui de la société n'est pas vérifié.
+    // Pas de `tickets` : les dossards partent en une journée, on ne déclarerait pas
+    // « disponible » à Google.
+    organizer: { name: "Top Club France" },
   },
   {
     key: "cross-triathlon-arves",

@@ -291,7 +291,13 @@ export default async function GuidePost({
     ? nextEdition(EVENTS, post.event, formatDate(new Date()))
     : undefined;
   const eventNode = event
-    ? eventJsonLd(event, { region: PROPERTY.address.region })
+    ? eventJsonLd(
+        event,
+        { region: PROPERTY.address.region },
+        // La description et l'image sont celles de l'article, dans la langue de la page : le socle
+        // ne connaît pas l'i18n, c'est ici qu'on sait ce qu'on rend.
+        { description: loc.description, imageUrl: `${SITE_URL}/images/${post.image}` },
+      )
     : null;
 
   return (

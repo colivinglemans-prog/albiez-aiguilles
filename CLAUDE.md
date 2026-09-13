@@ -1621,6 +1621,16 @@ l'événement n'est pas confirmé : le test n'est plus à la charge de l'appelan
 avant un `{event?.confirmed && …}` qu'il pouvait oublier. La page d'article ne fait plus que
 poser le nœud quand on lui en rend un.
 
+**Socle v3.2.0 (2026-09-13) : les champs que Google recommande.** La Search Console de
+Barbusse réclamait `organizer`, `performer`, `offers`, `description` et `image` sur le nœud
+`Event` ; Albiez l'émet par la même fonction. La page passe désormais un troisième argument
+`{ description: loc.description, imageUrl }` — la description de l'article dans la langue de
+la page, la couverture en URL absolue. Le catalogue peut porter `organizer`, `performer` et
+`tickets`, optionnels : seule la Marmotte, unique entrée confirmée, a son `organizer`
+(Top Club France, déclaré à la FFC). Pas de `tickets` pour elle — les dossards partent en une
+journée, et le nœud affirmerait « disponible ». Les autres entrées recevront leur organisateur
+quand leurs dates seront officielles : tant que `confirmed` est `false`, rien n'est émis.
+
 ⚠️ Les dates non confirmées sont à reprendre auprès des organisateurs et de l'office de
 tourisme d'Albiez (04 79 59 30 48) dès que les programmes sortent, au printemps.
 
