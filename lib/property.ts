@@ -176,6 +176,16 @@ export const PROPERTY = {
 
   contact: {
     email: "alexandre.delan@gmail.com",
+    /**
+     * Adresse au nom du domaine, montrée aux entreprises et aux agences — aujourd'hui la
+     * seule page de séjour longue durée.
+     *
+     * Un devis et une facture qui partent d'une adresse personnelle passent mal un service
+     * achats, alors que l'adresse du domaine se vérifie d'un coup d'œil. Le reste du site
+     * continue d'afficher `email` : un voyageur n'a que faire de cette distinction, et les
+     * mentions légales doivent porter l'adresse de contact habituelle.
+     */
+    business: "contact@albiez-aiguilles.fr",
     phone: "+33620921005",
     whatsapp: "https://wa.me/33620921005",
   },

@@ -125,19 +125,37 @@ export default async function LongStayPage({
         majorité de ces réservations passent par une agence ou un service voyages qui a
         besoin d'un devis puis d'une facture — ce que le calendrier ne sait pas produire.
       */}
-      <aside className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 rounded-2xl border border-accent/30 bg-accent-soft px-6 py-7 sm:flex-row sm:justify-center">
+      <aside className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 rounded-2xl border border-accent/30 bg-accent-soft px-6 py-7">
         <Link
           href={`/${locale}#reserver`}
           className="inline-block rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
         >
           {t.bookingCta}
         </Link>
-        <a
-          href={`mailto:${PROPERTY.contact.email}?subject=${encodeURIComponent(t.heading)}`}
-          className="inline-block rounded-full border border-primary px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
-        >
-          {t.contactCta}
-        </a>
+
+        {/*
+          Les deux canaux de devis, à égalité. WhatsApp pour la réponse du jour, le
+          courriel pour l'écrit qu'un service achats transfère en interne et joint à un
+          bon de commande — les deux publics existent et n'ont pas les mêmes contraintes.
+          L'adresse est celle du domaine et non la personnelle : c'est elle qui figurera
+          sur le devis.
+        */}
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <a
+            href={`${PROPERTY.contact.whatsapp}?text=${encodeURIComponent(t.quoteWhatsApp)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-full border border-primary px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+          >
+            {t.whatsappCta}
+          </a>
+          <a
+            href={`mailto:${PROPERTY.contact.business}?subject=${encodeURIComponent(t.quoteSubject)}&body=${encodeURIComponent(t.quoteBody)}`}
+            className="inline-block rounded-full border border-primary px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+          >
+            {t.contactCta}
+          </a>
+        </div>
       </aside>
     </Section>
   );

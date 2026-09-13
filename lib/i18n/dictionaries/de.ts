@@ -719,7 +719,13 @@ export const de: Dictionary = {
     bookingText:
       "Die freien Termine stehen in unserem Kalender, und gebucht wird direkt, ohne Vermittler. Wenn Sie für einen Mitarbeiter oder ein Team buchen und ein Angebot sowie eine Rechnung auf den Firmennamen brauchen, schreiben Sie uns — das ist der häufigste Fall, und wir sind es gewohnt.",
     bookingCta: "Verfügbarkeit ansehen",
-    contactCta: "Angebot anfragen",
+    whatsappCta: "Angebot über WhatsApp anfragen",
+    contactCta: "Angebot per E-Mail anfragen",
+    quoteSubject: "Angebotsanfrage — Langzeitaufenthalt in Albiez",
+    quoteBody:
+      "Guten Tag,\n\nich hätte gerne ein Angebot für einen Langzeitaufenthalt in Albiez-Montrond.\n\n- Gewünschte Termine:\n- Anzahl der Personen:\n- Firma:\n- Rechnungsanschrift:\n\nVielen Dank.",
+    quoteWhatsApp:
+      "Guten Tag, ich hätte gerne ein Angebot für einen Langzeitaufenthalt in Albiez. Termine: … / Personen: … / Firma: … / Rechnungsanschrift: …",
     seo: {
       title: "Langzeitunterkunft in der Maurienne — Baustelle Lyon-Turin | Albiez",
       description:

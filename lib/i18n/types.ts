@@ -142,8 +142,21 @@ export interface LongStayContent {
   bookingText: string;
   /** Bouton principal : le calendrier de l'accueil, en réservation directe. */
   bookingCta: string;
+  /** Bouton secondaire : WhatsApp, pour la réponse rapide. */
+  whatsappCta: string;
   /** Bouton secondaire : le courriel, pour un devis et une facture d'entreprise. */
   contactCta: string;
+  /**
+   * Objet et corps du courriel de demande de devis, et message WhatsApp équivalent.
+   *
+   * Pré-remplis, et ce n'est pas de la coquetterie : un formulaire vide rapporte « c'est
+   * libre en octobre ? », sans dates ni effectif ni raison sociale, et coûte deux
+   * allers-retours avant de pouvoir chiffrer quoi que ce soit. Les quatre lignes demandées
+   * sont exactement celles qu'il faut pour établir un devis.
+   */
+  quoteSubject: string;
+  quoteBody: string;
+  quoteWhatsApp: string;
   seo: { title: string; description: string; keywords: string[] };
 }
 

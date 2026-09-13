@@ -696,7 +696,13 @@ export const en: Dictionary = {
     bookingText:
       "Free dates are on our calendar and booking is direct, with no agency in between. If you are booking for an employee or a team and need a quote and then an invoice in the company's name, write to us — it is the most common case and we are used to it.",
     bookingCta: "Check availability",
-    contactCta: "Request a quote",
+    whatsappCta: "Request a quote on WhatsApp",
+    contactCta: "Request a quote by e-mail",
+    quoteSubject: "Quote request — long stay in Albiez",
+    quoteBody:
+      "Hello,\n\nI would like a quote for a long stay in Albiez-Montrond.\n\n- Dates:\n- Number of people:\n- Company:\n- Billing address:\n\nThank you.",
+    quoteWhatsApp:
+      "Hello, I would like a quote for a long stay in Albiez. Dates: … / Number of people: … / Company: … / Billing address: …",
     seo: {
       title: "Long-term accommodation in the Maurienne — Lyon-Turin project | Albiez",
       description:

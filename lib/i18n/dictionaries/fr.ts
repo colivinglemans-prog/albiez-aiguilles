@@ -714,7 +714,13 @@ export const fr: Dictionary = {
     bookingText:
       "Les dates libres se voient sur notre calendrier et la réservation se fait en direct, sans intermédiaire. Si vous réservez pour un salarié ou pour une équipe et qu'il vous faut un devis puis une facture au nom de l'entreprise, écrivez-nous — c'est le cas le plus fréquent et nous avons l'habitude.",
     bookingCta: "Voir les disponibilités",
-    contactCta: "Demander un devis",
+    whatsappCta: "Demander un devis sur WhatsApp",
+    contactCta: "Demander un devis par e-mail",
+    quoteSubject: "Demande de devis — séjour longue durée à Albiez",
+    quoteBody:
+      "Bonjour,\n\nJe souhaite un devis pour un séjour longue durée à Albiez-Montrond.\n\n- Dates souhaitées :\n- Nombre de personnes :\n- Société :\n- Adresse de facturation :\n\nMerci.",
+    quoteWhatsApp:
+      "Bonjour, je souhaite un devis pour un séjour longue durée à Albiez. Dates souhaitées : … / Nombre de personnes : … / Société : … / Adresse de facturation : …",
     seo: {
       title: "Logement longue durée en Maurienne — chantier Lyon-Turin | Albiez",
       description:

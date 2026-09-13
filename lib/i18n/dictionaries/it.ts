@@ -718,7 +718,13 @@ export const it: Dictionary = {
     bookingText:
       "Le date libere sono sul nostro calendario e la prenotazione si fa in diretta, senza intermediari. Se prenota per un dipendente o per una squadra e le serve un preventivo e poi una fattura intestata all'azienda, ci scriva — è il caso più frequente e ci siamo abituati.",
     bookingCta: "Vedi disponibilità",
-    contactCta: "Chiedere un preventivo",
+    whatsappCta: "Chiedere un preventivo su WhatsApp",
+    contactCta: "Chiedere un preventivo via e-mail",
+    quoteSubject: "Richiesta di preventivo — soggiorno lungo ad Albiez",
+    quoteBody:
+      "Buongiorno,\n\nvorrei un preventivo per un soggiorno lungo ad Albiez-Montrond.\n\n- Date desiderate:\n- Numero di persone:\n- Azienda:\n- Indirizzo di fatturazione:\n\nGrazie.",
+    quoteWhatsApp:
+      "Buongiorno, vorrei un preventivo per un soggiorno lungo ad Albiez. Date: … / Numero di persone: … / Azienda: … / Indirizzo di fatturazione: …",
     seo: {
       title: "Alloggio di lunga durata in Maurienne — cantiere Torino-Lione | Albiez",
       description:

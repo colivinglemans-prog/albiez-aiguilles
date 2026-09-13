@@ -718,7 +718,13 @@ export const es: Dictionary = {
     bookingText:
       "Las fechas libres están en nuestro calendario y la reserva se hace directamente, sin intermediarios. Si reserva para un empleado o para un equipo y necesita un presupuesto y luego una factura a nombre de la empresa, escríbanos: es el caso más frecuente y estamos acostumbrados.",
     bookingCta: "Ver disponibilidad",
-    contactCta: "Pedir presupuesto",
+    whatsappCta: "Pedir presupuesto por WhatsApp",
+    contactCta: "Pedir presupuesto por correo",
+    quoteSubject: "Solicitud de presupuesto — estancia larga en Albiez",
+    quoteBody:
+      "Buenos días:\n\nQuisiera un presupuesto para una estancia larga en Albiez-Montrond.\n\n- Fechas deseadas:\n- Número de personas:\n- Empresa:\n- Dirección de facturación:\n\nGracias.",
+    quoteWhatsApp:
+      "Buenos días, quisiera un presupuesto para una estancia larga en Albiez. Fechas: … / Número de personas: … / Empresa: … / Dirección de facturación: …",
     seo: {
       title: "Alojamiento de larga duración en la Maurienne — obras del Lyon-Turín | Albiez",
       description:
