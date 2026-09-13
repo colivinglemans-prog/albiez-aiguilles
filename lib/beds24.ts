@@ -275,28 +275,6 @@ export async function contraintes(du: string, au: string): Promise<Contraintes> 
   };
 }
 
-/** Prix au calendrier — ceux que pousse Beyond Pricing. Sert à la projection. */
-export async function prixParNuit(params: { du: string; au: string }): Promise<Record<string, number>> {
-  const propertyId = process.env.BEDS24_PROPERTY_ID;
-  if (!propertyId) return {};
-  const { data = [] } = await client.get<{ data: Beds24CalendarRoom[] }>(
-    "/inventory/rooms/calendar",
-    {
-      params: {
-        propertyId,
-        startDate: params.du,
-        endDate: params.au,
-        includePrices: "true",
-      },
-    },
-  );
-
-  // Une seule room ici : la dernière valeur gagne, ce qui est le défaut de `expandSpans`.
-  const prix: Record<string, number> = {};
-  for (const room of data) expandSpans(room.calendar, (t) => t.price1, undefined, prix);
-  return prix;
-}
-
 /**
  * Écrit une note interne sur une réservation vivante.
  *
