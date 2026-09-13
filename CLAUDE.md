@@ -1673,10 +1673,31 @@ saison change.
 Le `<h1>` est écrit dans la page plutôt que délégué à `SectionTitle`, qui rend un `<h2>` :
 c'est le titre de la page, et elle est indexable.
 
-⚠️ **La page dit « nous consulter » et ne chiffre rien.** La forme du contrat d'un séjour de
-plusieurs semaines — bail mobilité ou location meublée de courte durée —, la taxe de
-séjour et le régime LMNP côté SCI n'ont pas été tranchés. Ne rien y promettre de chiffré
-avant cet arbitrage.
+**Deux boutons, dans cet ordre : le calendrier, puis le devis.** Le direct d'abord parce
+qu'il évite la commission ; le courriel ensuite parce que la majorité de ces réservations
+viennent d'une agence ou d'un service voyages qui a besoin d'un devis puis d'une facture au
+nom de l'entreprise — ce qu'un calendrier ne sait pas produire. D'où aussi le bloc
+`servicesItems` : linge fourni, ménage et changement des draps tous les quinze jours,
+facture, paiement par carte ou virement, logement non-fumeur. Ce ne sont pas les conditions
+de la location saisonnière, où le linge est une option payante.
+
+⚠️ **La page ne chiffre rien, et ne doit pas.** Deux raisons distinctes.
+
+D'abord les prix : ils viennent de **Beyond Pricing**, en tarification dynamique par-dessus
+un minimum. Écrire un prix dans une page le figerait, et il serait faux dès le premier pont
+de mai. La page ne promet donc pas non plus « le tarif le plus bas » — mesuré sur un séjour
+réel de 31 nuits en septembre 2026, le direct ne rapportait que 3 à 4 % de plus que
+Booking, parce que la **majoration de canal** appliquée à Booking (environ +12 % sur le prix
+d'hébergement) absorbe presque toute sa commission de 18,4 %. Cette majoration est un
+réglage Beds24 fixe, indépendant de la tarification dynamique.
+
+Ensuite le cadre : la forme du contrat d'un séjour de plusieurs semaines — bail mobilité ou
+location meublée de courte durée —, la taxe de séjour et le régime LMNP côté SCI n'ont pas
+été tranchés. Ne rien promettre de chiffré avant cet arbitrage.
+
+⚠️ **Pas de remise de longue durée.** La grille est plate : une nuit d'un séjour d'un mois
+coûte le même prix qu'une nuit d'une semaine. C'est un choix assumé du propriétaire — la
+location longue n'est pas son métier — et non un oubli de configuration.
 
 ## Guide d'arrivée (page cachée)
 

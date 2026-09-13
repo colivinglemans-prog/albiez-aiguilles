@@ -671,28 +671,41 @@ export const en: Dictionary = {
       `Saint-Jean-de-Maurienne is ${km} km away, about twenty minutes downhill — ${minutes} minutes to be exact, on a road cleared all winter.`,
     flatTitle: "What the flat is worth over several weeks",
     flatItems: [
+      "Three separate sleeping spaces: ideal for two, or even three people, each with their own privacy.",
       "A full kitchen, oven and dishwasher: you will not be eating out six nights a week.",
-      "A proper double bed, plus a mountain alcove and a sofa bed — room for visitors without moving out.",
       "A south-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
-      "Free parking and a smart lock: no key handover, no arrival window.",
+      "Free parking and a key box: you come and go under your own steam, at whatever time suits.",
       "1,600 metres of altitude, meaning cool nights in summer and dry air all year.",
+    ],
+    afterWorkTitle: "Getting out in the evening and at weekends",
+    afterWorkText:
+      "This is what separates Albiez from a room at the bottom of the valley. Six waymarked walks start from the village, from forty minutes to three and a half hours. The Col du Mollard sits at the edge of the hamlet for anyone who rides, and the Espace Trail of the Aiguilles d'Arves country holds 550 kilometres of waymarked routes a quarter of an hour away. And there is the view, as far as the eye goes, which asks nothing more than opening the balcony door.",
+    afterWorkLink: "Everything there is to do, in our guide",
+    servicesTitle: "What comes with a long stay",
+    servicesItems: [
+      "Bed linen and bath towels provided.",
+      "Cleaning and a change of linen every fortnight, more often if needed.",
+      "Invoice made out to the company or agency making the booking.",
+      "Payment by card or bank transfer.",
+      "Non-smoking flat.",
     ],
     limitsTitle: "What we do not offer",
     limitsText:
       "Neither school holiday weeks nor July and August: those go to holidaymakers, that is our trade and we do not bend it. We do not let single rooms or shares either — it is the whole flat, for one person or for a team that gets on.",
-    contactTitle: "Ask us",
-    contactText:
-      "The terms of a multi-week stay are settled case by case: length, form of contract, cleaning, linen. Write to us with your dates and the number of people, and we answer quickly.",
-    contactCta: "Send a message",
+    bookingTitle: "Booking",
+    bookingText:
+      "Free dates are on our calendar and booking is direct, with no agency in between. If you are booking for an employee or a team and need a quote and then an invoice in the company's name, write to us — it is the most common case and we are used to it.",
+    bookingCta: "Check availability",
+    contactCta: "Request a quote",
     seo: {
       title: "Long-term accommodation in the Maurienne — Lyon-Turin project | Albiez",
       description:
-        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks outside the tourist season. For Lyon-Turin project staff and long work postings.",
+        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks outside the tourist season. Linen provided, regular cleaning, company invoice, payment by card or transfer.",
       keywords: [
         "Lyon-Turin project accommodation",
         "long term rental Maurienne",
         "furnished flat Saint-Jean-de-Maurienne",
-        "multi week rental Savoie",
+        "contractor accommodation company invoice",
         "worker accommodation Lyon-Turin",
       ],
     },

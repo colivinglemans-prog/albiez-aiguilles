@@ -689,28 +689,41 @@ export const fr: Dictionary = {
       `Saint-Jean-de-Maurienne est à ${km} km, une vingtaine de minutes de descente — ${minutes} minutes exactement, et la route est déneigée tout l'hiver.`,
     flatTitle: "Ce que vaut l'appartement sur plusieurs semaines",
     flatItems: [
+      "Trois espaces de couchage distincts : idéal pour deux, voire trois personnes, chacune avec son intimité.",
       "Une cuisine complète, four et lave-vaisselle : on ne mange pas au restaurant six soirs par semaine.",
-      "Un vrai lit double, plus un coin montagne et un canapé-lit — de quoi recevoir sans déménager.",
       "Un balcon plein sud face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
-      "Un parking gratuit et une serrure connectée : ni remise de clés ni horaire d'arrivée.",
+      "Un parking gratuit et une boîte à clés : on arrive et on repart en autonomie, à l'heure qui arrange.",
       "1 600 mètres d'altitude, soit des nuits fraîches en été et de l'air sec toute l'année.",
+    ],
+    afterWorkTitle: "S'aérer le soir et le week-end",
+    afterWorkText:
+      "C'est ce qui sépare Albiez d'une chambre en fond de vallée. Six randonnées balisées partent du village, de quarante minutes à trois heures et demie. Le col du Mollard est à la sortie du hameau pour qui roule, et l'Espace Trail du pays des Aiguilles d'Arves aligne 550 kilomètres d'itinéraires balisés à un quart d'heure de route. Et il y a le paysage, à perte de vue, qui ne demande que d'ouvrir la porte du balcon.",
+    afterWorkLink: "Tout ce qu'il y a à faire, dans notre guide",
+    servicesTitle: "Ce qui est prévu pour un séjour long",
+    servicesItems: [
+      "Draps et serviettes de bain fournis.",
+      "Ménage et changement des draps tous les quinze jours, plus souvent si nécessaire.",
+      "Facture au nom de l'entreprise ou de l'agence qui réserve.",
+      "Paiement par carte bancaire ou par virement.",
+      "Logement non-fumeur.",
     ],
     limitsTitle: "Ce que nous ne proposons pas",
     limitsText:
       "Ni les semaines de vacances scolaires, ni juillet-août : elles vont aux vacanciers, c'est notre métier et nous n'y dérogeons pas. Nous ne proposons pas non plus de chambre seule ni de colocation — c'est l'appartement entier, pour une personne ou pour une équipe qui s'entend.",
-    contactTitle: "Nous consulter",
-    contactText:
-      "Les conditions d'un séjour de plusieurs semaines se discutent au cas par cas : durée, forme du contrat, ménage, linge. Écrivez-nous en indiquant vos dates et le nombre de personnes, nous répondons vite.",
-    contactCta: "Écrire un message",
+    bookingTitle: "Réserver",
+    bookingText:
+      "Les dates libres se voient sur notre calendrier et la réservation se fait en direct, sans intermédiaire. Si vous réservez pour un salarié ou pour une équipe et qu'il vous faut un devis puis une facture au nom de l'entreprise, écrivez-nous — c'est le cas le plus fréquent et nous avons l'habitude.",
+    bookingCta: "Voir les disponibilités",
+    contactCta: "Demander un devis",
     seo: {
       title: "Logement longue durée en Maurienne — chantier Lyon-Turin | Albiez",
       description:
-        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, en séjour de plusieurs semaines hors saison touristique. Pour les salariés du chantier Lyon-Turin et les déplacements longs.",
+        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, en séjour de plusieurs semaines hors saison touristique. Draps fournis, ménage périodique, facture entreprise, paiement par carte ou virement.",
       keywords: [
         "logement chantier Lyon-Turin",
         "hébergement longue durée Maurienne",
         "meublé Saint-Jean-de-Maurienne",
-        "location plusieurs semaines Savoie",
+        "logement ouvriers facture entreprise",
         "logement salarié Lyon-Turin",
       ],
     },

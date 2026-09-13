@@ -6,7 +6,8 @@ import {
   LOCALES,
   LOCALE_META,
 } from "@/lib/i18n";
-import { alternatesFor, longStayPath, openGraphLocales } from "@/lib/seo";
+import Link from "next/link";
+import { alternatesFor, blogPath, longStayPath, openGraphLocales } from "@/lib/seo";
 import { PROPERTY } from "@/lib/property";
 import { WINTER_OPENING, formatPeriode } from "@/lib/seasons";
 import { Section } from "@/components/public/Section";
@@ -98,17 +99,42 @@ export default async function LongStayPage({
           ))}
         </ul>
 
+        <h2>{t.afterWorkTitle}</h2>
+        <p>{t.afterWorkText}</p>
+        <p>
+          <Link href={blogPath(locale)}>{t.afterWorkLink}</Link>
+        </p>
+
+        <h2>{t.servicesTitle}</h2>
+        <ul>
+          {t.servicesItems.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+
         <h2>{t.limitsTitle}</h2>
         <p>{t.limitsText}</p>
 
-        <h2>{t.contactTitle}</h2>
-        <p>{t.contactText}</p>
+        <h2>{t.bookingTitle}</h2>
+        <p>{t.bookingText}</p>
       </div>
 
-      <aside className="mx-auto mt-10 max-w-3xl rounded-2xl border border-accent/30 bg-accent-soft px-6 py-7 text-center">
+      {/*
+        Deux boutons, dans cet ordre. Le direct d'abord : c'est le tarif le plus bas pour
+        le client et le seul sans commission pour nous. Le courriel ensuite, parce que la
+        majorité de ces réservations passent par une agence ou un service voyages qui a
+        besoin d'un devis puis d'une facture — ce que le calendrier ne sait pas produire.
+      */}
+      <aside className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 rounded-2xl border border-accent/30 bg-accent-soft px-6 py-7 sm:flex-row sm:justify-center">
+        <Link
+          href={`/${locale}#reserver`}
+          className="inline-block rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+        >
+          {t.bookingCta}
+        </Link>
         <a
           href={`mailto:${PROPERTY.contact.email}?subject=${encodeURIComponent(t.heading)}`}
-          className="inline-block rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+          className="inline-block rounded-full border border-primary px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
         >
           {t.contactCta}
         </a>

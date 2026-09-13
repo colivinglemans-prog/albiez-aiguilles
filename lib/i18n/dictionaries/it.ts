@@ -693,28 +693,41 @@ export const it: Dictionary = {
       `Saint-Jean-de-Maurienne dista ${km} km, una ventina di minuti in discesa — ${minutes} minuti esatti, su una strada sgomberata tutto l'inverno.`,
     flatTitle: "Quanto vale l'appartamento su più settimane",
     flatItems: [
+      "Tre spazi letto distinti: ideale per due, anche tre persone, ciascuna con la propria intimità.",
       "Una cucina completa, con forno e lavastoviglie: non si cena fuori sei sere a settimana.",
-      "Un vero letto matrimoniale, più un angolo montagna e un divano letto — spazio per ospiti senza traslocare.",
       "Un balcone esposto a sud di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
-      "Parcheggio gratuito e serratura connessa: nessuna consegna di chiavi, nessun orario d'arrivo.",
+      "Parcheggio gratuito e cassetta portachiavi: si arriva e si riparte in autonomia, all'ora che si preferisce.",
       "1 600 metri di quota: notti fresche d'estate e aria secca tutto l'anno.",
+    ],
+    afterWorkTitle: "Prendere aria la sera e nel fine settimana",
+    afterWorkText:
+      "È ciò che separa Albiez da una camera in fondovalle. Sei escursioni segnalate partono dal paese, da quaranta minuti a tre ore e mezza. Il col du Mollard è all'uscita della frazione per chi pedala, e l'Espace Trail del paese delle Arves conta 550 chilometri di itinerari segnalati a un quarto d'ora d'auto. E c'è il paesaggio, a perdita d'occhio, che chiede solo di aprire la porta del balcone.",
+    afterWorkLink: "Tutto quello che c'è da fare, nella nostra guida",
+    servicesTitle: "Che cosa comprende un soggiorno lungo",
+    servicesItems: [
+      "Lenzuola e asciugamani da bagno forniti.",
+      "Pulizie e cambio delle lenzuola ogni quindici giorni, più spesso se serve.",
+      "Fattura intestata all'azienda o all'agenzia che prenota.",
+      "Pagamento con carta o bonifico.",
+      "Alloggio per non fumatori.",
     ],
     limitsTitle: "Che cosa non offriamo",
     limitsText:
       "Né le settimane di vacanza scolastica né luglio e agosto: quelle vanno ai villeggianti, è il nostro mestiere e non facciamo eccezioni. Non offriamo nemmeno la singola camera o la coabitazione: è l'appartamento intero, per una persona o per una squadra che va d'accordo.",
-    contactTitle: "Chiedeteci",
-    contactText:
-      "Le condizioni di un soggiorno di più settimane si concordano caso per caso: durata, forma del contratto, pulizie, biancheria. Scriveteci indicando le date e il numero di persone, rispondiamo in fretta.",
-    contactCta: "Scrivere un messaggio",
+    bookingTitle: "Prenotare",
+    bookingText:
+      "Le date libere sono sul nostro calendario e la prenotazione si fa in diretta, senza intermediari. Se prenota per un dipendente o per una squadra e le serve un preventivo e poi una fattura intestata all'azienda, ci scriva — è il caso più frequente e ci siamo abituati.",
+    bookingCta: "Vedi disponibilità",
+    contactCta: "Chiedere un preventivo",
     seo: {
       title: "Alloggio di lunga durata in Maurienne — cantiere Torino-Lione | Albiez",
       description:
-        "Appartamento ammobiliato ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per soggiorni di più settimane fuori dalla stagione turistica. Per il personale del cantiere Torino-Lione e le trasferte lunghe.",
+        "Appartamento ammobiliato ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per soggiorni di più settimane fuori stagione. Biancheria fornita, pulizie periodiche, fattura aziendale, pagamento con carta o bonifico.",
       keywords: [
         "alloggio cantiere Torino-Lione",
         "affitto lunga durata Maurienne",
         "appartamento ammobiliato Saint-Jean-de-Maurienne",
-        "affitto più settimane Savoia",
+        "alloggio operai fattura aziendale",
         "alloggio lavoratori Torino-Lione",
       ],
     },

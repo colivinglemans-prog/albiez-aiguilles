@@ -115,11 +115,34 @@ export interface LongStayContent {
   commute: (km: number, minutes: number) => string;
   flatTitle: string;
   flatItems: string[];
+  /**
+   * Ce qu'il y a à faire une fois la journée finie.
+   *
+   * L'argument qui ne figure sur aucune fiche de logement de chantier, et probablement le
+   * seul que la concurrence de fond de vallée ne puisse pas copier : à 1 600 mètres, le
+   * soir et le week-end ne se passent pas dans une chambre.
+   */
+  afterWorkTitle: string;
+  afterWorkText: string;
+  /** Libellé du lien vers le guide, sous ce paragraphe. */
+  afterWorkLink: string;
+  /**
+   * Les prestations propres au séjour long : linge, ménage périodique, facture, moyens de
+   * paiement. Ce ne sont pas les conditions de la location saisonnière — le linge y est
+   * une option payante et le ménage se fait au départ — parce que ce ne sont pas les mêmes
+   * clients : ici ce sont le plus souvent une agence ou un service voyages qui réservent
+   * pour un salarié, et qui ont besoin d'une facture au nom de l'entreprise.
+   */
+  servicesTitle: string;
+  servicesItems: string[];
   /** Ce que nous ne proposons pas — dit avant qu'on le demande. */
   limitsTitle: string;
   limitsText: string;
-  contactTitle: string;
-  contactText: string;
+  bookingTitle: string;
+  bookingText: string;
+  /** Bouton principal : le calendrier de l'accueil, en réservation directe. */
+  bookingCta: string;
+  /** Bouton secondaire : le courriel, pour un devis et une facture d'entreprise. */
   contactCta: string;
   seo: { title: string; description: string; keywords: string[] };
 }

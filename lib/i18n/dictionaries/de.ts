@@ -694,28 +694,41 @@ export const de: Dictionary = {
       `Saint-Jean-de-Maurienne liegt ${km} km entfernt, etwa zwanzig Minuten bergab — genauer ${minutes} Minuten, auf einer den ganzen Winter geräumten Straße.`,
     flatTitle: "Was die Wohnung über mehrere Wochen wert ist",
     flatItems: [
+      "Drei getrennte Schlafbereiche: ideal für zwei, auch für drei Personen, jede mit ihrer Privatsphäre.",
       "Eine vollständige Küche mit Backofen und Spülmaschine: Man isst nicht sechs Abende die Woche auswärts.",
-      "Ein richtiges Doppelbett, dazu ein Bergalkoven und ein Schlafsofa — Platz für Besuch, ohne umzuziehen.",
       "Ein Südbalkon mit Blick auf die Aiguilles d'Arves und die Stille eines Dorfs mit 300 Einwohnern.",
-      "Kostenloser Parkplatz und ein smartes Schloss: keine Schlüsselübergabe, kein Ankunftsfenster.",
+      "Kostenloser Parkplatz und ein Schlüsselkasten: Man kommt und geht selbstständig, zu jeder passenden Zeit.",
       "1 600 Meter Höhe, also kühle Sommernächte und trockene Luft das ganze Jahr.",
+    ],
+    afterWorkTitle: "Abends und am Wochenende hinaus",
+    afterWorkText:
+      "Das unterscheidet Albiez von einem Zimmer im Talgrund. Sechs markierte Wanderungen beginnen im Dorf, von vierzig Minuten bis dreieinhalb Stunden. Der Col du Mollard liegt am Ortsausgang, für alle, die Rad fahren, und der Espace Trail des Aiguilles-d'Arves-Landes zählt 550 Kilometer markierte Wege, eine Viertelstunde entfernt. Und da ist die Aussicht, so weit das Auge reicht, für die man nur die Balkontür öffnen muss.",
+    afterWorkLink: "Alles, was es zu tun gibt, in unserem Guide",
+    servicesTitle: "Was zum Langzeitaufenthalt gehört",
+    servicesItems: [
+      "Bettwäsche und Badetücher werden gestellt.",
+      "Reinigung und Wäschewechsel alle vierzehn Tage, bei Bedarf häufiger.",
+      "Rechnung auf den Namen der buchenden Firma oder Agentur.",
+      "Zahlung per Karte oder Überweisung.",
+      "Nichtraucherwohnung.",
     ],
     limitsTitle: "Was wir nicht anbieten",
     limitsText:
       "Weder Schulferienwochen noch Juli und August: die gehören den Urlaubsgästen, das ist unser Geschäft und davon weichen wir nicht ab. Einzelzimmer oder Wohngemeinschaft bieten wir ebenfalls nicht an — es ist die ganze Wohnung, für eine Person oder für ein Team, das sich versteht.",
-    contactTitle: "Fragen Sie uns",
-    contactText:
-      "Die Bedingungen eines mehrwöchigen Aufenthalts werden im Einzelfall besprochen: Dauer, Vertragsform, Reinigung, Wäsche. Schreiben Sie uns mit Ihren Daten und der Personenzahl, wir antworten schnell.",
-    contactCta: "Nachricht schreiben",
+    bookingTitle: "Buchen",
+    bookingText:
+      "Die freien Termine stehen in unserem Kalender, und gebucht wird direkt, ohne Vermittler. Wenn Sie für einen Mitarbeiter oder ein Team buchen und ein Angebot sowie eine Rechnung auf den Firmennamen brauchen, schreiben Sie uns — das ist der häufigste Fall, und wir sind es gewohnt.",
+    bookingCta: "Verfügbarkeit ansehen",
+    contactCta: "Angebot anfragen",
     seo: {
       title: "Langzeitunterkunft in der Maurienne — Baustelle Lyon-Turin | Albiez",
       description:
-        "Möblierte Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für Aufenthalte von mehreren Wochen außerhalb der Feriensaison. Für Beschäftigte der Baustelle Lyon-Turin und lange Einsätze.",
+        "Möblierte Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für Aufenthalte von mehreren Wochen außerhalb der Feriensaison. Wäsche gestellt, regelmäßige Reinigung, Firmenrechnung, Zahlung per Karte oder Überweisung.",
       keywords: [
         "Unterkunft Baustelle Lyon-Turin",
         "Langzeitmiete Maurienne",
         "möblierte Wohnung Saint-Jean-de-Maurienne",
-        "Wochenmiete Savoyen",
+        "Monteurunterkunft Firmenrechnung",
         "Monteurunterkunft Lyon-Turin",
       ],
     },
