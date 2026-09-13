@@ -6,7 +6,7 @@ import { PERIODES } from "@sejour/socle/lib/periodes";
 import { saisonsEntre } from "@/lib/seasons";
 import { addDays } from "@sejour/socle/lib/dates";
 import { todayParis } from "@sejour/socle/lib/time";
-import { COOKIE_NAME, roleDuToken } from "@/lib/auth";
+import { guard } from "@/lib/auth";
 
 /**
  * Contenu d'un mois de calendrier : séjours, vacances scolaires, saisons de la station.
@@ -16,6 +16,11 @@ import { COOKIE_NAME, roleDuToken } from "@/lib/auth";
  * sur les semaines voisines.
  */
 export async function GET(request: NextRequest) {
+  // Deuxième porte, comme `stats` et `code-acces` : celle-ci accepte les deux rôles, mais
+  // refuse l'anonyme elle-même plutôt que de s'en remettre à la seule liste blanche du proxy.
+  const refus = await guard.deny(request, ["admin", "viewer"]);
+  if (refus) return refus;
+
   const mois = request.nextUrl.searchParams.get("mois") ?? todayParis().slice(0, 7);
   const [annee, m] = mois.split("-").map(Number);
   if (!annee || !m || m < 1 || m > 12) {
@@ -42,7 +47,7 @@ export async function GET(request: NextRequest) {
     beds24Erreur = "Beds24 momentanément injoignable";
   }
 
-  const role = await roleDuToken(request.cookies.get(COOKIE_NAME)?.value ?? "");
+  const role = await guard.role(request);
   const tous = fusionner(live, archives).filter((s) => s.departure >= du && s.arrival <= au);
 
   /**

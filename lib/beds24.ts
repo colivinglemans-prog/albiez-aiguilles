@@ -2,6 +2,7 @@ import type { Sejour } from "@/lib/dashboard-types";
 import { normalizeChannel as normaliserCanal } from "@sejour/socle/lib/channels";
 import { nightsBetween } from "@sejour/socle/lib/booking";
 import { isExcludedStatus } from "@sejour/socle/lib/booking-status";
+import { commissionOf } from "@sejour/socle/lib/commissions";
 import {
   createBeds24Client,
   expandSpans,
@@ -12,7 +13,7 @@ import type {
   Beds24Booking,
   Beds24CalendarRoom,
 } from "@sejour/socle/lib/beds24-types";
-import { ecartDeCollecte } from "@sejour/socle/lib/taxe-sejour";
+import { ecartDeCollecte, touristTaxFromInvoiceItems } from "@sejour/socle/lib/taxe-sejour";
 
 /**
  * Client Beds24 v2 pour Albiez.
@@ -138,8 +139,14 @@ export async function sejoursBeds24(params: {
   return data
     .filter((b) => !isExcludedStatus(b.status))
     .map((b) => {
-      const gross = Number(b.price ?? 0);
-      const commission = Number(b.commission ?? 0);
+      // La même définition du brut que chez Barbusse, au centime : `price` fait foi, on en
+      // retire la taxe de séjour lue dans les lignes, la commission vient de `commissionOf`.
+      // Airbnb et Booking ne font pas passer la taxe par Beds24 : `touristTax` y vaut 0 et
+      // `gross` ne bouge pas — l'archive, elle, est déjà hors taxe et ne porte pas ce champ.
+      const round2 = (n: number) => Math.round(n * 100) / 100;
+      const touristTax = touristTaxFromInvoiceItems(b.invoiceItems);
+      const gross = round2(Number(b.price ?? 0) - touristTax);
+      const commission = round2(commissionOf(b));
       return {
         ref: b.apiReference?.trim() || `beds24-${b.id}`,
         channel: normaliserCanal(b.referer, b.channel),
@@ -147,8 +154,9 @@ export async function sejoursBeds24(params: {
         departure: b.departure,
         nights: nightsBetween(b.arrival, b.departure),
         gross,
-        net: gross - commission,
+        net: round2(gross - commission),
         commission,
+        touristTax,
         // Monté au socle au Lot 4, sans un chiffre de changé : l'exonération des mineurs
         // (art. L.2333-31 du CGCT) n'était écrite qu'ici, et le moteur de taxe de séjour de
         // l'autre site ne l'avait pas. Les deux ont fusionné dans `ecartDeCollecte`, qui ne

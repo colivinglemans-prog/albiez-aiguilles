@@ -2,7 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { guard } from "@/lib/auth";
 import type { RevenueMode, Sejour, StatsDashboard } from "@/lib/dashboard-types";
 import { fusionner, origineArchive, recettesArchivees, sejoursArchives } from "@/lib/archive";
-import { prixParNuit, sejoursBeds24 } from "@/lib/beds24";
+import { sejoursBeds24 } from "@/lib/beds24";
+import { soldBookings } from "@sejour/socle/lib/booking-status";
 import { periodeLabel } from "@sejour/socle/lib/periodes";
 import { addDays, daysBetween } from "@sejour/socle/lib/dates";
 import { todayParis } from "@sejour/socle/lib/time";
@@ -93,7 +94,9 @@ export async function GET(request: NextRequest) {
    *
    * `sejours` sert aux indicateurs et aux tableaux, qui eux décrivent la période choisie.
    */
-  const tout = fusionner(live, tousArchives);
+  // Le tri par statut se fait une fois, ici : tout ce qui suit ne voit que des nuits vendues,
+  // et le type `SoldBooking` l'impose aux agrégations du socle.
+  const tout = soldBookings(fusionner(live, tousArchives));
   const sejours = tout.filter((s) => s.arrival >= du && s.arrival <= au);
 
   /**
@@ -128,8 +131,11 @@ export async function GET(request: NextRequest) {
   const joursEcoules = Math.max(1, daysBetween(du, finEcoulee) + 1);
   const nuitsOccupeesEcoulees = occupiedNights(sejours, du, finEcoulee);
 
-  // Projection de l'année en cours : réalisé + confirmé à venir + tendance sur les jours
-  // encore libres, valorisés au prix que pousse Beyond Pricing quand il est disponible.
+  // Revenu engagé sur l'année en cours : réalisé + confirmé à venir. Rien d'autre — la part
+  // « attendue » sur les jours libres, valorisée au prix affiché et au taux d'occupation
+  // réalisé, était une extrapolation, et elle faisait varier le même chiffre de 15 784 € à
+  // 17 234 € selon l'onglet choisi. Une page montrée à un banquier ne compte que des faits
+  // et des engagements.
   const anneeCourante = Number(today.slice(0, 4));
   const debutAnnee = `${anneeCourante}-01-01`;
   const finAnnee = `${anneeCourante}-12-31`;
@@ -145,22 +151,7 @@ export async function GET(request: NextRequest) {
     .filter((v) => v.day > today)
     .reduce((s, v) => s + v.amount, 0);
 
-  let projection = realise + confirme;
-  try {
-    const prix = await prixParNuit({ du: today, au: finAnnee });
-    const nuitsPrises = new Set(
-      dansAnnee.flatMap((s) =>
-        Array.from({ length: s.nights }, (_, i) => addDays(s.arrival, i)),
-      ),
-    );
-    const tauxRealise = joursEcoules > 0 ? nuitsOccupeesEcoulees / joursEcoules : 0;
-    const attenduLibre = Object.entries(prix)
-      .filter(([jour]) => jour > today && jour <= finAnnee && !nuitsPrises.has(jour))
-      .reduce((s, [, p]) => s + p * tauxRealise, 0);
-    projection = realise + confirme + attenduLibre;
-  } catch (e) {
-    console.warn("Prix au calendrier indisponibles, projection limitée au confirmé :", e);
-  }
+  const engage = realise + confirme;
 
   const avecPeriode = (liste: Sejour[]) =>
     liste.map((s) => ({
@@ -208,7 +199,7 @@ export async function GET(request: NextRequest) {
     repartitionCanaux: channelBreakdown(sejours),
     // Sur `comparables`, jamais sur `sejours` : voir le commentaire des deux jeux de données.
     graphe: buildRevenueChart(comparables, recettesComparables, mode),
-    comparaison: compareYears(comparables, recettesComparables, mode, projection),
+    comparaison: compareYears(comparables, recettesComparables, mode, engage, today),
     canauxParAnnee: channelsByYear(comparables, recettesComparables),
     sejoursRecents: avecPeriode(
       [...sejours]

@@ -108,10 +108,10 @@ export default function ComparaisonAnnuelle({
           {enCours && (
             <div>
               <p className="text-sm text-slate-500">
-                {enCours.year} <span className="text-slate-400">· projeté</span>
+                {enCours.year} <span className="text-slate-400">· engagé à ce jour</span>
               </p>
               <p className="text-xl font-bold text-slate-900">
-                {enCours.projection != null ? euros(enCours.projection) : "—"}
+                {enCours.committedTotal != null ? euros(enCours.committedTotal) : "—"}
               </p>
             </div>
           )}
@@ -135,9 +135,9 @@ export default function ComparaisonAnnuelle({
           ))}
         </div>
         <p className="mt-2 text-xs text-slate-400">
-          Les pourcentages ne comparent que des exercices clos entre eux. La projection de{" "}
-          {annee} n&apos;en porte pas : la confronter à une année close donnerait un chiffre
-          trompeur.
+          Les pourcentages ne comparent que des exercices clos entre eux. Le montant engagé de{" "}
+          {annee} — réalisé et confirmé, sans rien d&apos;extrapolé — n&apos;en porte pas : le
+          confronter à une année close donnerait un chiffre trompeur.
           {aVenir.length > 0 &&
             " Les années suivantes affichent le seul montant déjà réservé, à date."}
         </p>

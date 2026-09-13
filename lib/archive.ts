@@ -98,7 +98,8 @@ function enSejour(s: SejourArchive): Sejour {
  * `channel` de `RevenueExtra` qu'attendent les calculs du socle.
  */
 function enRecette({ canal, ...reste }: RecetteArchive): RecetteSansNuits {
-  return { ...reste, channel: canal };
+  // `gross` est le nom que lisent les indicateurs du socle ; `brut` reste pour ce site.
+  return { ...reste, channel: canal, gross: reste.brut };
 }
 
 /**
