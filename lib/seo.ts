@@ -1,55 +1,46 @@
-import type { Metadata } from "next";
-import { LOCALES, DEFAULT_LOCALE, LOCALE_META, type Locale } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n";
+import {
+  createSeo,
+  homePath,
+  itemPath,
+  openGraphLocales,
+  sectionPath,
+  type PathFor,
+} from "@sejour/socle/lib/seo";
 import { SITE_URL, PROPERTY, SITE_NAME, RESORT } from "@/lib/property";
 import { SEASON_SLUGS, type Season } from "@/lib/seasons";
 import { REVIEW_SUMMARY } from "@/lib/reviews";
 
 /**
- * Construit les balises `alternates` (canonical + hreflang) d'une page.
+ * Le SEO du site : ce qui est commun aux deux sites vit dans `@sejour/socle/lib/seo`,
+ * ce qui décrit **ce bien-ci** reste ici.
  *
- * `pathFor` reçoit une langue et rend le chemin correspondant : c'est ce qui permet
- * de gérer les slugs localisés (`/fr/ete` ↔ `/en/summer`) sans dupliquer la logique.
+ * La frontière passe exactement là où passe la donnée. `alternatesFor`, `openGraphLocales`
+ * et `articleJsonLd` ne connaissent qu'une URL de site et un `pathFor` : ils sont montés.
+ * `apartmentJsonLd` décrit un appartement en station — surface, couchages, `SkiResort` — et
+ * n'a aucun équivalent chez l'autre site : il reste.
  */
-export function alternatesFor(
-  locale: Locale,
-  pathFor: (l: Locale) => string,
-): Metadata["alternates"] {
-  const languages: Record<string, string> = {};
-  for (const l of LOCALES) {
-    languages[l] = `${SITE_URL}${pathFor(l)}`;
-  }
-  languages["x-default"] = `${SITE_URL}${pathFor(DEFAULT_LOCALE)}`;
+const seo = createSeo({ siteUrl: SITE_URL, siteName: SITE_NAME });
 
-  return { canonical: `${SITE_URL}${pathFor(locale)}`, languages };
-}
+/** Les `alternates` d'une page : `canonical` + les cinq `hreflang` + le `x-default`. */
+export const { alternatesFor, hreflangMap } = seo;
+
+export { openGraphLocales, homePath };
 
 /**
- * Le bloc `openGraph` propre à la langue : `og:locale` pour la page servie, et
- * `og:locale:alternate` pour les quatre autres.
+ * Chemin de la page d'une saison dans une langue.
  *
- * Les alternates n'étaient pas déclarés du temps où il n'y avait que deux langues.
- * À cinq, ils indiquent à Facebook, LinkedIn et WhatsApp qu'une version existe dans
- * la langue du lecteur — sans quoi le partage d'un lien allemand reste allemand pour
- * tout le monde.
+ * Le seul chemin du site dont le slug est **traduit** (`/fr/ete` ↔ `/en/summer`), et donc
+ * le seul que le socle ne peut pas fabriquer : il lit `SEASON_SLUGS`, qui est une donnée
+ * d'Albiez.
  */
-export function openGraphLocales(locale: Locale) {
-  return {
-    locale: LOCALE_META[locale].og,
-    alternateLocale: LOCALES.filter((l) => l !== locale).map(
-      (l) => LOCALE_META[l].og,
-    ),
-  };
-}
-
-/** Chemin de la page d'accueil d'une langue. */
-export const homePath = (l: Locale) => `/${l}`;
-
-/** Chemin de la page d'une saison dans une langue. */
-export const seasonPath = (season: Season) => (l: Locale) =>
-  `/${l}/${SEASON_SLUGS[l][season]}`;
+export const seasonPath =
+  (season: Season): PathFor =>
+  (l) =>
+    `/${l}/${SEASON_SLUGS[l][season]}`;
 
 /** Chemin de l'index du guide. */
-export const blogPath = (l: Locale) => `/${l}/guide`;
+export const blogPath = sectionPath("guide");
 
 /**
  * Chemin de la page de séjour longue durée.
@@ -63,15 +54,20 @@ export const blogPath = (l: Locale) => `/${l}/guide`;
  * elle se trouve en la cherchant, pas en se promenant sur le site. C'est délibéré — un
  * vacancier venu pour le ski n'a rien à faire sur une page qui parle de chantier.
  */
-export const longStayPath = (l: Locale) => `/${l}/sejour-longue-duree`;
+export const longStayPath = sectionPath("sejour-longue-duree");
 
 /**
- * Chemin d'un article. Le slug est commun aux deux langues, contrairement aux
+ * Chemin d'un article. Le slug est commun aux cinq langues, contrairement aux
  * saisons : un article n'existe qu'à un seul endroit, seul son contenu est traduit.
  */
-export const blogPostPath = (slug: string) => (l: Locale) => `/${l}/guide/${slug}`;
+export const blogPostPath = (slug: string): PathFor => itemPath("guide", slug);
 
-/** Données structurées d'un article de guide. */
+/**
+ * Données structurées d'un article de guide.
+ *
+ * Enveloppe du socle : elle prend un `slug` plutôt qu'un `pathFor`, parce que c'est ce que
+ * la page d'article a sous la main et que le chemin du guide est décidé ici.
+ */
 export function articleJsonLd(params: {
   locale: Locale;
   slug: string;
@@ -80,19 +76,14 @@ export function articleJsonLd(params: {
   imageUrl: string;
   date: string;
 }) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: params.title,
+  return seo.articleJsonLd({
+    locale: params.locale,
+    pathFor: blogPostPath(params.slug),
+    title: params.title,
     description: params.description,
-    image: params.imageUrl,
-    datePublished: params.date,
-    dateModified: params.date,
-    inLanguage: params.locale,
-    mainEntityOfPage: `${SITE_URL}${blogPostPath(params.slug)(params.locale)}`,
-    author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-  };
+    imageUrl: params.imageUrl,
+    date: params.date,
+  });
 }
 
 /*

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { LOCALES, DEFAULT_LOCALE } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n";
+import { LOCALES } from "@/lib/i18n";
+import { hreflangMap } from "@/lib/seo";
+import type { PathFor } from "@sejour/socle/lib/seo";
 import { SITE_URL } from "@/lib/property";
 import { SEASONS, SEASON_SLUGS } from "@/lib/seasons";
 import { BLOG_POSTS } from "@/lib/blog/posts";
@@ -8,18 +9,14 @@ import { BLOG_POSTS } from "@/lib/blog/posts";
 /**
  * Les `hreflang` d'une entrée : une par langue, plus le `x-default`.
  *
- * Le `x-default` est indispensable ici parce que le `<head>` des pages le déclare aussi
- * (`lib/seo.ts`). Les deux jeux d'annotations décrivent le même ensemble et Google les lit
- * tous les deux : une clé présente d'un côté et absente de l'autre est une incohérence
- * gratuite. Il pointe sur le français, comme partout ailleurs sur le site.
+ * La table est celle que `lib/seo.ts` pose dans le `<head>` des pages, à dessein : les deux
+ * jeux d'annotations décrivent le même ensemble et Google les lit tous les deux. Une clé
+ * présente d'un côté et absente de l'autre est une incohérence gratuite — et c'est ce qui
+ * arrive dès que les deux listes sont construites par deux bouts de code différents, ce qui
+ * était le cas ici.
  */
-function alternates(pathFor: (l: Locale) => string) {
-  const languages: Record<string, string> = {};
-  for (const l of LOCALES) {
-    languages[l] = `${SITE_URL}${pathFor(l)}`;
-  }
-  languages["x-default"] = `${SITE_URL}${pathFor(DEFAULT_LOCALE)}`;
-  return { languages };
+function alternates(pathFor: PathFor) {
+  return { languages: hreflangMap(pathFor) };
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
