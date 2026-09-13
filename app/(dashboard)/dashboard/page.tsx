@@ -1,173 +1,26 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
-import type { RevenueMode, StatsDashboard } from "@/lib/dashboard-types";
-import StatsCards from "@/components/dashboard/StatsCards";
-import RevenueChart from "@/components/dashboard/RevenueChart";
-import ComparaisonAnnuelle from "@/components/dashboard/ComparaisonAnnuelle";
-import CanauxChart from "@/components/dashboard/CanauxChart";
-import SejoursTable from "@/components/dashboard/SejoursTable";
 import DashboardNav from "@/components/dashboard/DashboardNav";
-
-const PERIODES = [
-  { valeur: "annee", libelle: "Année en cours" },
-  { valeur: "precedente", libelle: "Année précédente" },
-  { valeur: "12m", libelle: "12 derniers mois" },
-  { valeur: "toute", libelle: "Tout l'historique" },
-];
+import StatsDashboard from "@sejour/socle/components/StatsDashboard";
 
 /**
- * Les quatre conventions d'imputation portent depuis le Lot 3 les noms anglais du socle —
- * ceux qu'écrivait déjà Barbusse. Seules les valeurs envoyées à l'API changent ; les libellés
- * affichés, eux, sont inchangés.
+ * La page de statistiques est **la même que chez Barbusse**, au titre, au sous-titre et à la
+ * couleur d'accent près : c'est le composant du socle qui la dessine, les huit cartes et leurs
+ * définitions imprimées comprises. Elle est destinée à être montrée à un banquier — rien
+ * d'extrapolé n'y figure, et les deux biens se lisent avec les mêmes définitions.
+ *
+ * L'accent est le bleu alpin du site ; il ne vit que sur les courbes des graphes. Les cartes
+ * restent blanches des deux côtés.
  */
-const MODES: { valeur: RevenueMode; libelle: string }[] = [
-  { valeur: "averagedPerNight", libelle: "Réparti par nuit" },
-  { valeur: "byCheckIn", libelle: "Par arrivée" },
-  { valeur: "byCheckOut", libelle: "Par départ" },
-  { valeur: "byBookingDate", libelle: "Par date de réservation" },
-];
-
-type Reponse = StatsDashboard & { beds24Erreur?: string | null };
-
 export default function DashboardPage() {
-  const [periode, setPeriode] = useState("annee");
-  const [mode, setMode] = useState<RevenueMode>("averagedPerNight");
-  const [stats, setStats] = useState<Reponse | null>(null);
-  const [chargement, setChargement] = useState(true);
-  const [erreur, setErreur] = useState("");
-
-  const charger = useCallback(async () => {
-    setChargement(true);
-    setErreur("");
-    try {
-      const res = await fetch(`/api/dashboard/stats?periode=${periode}&mode=${mode}`);
-      if (!res.ok) throw new Error(String(res.status));
-      setStats(await res.json());
-    } catch {
-      setErreur("Impossible de charger les statistiques.");
-    } finally {
-      setChargement(false);
-    }
-  }, [periode, mode]);
-
-  /*
-   * `charger` pose son drapeau de chargement avant le premier `await`, ce que
-   * `react-hooks/set-state-in-effect` signale. La règle vise les états dérivés des props,
-   * qui coûtent un rendu en cascade pour rien ; ici c'est un appel réseau, et ce drapeau est
-   * précisément ce que le premier rendu doit montrer. Le contourner donnerait un code plus
-   * tortueux sans rien corriger.
-   */
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    charger();
-  }, [charger]);
-
   return (
     <>
       {/* Le bandeau est hors du conteneur : il s'appuie sur toute la largeur de l'écran,
           comme le header de la vitrine, et pose lui-même sa propre gouttière. */}
       <DashboardNav />
-
-      <div className="mx-auto max-w-6xl px-6 py-8">
-        <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">Albiez — statistiques</h1>
-            <p className="mt-0.5 text-sm text-slate-500">
-              Hameau des Aiguilles · quatre canaux réunis
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <select
-              value={mode}
-              onChange={(e) => setMode(e.target.value as RevenueMode)}
-              className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 focus:border-sky-500 focus:outline-none"
-            >
-              {MODES.map((m) => (
-                <option key={m.valeur} value={m.valeur}>
-                  {m.libelle}
-                </option>
-              ))}
-            </select>
-
-            <div className="flex rounded-lg bg-slate-100 p-0.5">
-              {PERIODES.map((p) => (
-                <button
-                  key={p.valeur}
-                  onClick={() => setPeriode(p.valeur)}
-                  className={`rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
-                    periode === p.valeur
-                      ? "bg-white text-slate-900 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
-                  }`}
-                >
-                  {p.libelle}
-                </button>
-              ))}
-            </div>
-          </div>
-        </header>
-
-        {chargement && (
-          <div className="flex justify-center py-24">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-sky-200 border-t-sky-500" />
-          </div>
-        )}
-
-        {erreur && <div className="rounded-2xl bg-rose-50 p-6 text-rose-700">{erreur}</div>}
-
-        {stats && !chargement && (
-          <div className="space-y-6">
-            {stats.archiveManquante && (
-              <div className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-amber-200">
-                <strong>Archive introuvable.</strong> Ni la variable{" "}
-                <code className="rounded bg-amber-100 px-1">HISTORIQUE_ALBIEZ</code>, ni le fichier{" "}
-                <code className="rounded bg-amber-100 px-1">data/archive-albiez.json</code>. Les
-                chiffres ci-dessous ne portent donc que sur Beds24, c&apos;est-à-dire sur
-                l&apos;après-28 août 2026 — ce n&apos;est pas une année creuse, c&apos;est une
-                archive manquante. Lancer{" "}
-                <code className="rounded bg-amber-100 px-1">node scripts/build-archive.mjs</code>.
-              </div>
-            )}
-
-            {stats.beds24Erreur && (
-              <div className="rounded-2xl bg-amber-50 p-4 text-sm text-amber-800 ring-1 ring-amber-200">
-                <strong>Beds24 injoignable.</strong> L&apos;historique archivé s&apos;affiche, mais
-                les réservations vivantes manquent. Détail : {stats.beds24Erreur}
-              </div>
-            )}
-
-            <StatsCards stats={stats} />
-
-            <p className="text-xs text-slate-400">
-              Les indicateurs ci-dessus suivent la période choisie. Les trois blocs qui suivent
-              couvrent toujours toutes les années — c&apos;est leur raison d&apos;être.
-            </p>
-
-            <RevenueChart data={stats.graphe} />
-
-            <ComparaisonAnnuelle
-              comparaison={stats.comparaison}
-              jourDeReference={new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" })}
-            />
-
-            {/* Pleine largeur et non côte à côte : sur une demi-colonne, les colonnes du
-                tableau imposaient un défilement horizontal qui masquait le prix et le net. */}
-            <SejoursTable
-              titre="Réservations récentes"
-              sejours={stats.sejoursRecents}
-              reserveLe
-            />
-            <SejoursTable
-              titre="Meilleurs séjours (€ / nuit)"
-              sejours={stats.meilleursSejours}
-            />
-
-            <CanauxChart data={stats.canauxParAnnee} />
-          </div>
-        )}
-      </div>
+      <StatsDashboard
+        title="Albiez — statistiques"
+        subtitle="Hameau des Aiguilles · quatre canaux réunis"
+        accent="#0284c7"
+      />
     </>
   );
 }
