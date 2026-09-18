@@ -1180,9 +1180,9 @@ Le site est servi en **français, anglais, allemand, espagnol et italien**. La l
 un segment d'URL, jamais un état client : il n'y a pas de `setLocale`, on change de langue
 en changeant d'URL, ce qui garde une URL unique et indexable par langue.
 
-Tout part de `lib/i18n/locales.ts` — un module **sans aucun import**, parce qu'il est
-chargé par le proxy (runtime edge), par les composants serveur et par les composants
-client :
+Tout part de **`@sejour/socle/lib/locales`**, ré-exporté par `lib/i18n/locales.ts` — un
+module **sans aucun import**, parce qu'il est chargé par le proxy (runtime edge), par les
+composants serveur et par les composants client :
 
 | Export | Rôle |
 |--------|------|
@@ -1365,7 +1365,7 @@ Le header et le footer restent en bleu alpin (`primary`), volontairement hors sa
 | `lib/property.ts` | **Faits** : adresse, altitude, surface, couchages, distances, accès, contact. Identiques dans toutes les langues, corrigés à un seul endroit. |
 | `lib/i18n/dictionaries/{fr,en}.ts` | **Textes** : tout ce qui se traduit, y compris les métadonnées SEO par page. |
 | `lib/seasons.ts` | Saisons, slugs, dates d'ouverture du domaine. |
-| `lib/seo.ts` | `alternates` (canonical + hreflang) et données structurées schema.org. |
+| `lib/seo.ts` | Compose `@sejour/socle/lib/seo` (`alternatesFor`, `hreflangMap`, `openGraphLocales`, `articleJsonLd`) et déclare les chemins du site. `apartmentJsonLd` reste ici : il décrit **ce bien**. |
 | `lib/legal.ts` | Identité de l'éditeur — **SCI JUARISAL**, distincte de l'entreprise individuelle de Barbusse. |
 | `data/reviews.json` | Avis Airbnb + note de synthèse. |
 | `data/guidebook-airbnb.md` | **Matière première du guide** — le guidebook Airbnb de l'hôte, aspiré et converti. Pas lu par le code. |
@@ -1642,9 +1642,18 @@ attribution** (CC BY, CC BY-SA) — sans lui, l'usage est une violation de licen
 négligence de mise en page.
 
 Il est absent de la quasi-totalité des articles, et c'est normal : la règle reste nos
-propres photos. Il ne sert que quand nous n'avons rien de nous à montrer — aujourd'hui la
-piazza San Carlo à Turin et la croix du col de la Croix de Fer, toutes deux CC BY-SA 4.0
-depuis Wikimedia Commons. Jamais de visuel de presse d'organisateur.
+propres photos. Il ne sert que quand nous n'avons rien de nous à montrer — aujourd'hui le
+pic de l'Étendard, la piazza San Carlo à Turin et la croix du col de la Croix de Fer, en
+CC BY-SA depuis Wikimedia Commons.
+
+`license` et `licenseUrl` sont **optionnels**, pour un second cas : la photo d'un
+organisateur reprise avec son accord, quand il s'agit de son propre événement et que nous
+n'y étions pas. La légende ne nomme alors que l'auteur, avec le lien vers la publication
+d'origine — il n'y a pas de texte de licence à citer. Un seul article l'utilise : le
+cross triathlon des Aiguilles d'Arves, photo Albiez Animation (post Facebook de
+l'organisateur). Un visuel d'organisateur reste l'exception, jamais la solution de
+facilité : pas d'affiche, pas de visuel de presse, et l'accord de l'auteur avant de
+publier.
 
 `react/no-unescaped-entities` est **désactivé sur `lib/blog/content/**`** (voir
 `eslint.config.mjs`) : la règle vise les `>` et `}` tapés par accident, et sur de la prose

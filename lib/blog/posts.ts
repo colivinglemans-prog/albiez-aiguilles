@@ -43,10 +43,14 @@ export interface BlogPostMeta {
     author: string;
     /** Page source de l'image (Wikimedia Commons, etc.). */
     sourceUrl: string;
-    /** Nom court de la licence, ex. « CC BY-SA 4.0 ». */
-    license: string;
-    /** URL du texte de la licence. */
-    licenseUrl: string;
+    /**
+     * Nom court de la licence, ex. « CC BY-SA 4.0 ». Absent quand la photo est reprise
+     * avec l'accord de son auteur (organisateur d'un événement, office de tourisme) :
+     * il n'y a alors aucun texte de licence à citer, seulement l'auteur à nommer.
+     */
+    license?: string;
+    /** URL du texte de la licence. Va de pair avec `license`. */
+    licenseUrl?: string;
   };
   /**
    * Clé d'un événement de `lib/events.ts`, quand l'article en couvre un.
@@ -325,7 +329,11 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   {
     slug: "cross-triathlon-swimrun-albiez",
     date: "2026-09-12",
-    image: "activites-ete/94-plan-eau-albiez.jpg",
+    image: "blog/cross-triathlon-aiguilles-d-arves.jpg",
+    imageCredit: {
+      author: "Albiez Animation",
+      sourceUrl: "https://www.facebook.com/photo/?fbid=955456053320164",
+    },
     season: "ete",
     event: "cross-triathlon-arves",
     locales: {

@@ -379,16 +379,21 @@ export default async function GuidePost({
                   className="underline hover:text-foreground"
                 >
                   {post.imageCredit.author}
-                </a>{" "}
-                —{" "}
-                <a
-                  href={post.imageCredit.licenseUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground"
-                >
-                  {post.imageCredit.license}
                 </a>
+                {post.imageCredit.license && post.imageCredit.licenseUrl && (
+                  <>
+                    {" "}
+                    —{" "}
+                    <a
+                      href={post.imageCredit.licenseUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-foreground"
+                    >
+                      {post.imageCredit.license}
+                    </a>
+                  </>
+                )}
               </figcaption>
             )}
           </figure>
