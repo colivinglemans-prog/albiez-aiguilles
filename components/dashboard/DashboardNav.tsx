@@ -9,10 +9,13 @@ import type { Role } from "@/lib/auth";
  * La barre de navigation du dashboard — structure, tiroir mobile et déconnexion — vient du
  * socle (`@sejour/socle/components/DashboardNav`). Ne restent ici que les **données** : le
  * nom du bien et la liste des écrans.
+ *
+ * Le calendrier est **en tête, et c'est l'accueil** : `/dashboard` y redirige. C'est l'écran
+ * qu'on ouvre tous les jours, là où les statistiques se lisent une fois par mois.
  */
 const LIENS: DashboardLink[] = [
-  { href: "/dashboard", label: "Statistiques", adminOnly: true },
   { href: "/dashboard/calendrier", label: "Calendrier", adminOnly: false },
+  { href: "/dashboard/statistiques", label: "Statistiques", adminOnly: true },
   /*
    * Le guide d'arrivée est une page publique du site, pas un écran du dashboard : il s'ouvre
    * donc dans un onglet à part, pour qu'on puisse le relire sans perdre le calendrier.

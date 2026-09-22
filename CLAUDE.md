@@ -630,7 +630,14 @@ c'est ce qui explique le 409 € qu'on croyait figé alors que le total annonça
 ## Dashboard privé (`/dashboard`)
 
 Espace interne, **hors de `[locale]`** : en français seulement, jamais indexé. Deux pages —
-statistiques et calendrier — protégées par un mot de passe unique et un JWT en cookie.
+calendrier et statistiques — protégées par un mot de passe unique et un JWT en cookie.
+
+**L'accueil est le calendrier.** `/dashboard` est une redirection vers
+`/dashboard/calendrier` ; les statistiques ont leur propre chemin,
+`/dashboard/statistiques`. C'est l'écran qu'on ouvre tous les jours qui accueille, pas celui
+qu'on montre à un banquier une fois par mois. La redirection plutôt que le calendrier rendu
+sur `/dashboard` : les chemins ouverts au rôle restreint se lisent **par préfixe**, et
+`/dashboard` dans cette liste ouvrirait tout ce qui le prolonge.
 La mécanique vit désormais dans `@sejour/socle/lib/auth` (voir sa CLAUDE.md, section
 « Lot 1 ») ; `lib/auth.ts` n'en garde que la configuration : les rôles, le repli et les
 préfixes de mots de passe.
@@ -930,7 +937,7 @@ le socle commun aux deux sites.
 
 | | `admin` | `viewer` |
 |---|---|---|
-| Statistiques | oui | **403 — vérifié deux fois** (proxy + route) |
+| Statistiques (`/dashboard/statistiques`) | oui | **403 — vérifié deux fois** (proxy + route) |
 | Montants et canaux | oui | **absents de la réponse d'API**, pas seulement de l'écran |
 | Consignes de ménage | écriture | **lecture** |
 
