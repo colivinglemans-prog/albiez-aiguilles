@@ -11,7 +11,7 @@
     "sync-reviews": "node scripts/sync-reviews.mjs"
   },
   "dependencies": {
-    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#v3.2.0",
+    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#v3.4.0",
     "@vercel/analytics": "^2.0.0",
     "@vercel/speed-insights": "^2.0.0",
     "image-size": "^2.0.2",
