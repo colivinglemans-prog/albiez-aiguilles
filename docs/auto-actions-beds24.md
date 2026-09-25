@@ -167,7 +167,7 @@ L'été ne porte aucune incitation à réserver : à Albiez, ce n'est pas néces
 # Auto Action 617008 — Confirmation de réservation (réservations directes)
 
 *Trigger : Auto · Send Message : Booking API/Email Smart · Reply To : alexandre.delan@gmail.com*
-*Booking Source : **Direct** — voir l'action jumelle « canaux » plus bas.*
+*Booking Source : **Direct** — voir l'action jumelle 625162 plus bas.*
 
 ## Français — **version de référence** — code `fr`
 
@@ -564,10 +564,9 @@ Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 
 ---
 
-# Auto Action « canaux » — Confirmation de réservation (Booking.com et Airbnb)
+# Auto Action 625162 — Confirmation de réservation (Booking.com et Airbnb)
 
 *Trigger : Auto · Send Message : Booking API/Email Smart · **Booking Source : Channel Manager***
-*Numéro d'action : à renseigner à la création.*
 
 **Le corps est celui de 617008, mot pour mot, sauf le bloc `VOTRE KIT LINGE`.** Rien d'autre ne
 change — ni les dates, ni les inclusions, ni l'hiver, ni le guide, ni l'adresse, ni le pied de

@@ -37,9 +37,18 @@ const LANGUES = [
 // ne se laissent pas trouver autrement.
 const texte = readFileSync(DOC, "utf8").split("\r\n").join("\n");
 
-// Le document porte deux actions ; la seconde commence à ce titre.
-const coupure = texte.indexOf("# Auto Action « canaux »");
-if (coupure < 0) throw new Error("Section « canaux » introuvable dans " + DOC);
+/*
+ * Le document porte deux actions ; la seconde commence à son titre. On l'ancre sur
+ * « (Booking.com et Airbnb) » plutôt que sur le numéro d'action, qui a déjà changé une fois
+ * le jour où l'action a été créée et 625162 a remplacé le mot « canaux ».
+ */
+const coupure = texte.search(/^# Auto Action .*\(Booking\.com et Airbnb\)/m);
+if (coupure < 0) {
+  throw new Error(
+    "Titre de l'action canaux introuvable dans " + DOC +
+      " — il doit se terminer par « (Booking.com et Airbnb) »",
+  );
+}
 const partieDirecte = texte.slice(0, coupure);
 const partieCanaux = texte.slice(coupure);
 
@@ -108,7 +117,7 @@ if (morceaux.length === 0) {
  * mauvaise trois mois plus tard.
  */
 const ENTETE = `${"=".repeat(72)}
-CORPS À COLLER DANS L'AUTO ACTION « CANAUX » — Booking.com et Airbnb
+CORPS À COLLER DANS L'AUTO ACTION 625162 — Booking.com et Airbnb
 ${"=".repeat(72)}
 
 Ceci ne concerne PAS l'action 617008, qui sert les réservations directes et dont le
