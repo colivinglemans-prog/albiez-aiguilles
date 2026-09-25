@@ -188,6 +188,13 @@ qui a été réglé — pas « sans ligne au décompte ». Le ménage apparaît 
 Booking et en direct, et il est fondu dans le prix à la nuit chez Airbnb. Dans les trois cas
 il est déjà payé, et c'est la seule chose que le voyageur ait besoin de savoir.
 
+**Ce tableau se lit aussi dans les messages de confirmation**, qui disent trois choses
+différentes selon le canal : [docs/auto-actions-beds24.md](docs/auto-actions-beds24.md). Ces
+messages sont des Auto Actions Beds24 — **l'API v2 ne les expose pas**, ni en lecture ni en
+écriture, donc le fichier est leur seule copie versionnée et toute modification faite dans
+l'interface Beds24 doit y être recopiée à la main. Le tri par canal s'y fait sur `[APISOURCE]`,
+qui rend `0` en direct, `19` sur Booking.com et `46` sur Airbnb.
+
 ## Historique des canaux (statistiques antérieures)
 
 Le lien Airbnb → Beds24 **ne rétro-importe pas l'historique** : il synchronise les séjours en

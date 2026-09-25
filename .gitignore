@@ -59,3 +59,6 @@ next-env.d.ts
 # Les definitions d agents sont synchronisees depuis le depot socle,
 # qui en est la source de verite. Les versionner ici les ferait diverger.
 /.claude/agents/
+
+# textes derives, regeneres par scripts/corps-action-canaux.mjs
+/docs/_generated/
