@@ -866,6 +866,12 @@ s'appelait `placer<T>` ici et était écrite **deux fois en ligne** chez Barbuss
 noms de variables ; son paramètre délicat, `demiCellules`, est devenu une granularité nommée
 (`"half-day"` / `"full-day"`) — une donnée plutôt qu'un booléen.
 
+**Le squelette des semaines aussi (socle `v3.7.0`, 2026-10-02)** : `WEEK_GRID.row`,
+`.columnRule` et `.barsBlock`. Chaque semaine a son cadre permanent, avec un vide de 6 px entre
+deux cadres, parce qu'on rattachait une barre à la semaine suivante. Le premier essai, griser
+les nuits occupées, a été écarté ici : il se mêlait aux fonds de domaine ouvert et de saison du
+lac.
+
 **L'enveloppe, elle, ne monte pas.** Les fonds de saison de la station, la popup avec net,
 commission et surcollecte de taxe, le bloc de partage voyageur n'ont pas d'équivalent en face,
 où l'enveloppe porte des barres d'événements de circuit et des rayures « non confirmé ». Deux

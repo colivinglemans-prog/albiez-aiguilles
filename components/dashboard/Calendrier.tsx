@@ -11,6 +11,7 @@ import {
   periodTooltip,
   placeSegments,
   roundedEnds,
+  WEEK_GRID,
 } from "@sejour/socle/lib/calendar-lanes";
 import PartageVoyageur from "@/components/dashboard/PartageVoyageur";
 import { EVENTS } from "@/lib/events";
@@ -343,7 +344,7 @@ export default function Calendrier({
         const lignesEvenements = laneCount(barresEvenements);
 
         return (
-          <div key={w} className="relative grid grid-cols-7 border-b border-slate-200">
+          <div key={w} className={WEEK_GRID.row}>
             {/*
              * Filets de colonnes, en position absolue et non sur les cases : une case ne
              * couvre que la ligne des numéros, et le trait s'arrêtait donc avant les barres
@@ -354,7 +355,7 @@ export default function Calendrier({
              */}
             <div className="pointer-events-none absolute inset-0 grid grid-cols-7" aria-hidden>
               {Array.from({ length: 7 }, (_, col) => (
-                <div key={col} className={col < 6 ? "border-r border-slate-200" : ""} />
+                <div key={col} className={col < 6 ? WEEK_GRID.columnRule : ""} />
               ))}
             </div>
 
@@ -496,7 +497,7 @@ export default function Calendrier({
             )}
 
             {lignesSejours > 0 && (
-              <div className="col-span-7 px-0.5 pb-1.5">
+              <div className={WEEK_GRID.barsBlock}>
                 {Array.from({ length: lignesSejours }, (_, ligne) => (
                   <div key={ligne} className="relative mt-0.5 h-6">
                     {barresSejours
