@@ -90,6 +90,22 @@ function sejourDepuisLibelle(libelle, anneeEncaissement) {
   };
 }
 
+/** Coquilles connues dans les libellés de facture, clé « année d'encaissement|libellé ».
+ *  « du 16 mai au 30 mai » puis « du 29 mai au 14 juin » se recouvrent d'une nuit dans un
+ *  logement unique, et mai 2026 sortait à 103,2 % d'occupation. Tranché le 2026-10-12 :
+ *  c'est la seconde facture qui se trompe, le séjour commence le 30 mai. */
+const CORRECTIONS_LIBELLE = {
+  "2026|Séjour du 29 mai au 14 juin": { arrivee: "2026-05-30" },
+};
+
+function corriger(sejour, libelle, annee) {
+  const c = sejour && CORRECTIONS_LIBELLE[`${annee}|${libelle.trim()}`];
+  if (!c) return sejour;
+  const s = { ...sejour, ...c };
+  s.nuits = Math.round((Date.parse(s.depart) - Date.parse(s.arrivee)) / 86_400_000);
+  return s;
+}
+
 const [h, ...rows] = lire(stripePath);
 const c = (n) => {
   const i = h.indexOf(n);
@@ -119,7 +135,7 @@ for (const x of rows) {
   const nn = norm(nom);
   const correspondance = nn ? autres.find((a) => norm(a.nom) === nn) : null;
   const contientNuit = /nuit/i.test(libelle);
-  const sejour = sejourDepuisLibelle(libelle, Number(date.slice(0, 4)));
+  const sejour = corriger(sejourDepuisLibelle(libelle, Number(date.slice(0, 4))), libelle, date.slice(0, 4));
 
   // Un nom connu d'un autre canal + aucune nuit facturée = supplément sur ce séjour.
   // Un nom connu + des nuits facturées = un séjour en direct : les voyageurs qui reviennent

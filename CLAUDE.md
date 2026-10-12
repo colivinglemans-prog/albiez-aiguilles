@@ -341,8 +341,10 @@ Le contrôle croisé le valide de façon nette : le bloc s'emboîte exactement e
 Booking qui finit le 20 avril et un autre qui commence le 15 juin.
 
 Une seule anomalie, interne aux libellés : « du 16 mai au 30 mai » puis « du 29 mai au 14 juin »
-se chevauchent d'un jour. La somme des nuits facturées fait 56 pour un bloc réel de 55 —
-**coquille dans une des deux factures**, à trancher avant de figer le compte de nuits.
+se chevauchent d'un jour. La somme des nuits facturées fait 56 pour un bloc réel de 55, et
+mai 2026 sortait à **103,2 %** d'occupation. **Tranché le 2026-10-12** : la coquille est dans
+la seconde facture, le séjour commence le **30 mai** (15 nuits). La correction vit dans
+`CORRECTIONS_LIBELLE` de `scripts/import-direct-history.mjs`, pour survivre à un réimport.
 
 ### Contrôle croisé entre canaux
 
