@@ -654,7 +654,7 @@ export const es: Dictionary = {
     },
     cta: {
       title: "Alojarse en Albiez",
-      text: "Nuestro apartamento está en Le Mollard, a 250 m del acceso a pistas y de la salida de los senderos. Hasta 6 personas, balcón al sur frente a las Aiguilles d'Arves.",
+      text: "Nuestro apartamento está en Le Mollard, a 250 m del acceso a pistas y de la salida de los senderos. Hasta 6 personas, balcón al suroeste frente a las Aiguilles d'Arves.",
       button: "Ver el alojamiento",
     },
     seo: {
@@ -695,7 +695,7 @@ export const es: Dictionary = {
     flatItems: [
       "Tres espacios para dormir separados: ideal para dos, incluso tres personas, cada una con su intimidad.",
       "Una cocina completa, con horno y lavavajillas: no se cena fuera seis noches por semana.",
-      "Un balcón orientado al sur frente a las Aiguilles d'Arves, y el silencio de un pueblo de 300 habitantes.",
+      "Un balcón orientado al suroeste frente a las Aiguilles d'Arves, y el silencio de un pueblo de 300 habitantes.",
       "Aparcamiento gratuito y caja de llaves: se llega y se sale con total autonomía, a la hora que convenga.",
       "1 600 metros de altitud: noches frescas en verano y aire seco todo el año.",
     ],
@@ -713,7 +713,7 @@ export const es: Dictionary = {
     ],
     limitsTitle: "Lo que no ofrecemos",
     limitsText:
-      "Ni las semanas de vacaciones escolares ni julio y agosto: son para los veraneantes, es nuestro oficio y no lo cambiamos. Tampoco ofrecemos habitación suelta ni piso compartido: es el apartamento entero, para una persona o para un equipo que se lleve bien.",
+      "Ni las vacaciones escolares de invierno ni julio y agosto: son para los veraneantes, es nuestro oficio y no lo cambiamos. Tampoco ofrecemos habitación suelta ni piso compartido: es el apartamento entero, para una persona o para un equipo que se lleve bien.",
     bookingTitle: "Reservar",
     bookingText:
       "Las fechas libres están en nuestro calendario y la reserva se hace directamente, sin intermediarios. Si reserva para un empleado o para un equipo y necesita un presupuesto y luego una factura a nombre de la empresa, escríbanos: es el caso más frecuente y estamos acostumbrados.",

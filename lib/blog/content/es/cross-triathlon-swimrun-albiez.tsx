@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         El Cross Triatlón y Swimrun des Aiguilles d'Arves se celebra a mediados de julio en
-        el lago de Albiez, a 300 metros del apartamento. Dos pruebas el mismo día, abiertas{" "}
+        el lago de Albiez, a 350 metros del apartamento. Dos pruebas el mismo día, abiertas{" "}
         <strong>desde los 8 años</strong>, en un escenario donde se nada frente a las
         Aiguilles. Es cosa de una mañana y una tarde; el resto de la semana queda para
         usted.
@@ -50,7 +50,7 @@ export default function Article() {
         <p>
           <strong>Cuándo</strong>: un fin de semana de mediados de julio
           <br />
-          <strong>Dónde</strong>: el lago de Albiez-Montrond, a 300 m del apartamento
+          <strong>Dónde</strong>: el lago de Albiez-Montrond, a 350 m del apartamento
           <br />
           <strong>Desde</strong>: los 8 años
           <br />
@@ -78,7 +78,7 @@ export default function Article() {
         medias.
       </p>
 
-      <h2>El lago, a 300 metros</h2>
+      <h2>El lago, a 350 metros</h2>
       <p>
         Es el mismo lago que el resto del verano: baño vigilado, piscina infantil, patines,
         estructura hinchable, zona de juegos y área de picnic. El detalle está en nuestro
@@ -88,7 +88,7 @@ export default function Article() {
       <p>
         Desde el apartamento se va andando. Ningún coche que aparcar un día de afluencia,
         ninguna bolsa que cargar para la jornada entera: se sube a cambiarse entre dos
-        salidas, y el balcón orientado al sur seca un neopreno en una hora.
+        salidas, y el balcón orientado al suroeste seca un neopreno en una hora.
       </p>
 
       <h2>Quedarse la semana</h2>

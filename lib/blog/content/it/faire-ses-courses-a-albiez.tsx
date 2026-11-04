@@ -13,7 +13,7 @@ export default function Article() {
 
       <h2>Il metodo giusto: il grosso a Saint-Jean, il resto in paese</h2>
       <p>
-        Saint-Jean-de-Maurienne è sulla strada, a circa <strong>30 km</strong> e{" "}
+        Saint-Jean-de-Maurienne è sulla strada, a circa <strong>18 km</strong> e{" "}
         <strong>20 minuti</strong> da Albiez. Vi si trovano un <strong>Carrefour Market</strong> (con servizio drive,
         che permette di ordinare da casa e caricare in dieci minuti) e un <strong>Lidl</strong>.
       </p>

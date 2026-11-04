@@ -14,7 +14,7 @@ export default function Article() {
 
       <h2>La bonne méthode : le gros à Saint-Jean, le reste au village</h2>
       <p>
-        Saint-Jean-de-Maurienne est sur la route, à environ <strong>30 km</strong> et{" "}
+        Saint-Jean-de-Maurienne est sur la route, à environ <strong>18 km</strong> et{" "}
         <strong>20 minutes</strong> d'Albiez. On y trouve un{" "}
         <strong>Carrefour Market</strong> (avec drive, ce qui permet de commander depuis
         chez soi et de charger en dix minutes) et un <strong>Lidl</strong>.

@@ -69,7 +69,7 @@ export default function Article() {
         Part of the festival also happens{" "}
         <Link href="/en/guide/lac-du-mollard-baignade">at the Mollard lake</Link>: Saturday
         is a festive day there, concert included, on the grass and facing the Aiguilles.
-        That is <strong>300 metres from the flat</strong> — the photo at the top of this
+        That is <strong>350 metres from the flat</strong> — the photo at the top of this
         article was taken from the shore.
       </p>
       <p>
@@ -95,7 +95,7 @@ export default function Article() {
       <p>
         Our flat is at Le Mollard, the upper part of the village, a few minutes from the
         Chef-lieu where the village hall and Place Opinel are. Up to six people, a kitchen
-        equipped well enough that you are not tied to restaurant hours, a south-facing
+        equipped well enough that you are not tied to restaurant hours, a south-west-facing
         balcony looking at the{" "}
         <Link href="/en/guide/aiguilles-arves">Aiguilles d'Arves</Link>, and an instrument
         that stays dry.

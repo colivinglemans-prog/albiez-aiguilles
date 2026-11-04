@@ -71,7 +71,7 @@ export default function Article() {
         Otra parte del festival se desarrolla{" "}
         <Link href="/es/guide/lac-du-mollard-baignade">en el lago del Mollard</Link>: el
         sábado es allí una jornada festiva, concierto incluido, sobre la hierba y frente a
-        las Aiguilles. Está a <strong>300 metros del apartamento</strong>; la foto que
+        las Aiguilles. Está a <strong>350 metros del apartamento</strong>; la foto que
         encabeza este artículo está tomada desde la orilla.
       </p>
       <p>
@@ -98,7 +98,7 @@ export default function Article() {
         Nuestro apartamento está en Le Mollard, la parte alta del pueblo, a pocos minutos
         del Chef-lieu donde se encuentran la sala de fiestas y la plaza Opinel. Hasta seis
         personas, una cocina equipada para no depender de los horarios de los restaurantes,
-        un balcón orientado al sur frente a las{" "}
+        un balcón orientado al suroeste frente a las{" "}
         <Link href="/es/guide/aiguilles-arves">Aiguilles d'Arves</Link>, y un instrumento
         que se queda seco.
       </p>

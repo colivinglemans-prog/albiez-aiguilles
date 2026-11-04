@@ -4,8 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond héberge le terrain de BMX le plus haut de France. Il est en libre
-        accès, au Chef-lieu, entouré de terrains de sport et d'une aire de pique-nique. Et
+        Albiez-Montrond a son terrain de BMX, en
+        libre accès, au Chef-lieu, entouré de terrains de sport et d'une aire de pique-nique. Et
         pour tout ce qui roule, la station loue VTT électriques, BMX et trottinettes
         électriques.
       </p>
@@ -18,8 +18,7 @@ export default function Article() {
         confirmé de rouler sur le même terrain.
       </p>
       <p>
-        Le cadre fait beaucoup : c'est le terrain de BMX le plus haut de France, et on le
-        sait en levant les yeux.
+        Le cadre fait beaucoup : on roule en montagne, et on le sait en levant les yeux.
       </p>
 
       <h2>Ce qu'il y a autour</h2>

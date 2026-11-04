@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         The Cross Triathlon and Swimrun des Aiguilles d'Arves takes place in mid-July at the
-        Albiez lake — 300 metres from the flat. Two races in the same day, open{" "}
+        Albiez lake — 350 metres from the flat. Two races in the same day, open{" "}
         <strong>from age 8</strong>, in a setting where you swim facing the Aiguilles. It is
         a morning and an afternoon; the rest of the week is yours.
       </p>
@@ -50,7 +50,7 @@ export default function Article() {
         <p>
           <strong>When</strong>: a mid-July weekend
           <br />
-          <strong>Where</strong>: the Albiez-Montrond lake, 300 m from the flat
+          <strong>Where</strong>: the Albiez-Montrond lake, 350 m from the flat
           <br />
           <strong>From</strong>: age 8
           <br />
@@ -75,7 +75,7 @@ export default function Article() {
         makes a full day on site, with wet kit in between.
       </p>
 
-      <h2>The lake, 300 metres away</h2>
+      <h2>The lake, 350 metres away</h2>
       <p>
         It is the same lake as the rest of the summer: supervised swimming, paddling pool,
         pedalos, inflatable structure, playground and picnic area. The detail is in our
@@ -83,7 +83,7 @@ export default function Article() {
       </p>
       <p>
         From the flat you walk there. No car to park on a busy day, no bag to carry for a
-        whole day out: you go back up to change between starts, and the south-facing balcony
+        whole day out: you go back up to change between starts, and the south-west-facing balcony
         dries a wetsuit in an hour.
       </p>
 

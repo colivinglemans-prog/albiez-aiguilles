@@ -4,7 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond ospita la pista di BMX più alta di Francia. È ad accesso libero, nel centro
+        Albiez-Montrond ha la sua pista di BMX. È ad accesso
+        libero, nel centro
         del paese, circondata da campi sportivi e da un'area picnic. E per tutto ciò che rotola, la
         località noleggia mountain bike elettriche, BMX e monopattini elettrici.
       </p>
@@ -17,8 +18,7 @@ export default function Article() {
         esperto di girare sullo stesso terreno.
       </p>
       <p>
-        La cornice conta molto: è la pista di BMX più alta di Francia, e lo si capisce alzando lo
-        sguardo.
+        La cornice conta molto: si pedala in piena montagna, e lo si capisce alzando lo sguardo.
       </p>
 
       <h2>Cosa c'è intorno</h2>

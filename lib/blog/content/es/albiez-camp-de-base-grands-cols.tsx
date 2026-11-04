@@ -115,7 +115,7 @@ export default function Article() {
           que cuenta después de un día a 30 °C en el valle.
         </li>
         <li>
-          <strong>Un balcón orientado al sur</strong> que seca un maillot en una hora, y una
+          <strong>Un balcón orientado al suroeste</strong> que seca un maillot en una hora, y una
           cocina para no depender de los horarios de los restaurantes.
         </li>
       </ul>

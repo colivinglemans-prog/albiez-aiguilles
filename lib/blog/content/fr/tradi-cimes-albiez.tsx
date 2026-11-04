@@ -14,7 +14,7 @@ export default function Article() {
 
       <h2>Deux jours, deux lieux</h2>
       <p>
-        <strong>Le samedi, au plan d'eau du col du Mollard</strong> — à 300 mètres de
+        <strong>Le samedi, au plan d'eau du col du Mollard</strong> — à 350 mètres de
         l'appartement. C'est la journée festive : animations, barbecue, buvette et musique
         autour de l'eau, avec la baignade et la pataugeoire ouvertes et les Aiguilles
         d'Arves en face. On y va à pied depuis chez nous, et l'on remonte quand on veut.

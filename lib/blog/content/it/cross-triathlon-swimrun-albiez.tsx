@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         Il Cross Triathlon e Swimrun des Aiguilles d'Arves si tiene a metà luglio al
-        laghetto di Albiez, a 300 metri dall'appartamento. Due gare nella stessa giornata,
+        laghetto di Albiez, a 350 metri dall'appartamento. Due gare nella stessa giornata,
         aperte <strong>dagli 8 anni</strong>, in uno scenario in cui si nuota di fronte alle
         Aiguilles. È questione di una mattina e di un pomeriggio; il resto della settimana
         resta a lei.
@@ -49,7 +49,7 @@ export default function Article() {
         <p>
           <strong>Quando</strong>: un fine settimana di metà luglio
           <br />
-          <strong>Dove</strong>: il laghetto di Albiez-Montrond, a 300 m dall'appartamento
+          <strong>Dove</strong>: il laghetto di Albiez-Montrond, a 350 m dall'appartamento
           <br />
           <strong>Dai</strong>: 8 anni
           <br />
@@ -77,7 +77,7 @@ export default function Article() {
         mezzo.
       </p>
 
-      <h2>Il laghetto, a 300 metri</h2>
+      <h2>Il laghetto, a 350 metri</h2>
       <p>
         È lo stesso laghetto di tutta l'estate: balneazione sorvegliata, vasca per i
         piccoli, pedalò, struttura gonfiabile, area giochi e area picnic. Il dettaglio è nel
@@ -87,7 +87,7 @@ export default function Article() {
       <p>
         Dall'appartamento ci si va a piedi. Nessuna auto da parcheggiare in una giornata
         affollata, nessuna borsa da portarsi dietro per l'intera giornata: si risale a
-        cambiarsi fra due partenze, e il balcone esposto a sud asciuga una muta in un'ora.
+        cambiarsi fra due partenze, e il balcone esposto a sud-ovest asciuga una muta in un'ora.
       </p>
 
       <h2>Restare la settimana</h2>

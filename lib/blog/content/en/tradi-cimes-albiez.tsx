@@ -14,7 +14,7 @@ export default function Article() {
 
       <h2>Two days, two places</h2>
       <p>
-        <strong>Saturday, at the Col du Mollard lake</strong> — 300 metres from the flat.
+        <strong>Saturday, at the Col du Mollard lake</strong> — 350 metres from the flat.
         This is the festive day: entertainment, barbecue, bar and music around the water,
         with the swimming area and paddling pool open and the Aiguilles d'Arves opposite.
         You walk there from our door, and go back up whenever you like.

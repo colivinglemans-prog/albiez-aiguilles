@@ -13,7 +13,7 @@ export default function Article() {
 
       <h2>Die richtige Reihenfolge: das Große in Saint-Jean, der Rest im Dorf</h2>
       <p>
-        Saint-Jean-de-Maurienne liegt auf dem Weg, etwa <strong>30 km</strong> und{" "}
+        Saint-Jean-de-Maurienne liegt auf dem Weg, etwa <strong>18 km</strong> und{" "}
         <strong>20 Minuten</strong> von Albiez. Dort gibt es einen{" "}
         <strong>Carrefour Market</strong> (mit Abholservice, sodass man von daheim bestellen und in zehn Minuten
         einladen kann) und einen <strong>Lidl</strong>.

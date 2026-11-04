@@ -4,7 +4,7 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond beherbergt die höchstgelegene BMX-Bahn Frankreichs. Sie ist frei
+        Albiez-Montrond hat eine eigene BMX-Bahn. Sie ist frei
         zugänglich, liegt im Dorfkern und ist von Sportplätzen und einem Picknickplatz umgeben.
         Und für alles, was rollt, verleiht der Ort E-Mountainbikes, BMX-Räder und E-Scooter.
       </p>
@@ -17,8 +17,8 @@ export default function Article() {
         Fortgeschrittene auf derselben Bahn fahren können.
       </p>
       <p>
-        Die Kulisse macht viel aus: es ist die höchstgelegene BMX-Bahn Frankreichs, und das merkt
-        man, wenn man den Blick hebt.
+        Die Kulisse macht viel aus: man fährt mitten in den Bergen, und das merkt man, wenn man
+        den Blick hebt.
       </p>
 
       <h2>Was es drumherum gibt</h2>

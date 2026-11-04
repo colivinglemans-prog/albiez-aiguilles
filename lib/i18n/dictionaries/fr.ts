@@ -17,7 +17,7 @@ export const fr: Dictionary = {
   home: {
     heroTitle: "Appartement face aux Aiguilles d'Arves",
     heroSubtitle:
-      "À 1 600 m d'altitude à Albiez-Montrond, au calme dans un chalet de Maurienne. 4 à 6 personnes, balcon plein sud-ouest.",
+      "À 1 600 m d'altitude à Albiez-Montrond, au calme dans un chalet de Maurienne. 4 à 6 personnes, balcon orienté sud-ouest-ouest.",
     intro:
       "Au dernier étage d'un petit chalet de la résidence Le Hameau des Aiguilles, notre appartement familial ouvre sur un balcon exposé sud-ouest et une vue dégagée sur les Aiguilles d'Arves. Les pistes, les commerces et l'école de ski sont à 250 mètres. Le lac et son club d'équitation sont à quelques minutes à pied. Nous le louons toute l'année.",
     chooseSeason: "Deux saisons, deux séjours",
@@ -651,7 +651,7 @@ export const fr: Dictionary = {
     },
     cta: {
       title: "Séjourner à Albiez",
-      text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon plein sud face aux Aiguilles d'Arves.",
+      text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon orienté sud-ouest face aux Aiguilles d'Arves.",
       button: "Voir le logement",
     },
     seo: {
@@ -691,7 +691,7 @@ export const fr: Dictionary = {
     flatItems: [
       "Trois espaces de couchage distincts : idéal pour deux, voire trois personnes, chacune avec son intimité.",
       "Une cuisine complète, four et lave-vaisselle : on ne mange pas au restaurant six soirs par semaine.",
-      "Un balcon plein sud face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
+      "Un balcon orienté sud-ouest face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
       "Un parking gratuit et une boîte à clés : on arrive et on repart en autonomie, à l'heure qui arrange.",
       "1 600 mètres d'altitude, soit des nuits fraîches en été et de l'air sec toute l'année.",
     ],
@@ -709,7 +709,7 @@ export const fr: Dictionary = {
     ],
     limitsTitle: "Ce que nous ne proposons pas",
     limitsText:
-      "Ni les semaines de vacances scolaires, ni juillet-août : elles vont aux vacanciers, c'est notre métier et nous n'y dérogeons pas. Nous ne proposons pas non plus de chambre seule ni de colocation — c'est l'appartement entier, pour une personne ou pour une équipe qui s'entend.",
+      "Ni les vacances scolaires d'hiver, ni juillet-août : elles vont aux vacanciers, c'est notre métier et nous n'y dérogeons pas. Nous ne proposons pas non plus de chambre seule ni de colocation — c'est l'appartement entier, pour une personne ou pour une équipe qui s'entend.",
     bookingTitle: "Réserver",
     bookingText:
       "Les dates libres se voient sur notre calendrier et la réservation se fait en direct, sans intermédiaire. Si vous réservez pour un salarié ou pour une équipe et qu'il vous faut un devis puis une facture au nom de l'entreprise, écrivez-nous — c'est le cas le plus fréquent et nous avons l'habitude.",

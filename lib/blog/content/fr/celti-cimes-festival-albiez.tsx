@@ -70,7 +70,7 @@ export default function Article() {
         Une partie du festival se joue par ailleurs{" "}
         <Link href="/fr/guide/lac-du-mollard-baignade">au plan d'eau du Mollard</Link> : le
         samedi y est une journée festive, concert compris, dans l'herbe et face aux
-        Aiguilles. C'est à <strong>300 mètres de l'appartement</strong> — la photo en tête
+        Aiguilles. C'est à <strong>350 mètres de l'appartement</strong> — la photo en tête
         de cet article est prise depuis la rive.
       </p>
       <p>
@@ -97,7 +97,7 @@ export default function Article() {
         Notre appartement est au Mollard, la partie haute du village, à quelques minutes du
         Chef-lieu où se tiennent la salle des fêtes et la place Opinel. Jusqu'à six
         personnes, une cuisine équipée pour ne pas dépendre des horaires de restaurant, un
-        balcon plein sud face aux{" "}
+        balcon orienté sud-ouest face aux{" "}
         <Link href="/fr/guide/aiguilles-arves">Aiguilles d'Arves</Link>, et un instrument
         qui reste au sec.
       </p>

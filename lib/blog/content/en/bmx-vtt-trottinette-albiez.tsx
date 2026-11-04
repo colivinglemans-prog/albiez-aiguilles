@@ -4,7 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond is home to the highest BMX track in France. It is freely accessible,
+        Albiez-Montrond has its own BMX track, freely
+        accessible
         in the village centre, surrounded by sports pitches and a picnic area. And for
         anything on wheels, the resort hires out electric mountain bikes, BMX bikes and
         e-scooters.
@@ -18,8 +19,8 @@ export default function Article() {
         the same track.
       </p>
       <p>
-        The setting counts for a lot: it is the highest BMX track in France, and you know it
-        as soon as you look up.
+        The setting counts for a lot: you are riding in the mountains, and you know it as soon
+        as you look up.
       </p>
 
       <h2>What is around it</h2>

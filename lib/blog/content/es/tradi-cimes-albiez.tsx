@@ -14,7 +14,7 @@ export default function Article() {
 
       <h2>Dos días, dos lugares</h2>
       <p>
-        <strong>El sábado, en el lago del col du Mollard</strong>, a 300 metros del
+        <strong>El sábado, en el lago del col du Mollard</strong>, a 350 metros del
         apartamento. Es la jornada festiva: animaciones, barbacoa, bar y música alrededor
         del agua, con la zona de baño y la piscina infantil abiertas y las Aiguilles d'Arves
         enfrente. Se va andando desde nuestra puerta, y se vuelve cuando se quiere.

@@ -655,7 +655,7 @@ export const de: Dictionary = {
     },
     cta: {
       title: "In Albiez übernachten",
-      text: "Unsere Wohnung liegt am Mollard, 250 m vom Pistenzugang und vom Start der Wanderwege. Bis zu 6 Personen, Südbalkon mit Blick auf die Aiguilles d'Arves.",
+      text: "Unsere Wohnung liegt am Mollard, 250 m vom Pistenzugang und vom Start der Wanderwege. Bis zu 6 Personen, Südwestbalkon mit Blick auf die Aiguilles d'Arves.",
       button: "Die Wohnung ansehen",
     },
     seo: {
@@ -696,7 +696,7 @@ export const de: Dictionary = {
     flatItems: [
       "Drei getrennte Schlafbereiche: ideal für zwei, auch für drei Personen, jede mit ihrer Privatsphäre.",
       "Eine vollständige Küche mit Backofen und Spülmaschine: Man isst nicht sechs Abende die Woche auswärts.",
-      "Ein Südbalkon mit Blick auf die Aiguilles d'Arves und die Stille eines Dorfs mit 300 Einwohnern.",
+      "Ein Südwestbalkon mit Blick auf die Aiguilles d'Arves und die Stille eines Dorfs mit 300 Einwohnern.",
       "Kostenloser Parkplatz und ein Schlüsselkasten: Man kommt und geht selbstständig, zu jeder passenden Zeit.",
       "1 600 Meter Höhe, also kühle Sommernächte und trockene Luft das ganze Jahr.",
     ],
@@ -714,7 +714,7 @@ export const de: Dictionary = {
     ],
     limitsTitle: "Was wir nicht anbieten",
     limitsText:
-      "Weder Schulferienwochen noch Juli und August: die gehören den Urlaubsgästen, das ist unser Geschäft und davon weichen wir nicht ab. Einzelzimmer oder Wohngemeinschaft bieten wir ebenfalls nicht an — es ist die ganze Wohnung, für eine Person oder für ein Team, das sich versteht.",
+      "Weder die Winterschulferien noch Juli und August: die gehören den Urlaubsgästen, das ist unser Geschäft und davon weichen wir nicht ab. Einzelzimmer oder Wohngemeinschaft bieten wir ebenfalls nicht an — es ist die ganze Wohnung, für eine Person oder für ein Team, das sich versteht.",
     bookingTitle: "Buchen",
     bookingText:
       "Die freien Termine stehen in unserem Kalender, und gebucht wird direkt, ohne Vermittler. Wenn Sie für einen Mitarbeiter oder ein Team buchen und ein Angebot sowie eine Rechnung auf den Firmennamen brauchen, schreiben Sie uns — das ist der häufigste Fall, und wir sind es gewohnt.",

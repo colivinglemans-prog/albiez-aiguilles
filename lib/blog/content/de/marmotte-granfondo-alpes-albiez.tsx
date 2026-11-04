@@ -76,7 +76,7 @@ export default function Article() {
       </p>
       <p>
         Dazu das Praktische: eine richtige Küche, um zu essen, was man will, wann man will,
-        statt auf einen Service zu warten; ein Südbalkon, der ein Trikot in einer Stunde
+        statt auf einen Service zu warten; ein Südwestbalkon, der ein Trikot in einer Stunde
         trocknet; und die Ruhe eines Dorfs mit 300 Einwohnern in der Woche, in der
         Bourg-d'Oisans volläuft.
       </p>

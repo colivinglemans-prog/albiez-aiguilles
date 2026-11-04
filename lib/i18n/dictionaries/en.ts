@@ -633,7 +633,7 @@ export const en: Dictionary = {
     },
     cta: {
       title: "Staying in Albiez",
-      text: "Our apartment sits in the Mollard hamlet, 250 m from the slopes and from the start of the trails. Sleeps up to 6, south-facing balcony looking straight at the Aiguilles d'Arves.",
+      text: "Our apartment sits in the Mollard hamlet, 250 m from the slopes and from the start of the trails. Sleeps up to 6, south-west-facing balcony looking straight at the Aiguilles d'Arves.",
       button: "See the apartment",
     },
     seo: {
@@ -673,7 +673,7 @@ export const en: Dictionary = {
     flatItems: [
       "Three separate sleeping spaces: ideal for two, or even three people, each with their own privacy.",
       "A full kitchen, oven and dishwasher: you will not be eating out six nights a week.",
-      "A south-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
+      "A south-west-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
       "Free parking and a key box: you come and go under your own steam, at whatever time suits.",
       "1,600 metres of altitude, meaning cool nights in summer and dry air all year.",
     ],
@@ -691,7 +691,7 @@ export const en: Dictionary = {
     ],
     limitsTitle: "What we do not offer",
     limitsText:
-      "Neither school holiday weeks nor July and August: those go to holidaymakers, that is our trade and we do not bend it. We do not let single rooms or shares either — it is the whole flat, for one person or for a team that gets on.",
+      "Neither the winter school holidays nor July and August: those go to holidaymakers, that is our trade and we do not bend it. We do not let single rooms or shares either — it is the whole flat, for one person or for a team that gets on.",
     bookingTitle: "Booking",
     bookingText:
       "Free dates are on our calendar and booking is direct, with no agency in between. If you are booking for an employee or a team and need a quote and then an invoice in the company's name, write to us — it is the most common case and we are used to it.",

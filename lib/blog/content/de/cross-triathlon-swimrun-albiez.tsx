@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         Der Cross-Triathlon und Swimrun des Aiguilles d'Arves findet Mitte Juli am Badesee
-        von Albiez statt — 300 Meter von der Wohnung. Zwei Wettkämpfe am selben Tag,{" "}
+        von Albiez statt — 350 Meter von der Wohnung. Zwei Wettkämpfe am selben Tag,{" "}
         <strong>ab 8 Jahren</strong>, in einer Kulisse, in der man mit Blick auf die
         Aiguilles schwimmt. Es ist die Sache eines Vormittags und eines Nachmittags; der
         Rest der Woche gehört Ihnen.
@@ -54,7 +54,7 @@ export default function Article() {
         <p>
           <strong>Wann</strong>: ein Wochenende Mitte Juli
           <br />
-          <strong>Wo</strong>: der Badesee von Albiez-Montrond, 300 m von der Wohnung
+          <strong>Wo</strong>: der Badesee von Albiez-Montrond, 350 m von der Wohnung
           <br />
           <strong>Ab</strong>: 8 Jahren
           <br />
@@ -82,7 +82,7 @@ export default function Article() {
         dazwischen.
       </p>
 
-      <h2>Der Badesee, 300 Meter entfernt</h2>
+      <h2>Der Badesee, 350 Meter entfernt</h2>
       <p>
         Es ist derselbe See wie den ganzen Sommer über: bewachtes Baden, Planschbecken,
         Tretboote, Wasserspielgerät, Spielplatz und Picknickwiese. Die Einzelheiten stehen
@@ -92,7 +92,7 @@ export default function Article() {
       <p>
         Von der Wohnung geht man zu Fuß hin. Kein Auto abzustellen an einem vollen Tag,
         keine Tasche für den ganzen Tag zu schleppen: Man geht zwischen zwei Starts hinauf
-        und zieht sich um, und der Südbalkon trocknet einen Neoprenanzug in einer Stunde.
+        und zieht sich um, und der Südwestbalkon trocknet einen Neoprenanzug in einer Stunde.
       </p>
 
       <h2>Die Woche bleiben</h2>

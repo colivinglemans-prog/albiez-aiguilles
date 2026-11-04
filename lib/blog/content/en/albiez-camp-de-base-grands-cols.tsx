@@ -114,7 +114,7 @@ export default function Article() {
           which counts after a day at 30°C in the valley.
         </li>
         <li>
-          <strong>A south-facing balcony</strong> that dries a jersey in an hour, and a
+          <strong>A south-west-facing balcony</strong> that dries a jersey in an hour, and a
           kitchen so you are not tied to restaurant hours.
         </li>
       </ul>

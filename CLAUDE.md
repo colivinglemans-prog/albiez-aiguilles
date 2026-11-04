@@ -541,9 +541,10 @@ Vérification : `lang=de` doit rendre « Nächte » et non « Nights ».
 
 ### Fermetures volontaires
 
-Noël, le Jour de l'An et les vacances de février sont fermés — potentiellement gardés pour un
-usage personnel. Le calendrier les affiche donc barrés, ce qui est correct. Les rouvrir dans
-Beds24 suffit à les faire réapparaître, sans toucher au code.
+Noël, le Jour de l'An et les vacances de février étaient fermés pour un usage personnel.
+**Depuis le 2026-11-04 ils sont ouverts à la location** (décision du propriétaire), en
+rotation du samedi. Si une période est barrée au calendrier, c'est qu'elle est réservée ou
+fermée dans Beds24 : la rouvrir là-bas suffit, sans toucher au code.
 
 ## Tarification du tunnel direct — ce que la page affiche vraiment
 

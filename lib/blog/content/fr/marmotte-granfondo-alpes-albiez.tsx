@@ -77,7 +77,7 @@ export default function Article() {
       </p>
       <p>
         À quoi s'ajoute le prosaïque : une cuisine équipée, pour manger ce qu'on veut à
-        l'heure qu'on veut plutôt que d'attendre un service ; un balcon plein sud qui sèche
+        l'heure qu'on veut plutôt que d'attendre un service ; un balcon orienté sud-ouest qui sèche
         un maillot en une heure ; et le calme d'un village de 300 habitants la semaine où
         Bourg-d'Oisans se remplit.
       </p>

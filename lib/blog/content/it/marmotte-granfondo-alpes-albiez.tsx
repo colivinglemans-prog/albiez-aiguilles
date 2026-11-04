@@ -76,7 +76,7 @@ export default function Article() {
       </p>
       <p>
         A questo si aggiunge il pratico: una cucina attrezzata, per mangiare ciò che si
-        vuole quando si vuole invece di aspettare un servizio; un balcone esposto a sud che
+        vuole quando si vuole invece di aspettare un servizio; un balcone esposto a sud-ovest che
         asciuga una maglia in un'ora; e la quiete di un paese di 300 abitanti nella
         settimana in cui Bourg-d'Oisans si riempie.
       </p>

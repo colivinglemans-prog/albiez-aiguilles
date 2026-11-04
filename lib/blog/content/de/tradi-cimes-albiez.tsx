@@ -15,7 +15,7 @@ export default function Article() {
 
       <h2>Zwei Tage, zwei Orte</h2>
       <p>
-        <strong>Samstag, am Badesee des Col du Mollard</strong> — 300 Meter von der
+        <strong>Samstag, am Badesee des Col du Mollard</strong> — 350 Meter von der
         Wohnung. Das ist der festliche Tag: Animationen, Grillfest, Ausschank und Musik rund
         ums Wasser, mit geöffnetem Badebereich und Planschbecken und den Aiguilles d'Arves
         gegenüber. Von unserer Tür geht man zu Fuß hin und kehrt zurück, wann man will.

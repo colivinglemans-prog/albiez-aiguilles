@@ -2027,70 +2027,70 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "ete",
     locales: {
       fr: {
-        title: "Le terrain de BMX le plus haut de France, et le VTT à Albiez",
+        title: "Piste de BMX en montagne et VTT électrique à Albiez",
         description:
           "Piste de BMX race au Chef-lieu d'Albiez-Montrond, location de VTT électriques, BMX et trottinettes électriques, sorties accompagnées : le vélo l'été à Albiez.",
         excerpt:
           "Une piste de BMX race en libre accès, entourée de terrains de foot, basket, tennis et d'une aire de pique-nique.",
         keywords: [
           "BMX Albiez-Montrond",
-          "piste BMX la plus haute de France",
+          "piste BMX Savoie",
           "VTT électrique Albiez",
           "trottinette électrique Maurienne",
           "vélo Albiez été",
         ],
       },
       en: {
-        title: "France's highest BMX track, and mountain biking in Albiez",
+        title: "A mountain BMX track and e-bike hire in Albiez",
         description:
           "A BMX race track in the village of Albiez-Montrond, electric mountain bike, BMX and e-scooter hire, plus guided rides: cycling in Albiez in summer.",
         excerpt:
           "A freely accessible BMX race track, ringed by football, basketball and tennis courts and a picnic area.",
         keywords: [
           "BMX Albiez-Montrond",
-          "highest BMX track in France",
+          "BMX track Savoie",
           "electric mountain bike Albiez",
           "e-scooter Maurienne",
           "cycling Albiez summer",
         ],
       },
       de: {
-        title: "Die höchstgelegene BMX-Bahn Frankreichs, und Mountainbiken in Albiez",
+        title: "BMX-Bahn in den Bergen und E-Mountainbikes in Albiez",
         description:
           "BMX-Race-Bahn im Dorfkern von Albiez-Montrond, Verleih von E-Mountainbikes, BMX und E-Scootern, geführte Ausfahrten: Radfahren im Sommer in Albiez.",
         excerpt:
           "Eine frei zugängliche BMX-Race-Bahn, umgeben von Fußball-, Basketball- und Tennisplätzen und einem Picknickplatz.",
         keywords: [
           "BMX Albiez-Montrond",
-          "höchste BMX-Bahn Frankreichs",
+          "BMX-Bahn Savoyen",
           "E-Mountainbike Albiez",
           "E-Scooter Maurienne",
           "Radfahren Albiez Sommer",
         ],
       },
       es: {
-        title: "La pista de BMX más alta de Francia, y la BTT en Albiez",
+        title: "Pista de BMX en la montaña y BTT eléctrica en Albiez",
         description:
           "Pista de BMX race en el centro de Albiez-Montrond, alquiler de BTT eléctricas, BMX y patinetes eléctricos, salidas acompañadas: la bicicleta en verano en Albiez.",
         excerpt:
           "Una pista de BMX race de libre acceso, rodeada de campos de fútbol, baloncesto, tenis y una zona de picnic.",
         keywords: [
           "BMX Albiez-Montrond",
-          "pista BMX más alta de Francia",
+          "pista BMX Saboya",
           "BTT eléctrica Albiez",
           "patinete eléctrico Maurienne",
           "bicicleta Albiez verano",
         ],
       },
       it: {
-        title: "La pista di BMX più alta di Francia, e la mountain bike ad Albiez",
+        title: "Pista di BMX in montagna e mountain bike elettrica ad Albiez",
         description:
           "Pista di BMX race nel centro di Albiez-Montrond, noleggio di mountain bike elettriche, BMX e monopattini elettrici, uscite accompagnate: la bici d'estate ad Albiez.",
         excerpt:
           "Una pista di BMX race ad accesso libero, circondata da campi di calcio, basket, tennis e da un'area picnic.",
         keywords: [
           "BMX Albiez-Montrond",
-          "pista BMX più alta di Francia",
+          "pista BMX Savoia",
           "mountain bike elettrica Albiez",
           "monopattino elettrico Maurienne",
           "bici Albiez estate",

@@ -14,7 +14,7 @@ export default function Article() {
 
       <h2>Due giorni, due luoghi</h2>
       <p>
-        <strong>Il sabato, al laghetto del col du Mollard</strong>, a 300 metri
+        <strong>Il sabato, al laghetto del col du Mollard</strong>, a 350 metri
         dall'appartamento. È la giornata di festa: animazioni, barbecue, chiosco e musica
         attorno all'acqua, con la zona balneabile e la vasca per i piccoli aperte e le
         Aiguilles d'Arves di fronte. Ci si va a piedi dalla nostra porta, e si risale quando

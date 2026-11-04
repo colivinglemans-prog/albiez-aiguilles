@@ -13,7 +13,7 @@ export default function Article() {
 
       <h2>The sensible routine: the big shop in Saint-Jean, the rest in the village</h2>
       <p>
-        Saint-Jean-de-Maurienne is on the way, roughly <strong>30 km</strong> and{" "}
+        Saint-Jean-de-Maurienne is on the way, roughly <strong>18 km</strong> and{" "}
         <strong>20 minutes</strong> from Albiez. It has a{" "}
         <strong>Carrefour Market</strong> (with a click-and-collect service, so you can
         order from home and load up in ten minutes) and a <strong>Lidl</strong>.

@@ -654,7 +654,7 @@ export const it: Dictionary = {
     },
     cta: {
       title: "Soggiornare ad Albiez",
-      text: "Il nostro appartamento si trova a Le Mollard, a 250 m dall'accesso alle piste e dalla partenza dei sentieri. Fino a 6 persone, balcone a sud di fronte alle Aiguilles d'Arves.",
+      text: "Il nostro appartamento si trova a Le Mollard, a 250 m dall'accesso alle piste e dalla partenza dei sentieri. Fino a 6 persone, balcone a sud-ovest di fronte alle Aiguilles d'Arves.",
       button: "Vedere l'alloggio",
     },
     seo: {
@@ -695,7 +695,7 @@ export const it: Dictionary = {
     flatItems: [
       "Tre spazi letto distinti: ideale per due, anche tre persone, ciascuna con la propria intimità.",
       "Una cucina completa, con forno e lavastoviglie: non si cena fuori sei sere a settimana.",
-      "Un balcone esposto a sud di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
+      "Un balcone esposto a sud-ovest di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
       "Parcheggio gratuito e cassetta portachiavi: si arriva e si riparte in autonomia, all'ora che si preferisce.",
       "1 600 metri di quota: notti fresche d'estate e aria secca tutto l'anno.",
     ],
@@ -713,7 +713,7 @@ export const it: Dictionary = {
     ],
     limitsTitle: "Che cosa non offriamo",
     limitsText:
-      "Né le settimane di vacanza scolastica né luglio e agosto: quelle vanno ai villeggianti, è il nostro mestiere e non facciamo eccezioni. Non offriamo nemmeno la singola camera o la coabitazione: è l'appartamento intero, per una persona o per una squadra che va d'accordo.",
+      "Né le vacanze scolastiche invernali né luglio e agosto: quelle vanno ai villeggianti, è il nostro mestiere e non facciamo eccezioni. Non offriamo nemmeno la singola camera o la coabitazione: è l'appartamento intero, per una persona o per una squadra che va d'accordo.",
     bookingTitle: "Prenotare",
     bookingText:
       "Le date libere sono sul nostro calendario e la prenotazione si fa in diretta, senza intermediari. Se prenota per un dipendente o per una squadra e le serve un preventivo e poi una fattura intestata all'azienda, ci scriva — è il caso più frequente e ci siamo abituati.",

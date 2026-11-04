@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         Le Cross Triathlon et Swimrun des Aiguilles d'Arves se tient mi-juillet au plan
-        d'eau d'Albiez — à 300 mètres de l'appartement. Deux épreuves dans la même journée,
+        d'eau d'Albiez — à 350 mètres de l'appartement. Deux épreuves dans la même journée,
         ouvertes <strong>dès 8 ans</strong>, dans un décor où l'on nage face aux Aiguilles.
         C'est l'affaire d'une matinée et d'un après-midi ; le reste de la semaine est à
         prendre.
@@ -54,7 +54,7 @@ export default function Article() {
         <p>
           <strong>Quand</strong> : un week-end de mi-juillet
           <br />
-          <strong>Où</strong> : le plan d'eau d'Albiez-Montrond, à 300 m de l'appartement
+          <strong>Où</strong> : le plan d'eau d'Albiez-Montrond, à 350 m de l'appartement
           <br />
           <strong>À partir de</strong> : 8 ans
           <br />
@@ -82,7 +82,7 @@ export default function Article() {
         mouillés entre les deux.
       </p>
 
-      <h2>Le plan d'eau, à 300 mètres</h2>
+      <h2>Le plan d'eau, à 350 mètres</h2>
       <p>
         C'est le même plan d'eau que le reste de l'été : baignade surveillée, pataugeoire,
         pédalos, structure gonflable, aire de jeux et aire de pique-nique. Le détail est
@@ -92,7 +92,7 @@ export default function Article() {
       <p>
         Depuis l'appartement on y va à pied. Pas de voiture à garer un jour d'affluence, pas
         de sac à porter pour la journée entière : on remonte se changer entre deux départs,
-        et le balcon plein sud sèche une combinaison en une heure.
+        et le balcon orienté sud-ouest sèche une combinaison en une heure.
       </p>
 
       <h2>Rester la semaine</h2>

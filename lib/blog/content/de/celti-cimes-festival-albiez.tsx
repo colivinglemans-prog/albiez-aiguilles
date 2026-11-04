@@ -71,7 +71,7 @@ export default function Article() {
         Ein Teil des Festivals spielt sich zudem{" "}
         <Link href="/de/guide/lac-du-mollard-baignade">am Badesee von Le Mollard</Link> ab:
         Der Samstag ist dort ein Festtag, Konzert inklusive, auf der Wiese mit Blick auf die
-        Aiguilles. Das sind <strong>300 Meter von der Wohnung</strong> — das Foto am Anfang
+        Aiguilles. Das sind <strong>350 Meter von der Wohnung</strong> — das Foto am Anfang
         dieses Artikels ist vom Ufer aus aufgenommen.
       </p>
       <p>
@@ -98,7 +98,7 @@ export default function Article() {
       <p>
         Unsere Wohnung liegt in Le Mollard, dem oberen Dorfteil, wenige Minuten vom
         Chef-lieu mit Gemeindesaal und Place Opinel. Bis zu sechs Personen, eine Küche, die
-        gut genug ausgestattet ist, um nicht von Restaurantzeiten abzuhängen, ein Südbalkon
+        gut genug ausgestattet ist, um nicht von Restaurantzeiten abzuhängen, ein Südwestbalkon
         mit Blick auf die{" "}
         <Link href="/de/guide/aiguilles-arves">Aiguilles d'Arves</Link> — und ein
         Instrument, das trocken bleibt.
