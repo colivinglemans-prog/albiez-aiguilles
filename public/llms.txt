@@ -10,7 +10,7 @@
 - **Adresse** : Chemin du Châtel, 73530 Albiez-Montrond, France
 - **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds)
 - **Arrivée autonome** : boîte à clés, contact sur place
-- **Séjour minimum** : en général 2 nuits, y compris en janvier hors vacances scolaires. Pendant les vacances scolaires d'hiver (Noël, Nouvel An, février), location à la semaine du samedi au samedi. Les règles exactes de chaque date sont dans l'API ci-dessous.
+- **Séjour minimum** : il varie selon les dates. En hiver, la location se fait le plus souvent à la semaine, du samedi au samedi (vacances scolaires, et aussi une partie de janvier) ; hors saison, en général 2 nuits. Les règles exactes de chaque date (durée minimale, jours d'arrivée possibles) sont données par l'API ci-dessous, qui fait foi.
 - **Prix** : variables selon la saison et la demande, souvent les plus bas hors saison. Disponibilités et prix en temps réel : https://www.albiez-aiguilles.fr/fr#reserver (réservation directe)
 - **Paiement** : 100 % à la réservation, en ligne par carte bancaire (page de paiement sécurisée Beds24), taxe de séjour comprise. Sur facture (entreprises) : acompte de 30 % à la réservation, solde avant l'arrivée.
 - **Annulation** (politique Limitée, la même sur le site et sur Airbnb) : 100 % remboursés jusqu'à 14 jours avant l'arrivée ; 50 % remboursés entre 14 et 7 jours avant l'arrivée ; aucun remboursement à moins de 7 jours.
@@ -22,7 +22,7 @@ Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et 
 - Fiche, règles, annulation et paiement : https://www.albiez-aiguilles.fr/api/agent/info
 - Contrat OpenAPI : https://www.albiez-aiguilles.fr/api/agent/openapi
 - Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge — le voyageur devra cocher l'option « kit linge » sur la page de paiement —, `purpose=professionnel` pour un séjour de travail, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
-- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — renvoie jusqu'à 5 séjours libres, chacun avec son prix et ses liens
+- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; renvoie jusqu'à 5 séjours libres, chacun avec son prix et ses liens
 - Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
 - Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.
 - Si la réponse contient `notices` (arrivée le jour même), les relayer au voyageur **avant** de lui donner le lien de réservation.
