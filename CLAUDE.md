@@ -747,6 +747,16 @@ Deux points de fragilité, assumés :
   `null` partout aujourd'hui, ce qui est le bon comportement mais ne teste que la branche
   négative.
 
+**Socle v3.8.1 (2026-11-07) : toutes les lignes de taxe, pas la première.** `ecartDeCollecte`
+somme désormais **toutes** les lignes « Taxe de séjour » (une prolongation en ajoute une),
+lit `amount × qty` quand `lineTotal` manque, et écarte les lignes de type `payment`. Sur une
+facture à plusieurs lignes de taxe, l'écart affiché peut donc apparaître ou augmenter : c'est
+la correction, pas une régression. Relevé à la montée : 8 réservations dans Beds24, 3 avec
+mineurs, **aucune** ligne de taxe — surcollecte nulle avant comme après, payloads du
+protocole identiques octet pour octet. Les autres correctifs de la v3.8.1 (factures au jour de
+Paris, `lib/fiscal/revenus.ts`) et la v3.8.0 (`lib/access-codes.ts`, serrure Nuki de l'autre
+site) ne touchent pas ce site, qui n'importe aucun de ces modules.
+
 ### Les calculs viennent du socle (`@sejour/socle/lib/stats`)
 
 `lib/stats.ts` n'existe plus ici : il est monté tel quel dans le socle au Lot 3, renommé en
