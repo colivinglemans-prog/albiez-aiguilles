@@ -10,10 +10,22 @@
 - **Adresse** : Chemin du Châtel, 73530 Albiez-Montrond, France
 - **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds)
 - **Arrivée autonome** : boîte à clés, contact sur place
-- **Séjour minimum** : en général 2 nuits. Pendant les vacances scolaires d'hiver (Noël, Nouvel An, février), location à la semaine du samedi au samedi.
+- **Séjour minimum** : en général 2 nuits, y compris en janvier hors vacances scolaires. Pendant les vacances scolaires d'hiver (Noël, Nouvel An, février), location à la semaine du samedi au samedi. Les règles exactes de chaque date sont dans l'API ci-dessous.
 - **Prix** : variables selon la saison et la demande, souvent les plus bas hors saison. Disponibilités et prix en temps réel : https://www.albiez-aiguilles.fr/fr#reserver (réservation directe)
 - **Paiement** : 100 % à la réservation, en ligne par carte bancaire (page de paiement sécurisée Beds24), taxe de séjour comprise. Sur facture (entreprises) : acompte de 30 % à la réservation, solde avant l'arrivée.
 - **Annulation** (politique Limitée, la même sur le site et sur Airbnb) : 100 % remboursés jusqu'à 14 jours avant l'arrivée ; 50 % remboursés entre 14 et 7 jours avant l'arrivée ; aucun remboursement à moins de 7 jours.
+
+## Pour les assistants IA : disponibilités, prix exacts et devis
+
+Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et le **prix exact tout compris** (nuits, ménage, taxe de séjour), tel que la page de paiement le facturera, avec un lien de réservation pré-rempli et un lien de devis partageable valable 7 jours. Elle ne bloque aucune date : le voyageur réserve et paie en suivant `bookUrl`.
+
+- Fiche, règles, annulation et paiement : https://www.albiez-aiguilles.fr/api/agent/info
+- Contrat OpenAPI : https://www.albiez-aiguilles.fr/api/agent/openapi
+- Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
+- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — renvoie jusqu'à 5 séjours libres, chacun avec son prix et ses liens
+- Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
+- Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.
+- Si la réponse contient `notices` (arrivée le jour même), les relayer au voyageur **avant** de lui donner le lien de réservation.
 
 ## Venir à Albiez-Montrond
 
@@ -45,7 +57,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - Luges pour enfants dans l'appartement
 - Kit bébé sur demande (lit parapluie, chaise haute)
 - Ménage de fin de séjour compris (hors cuisine et vaisselle)
-- Linge de lit et serviettes en option (15 € par personne)
+- Linge de lit et serviettes en option (15 € par personne et par séjour)
 
 ## Albiez, une station familiale
 
