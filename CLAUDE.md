@@ -646,6 +646,22 @@ Noël, le Jour de l'An et les vacances de février étaient fermés pour un usag
 rotation du samedi. Si une période est barrée au calendrier, c'est qu'elle est réservée ou
 fermée dans Beds24 : la rouvrir là-bas suffit, sans toucher au code.
 
+## Réservation par IA (`/api/agent/*`, `/[locale]/devis/[token]`)
+
+`lib/agent.ts` déclare l'appartement à `@sejour/socle/lib/stay-agent` : une seule route publique
+`app/api/agent/[tool]/route.ts` (`info`, `availability`, `quote`, `find`, `openapi`, en GET,
+CORS ouvert), documentée dans `public/llms.txt`. Le prix vient de `getroomprice.php` (total
+Beds24 tout compris) et passe un **garde-fou** : `expectedTotal` recalcule la grille (nuits
+−7 %, taxe de séjour 5,5 % des nuitées remisées, ménage 60). Un écart de plus de 1 € bloque le
+prix (`price-blocked`) et envoie un ntfy « Devis IA Albiez » : un réglage Beds24/Beyond a changé
+la grille — corriger `expectedTotal`, pas le contourner.
+
+- Le linge est un supplément facultatif (`extras=linge`, 15 €/pers./séjour) ajouté au total.
+- Séjours pros refusés pendant l'ouverture du domaine et en juillet-août (`saisonsEntre`).
+- Politiques servies aux IA = `CANCELLATION_POLICY` / `PAYMENT_POLICY` de `lib/property.ts`.
+- Arrivée le jour même : le devis porte une consigne d'appeler l'hôte (`lastMinute`).
+- La page de devis revérifie dispo et prix à chaque affichage ; non indexée.
+
 ## Tarification du tunnel direct — ce que la page affiche vraiment
 
 Vérifié le 2026-08-31, en comparant un devis direct à son équivalent Airbnb (7 nuits,
@@ -1280,6 +1296,7 @@ saison ». Trois décisions qui ont demandé un aller-retour :
 | `DASHBOARD_PASSWORD` | Mot de passe administrateur. |
 | `DASHBOARD_PASSWORD_MENAGE_*` | Un mot de passe par personne, rôle `viewer`. Le suffixe est libre et n'est là que pour savoir à qui appartient la ligne. `DASHBOARD_PASSWORD_VIEWER_*` est accepté aussi : le code a changé de nom, pas les variables. |
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
+| `QUOTE_SIGNING_SECRET` | Signe les devis IA (`/devis/<jeton>`), 32 caractères au moins. Rotation : l'ancien passe dans `QUOTE_SIGNING_SECRET_PREVIOUS` pendant 7 jours. Absent : l'API chiffre quand même, sans lien de devis. |
 | `ALBIEZ_CODE_BOITE_A_CLES` | Code de la boîte à clés, servi au seul administrateur par `/api/dashboard/code-acces`. **Jamais dans le code** : le dépôt est public. |
 
 **Posées dans les trois environnements** depuis le 2026-09-11 : les quatre jetons Beds24,
