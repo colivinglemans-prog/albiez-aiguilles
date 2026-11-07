@@ -25,7 +25,9 @@ Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et 
 - Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; renvoie jusqu'à 5 séjours libres, chacun avec son prix et ses liens
 - Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
 - Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.
-- Si la réponse contient `notices` (arrivée le jour même), les relayer au voyageur **avant** de lui donner le lien de réservation.
+- `children` = enfants de moins de 18 ans, bébés compris (6 voyageurs au plus, enfants compris).
+- Si la réponse contient `notices` (arrivée le jour même, kit linge à cocher), les relayer au voyageur **avant** de lui donner le lien de réservation.
+- La page de paiement Beds24 (`bookUrl`) charge ses prix en JavaScript : lue sans JavaScript, elle affiche un texte masqué « Pas de disponibilité ». Ce n'est pas l'état réel : l'API ci-dessus fait foi.
 
 ## Venir à Albiez-Montrond
 

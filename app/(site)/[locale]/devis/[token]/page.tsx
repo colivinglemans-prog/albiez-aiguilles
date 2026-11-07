@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import QuoteSummary from "@sejour/socle/components/QuoteSummary";
 import { loadQuotePage } from "@sejour/socle/lib/quote-page";
-import { quoteLabels } from "@sejour/socle/lib/quote-labels";
+import { cancellationText, quoteLabels } from "@sejour/socle/lib/quote-labels";
 import { quoteKeysFromEnv } from "@sejour/socle/lib/quote-token";
 import { STAY_AGENT, STAY_QUOTE, stayAgentDeps } from "@/lib/agent";
 import { isLocale } from "@/lib/i18n";
-import { PROPERTY } from "@/lib/property";
+import { CANCELLATION_POLICY, PROPERTY } from "@/lib/property";
 
 /**
  * Le devis partagé par une IA (`/api/agent/quote` → `quoteUrl`). Revérifié à chaque affichage :
@@ -45,6 +45,7 @@ export default async function QuotePage({ params }: { params: Promise<{ locale: 
         labels={quoteLabels(locale, INCLUDED[locale] ?? INCLUDED.fr)}
         calendarUrl={calendarUrl}
         conditionsUrl={`/${locale}#reserver`}
+        cancellation={cancellationText(CANCELLATION_POLICY, locale)}
         header={<p className="text-sm uppercase tracking-wide text-secondary">{STAY_AGENT.facts(locale).name}</p>}
       />
     </div>

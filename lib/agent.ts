@@ -133,6 +133,8 @@ export const STAY_AGENT: StayAgentConfig = {
   quotePagePath: (lang, token) => `/${lang}/devis/${token}`,
   calendarPath: (lang) => `/${lang}#reserver`,
   instantBooking: true,
+  childrenDescription:
+    "enfants de moins de 18 ans, bébés compris (kit bébé sur demande). 6 voyageurs au plus, enfants compris.",
 };
 
 /** Les branchements réels, recalculés à chaque requête (`today` change à minuit). */

@@ -646,6 +646,13 @@ Noël, le Jour de l'An et les vacances de février étaient fermés pour un usag
 rotation du samedi. Si une période est barrée au calendrier, c'est qu'elle est réservée ou
 fermée dans Beds24 : la rouvrir là-bas suffit, sans toucher au code.
 
+## Domaine `albiez-aiguilles.vercel.app`
+
+301 vers `https://www.albiez-aiguilles.fr` (`next.config.ts`, `redirects()` avec `has: host`) : les
+moteurs des assistants IA indexent sinon l'hôte Vercel. Hôte exact (les previews ne sont pas
+touchées), **`/api/*` exclu** (un cron ou un webhook peut viser cet hôte, et les crons Vercel ne
+suivent pas les redirections).
+
 ## Réservation par IA (`/api/agent/*`, `/[locale]/devis/[token]`)
 
 `lib/agent.ts` déclare l'appartement à `@sejour/socle/lib/stay-agent` : une seule route publique
