@@ -1,4 +1,4 @@
-import type { CancellationPolicy } from "@sejour/socle/config/policies";
+import type { CancellationPolicy, PaymentPolicy } from "@sejour/socle/config/policies";
 
 /**
  * Données factuelles du logement — source de vérité unique.
@@ -429,4 +429,14 @@ export const CANCELLATION_POLICY: CancellationPolicy = {
     { minDaysBefore: 7, refundPct: 50 },
     { minDaysBefore: 0, refundPct: 0 },
   ],
+};
+
+/**
+ * Paiement (confirmé par l'hôte le 2026-11-07) : **100 % à la réservation directe**, sur la page
+ * de paiement Beds24, taxe de séjour comprise ; les entreprises peuvent réserver sur facture avec
+ * 30 % d'acompte, solde avant l'arrivée. Même règle que Barbusse.
+ */
+export const PAYMENT_POLICY: PaymentPolicy = {
+  direct: { upfrontPct: 100, via: "Beds24", touristTaxIncluded: true },
+  business: { depositPct: 30, via: "facture" },
 };

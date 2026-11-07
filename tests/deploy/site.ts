@@ -18,7 +18,7 @@ import robots from "@/app/robots";
 import { BLOG_POSTS } from "@/lib/blog/posts";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n/locales";
 import { LEGAL_ENTITY } from "@/lib/legal";
-import { CANCELLATION_POLICY, DISTANCES, PROPERTY, SITE_NAME, SITE_URL } from "@/lib/property";
+import { CANCELLATION_POLICY, DISTANCES, PAYMENT_POLICY, PROPERTY, SITE_NAME, SITE_URL } from "@/lib/property";
 import { REVIEW_SUMMARY } from "@/lib/reviews";
 import { HIVERS, SEASON_SLUGS } from "@/lib/seasons";
 import {
@@ -137,6 +137,7 @@ const site = {
   ],
 
   cancellation: CANCELLATION_POLICY,
+  payment: PAYMENT_POLICY,
 
   security: {
     loginPath: "/api/auth/login",
