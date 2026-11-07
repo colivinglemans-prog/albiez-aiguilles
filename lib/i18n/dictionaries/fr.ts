@@ -459,6 +459,8 @@ export const fr: Dictionary = {
     subtitle: "Réservez en direct, sans intermédiaire.",
     bookOnAirbnb: "Réserver sur Airbnb",
     contactUs: "Nous écrire",
+    conditions:
+      "Paiement intégral à la réservation. Annulation gratuite jusqu'à 14 jours avant l'arrivée, 50 % remboursés entre 14 et 7 jours, rien ensuite.",
   },
 
   awards: {

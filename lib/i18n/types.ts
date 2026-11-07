@@ -302,6 +302,8 @@ export interface Dictionary {
     subtitle: string;
     bookOnAirbnb: string;
     contactUs: string;
+    /** Paiement et annulation du direct — la même règle que l'annonce Airbnb (« Limitée »). */
+    conditions: string;
   };
   awards: {
     title: string;

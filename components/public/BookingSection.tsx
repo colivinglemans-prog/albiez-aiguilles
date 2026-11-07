@@ -27,6 +27,11 @@ export default function BookingSection() {
 
         <CalendrierReservation />
 
+        {/* Mêmes conditions que l'annonce Airbnb : une IA lit les deux et compare. */}
+        <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-secondary">
+          {t.booking.conditions}
+        </p>
+
         {/* Chemins secondaires, volontairement en retrait : le bouton principal est celui du
             calendrier, qui mène au tarif direct. Les deux étaient en style « primary » avant
             l'arrivée du calendrier — les laisser ainsi mettrait en concurrence visuelle un

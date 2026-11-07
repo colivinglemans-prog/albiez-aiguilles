@@ -462,6 +462,8 @@ export const de: Dictionary = {
     subtitle: "Buchen Sie direkt, ohne Vermittler.",
     bookOnAirbnb: "Auf Airbnb buchen",
     contactUs: "Schreiben Sie uns",
+    conditions:
+      "Vollständige Zahlung bei Buchung. Kostenlose Stornierung bis 14 Tage vor Anreise, 50 % Erstattung zwischen 14 und 7 Tagen, danach keine.",
   },
 
   awards: {

@@ -461,6 +461,8 @@ export const it: Dictionary = {
     subtitle: "Prenotate direttamente, senza intermediari.",
     bookOnAirbnb: "Prenotare su Airbnb",
     contactUs: "Scriveteci",
+    conditions:
+      "Pagamento completo alla prenotazione. Cancellazione gratuita fino a 14 giorni prima dell'arrivo, rimborso del 50% tra 14 e 7 giorni, nessuno dopo.",
   },
 
   awards: {

@@ -442,6 +442,8 @@ export const en: Dictionary = {
     subtitle: "Book directly, with no middleman.",
     bookOnAirbnb: "Book on Airbnb",
     contactUs: "Write to us",
+    conditions:
+      "Full payment at booking. Free cancellation up to 14 days before arrival, 50% refund between 14 and 7 days, none after.",
   },
 
   awards: {

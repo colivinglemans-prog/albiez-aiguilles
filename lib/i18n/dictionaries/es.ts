@@ -461,6 +461,8 @@ export const es: Dictionary = {
     subtitle: "Reserve directamente, sin intermediarios.",
     bookOnAirbnb: "Reservar en Airbnb",
     contactUs: "Escríbanos",
+    conditions:
+      "Pago íntegro al reservar. Cancelación gratuita hasta 14 días antes de la llegada, reembolso del 50 % entre 14 y 7 días, nada después.",
   },
 
   awards: {
