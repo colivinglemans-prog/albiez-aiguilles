@@ -6,7 +6,7 @@ autre domaine, autre déploiement Vercel.
 
 ## Stack
 
-Next.js 16.1.6 (App Router, Turbopack) · TypeScript · Tailwind CSS v4 · npm
+Next.js 16.4.5 · React 19.3 (App Router, Turbopack) · TypeScript · Tailwind CSS v4 · npm
 
 ```bash
 npm run dev     # développement
