@@ -12,8 +12,8 @@
 - **Arrivée autonome** : boîte à clés, contact sur place
 - **Séjour minimum** : en général 2 nuits. Pendant les vacances scolaires d'hiver (Noël, Nouvel An, février), location à la semaine du samedi au samedi.
 - **Prix** : variables selon la saison et la demande, souvent les plus bas hors saison. Disponibilités et prix en temps réel : https://www.albiez-aiguilles.fr/fr#reserver (réservation directe)
-- **Paiement** : intégral à la réservation, en ligne par carte bancaire.
-- **Annulation** : gratuite jusqu'à 14 jours avant l'arrivée ; 50 % remboursés entre 14 et 7 jours avant l'arrivée ; aucun remboursement ensuite. Même règle sur le site et sur Airbnb.
+- **Paiement** : 100 % à la réservation, en ligne par carte bancaire.
+- **Annulation** (politique Limitée, la même sur le site et sur Airbnb) : 100 % remboursés jusqu'à 14 jours avant l'arrivée ; 50 % remboursés entre 14 et 7 jours avant l'arrivée ; aucun remboursement à moins de 7 jours.
 
 ## Venir à Albiez-Montrond
 
@@ -107,7 +107,8 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 
 ## Liens
 
-- Site web : https://www.albiez-aiguilles.fr
+- Site web : https://www.albiez-aiguilles.fr/fr
+- Le site dans les autres langues : https://www.albiez-aiguilles.fr/en (English), https://www.albiez-aiguilles.fr/de (Deutsch), https://www.albiez-aiguilles.fr/es (Español), https://www.albiez-aiguilles.fr/it (Italiano)
 - Réservation directe : https://www.albiez-aiguilles.fr/fr#reserver
 - Page ski : https://www.albiez-aiguilles.fr/fr/ski
 - Page été : https://www.albiez-aiguilles.fr/fr/ete
