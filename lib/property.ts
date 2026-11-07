@@ -424,6 +424,7 @@ export const TOTAL_BEDS = PROPERTY.beds.reduce((n, b) => n + b.count, 0);
  */
 export const CANCELLATION_POLICY: CancellationPolicy = {
   name: "limitee",
+  sameOnAllChannels: true,
   tiers: [
     { minDaysBefore: 14, refundPct: 100 },
     { minDaysBefore: 7, refundPct: 50 },
@@ -438,5 +439,5 @@ export const CANCELLATION_POLICY: CancellationPolicy = {
  */
 export const PAYMENT_POLICY: PaymentPolicy = {
   direct: { upfrontPct: 100, via: "Beds24", touristTaxIncluded: true },
-  business: { depositPct: 30, via: "facture" },
+  business: { depositPct: 30, via: "facture", balanceDue: "before arrival" },
 };

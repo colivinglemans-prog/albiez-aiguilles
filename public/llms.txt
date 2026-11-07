@@ -21,7 +21,7 @@ Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et 
 
 - Fiche, règles, annulation et paiement : https://www.albiez-aiguilles.fr/api/agent/info
 - Contrat OpenAPI : https://www.albiez-aiguilles.fr/api/agent/openapi
-- Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
+- Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge — le voyageur devra cocher l'option « kit linge » sur la page de paiement —, `purpose=professionnel` pour un séjour de travail, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
 - Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — renvoie jusqu'à 5 séjours libres, chacun avec son prix et ses liens
 - Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
 - Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.

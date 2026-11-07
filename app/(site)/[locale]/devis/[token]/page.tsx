@@ -38,7 +38,7 @@ export default async function QuotePage({ params }: { params: Promise<{ locale: 
   const calendarUrl = (s: { checkIn: string; checkOut: string; adults: number; children: number }) =>
     `/${locale}?${new URLSearchParams({ arrivee: s.checkIn, depart: s.checkOut, adultes: String(s.adults), enfants: String(s.children) })}#reserver`;
   return (
-    <main className="pt-24">
+    <div className="pt-24">
       <QuoteSummary
         state={state}
         lang={locale}
@@ -47,6 +47,6 @@ export default async function QuotePage({ params }: { params: Promise<{ locale: 
         conditionsUrl={`/${locale}#reserver`}
         header={<p className="text-sm uppercase tracking-wide text-secondary">{STAY_AGENT.facts(locale).name}</p>}
       />
-    </main>
+    </div>
   );
 }
