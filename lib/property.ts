@@ -1,3 +1,5 @@
+import type { CancellationPolicy } from "@sejour/socle/config/policies";
+
 /**
  * Données factuelles du logement — source de vérité unique.
  *
@@ -407,3 +409,24 @@ export const AWARDS = [
 
 /** Total de couchages, dérivé de `beds` pour éviter une constante qui dérive. */
 export const TOTAL_BEDS = PROPERTY.beds.reduce((n, b) => n + b.count, 0);
+
+/**
+ * Politique d'annulation, **alignée sur Airbnb « Limitée »** et appliquée à l'identique en
+ * direct, sur le site et dans ce que lit une IA (décision du 2026-11-07 : Albiez passe de
+ * « Modérée » à « Limitée »). Remboursement intégral jusqu'à 14 jours avant l'arrivée, de moitié
+ * jusqu'à 7 jours, rien ensuite.
+ *
+ * C'est la **source** des nombres : le contrôle post-déploiement (`tests/deploy/site.ts`) les
+ * cherche dans `llms.txt`. Les phrases, elles, vivent dans les dictionnaires et `llms.txt` — à
+ * réécrire ensemble si la politique change, le contrôle signalant tout écart.
+ *
+ * Les extranets (Airbnb, Booking) sont réglés à la main par l'hôte : rien ici ne les pilote.
+ */
+export const CANCELLATION_POLICY: CancellationPolicy = {
+  name: "limitee",
+  tiers: [
+    { minDaysBefore: 14, refundPct: 100 },
+    { minDaysBefore: 7, refundPct: 50 },
+    { minDaysBefore: 0, refundPct: 0 },
+  ],
+};

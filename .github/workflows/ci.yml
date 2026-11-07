@@ -1,0 +1,58 @@
+# Vérifications à chaque push et à chaque PR : lint, types, tests unitaires, build.
+#
+# Aucun secret : le build passe sans aucune variable d'environnement. Si un jour il en exige
+# une, c'est un défaut à corriger dans le code (lecture à la requête, pas au build), pas une
+# variable à ajouter ici — le dépôt est public.
+#
+# Les contrôles post-déploiement (`npm run test:deploy`) n'en font pas partie : ils
+# interrogent un site déployé, voir surveillance.yml et post-deploy.yml.
+#
+# La CI ne déploie rien.
+
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verifier:
+    name: lint + types + tests + build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: npm
+
+      # Le lock référence le socle (dépôt public) en git+ssh ; pas de clé SSH sur le runner.
+      - name: Socle en HTTPS
+        run: git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Types
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build

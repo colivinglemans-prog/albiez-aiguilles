@@ -1,0 +1,97 @@
+# Surveillance de la production : contrôles `vital` toutes les heures, `full` une fois par jour.
+#
+# Le moteur et le workflow sont ceux du socle (`deploy-checks.yml`), appelés **par SHA** :
+# un tag ou une branche se déplace, et un commit poussé dans le socle s'exécuterait avec les
+# secrets de ce dépôt. SHA = socle v3.9.0. À changer en même temps que la ligne du socle dans
+# `package.json`.
+#
+# Horaires :
+# - `vital` à :45 toutes les heures, décalé du :15 de Barbusse pour ne pas appeler Beds24 en
+#   même temps ;
+# - `full` à 06:45 heure de Paris. Le cron GitHub est en UTC et ignore l'heure d'été : deux
+#   déclenchements candidats (04:45 et 05:45 UTC), et le job `plan` garde celui qui tombe à
+#   6 h à Paris ce jour-là. Le test porte sur le décalage (`+0100`/`+0200`) et non sur l'heure
+#   lue au démarrage : un run planifié part souvent en retard.
+#
+# Secrets (dépôt, passés un par un — jamais `secrets: inherit`) : `BEDS24_MONITOR_TOKEN`
+# (sous-compte Albiez, `read:inventory`), `DEPLOY_VIEWER_PASSWORD` (compte viewer de
+# surveillance), `NTFY_TOPIC`. Un secret absent donne `skip`, jamais un vert.
+#
+# Pas d'`environment: surveillance` : GitHub refuse la clé `environment` sur un job qui appelle
+# un workflow réutilisable, et ce workflow-ci ne fait qu'appeler. Les secrets sont donc des
+# secrets de dépôt.
+
+name: surveillance
+
+on:
+  schedule:
+    - cron: "45 * * * *"
+    - cron: "45 4 * * *"
+    - cron: "45 5 * * *"
+  workflow_dispatch:
+    inputs:
+      level:
+        description: Niveau de contrôle
+        type: choice
+        options: [vital, full]
+        default: vital
+      base_url:
+        description: URL testée (vide = production). Aucun secret de session ne part hors du domaine.
+        type: string
+        default: ""
+
+permissions: {}
+
+concurrency:
+  # Les passages partagent l'issue `surveillance-ko` : jamais deux à la fois.
+  group: surveillance
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    outputs:
+      level: ${{ steps.plan.outputs.level }}
+      run: ${{ steps.plan.outputs.run }}
+    steps:
+      - id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          INPUT_LEVEL: ${{ inputs.level }}
+        run: |
+          offset=$(TZ=Europe/Paris date +%z)
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            level="$INPUT_LEVEL"; run=true
+          elif [ "$SCHEDULE" = "45 * * * *" ]; then
+            level=vital; run=true
+          elif [ "$SCHEDULE" = "45 4 * * *" ] && [ "$offset" = "+0200" ]; then
+            level=full; run=true
+          elif [ "$SCHEDULE" = "45 5 * * *" ] && [ "$offset" = "+0100" ]; then
+            level=full; run=true
+          else
+            level=full; run=false
+          fi
+          echo "level=$level" >> "$GITHUB_OUTPUT"
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+
+  controles:
+    needs: plan
+    if: needs.plan.outputs.run == 'true'
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+    uses: colivinglemans-prog/sejour-socle/.github/workflows/deploy-checks.yml@f1cfe57cd27dc809c911988c47f11623e3b5b4d1 # v3.10.2
+    with:
+      site_name: Albiez
+      level: ${{ needs.plan.outputs.level }}
+      base_url: ${{ inputs.base_url || '' }}
+      # « La surveillance a sauté » : vérifié par le passage quotidien seulement.
+      max_green_age_hours: ${{ needs.plan.outputs.level == 'full' && 26 || 0 }}
+    secrets:
+      BEDS24_MONITOR_TOKEN: ${{ secrets.BEDS24_MONITOR_TOKEN }}
+      DEPLOY_VIEWER_PASSWORD: ${{ secrets.DEPLOY_VIEWER_PASSWORD }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}

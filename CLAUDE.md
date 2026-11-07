@@ -12,6 +12,9 @@ Next.js 16.4.5 · React 19.3 (App Router, Turbopack) · TypeScript · Tailwind C
 npm run dev     # développement
 npm run build   # build de production
 npm run lint    # ESLint
+npm run typecheck   # tsc --noEmit
+npm test            # tests unitaires (vitest, sans réseau)
+npm run test:deploy # contrôles post-déploiement contre la prod (voir « Tests et surveillance »)
 ```
 
 ## Domaine
@@ -59,12 +62,23 @@ même nom. Les `MX` et le `SPF` d'OVH Mail sont à laisser intacts.
 
 ## Déploiement
 
-Projet Vercel **`albiez-aiguilles`** (équipe `colivinglemans-progs-projects`), déployé
-depuis la CLI comme Barbusse :
+Projet Vercel **`albiez-aiguilles`** (équipe `colivinglemans-progs-projects`).
+
+**Décision de l'utilisateur (2026-11-07) : le déploiement passera par l'intégration Git de
+Vercel**, comme Barbusse — chaque push sur `main` déploiera la production, chaque branche une
+preview. **Elle n'est pas encore active** : tant qu'elle ne l'est pas, on déploie à la main
+depuis la CLI :
 
 ```bash
 npx vercel deploy --prod --scope colivinglemans-progs-projects
 ```
+
+Avant de l'activer (dashboard Vercel → *Settings → Git*, ou la CLI avec l'accord de
+l'utilisateur) : vérifier qu'aucun commit en attente sur `main` ne partirait en prod sans le
+vouloir. Une fois active : un `git push` **est** un déploiement de prod — Albiez d'abord,
+vérifier, puis Barbusse (ordre du socle) — et `post-deploy.yml` se déclenche sur chaque
+`deployment_status` réussi. Mettre alors à jour ce paragraphe et la mémoire
+`feedback_ordre_deploiement`.
 
 ⚠️ **Le `--scope` n'est pas décoratif.** Sans lui, `npx vercel --prod` répond
 `{"status":"error","reason":"deploy_failed","message":"Not authorized"}` (constaté le
@@ -83,6 +97,92 @@ tester depuis un téléphone sans se connecter à Vercel. À remettre sur
 `all_except_custom_domains` une fois le domaine en service, pour éviter que Google indexe le
 site deux fois (les canonical pointent déjà tous vers le domaine, le risque est faible mais
 inutile).
+
+## Tests et surveillance
+
+Deux familles, deux configurations vitest (4.x, même majeure que le socle) :
+
+| Commande | Config | Quoi |
+|---|---|---|
+| `npm test` | `vitest.config.ts` | Tests unitaires hors réseau, `tests/**/*.test.ts` **sauf** `tests/deploy/**`. |
+| `npm run test:deploy` | `vitest.deploy.config.ts` | Contrôles d'un site **déployé** (production par défaut), en lecture seule. `TZ=Europe/Paris`. |
+
+Le moteur des contrôles est celui du socle (`@sejour/socle/testing/deploy`, depuis v3.9.0) ;
+ce dépôt ne fournit que ses **attendus**, dans `tests/deploy/site.ts` (`satisfies DeploySite`).
+Règle : chaque valeur y est **importée** du code (`lib/property.ts`, `lib/legal.ts`,
+`lib/seasons.ts`, `lib/reviews.ts`, `app/robots.ts`, `app/globals.css`, le dossier
+`app/api/cron/`), jamais recopiée. Les contrôles propres à Albiez sont dans
+`tests/deploy/albiez-checks.ts` : rotation du samedi publiée pendant les vacances d'hiver à
+venir (sans jamais dire quels jours — Beds24 seul en décide), mentions légales (JUARISAL et son
+SIREN présents, celui de l'entreprise du Mans absent), couleur primaire servie égale à
+`--site-primary` de `app/globals.css`, et code de la boîte à clés absent des pages.
+
+Variables lues par `test:deploy` : `DEPLOY_BASE_URL` (défaut : `SITE_URL`), `DEPLOY_LEVEL`
+(`vital` ou `full`, défaut `full`), `DEPLOY_ONLY` (identifiants ou préfixes `calendar.`),
+`DEPLOY_REPORT`. Secrets facultatifs : `BEDS24_MONITOR_TOKEN`, `DEPLOY_VIEWER_PASSWORD`. Un
+secret absent donne `skip`, jamais un vert. **Rien n'imprime un corps de réponse** : les logs
+Actions d'un dépôt public sont publics, un résultat ne porte que des compteurs.
+
+- `vital` : calendrier complet sur 12 mois, Beds24 cote un séjour libre et refuse un séjour
+  bloqué, `robots.txt`, accueil indexable avec `#reserver`, `llms.txt` servi, portes du
+  dashboard, jeton forgé, fuites dans 40 pages publiques, API de disponibilité sans montant.
+- `full` : tout `vital`, plus sitemap (150 URL), hreflang, négociation de `/`, apex → www,
+  `llms.txt` (liens, chemins, faits, politique d'annulation), routes de cron en 401, mauvais
+  mot de passe, chemins détournés, viewer de surveillance, et les contrôles Albiez.
+  **Jamais de cron en `vital`** : un cron ouvert par erreur s'exécuterait à chaque appel. Les
+  deux crons appellent `verifyCronAuth` en première ligne, qui refuse si `CRON_SECRET` manque.
+
+`albiez.keyBoxCode` ne tourne **qu'en local** : le code ne va jamais dans GitHub, donc le
+contrôle donne `skip` en CI. Pour le lancer, exporter `ALBIEZ_CODE_BOITE_A_CLES` le temps de
+la commande, sans l'afficher, avec `DEPLOY_ONLY=albiez.keyBoxCode`.
+
+**La politique d'annulation est une donnée** : `CANCELLATION_POLICY` dans `lib/property.ts`
+(« Limitée », alignée sur Airbnb : 100 % à J-14, 50 % à J-7, décision du 2026-11-07).
+`llms.policies` en cherche les nombres dans `llms.txt`. Les phrases restent dans
+`llms.txt` et les dictionnaires, à réécrire ensemble.
+
+**État au 2026-11-07** (premier passage réel) : `vital` 10 OK, 2 sautés. `full` 27 OK, 7
+sautés, **3 KO connus**, tous des textes publiés à reprendre et non des pannes :
+`llms.structure` (`llms.txt` cite la racine nue, qui répond 307 par conception),
+`llms.coverage` (`/en`, `/de`, `/es`, `/it` absents de `llms.txt`), `llms.policies`
+(`llms.txt` ne dit rien de l'annulation ; 14, 7 et 50 y figurent par hasard — 14 juillet,
+7 h, 50 m — seul 100 manque).
+
+### CI et workflows
+
+| Fichier | Déclencheur | Rôle |
+|---|---|---|
+| `.github/workflows/ci.yml` | push, PR | lint, types, `npm test`, build. **Aucun secret.** |
+| `.github/workflows/surveillance.yml` | :45 chaque heure (`vital`), 06:45 Paris (`full`), manuel | Appelle `deploy-checks.yml` du socle. |
+| `.github/workflows/post-deploy.yml` | `deployment_status` réussi | `full` sur l'URL du déploiement ; alerte en production seulement. Inerte tant que l'intégration Git de Vercel n'est pas active. |
+
+Le workflow du socle est appelé **par SHA** (`aca14c7…` = v3.9.0), jamais par tag : à changer
+en même temps que la ligne du socle dans `package.json`. `permissions: {}` au niveau du
+workflow, `contents: read`, `issues: write`, `actions: read` au niveau du job appelant. Le
+cron GitHub est en UTC : le passage `full` a deux déclenchements candidats (04:45 et 05:45
+UTC) et ne garde que celui qui tombe à 6 h 45 à Paris. Le `:45` décale les appels Beds24 du
+`:15` de Barbusse.
+
+Les alertes : issue `surveillance-ko` (identifiants des contrôles et lien du run, **rien
+d'autre**) et notification ntfy (détail). Un passage `full` sans aucun run vert depuis 26 h
+alerte aussi.
+
+**Secrets à poser dans GitHub** (*Settings → Secrets and variables → Actions*, secrets de
+dépôt) — aucun n'est posé à ce jour :
+
+| Secret | Valeur |
+|---|---|
+| `BEDS24_MONITOR_TOKEN` | Refresh token `read:inventory` **du sous-compte Albiez** (celui de Barbusse répond 401 sur 346417). Dédié à la surveillance, distinct des trois jetons du site. |
+| `DEPLOY_VIEWER_PASSWORD` | Mot de passe d'un compte viewer réservé à la surveillance (`DASHBOARD_PASSWORD_VIEWER_SURVEILLANCE` sur Vercel), révocable seul. |
+| `NTFY_TOPIC` | URL complète du topic ntfy des alertes. |
+
+Pas d'environnement GitHub `surveillance` : un job qui appelle un workflow réutilisable
+n'accepte pas la clé `environment`. Le post-déploiement ne reçoit pas le mot de passe viewer :
+l'URL d'un déploiement (`*.vercel.app`) est hors de `allowedHosts`, et le moteur refuserait de
+l'y envoyer.
+
+Pas de heartbeat : Albiez n'a pas de stockage (choix de l'utilisateur). Ses deux crons restent
+surveillés par les e-mails d'échec de cron-job.org.
 
 ## Beds24
 

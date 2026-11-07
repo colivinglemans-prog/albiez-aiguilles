@@ -1,0 +1,49 @@
+# Contrôles `full` après chaque déploiement Vercel réussi, preview comme production.
+#
+# Déclenché par l'événement `deployment_status` que publie l'intégration Git de Vercel —
+# **inactive à ce jour sur ce projet** (déploiement par la CLI) : tant qu'elle ne l'est pas, ce
+# workflow ne part jamais. Voir CLAUDE.md, « Déploiement ».
+#
+# - `base_url` = `environment_url`, l'URL propre au déploiement (`*.vercel.app`).
+# - Alerte (issue `surveillance-ko` + ntfy) en **production seulement** : une preview cassée
+#   se voit dans la PR, elle ne réveille personne.
+# - `DEPLOY_VIEWER_PASSWORD` n'est **pas** transmis : l'URL testée est une `*.vercel.app`, hors
+#   de `allowedHosts`, et le moteur refuserait d'y envoyer le mot de passe (statut `error`).
+#   Les previews n'ont de toute façon pas `DASHBOARD_SECRET`. Le contrôle viewer reste au
+#   passage quotidien de surveillance.yml, sur le domaine.
+#
+# Workflow du socle appelé par SHA (v3.9.0), comme surveillance.yml.
+
+name: post-deploy
+
+on:
+  deployment_status:
+
+permissions: {}
+
+# En production, même groupe que la surveillance : les deux écrivent dans la même issue d'alerte
+# et ne doivent jamais tourner ensemble. Une preview a son propre groupe (et pas d'alerte).
+concurrency:
+  group: ${{ github.event.deployment_status.environment == 'Production' && 'surveillance' || format('post-deploy-{0}', github.event.deployment_status.environment) }}
+  cancel-in-progress: false
+
+jobs:
+  controles:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment_url != ''
+    permissions:
+      contents: read
+      issues: write
+      actions: read
+    uses: colivinglemans-prog/sejour-socle/.github/workflows/deploy-checks.yml@f1cfe57cd27dc809c911988c47f11623e3b5b4d1 # v3.10.2
+    with:
+      site_name: Albiez
+      level: full
+      # En production, on teste le vrai domaine : l'URL du déploiement (`…vercel.app`) sauterait
+      # les contrôles réservés au domaine (apex → www, robots d'IA). Écrit en toutes lettres :
+      # `cond && '' || x` rendrait toujours `x`, la chaîne vide étant fausse.
+      base_url: ${{ github.event.deployment_status.environment == 'Production' && 'https://www.albiez-aiguilles.fr' || github.event.deployment_status.environment_url }}
+      alert: ${{ github.event.deployment_status.environment == 'Production' }}
+      run_label: post-deploy
+    secrets:
+      BEDS24_MONITOR_TOKEN: ${{ secrets.BEDS24_MONITOR_TOKEN }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}

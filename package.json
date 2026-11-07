@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:deploy": "vitest run -c vitest.deploy.config.ts",
     "compress-images": "node scripts/compress-images.mjs",
     "sync-reviews": "node scripts/sync-reviews.mjs"
   },
   "dependencies": {
-    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#v3.8.1",
+    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#v3.10.2",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.1.0",
     "image-size": "^2.0.2",
@@ -29,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.12"
   }
 }
