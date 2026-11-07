@@ -21,6 +21,7 @@ rester hors de ce fichier.
 | `[ROOMNAME]` | le nom complet du logement | Identique à `[PROPERTYNAME]` — Albiez n'a qu'une room. « Chambre : [ROOMNAME] » donnait donc « Chambre : Appart au Chalet du Hameau des Aiguilles ». Ne pas l'utiliser. |
 | `[PROPERTYNAME]` | `Appart au Chalet du Hameau des Aiguilles` | Renommé le 2026-08-31. L'ancien nom portait un point médian et un tiret orphelin. **Ce nom s'affiche aussi avant la réservation**, sur la page de paiement : il doit dire « appart » et non « chalet », sinon un logement de 33 m² promet une maison entière. |
 | `[NUMCHILD]` | `0` quand il n'y a pas d'enfant | « 0 enfant(s) » se lit mal. Masqué par un conditionnel, les modèles Beds24 en acceptant : voir la ligne « Voyageurs » du message. |
+| `[GUESTFIRSTNAME]` | le prénom du voyageur principal (onglet **Summary** de la réservation) | **Ne pas confondre avec `[GUESTSFIRSTNAMES]`** (avec un S), qui lit l'onglet **Guests** — vide sur les réservations Airbnb, Booking.com et API. Les cinq confirmations l'utilisaient jusqu'au 2026-11-07 : elles s'ouvraient sur « Hello , ». Constaté sur une réservation de test Albiez, et sur une confirmation Barbusse du 17/10. |
 | `[APISOURCE]` | le **numéro** de canal Beds24 — mesuré le 2026-09-23 : direct `0`, Booking.com `19`, Airbnb `46` | C'est ce qui rend le message des canaux possible : `[IF>` compare des nombres, et le filtre d'une Auto Action ne sait pas distinguer Airbnb de Booking.com. ✅ **Vérifié le 2026-09-25 sur les deux canaux** — `19` sur la réservation 92207584 et `46` sur la 92390158, et non `Booking.com` / `Airbnb`. `[IF>` les compare numériquement, et le seuil `30` range chacune du bon côté. `[APISOURCETEXT]` et `[REFERRER]` rendent tous deux `Booking.com` en toutes lettres, et restent le repli si un jour `[APISOURCE]` change de nature. |
 
 ## Le nom des langues, et surtout celle que Beds24 choisit
@@ -184,7 +185,7 @@ Votre séjour à Albiez est confirmé — [FIRSTNIGHTSHORT]
 **Message**
 
 ```
-Bonjour [GUESTSFIRSTNAMES],
+Bonjour [GUESTFIRSTNAME],
 
 Merci beaucoup pour votre réservation et pour votre confiance.
 
@@ -310,7 +311,7 @@ Your stay in Albiez is confirmed — [FIRSTNIGHTSHORT]
 **Message**
 
 ```
-Hello [GUESTSFIRSTNAMES],
+Hello [GUESTFIRSTNAME],
 
 Thank you very much for your booking and for your trust.
 
@@ -373,7 +374,7 @@ Ihr Aufenthalt in Albiez ist bestätigt — [FIRSTNIGHTSHORT]
 **Nachricht**
 
 ```
-Guten Tag [GUESTSFIRSTNAMES],
+Guten Tag [GUESTFIRSTNAME],
 
 vielen Dank für Ihre Buchung und für Ihr Vertrauen.
 
@@ -436,7 +437,7 @@ Su estancia en Albiez está confirmada — [FIRSTNIGHTSHORT]
 **Mensaje**
 
 ```
-Hola [GUESTSFIRSTNAMES]:
+Hola [GUESTFIRSTNAME]:
 
 Muchas gracias por su reserva y por su confianza.
 
@@ -499,7 +500,7 @@ Il vostro soggiorno ad Albiez è confermato — [FIRSTNIGHTSHORT]
 **Messaggio**
 
 ```
-Buongiorno [GUESTSFIRSTNAMES],
+Buongiorno [GUESTFIRSTNAME],
 
 grazie mille per la vostra prenotazione e per la vostra fiducia.
 
