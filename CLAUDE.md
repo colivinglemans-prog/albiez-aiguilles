@@ -2063,7 +2063,7 @@ photos de couverture. Une photo très claire ou très chargée convient.
 
 Les messages automatiques ne sont plus écrits dans Beds24 mais **dans ce dépôt** :
 `lib/messages/templates.ts` (avant l'arrivée à J-7 10h, code de la boîte à clés le jour d'arrivée
-à 8h, lendemain de l'arrivée à 9h, veille du départ à 9h), en cinq langues, vouvoiement, **signés
+à 8h, lendemain de l'arrivée à 9h, veille du départ à 14h), en cinq langues, vouvoiement, **signés
 « Alexandre »** (décision de l'hôte du 2026-11-08 : Isabelle ne gère rien). Le moteur est celui du
 socle (`@sejour/socle/lib/guest-messaging`, section v3.18.0 de son CLAUDE.md).
 **La confirmation de réservation reste dans Beds24** (617008 et 625162, facture et lien de

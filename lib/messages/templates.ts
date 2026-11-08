@@ -409,7 +409,8 @@ const depart: MessageTemplate = {
   id: "depart",
   label: "Veille du départ (consignes et avis)",
   version: 3,
-  trigger: { anchor: "departure", offsetDays: -1, at: "09:00" },
+  // 14h, comme le message programmé Airbnb qu'il remplace (relevé le 2026-11-08).
+  trigger: { anchor: "departure", offsetDays: -1, at: "14:00" },
   late: { mode: "skip", graceHours: 8 },
   // Sur une nuit, la veille du départ est le jour d'arrivée : le code vient de partir, on n'ajoute rien.
   conditions: { quietHours: 12 },
