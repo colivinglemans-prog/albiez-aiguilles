@@ -1308,6 +1308,7 @@ saison ». Trois décisions qui ont demandé un aller-retour :
 | `DASHBOARD_SECRET` | Secret de signature du JWT (HS256). |
 | `QUOTE_SIGNING_SECRET` | Signe les devis IA (`/devis/<jeton>`), 32 caractères au moins. Rotation : l'ancien passe dans `QUOTE_SIGNING_SECRET_PREVIOUS` pendant 7 jours. Absent : l'API chiffre quand même, sans lien de devis. |
 | `ALBIEZ_CODE_BOITE_A_CLES` | Code de la boîte à clés, servi au seul administrateur par `/api/dashboard/code-acces`. **Jamais dans le code** : le dépôt est public. |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` / `GSC_SITE_URL` | Clé JSON du compte de service (invité « Restreint » sur la propriété) et `sc-domain:albiez-aiguilles.fr` (propriété Domaine, TXT DNS — jamais de balise de vérification). Servent `/api/dashboard/referencement` (page « Référencement », socle v3.16.0), admin seul. ~2,5 Ko à compter dans les 64 Ko avec `HISTORIQUE_ALBIEZ`. |
 
 **Posées dans les trois environnements** depuis le 2026-09-11 : les quatre jetons Beds24,
 `CRON_SECRET` et `ALBIEZ_CODE_BOITE_A_CLES` (relevé sur `vercel env ls`, pas supposé). Restent
