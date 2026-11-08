@@ -4,8 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Die Albiez C'Show ist der Abend des Skigebiets: jeden Dienstagabend in den Schulferien,
-        am Pistenzugang von Le Mollard. Fackelabfahrt, Pistenraupen-Show, Vorführungen der
+        Die Albiez C'Show ist der Abend des Skigebiets: dienstagabends, in den Weihnachts-
+        und Februarferien, am Pistenzugang von Le Mollard. Fackelabfahrt, Pistenraupen-Show, Vorführungen der
         Skilehrer, Feuerwerk und Glühwein. Es ist kostenlos oder fast, und es liegt 250 m von
         der Wohnung.
       </p>
@@ -20,8 +20,8 @@ export default function Article() {
         will, fährt mit den Skilehrern hinunter, die Fackel in der Hand.
       </p>
       <p>
-        Anmeldung vor Ort, ausgerüstet kommen. Die Fackel kostet ein paar Euro (rechnen Sie mit
-        5 €).
+        Anmeldung vor Ort, ausgerüstet kommen: Die Fackel kostet 5 €, und mit ihrem Kauf ist
+        man angemeldet.
       </p>
 
       <h3>Die Vorführungen</h3>
@@ -41,7 +41,9 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>Wann</strong>: jeden Dienstagabend in den Schulferien
+          <strong>Wann</strong>: dienstagabends. Für den Winter 2026-2027 kündigt das
+          Tourismusbüro die Fackelabfahrt vom 19. Dezember bis 3. Januar und vom 2. bis
+          23. Februar an, dazu zwei Mittwoche, den 3. und den 10. März
           <br />
           <strong>Wo</strong>: Pistenzugang von Le Mollard, 250 m von der Wohnung
           <br />
@@ -72,7 +74,8 @@ export default function Article() {
       <h2>Die Uhrzeiten prüfen</h2>
       <p>
         Die genauen Termine und Uhrzeiten wechseln von Saison zu Saison – sie folgen dem Kalender
-        der Schulferien, und am Ende des Winters wird es später dunkel. Das Veranstaltungsprogramm
+        der Ferien, und am Ende des Winters wird es später dunkel (17:45 oder 18 Uhr im Dezember
+        und Februar, 18:15 Uhr im März, laut Tourismusbüro). Das Veranstaltungsprogramm
         ist im Tourismusbüro von Albiez-Montrond im Dorfkern erhältlich, wo man auch den Plan des
         Skigebiets und das Kinoprogramm findet.
       </p>

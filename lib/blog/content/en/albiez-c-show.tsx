@@ -4,8 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        The Albiez C'Show is the resort's night out: every Tuesday evening during the French
-        school holidays, on the Mollard snow front. A torchlit descent, a piste-basher show,
+        The Albiez C'Show is the resort's night out: on Tuesday evenings during the
+        Christmas and February holidays, on the Mollard snow front. A torchlit descent, a piste-basher show,
         instructor demonstrations, fireworks and mulled wine. It is free or nearly, and it
         is 250 m from the apartment.
       </p>
@@ -20,8 +20,8 @@ export default function Article() {
         holidaymakers ski down alongside the instructors, torch in hand.
       </p>
       <p>
-        Sign up on the spot and come properly dressed. The torch itself costs a few euros
-        (around €5).
+        Sign up on the spot and come properly dressed: the torch costs €5, and buying it
+        counts as signing up.
       </p>
 
       <h3>The demonstrations</h3>
@@ -42,7 +42,9 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>When</strong>: every Tuesday evening during the school holidays
+          <strong>When</strong>: Tuesday evenings. For winter 2026-2027, the tourist office
+          lists the torchlit descent from 19 December to 3 January and from 2 to 23 February,
+          plus two Wednesdays, 3 and 10 March
           <br />
           <strong>Where</strong>: the Mollard snow front, 250 m from the apartment
           <br />
@@ -72,8 +74,9 @@ export default function Article() {
 
       <h2>Checking the times</h2>
       <p>
-        Exact dates and times change from one season to the next — they follow the school
-        holiday calendar, and darkness falls later towards the end of winter. The events
+        Exact dates and times change from one season to the next — they follow the holiday
+        calendar, and darkness falls later towards the end of winter (5:45 pm or 6 pm in
+        December and February, 6:15 pm in March, according to the tourist office). The events
         programme is available at the Albiez-Montrond tourist office in the village centre,
         along with the resort map and the cinema listings.
       </p>

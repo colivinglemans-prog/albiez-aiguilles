@@ -5,8 +5,9 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond conta quattro noleggi di attrezzatura: tre all'accesso alle piste del Mollard, a 250 m
-        dall'alloggio, e uno nel centro del paese. Tutti offrono uno sconto a chi prenota online prima di
+        Albiez-Montrond conta quattro noleggi di attrezzatura, distribuiti tra i due settori della località:
+        due all'accesso alle piste del Mollard, a 250 m dall'alloggio, e due al Chef-lieu, il borgo storico.
+        Tutti offrono uno sconto a chi prenota online prima di
         arrivare. Ecco cosa copre ciascuno.
       </p>
 
@@ -18,7 +19,7 @@ export default function Article() {
         consiglio è buono, l'accoglienza anche, e tutto si risolve sul posto senza risalire in paese.
       </p>
       <p>
-        Il più grande dei tre: <strong>135 m²</strong> di noleggio, officina sci e spazio vendita
+        <strong>135 m²</strong> di noleggio, officina sci e spazio vendita
         (attrezzatura, accessori, abbigliamento). Il catalogo è ampio: sci alpino, freeride, scialpinismo, sci
         di fondo, snowboard, ciaspole, scarponi, slittino per adulti, snowscoot, zaino porta-bebè.
       </p>
@@ -37,20 +38,27 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>Skiset Ski Attitude</h3>
+      <h3>Mustang 1650 — Skiset</h3>
       <p>
-        Lo Skiset più vicino all'alloggio. Noleggio e manutenzione di sci e snowboard, con spazio vendita:
-        attrezzatura da sci d'inverno, da escursionismo d'estate. Sconto interessante prenotando online.
+        L'ex negozio Ski Attitude, rilevato da Mustang, nel cuore dell'accesso alle piste e aperto tutto
+        l'anno. Noleggio e vendita di sci e snowboard, consulenza sugli scarponi con uno scanner 3D (Bootdoc),
+        laboratorio di manutenzione: affilatura, sciolinatura, regolazioni. Sconto prenotando online.
+      </p>
+      <p>
+        È anche qui che si prenotano le uscite di Mustang: motoslitta, serate igloo e trapper,{" "}
+        <Link href="/it/guide/sunset-ride-albiez-vtt-pistes">Sunset Ride</Link> in mountain bike sulle piste.
+        Il dettaglio è nel nostro articolo sulla{" "}
+        <Link href="/it/guide/motoneige-igloo-albiez">motoslitta e le serate igloo</Link>.
       </p>
 
-      <h3>Skimium — Mustang Sports</h3>
-      <p>
-        Con base nel centro del paese ma presente la sera all'accesso alle piste del Mollard, il che lo rende
-        un'opzione pratica al rientro dalle piste. Oltre allo sci, Mustang Sports propone motoslitta, serate
-        igloo, una scuola di ciclismo e mountain bike elettriche.
-      </p>
+      <h2>Al Chef-lieu (2 km)</h2>
 
-      <h2>Nel centro del paese (2 km)</h2>
+      <h3>Mustang 1550 — Skimium</h3>
+      <p>
+        Il più grande negozio di sport della località, aperto tutto l'anno dal 1980, vicino a piazza Opinel.
+        Noleggio e vendita di sci e snowboard, laboratorio sci e bici, noleggio di mountain bike e di mountain
+        bike elettriche. Lavora con Mustang 1650: stesse uscite, stessa squadra.
+      </p>
 
       <h3>Skiset — Albiez Sports</h3>
       <p>

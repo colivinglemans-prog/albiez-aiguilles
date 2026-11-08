@@ -46,16 +46,18 @@ export default function Article() {
         et de randonnée l'été.
       </p>
 
-      <h3>Skimium — Mustang Sports (Chef-lieu)</h3>
+      <h3>Mustang — 1550 Skimium (Chef-lieu) et 1650 Skiset (Mollard)</h3>
       <p>
-        <strong>École de vélo</strong> et <strong>VTT électriques</strong>. On les retrouve
-        aussi le soir sur le front de neige du Mollard, à 250 m du logement.
+        <strong>École de VTT</strong>, <strong>location de VTT et de VTT
+        électriques</strong>, Enduro Park et navettes. Deux magasins ouverts toute l'année :
+        le 1550 au Chef-lieu, près de la place Opinel, et le 1650 au front de neige du
+        Mollard, à 250 m du logement.
       </p>
 
-      <h3>Skiset Ski Attitude et Sport 2000 (front de neige du Mollard)</h3>
+      <h3>Sport 2000 (front de neige du Mollard)</h3>
       <p>
-        Les deux loueurs les plus proches du logement passent en mode randonnée l'été. Le
-        détail de chacun est dans notre article{" "}
+        L'autre loueur du front de neige, à 250 m du logement, passe en mode randonnée l'été. Le
+        détail des loueurs est dans notre article{" "}
         <Link href="/fr/guide/louer-ses-skis-a-albiez">
           louer son matériel à Albiez-Montrond
         </Link>

@@ -41,6 +41,34 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "sunset-ride-albiez-vtt-pistes": {
+    fr: () => import("@/lib/blog/content/fr/sunset-ride-albiez-vtt-pistes"),
+    en: () => import("@/lib/blog/content/en/sunset-ride-albiez-vtt-pistes"),
+    de: () => import("@/lib/blog/content/de/sunset-ride-albiez-vtt-pistes"),
+    es: () => import("@/lib/blog/content/es/sunset-ride-albiez-vtt-pistes"),
+    it: () => import("@/lib/blog/content/it/sunset-ride-albiez-vtt-pistes"),
+  },
+  "animations-gratuites-albiez-semaine": {
+    fr: () => import("@/lib/blog/content/fr/animations-gratuites-albiez-semaine"),
+    en: () => import("@/lib/blog/content/en/animations-gratuites-albiez-semaine"),
+    de: () => import("@/lib/blog/content/de/animations-gratuites-albiez-semaine"),
+    es: () => import("@/lib/blog/content/es/animations-gratuites-albiez-semaine"),
+    it: () => import("@/lib/blog/content/it/animations-gratuites-albiez-semaine"),
+  },
+  "ski-de-randonnee-albiez-debutant": {
+    fr: () => import("@/lib/blog/content/fr/ski-de-randonnee-albiez-debutant"),
+    en: () => import("@/lib/blog/content/en/ski-de-randonnee-albiez-debutant"),
+    de: () => import("@/lib/blog/content/de/ski-de-randonnee-albiez-debutant"),
+    es: () => import("@/lib/blog/content/es/ski-de-randonnee-albiez-debutant"),
+    it: () => import("@/lib/blog/content/it/ski-de-randonnee-albiez-debutant"),
+  },
+  "motoneige-igloo-albiez": {
+    fr: () => import("@/lib/blog/content/fr/motoneige-igloo-albiez"),
+    en: () => import("@/lib/blog/content/en/motoneige-igloo-albiez"),
+    de: () => import("@/lib/blog/content/de/motoneige-igloo-albiez"),
+    es: () => import("@/lib/blog/content/es/motoneige-igloo-albiez"),
+    it: () => import("@/lib/blog/content/it/motoneige-igloo-albiez"),
+  },
   "forfait-saison-albiez": {
     fr: () => import("@/lib/blog/content/fr/forfait-saison-albiez"),
     en: () => import("@/lib/blog/content/en/forfait-saison-albiez"),

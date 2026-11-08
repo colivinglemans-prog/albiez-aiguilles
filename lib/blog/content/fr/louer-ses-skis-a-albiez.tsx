@@ -5,9 +5,10 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond compte quatre loueurs de matériel : trois au front de neige du
-        Mollard, à 250 m du logement, et un au Chef-lieu. Tous proposent une réduction à
-        qui réserve en ligne avant d'arriver. Voici ce que chacun couvre.
+        Albiez-Montrond compte quatre loueurs de matériel, répartis entre les deux
+        secteurs de la station : deux au front de neige du Mollard, à 250 m du logement, et
+        deux au Chef-lieu, le village historique. Tous proposent une réduction à qui
+        réserve en ligne avant d'arriver. Voici ce que chacun couvre.
       </p>
 
       <h2>Au front de neige du Mollard (250 m du logement)</h2>
@@ -19,7 +20,7 @@ export default function Article() {
         sur place sans remonter dans la station.
       </p>
       <p>
-        Le plus grand des trois : <strong>135 m²</strong> de location, entretien de ski et
+        <strong>135 m²</strong> de location, entretien de ski et
         espace de vente (matériel, accessoires, vêtements). Le catalogue est large — ski
         alpin, ski freeride, ski de randonnée, ski de fond, snowboard, raquettes,
         chaussures, luge adulte, snowscoot, porte-bébé.
@@ -40,22 +41,29 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>Skiset Ski Attitude</h3>
+      <h3>Mustang 1650 — Skiset</h3>
       <p>
-        Le Skiset le plus proche du logement. Location et entretien de ski et snowboard,
-        avec un espace de vente : matériel de ski l'hiver, de randonnée l'été. Réduction
-        avantageuse en réservation en ligne.
+        L'ancien magasin Ski Attitude, repris par Mustang, au cœur du front de neige et
+        ouvert toute l'année. Location et vente de ski et snowboard, conseil chaussures
+        avec un scanner 3D (Bootdoc), atelier d'entretien : affûtage, fartage, réglages.
+        Réduction en réservant en ligne.
       </p>
-
-      <h3>Skimium — Mustang Sports</h3>
       <p>
-        Basé au Chef-lieu mais présent le soir sur le front de neige du Mollard, ce qui en
-        fait une option pratique quand on rentre de piste. Au-delà du ski, Mustang Sports
-        propose de la motoneige, des soirées igloo, une école de vélo et des VTT
-        électriques.
+        C'est aussi là que se réservent les sorties de Mustang : motoneige, soirées igloo
+        et trappeur, <Link href="/fr/guide/sunset-ride-albiez-vtt-pistes">Sunset Ride</Link>{" "}
+        en VTT sur les pistes. Le détail est dans notre article sur la{" "}
+        <Link href="/fr/guide/motoneige-igloo-albiez">motoneige et les soirées igloo</Link>.
       </p>
 
       <h2>Au Chef-lieu (2 km)</h2>
+
+      <h3>Mustang 1550 — Skimium</h3>
+      <p>
+        Le plus grand magasin de sport de la station, ouvert toute l'année depuis 1980,
+        près de la place Opinel. Location et vente de ski et snowboard, atelier ski et vélo,
+        location de VTT et de VTT électriques. Il travaille avec Mustang 1650 : mêmes
+        sorties, même équipe.
+      </p>
 
       <h3>Skiset — Albiez Sports</h3>
       <p>

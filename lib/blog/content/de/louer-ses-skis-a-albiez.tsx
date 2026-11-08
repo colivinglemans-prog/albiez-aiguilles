@@ -5,8 +5,9 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond hat vier Ausrüstungsverleihe: drei am Pistenzugang von Le Mollard, 250 m von der
-        Wohnung, und einen im Dorfkern. Alle geben einen Rabatt, wenn man vor der Anreise online bucht. Hier
+        Albiez-Montrond hat vier Ausrüstungsverleihe, verteilt auf die beiden Sektoren des Skigebiets:
+        zwei am Pistenzugang von Le Mollard, 250 m von der Wohnung, und zwei im Chef-lieu, dem historischen
+        Dorfkern. Alle geben einen Rabatt, wenn man vor der Anreise online bucht. Hier
         steht, was jeder abdeckt.
       </p>
 
@@ -19,7 +20,7 @@ export default function Article() {
         zu fahren.
       </p>
       <p>
-        Der größte der drei: <strong>135 m²</strong> Verleih, Skiservice und Verkaufsfläche (Ausrüstung,
+        <strong>135 m²</strong> Verleih, Skiservice und Verkaufsfläche (Ausrüstung,
         Zubehör, Kleidung). Das Angebot ist breit – Alpinski, Freeride-Ski, Tourenski, Langlaufski, Snowboard,
         Schneeschuhe, Schuhe, Erwachsenenschlitten, Snowscoot, Babytrage.
       </p>
@@ -39,21 +40,27 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>Skiset Ski Attitude</h3>
+      <h3>Mustang 1650 — Skiset</h3>
       <p>
-        Der Skiset, der der Wohnung am nächsten liegt. Verleih und Service für Ski und Snowboard, mit
-        Verkaufsfläche: Skiausrüstung im Winter, Wanderausrüstung im Sommer. Attraktiver Rabatt bei
-        Onlinebuchung.
+        Das ehemalige Geschäft Ski Attitude, von Mustang übernommen, mitten am Pistenzugang und das ganze
+        Jahr geöffnet. Verleih und Verkauf von Ski und Snowboard, Schuhberatung mit einem 3D-Scanner
+        (Bootdoc), Servicewerkstatt: Schleifen, Wachsen, Einstellungen. Rabatt bei Onlinebuchung.
+      </p>
+      <p>
+        Dort bucht man auch die Ausflüge von Mustang: Motorschlitten, Iglu- und Trapperabende,{" "}
+        <Link href="/de/guide/sunset-ride-albiez-vtt-pistes">Sunset Ride</Link> mit dem Mountainbike auf
+        den Pisten. Die Einzelheiten stehen in unserem Artikel über{" "}
+        <Link href="/de/guide/motoneige-igloo-albiez">Motorschlitten und Igluabende</Link>.
       </p>
 
-      <h3>Skimium — Mustang Sports</h3>
-      <p>
-        Im Dorfkern angesiedelt, aber abends am Pistenzugang von Le Mollard präsent, was ihn beim Rückweg von
-        der Piste praktisch macht. Über den Ski hinaus bietet Mustang Sports Motorschlittenfahrten,
-        Igluabende, eine Radschule und E-Mountainbikes.
-      </p>
+      <h2>Im Chef-lieu, dem Dorfkern (2 km)</h2>
 
-      <h2>Im Dorfkern (2 km)</h2>
+      <h3>Mustang 1550 — Skimium</h3>
+      <p>
+        Das größte Sportgeschäft des Skigebiets, seit 1980 ganzjährig geöffnet, nahe der place Opinel.
+        Verleih und Verkauf von Ski und Snowboard, Ski- und Radwerkstatt, Verleih von Mountainbikes und
+        E-Mountainbikes. Es arbeitet mit Mustang 1650 zusammen: dieselben Ausflüge, dasselbe Team.
+      </p>
 
       <h3>Skiset — Albiez Sports</h3>
       <p>

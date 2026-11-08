@@ -45,16 +45,18 @@ export default function Article() {
         d'estate.
       </p>
 
-      <h3>Skimium — Mustang Sports (centro del paese)</h3>
+      <h3>Mustang — 1550 Skimium (Chef-lieu) e 1650 Skiset (Mollard)</h3>
       <p>
-        <strong>Scuola di ciclismo</strong> e <strong>mountain bike elettriche</strong>. Li si
-        ritrova anche la sera all'accesso alle piste del Mollard, a 250 m dall'alloggio.
+        <strong>Scuola di mountain bike</strong>, <strong>noleggio di mountain bike e di mountain
+        bike elettriche</strong>, Enduro Park e navette. Due negozi aperti tutto l'anno: il 1550
+        al Chef-lieu, vicino a piazza Opinel, e il 1650 all'accesso alle piste del Mollard, a
+        250 m dall'alloggio.
       </p>
 
-      <h3>Skiset Ski Attitude e Sport 2000 (accesso alle piste del Mollard)</h3>
+      <h3>Sport 2000 (accesso alle piste del Mollard)</h3>
       <p>
-        I due noleggi più vicini all'alloggio passano in modalità escursionismo d'estate. Il
-        dettaglio di ciascuno è nel nostro articolo{" "}
+        L'altro noleggio dell'accesso alle piste, a 250 m dall'alloggio, passa in modalità escursionismo d'estate. Il
+        dettaglio di tutti i noleggi è nel nostro articolo{" "}
         <Link href="/it/guide/louer-ses-skis-a-albiez">
           noleggiare l'attrezzatura ad Albiez-Montrond
         </Link>

@@ -5,9 +5,10 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond has four ski hire shops: three on the Mollard snow front, 250 m from
-        the apartment, and one in the village centre. All of them offer a discount if you
-        book online before you arrive. Here is what each one covers.
+        Albiez-Montrond has four ski hire shops, split between the resort's two sectors:
+        two at the foot of the slopes in the Mollard, 250 m from the apartment, and two in
+        the Chef-lieu, the historic village. All of them offer a discount if you book online
+        before you arrive. Here is what each one covers.
       </p>
 
       <h2>On the Mollard snow front (250 m from the apartment)</h2>
@@ -19,7 +20,7 @@ export default function Article() {
         without going further into the resort.
       </p>
       <p>
-        The largest of the three: <strong>135 m²</strong> of hire, servicing and retail
+        <strong>135 m²</strong> of hire, servicing and retail
         space (equipment, accessories, clothing). The catalogue is broad — alpine skis,
         freeride skis, touring skis, cross-country skis, snowboards, snowshoes, boots, adult
         sledges, snowscoots, child carriers.
@@ -40,22 +41,29 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>Skiset Ski Attitude</h3>
+      <h3>Mustang 1650 — Skiset</h3>
       <p>
-        The closest Skiset to the apartment. Ski and snowboard hire and servicing, with a
-        retail space: ski equipment in winter, hiking gear in summer. Worthwhile discount
-        for online bookings.
+        The former Ski Attitude shop, taken over by Mustang, right at the foot of the slopes
+        and open all year round. Ski and snowboard hire and sales, boot fitting with a 3D
+        scanner (Bootdoc), servicing workshop: sharpening, waxing, adjustments. Discount
+        when you book online.
+      </p>
+      <p>
+        This is also where Mustang's outings are booked: snowmobiling, igloo and trapper
+        evenings, the <Link href="/en/guide/sunset-ride-albiez-vtt-pistes">Sunset Ride</Link>{" "}
+        on e-mountain bikes down the pistes. The details are in our article on{" "}
+        <Link href="/en/guide/motoneige-igloo-albiez">snowmobiling and igloo evenings</Link>.
       </p>
 
-      <h3>Skimium — Mustang Sports</h3>
-      <p>
-        Based in the village centre but present on the Mollard snow front in the evening,
-        which makes it a practical option on the way back from the slopes. Beyond skiing,
-        Mustang Sports offers snowmobiling, igloo evenings, a cycling school and electric
-        mountain bikes.
-      </p>
+      <h2>In the Chef-lieu (2 km)</h2>
 
-      <h2>In the village centre (2 km)</h2>
+      <h3>Mustang 1550 — Skimium</h3>
+      <p>
+        The resort's largest sports shop, open all year round since 1980, near place
+        Opinel. Ski and snowboard hire and sales, ski and bike workshop, mountain bike and
+        e-mountain bike hire. It works hand in hand with Mustang 1650: same outings, same
+        team.
+      </p>
 
       <h3>Skiset — Albiez Sports</h3>
       <p>

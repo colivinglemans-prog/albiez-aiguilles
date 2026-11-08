@@ -4,8 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        El Albiez C'Show es la fiesta de la estación: todos los martes por la tarde durante las
-        vacaciones escolares, en el acceso a pistas del Mollard. Bajada de antorchas, espectáculo
+        El Albiez C'Show es la fiesta de la estación: el martes por la tarde, durante las
+        vacaciones de Navidad y de febrero, en el acceso a pistas del Mollard. Bajada de antorchas, espectáculo
         de máquinas pisanieves, demostraciones de los monitores, fuegos artificiales y vino
         caliente. Es gratis o casi, y está a 250 m del alojamiento.
       </p>
@@ -20,8 +20,8 @@ export default function Article() {
         veraneantes que quieran bajan con los monitores, antorcha en mano.
       </p>
       <p>
-        Inscripción en el sitio, hay que venir equipado. La antorcha cuesta unos pocos euros
-        (cuente 5 €).
+        Inscripción en el sitio, hay que venir equipado: la antorcha se compra por 5 €, y
+        comprarla vale como inscripción.
       </p>
 
       <h3>Las demostraciones</h3>
@@ -42,7 +42,9 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>Cuándo</strong>: todos los martes por la tarde durante las vacaciones escolares
+          <strong>Cuándo</strong>: el martes por la tarde. Para el invierno 2026-2027, la oficina
+          de turismo anuncia la bajada de antorchas del 19 de diciembre al 3 de enero y del 2 al
+          23 de febrero, además de dos miércoles, el 3 y el 10 de marzo
           <br />
           <strong>Dónde</strong>: acceso a pistas del Mollard, a 250 m del alojamiento
           <br />
@@ -73,7 +75,8 @@ export default function Article() {
       <h2>Comprobar los horarios</h2>
       <p>
         Las fechas y horarios exactos cambian de una temporada a otra: siguen el calendario de las
-        vacaciones escolares y la noche cae más tarde al final del invierno. El programa de
+        vacaciones y la noche cae más tarde al final del invierno (17.45 h o 18 h en diciembre y
+        febrero, 18.15 h en marzo, según la oficina de turismo). El programa de
         animaciones está disponible en la oficina de turismo de Albiez-Montrond, en el centro del
         pueblo, donde también se encuentran el plano de la estación y la programación del cine.
       </p>

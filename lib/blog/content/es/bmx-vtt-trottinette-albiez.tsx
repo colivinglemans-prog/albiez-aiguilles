@@ -45,16 +45,18 @@ export default function Article() {
         verano.
       </p>
 
-      <h3>Skimium — Mustang Sports (centro del pueblo)</h3>
+      <h3>Mustang — 1550 Skimium (Chef-lieu) y 1650 Skiset (Mollard)</h3>
       <p>
-        <strong>Escuela de ciclismo</strong> y <strong>BTT eléctricas</strong>. También se les
-        encuentra por la tarde en el acceso a pistas del Mollard, a 250 m del alojamiento.
+        <strong>Escuela de BTT</strong>, <strong>alquiler de BTT y de BTT
+        eléctricas</strong>, Enduro Park y lanzaderas. Dos tiendas abiertas todo el año: la 1550
+        en el Chef-lieu, cerca de la place Opinel, y la 1650 en el acceso a pistas del Mollard, a
+        250 m del alojamiento.
       </p>
 
-      <h3>Skiset Ski Attitude y Sport 2000 (acceso a pistas del Mollard)</h3>
+      <h3>Sport 2000 (acceso a pistas del Mollard)</h3>
       <p>
-        Las dos tiendas más cercanas al alojamiento pasan a modo senderismo en verano. El detalle
-        de cada una está en nuestro artículo{" "}
+        La otra tienda del acceso a pistas, a 250 m del alojamiento, pasa a modo senderismo en
+        verano. El detalle de todas las tiendas está en nuestro artículo{" "}
         <Link href="/es/guide/louer-ses-skis-a-albiez">
           alquilar el material en Albiez-Montrond
         </Link>

@@ -45,16 +45,18 @@ export default function Article() {
         100 m² retail space, with ski equipment in winter and hiking gear in summer.
       </p>
 
-      <h3>Skimium — Mustang Sports (village centre)</h3>
+      <h3>Mustang — 1550 Skimium (Chef-lieu) and 1650 Skiset (Mollard)</h3>
       <p>
-        A <strong>cycling school</strong> and <strong>electric mountain bikes</strong>. They
-        are also on the Mollard snow front in the evening, 250 m from the apartment.
+        A <strong>mountain bike school</strong>, <strong>mountain bike and e-mountain bike
+        hire</strong>, an Enduro Park and shuttles. Two shops open all year round: the 1550
+        in the Chef-lieu, near place Opinel, and the 1650 at the foot of the slopes in the
+        Mollard, 250 m from the apartment.
       </p>
 
-      <h3>Skiset Ski Attitude and Sport 2000 (Mollard snow front)</h3>
+      <h3>Sport 2000 (Mollard snow front)</h3>
       <p>
-        The two shops closest to the apartment switch to hiking gear in summer. Each one is
-        described in our article on{" "}
+        The other hire shop at the foot of the slopes, 250 m from the apartment, switches to
+        hiking gear in summer. All the shops are described in our article on{" "}
         <Link href="/en/guide/louer-ses-skis-a-albiez">
           hiring equipment in Albiez-Montrond
         </Link>

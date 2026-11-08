@@ -4,8 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        L'Albiez C'Show è la serata della località: ogni martedì sera durante le vacanze
-        scolastiche, all'accesso alle piste del Mollard. Fiaccolata, spettacolo dei gatti delle
+        L'Albiez C'Show è la serata della località: il martedì sera, durante le vacanze
+        di Natale e di febbraio, all'accesso alle piste del Mollard. Fiaccolata, spettacolo dei gatti delle
         nevi, dimostrazioni dei maestri, fuochi d'artificio e vin brulé. È gratuito o quasi, e si
         trova a 250 m dall'alloggio.
       </p>
@@ -20,7 +20,8 @@ export default function Article() {
         vogliono scendono con i maestri, fiaccola in mano.
       </p>
       <p>
-        Iscrizione sul posto, venite attrezzati. La fiaccola costa qualche euro (calcolate 5 €).
+        Iscrizione sul posto, venite attrezzati: la fiaccola si acquista a 5 €, e acquistarla vale
+        come iscrizione.
       </p>
 
       <h3>Le dimostrazioni</h3>
@@ -40,7 +41,9 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>Quando</strong>: ogni martedì sera durante le vacanze scolastiche
+          <strong>Quando</strong>: il martedì sera. Per l'inverno 2026-2027, l'ufficio del turismo
+          annuncia la fiaccolata dal 19 dicembre al 3 gennaio e dal 2 al 23 febbraio, più due
+          mercoledì, il 3 e il 10 marzo
           <br />
           <strong>Dove</strong>: accesso alle piste del Mollard, a 250 m dall'alloggio
           <br />
@@ -71,7 +74,8 @@ export default function Article() {
       <h2>Verificare gli orari</h2>
       <p>
         Date e orari esatti cambiano da una stagione all'altra: seguono il calendario delle vacanze
-        scolastiche e la notte scende più tardi a fine inverno. Il programma delle animazioni è
+        e la notte scende più tardi a fine inverno (17:45 o 18:00 a dicembre e febbraio, 18:15 a
+        marzo, secondo l'ufficio del turismo). Il programma delle animazioni è
         disponibile all'ufficio del turismo di Albiez-Montrond, nel centro del paese, dove si
         trovano anche la mappa della località e il programma del cinema.
       </p>

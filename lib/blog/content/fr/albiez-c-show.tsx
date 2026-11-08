@@ -4,8 +4,8 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        L'Albiez C'Show est la soirée de la station : tous les mardis soir pendant les
-        vacances scolaires, sur le front de neige du Mollard. Descente aux flambeaux, show
+        L'Albiez C'Show est la soirée de la station : le mardi soir, pendant les vacances
+        de Noël et de février, sur le front de neige du Mollard. Descente aux flambeaux, show
         des dameuses, démonstrations des moniteurs, feu d'artifice et vin chaud. C'est
         gratuit ou presque, et c'est à 250 m du logement.
       </p>
@@ -20,8 +20,8 @@ export default function Article() {
         Les vacanciers volontaires descendent avec les moniteurs, flambeau à la main.
       </p>
       <p>
-        Inscription sur place, venir équipé. Le flambeau est facturé quelques euros
-        (comptez 5 €).
+        Inscription sur place, venir équipé : le flambeau s'achète 5 €, et l'acheter vaut
+        inscription.
       </p>
 
       <h3>Les démonstrations</h3>
@@ -42,7 +42,9 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>Quand</strong> : tous les mardis soir pendant les vacances scolaires
+          <strong>Quand</strong> : le mardi soir. Pour l'hiver 2026-2027, l'office annonce
+          la descente aux flambeaux du 19 décembre au 3 janvier et du 2 au 23 février, plus
+          deux mercredis, le 3 et le 10 mars
           <br />
           <strong>Où</strong> : front de neige du Mollard, à 250 m du logement
           <br />
@@ -73,7 +75,8 @@ export default function Article() {
       <h2>Vérifier les horaires</h2>
       <p>
         Les dates et horaires exacts changent d'une saison à l'autre — ils suivent le
-        calendrier des vacances scolaires et la nuit tombe plus tard en fin d'hiver. Le
+        calendrier des vacances et la nuit tombe plus tard en fin d'hiver (17 h 45 ou 18 h
+        en décembre et février, 18 h 15 en mars, selon l'office). Le
         programme d'animation est disponible à l'office de tourisme d'Albiez-Montrond, au
         Chef-lieu, où l'on trouve aussi le plan de la station et le programme du cinéma.
       </p>

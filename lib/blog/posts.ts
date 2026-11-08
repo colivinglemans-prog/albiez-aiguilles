@@ -73,6 +73,344 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "sunset-ride-albiez-vtt-pistes",
+    date: "2026-11-08",
+    // Photo de Mustang, prise au sommet du télésiège du Loup, publiée sur Facebook. Reprise
+    // avec leur accord (confirmé par l'hôte le 2026-11-08) : pas de licence, seulement
+    // l'auteur à nommer.
+    image: "blog/sunset-ride-albiez-vtt-pistes.jpg",
+    imageCredit: {
+      author: "Mustang Albiez",
+      sourceUrl: "https://www.facebook.com/Albiez",
+    },
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Sunset Ride à Albiez : descendre les pistes en VTT électrique au coucher du soleil",
+        description:
+          "Le jeudi, Mustang Sports fait monter un petit groupe en VTT électrique par le dernier télésiège, puis redescendre les pistes d'Albiez au coucher du soleil. Dès 13 ans, à partir de 89 €.",
+        excerpt:
+          "Le jeudi en fin d'après-midi, on descend les pistes d'Albiez en VTT électrique au coucher du soleil, avec un moniteur, et la sortie finit par un apéritif savoyard.",
+        keywords: [
+          "sunset ride albiez",
+          "vtt électrique sur piste de ski",
+          "albiez-montrond activité hiver",
+          "mustang sports albiez",
+          "activité ado station de ski",
+        ],
+      },
+      en: {
+        title: "Sunset Ride in Albiez: riding down the pistes on an e-mountain bike at sunset",
+        description:
+          "On Thursdays, Mustang Sports takes a small group up the last chairlift on electric mountain bikes, then back down the Albiez pistes at sunset. From age 13, from €89.",
+        excerpt:
+          "On Thursday late afternoons, you ride down the Albiez pistes on an electric mountain bike at sunset, with an instructor, and the outing ends with a Savoyard aperitif.",
+        keywords: [
+          "sunset ride albiez",
+          "e-mountain bike on ski pistes",
+          "albiez-montrond winter activity",
+          "mustang sports albiez",
+          "teen activity ski resort",
+        ],
+      },
+      de: {
+        title: "Sunset Ride in Albiez: mit dem E-Mountainbike bei Sonnenuntergang die Pisten hinunter",
+        description:
+          "Donnerstags bringt Mustang Sports eine kleine Gruppe mit E-Mountainbikes per letztem Sessellift nach oben und fährt dann bei Sonnenuntergang die Pisten von Albiez hinunter. Ab 13 Jahren, ab 89 €.",
+        excerpt:
+          "Donnerstags am späten Nachmittag fährt man mit dem E-Mountainbike bei Sonnenuntergang die Pisten von Albiez hinunter, mit einem Guide, und die Tour endet mit einem savoyischen Aperitif.",
+        keywords: [
+          "Sunset Ride Albiez",
+          "E-Mountainbike auf der Skipiste",
+          "Albiez-Montrond Winteraktivität",
+          "Mustang Sports Albiez",
+          "Aktivität für Jugendliche im Skigebiet",
+        ],
+      },
+      es: {
+        title: "Sunset Ride en Albiez: bajar las pistas en BTT eléctrica a la puesta de sol",
+        description:
+          "Los jueves, Mustang Sports sube a un grupo reducido en BTT eléctrica por el último telesilla y lo hace bajar por las pistas de Albiez a la puesta de sol. A partir de 13 años, desde 89 €.",
+        excerpt:
+          "Los jueves al final de la tarde, se bajan las pistas de Albiez en BTT eléctrica a la puesta de sol, con un monitor, y la salida termina con un aperitivo saboyano.",
+        keywords: [
+          "sunset ride albiez",
+          "btt eléctrica en pista de esquí",
+          "albiez-montrond actividad invierno",
+          "mustang sports albiez",
+          "actividad adolescentes estación de esquí",
+        ],
+      },
+      it: {
+        title: "Sunset Ride ad Albiez: scendere le piste in mountain bike elettrica al tramonto",
+        description:
+          "Il giovedì, Mustang Sports porta un piccolo gruppo in mountain bike elettrica sull'ultima seggiovia, poi giù per le piste di Albiez al tramonto. Dai 13 anni, a partire da 89 €.",
+        excerpt:
+          "Il giovedì nel tardo pomeriggio si scendono le piste di Albiez in mountain bike elettrica al tramonto, con un istruttore, e l'uscita si conclude con un aperitivo savoiardo.",
+        keywords: [
+          "sunset ride albiez",
+          "mountain bike elettrica su pista da sci",
+          "albiez-montrond attività invernale",
+          "mustang sports albiez",
+          "attività per ragazzi stazione sciistica",
+        ],
+      },
+    },
+  },
+  {
+    slug: "animations-gratuites-albiez-semaine",
+    date: "2026-11-08",
+    // Piste de luge vue d'en haut, silhouettes minuscules. Photo de l'office de tourisme
+    // (base Apidae), reprise à la demande de l'hôte (2026-11-08).
+    image: "blog/animations-luge-albiez.jpg",
+    imageCredit: {
+      author: "Office de tourisme d'Albiez-Montrond",
+      sourceUrl: "https://www.explore-maurienne.com/stations-villages/albiez-montrond/",
+    },
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Animations gratuites à Albiez : la semaine type de l'hiver 2026-2027",
+        description:
+          "Luge tubing, Yooner, igloo, pot de bienvenue, karaoké, escape games : le programme hebdomadaire de l'office de tourisme d'Albiez, jour par jour, avec ce qui se réserve et la distance depuis le Mollard.",
+        excerpt:
+          "Le programme d'animations de l'office de tourisme, du lundi au vendredi : presque tout est gratuit, mais beaucoup se réserve avant midi.",
+        keywords: [
+          "animations Albiez-Montrond",
+          "luge tubing Albiez",
+          "Yooner Albiez",
+          "escape game Albiez",
+          "activités gratuites station de ski Savoie",
+        ],
+      },
+      en: {
+        title: "Free activities in Albiez: a typical week in winter 2026-2027",
+        description:
+          "Tubing, Yooner, igloo building, welcome drink, karaoke, escape games: the Albiez tourist office's weekly programme, day by day, with what needs booking and the distance from the Mollard.",
+        excerpt:
+          "The tourist office's activity programme, Monday to Friday: almost everything is free, but much of it must be booked before noon.",
+        keywords: [
+          "Albiez-Montrond activities",
+          "tubing Albiez",
+          "Yooner Albiez",
+          "escape game Albiez",
+          "free activities ski resort Savoie",
+        ],
+      },
+      de: {
+        title: "Kostenlose Veranstaltungen in Albiez: die typische Woche im Winter 2026-2027",
+        description:
+          "Tubing-Rodeln, Yooner, Iglu, Begrüßungsumtrunk, Karaoke, Escape Games: das Wochenprogramm des Tourismusbüros von Albiez, Tag für Tag, mit dem, was gebucht werden muss, und der Entfernung vom Mollard.",
+        excerpt:
+          "Das Veranstaltungsprogramm des Tourismusbüros, von Montag bis Freitag: Fast alles ist kostenlos, aber vieles muss vor 12 Uhr gebucht werden.",
+        keywords: [
+          "Veranstaltungen Albiez-Montrond",
+          "Tubing Rodeln Albiez",
+          "Yooner Albiez",
+          "Escape Game Albiez",
+          "kostenlose Aktivitäten Skigebiet Savoyen",
+        ],
+      },
+      es: {
+        title: "Animaciones gratuitas en Albiez: la semana tipo del invierno 2026-2027",
+        description:
+          "Trineo tubing, Yooner, iglú, aperitivo de bienvenida, karaoke, escape games: el programa semanal de la oficina de turismo de Albiez, día a día, con lo que hay que reservar y la distancia desde el Mollard.",
+        excerpt:
+          "El programa de animaciones de la oficina de turismo, de lunes a viernes: casi todo es gratis, pero mucho se reserva antes del mediodía.",
+        keywords: [
+          "animaciones Albiez-Montrond",
+          "trineo tubing Albiez",
+          "Yooner Albiez",
+          "escape game Albiez",
+          "actividades gratuitas estación de esquí Saboya",
+        ],
+      },
+      it: {
+        title: "Animazioni gratuite ad Albiez: la settimana tipo dell'inverno 2026-2027",
+        description:
+          "Tubing, Yooner, igloo, aperitivo di benvenuto, karaoke, escape game: il programma settimanale dell'ufficio del turismo di Albiez, giorno per giorno, con cosa va prenotato e la distanza dal Mollard.",
+        excerpt:
+          "Il programma di animazioni dell'ufficio del turismo, dal lunedì al venerdì: quasi tutto è gratuito, ma molto va prenotato entro mezzogiorno.",
+        keywords: [
+          "animazioni Albiez-Montrond",
+          "tubing Albiez",
+          "Yooner Albiez",
+          "escape game Albiez",
+          "attività gratuite stazione sciistica Savoia",
+        ],
+      },
+    },
+  },
+  {
+    slug: "ski-de-randonnee-albiez-debutant",
+    date: "2026-11-08",
+    // Sentier balisé sous la neige fraîche. Photo de l'office de tourisme (base Apidae),
+    // reprise à la demande de l'hôte (2026-11-08).
+    image: "blog/ski-de-randonnee-sentier-balise.jpg",
+    imageCredit: {
+      author: "Office de tourisme d'Albiez-Montrond",
+      sourceUrl: "https://www.explore-maurienne.com/activites/activites-neige/ski-de-rando/",
+    },
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Débuter le ski de randonnée à Albiez : itinéraires, règles et sorties encadrées",
+        description:
+          "Ski de randonnée à Albiez pour débutants : la montée aux Aplanes part du Mollard, le Crêt de l'âne vient ensuite. Niveau, règles sur les pistes, sécurité, location et sorties avec l'ESF ou un guide.",
+        excerpt:
+          "Deux itinéraires balisés, dont un au pied de l'appartement, et quatre façons de s'initier avec un professionnel.",
+        keywords: [
+          "ski de randonnée Albiez",
+          "initiation ski de rando",
+          "montée aux Aplanes",
+          "Crêt de l'âne",
+          "ski de randonnée débutant Maurienne",
+        ],
+      },
+      en: {
+        title: "Getting started with ski touring in Albiez: routes, rules and guided outings",
+        description:
+          "Ski touring in Albiez for beginners: the climb to les Aplanes starts from the Mollard, the Crêt de l'âne comes next. Level, rules on the pistes, safety, equipment hire and outings with the ESF or a guide.",
+        excerpt:
+          "Two waymarked routes, one of them right by the apartment, and four ways to learn with a professional.",
+        keywords: [
+          "ski touring Albiez",
+          "ski touring introduction",
+          "climb to les Aplanes",
+          "Crêt de l'âne",
+          "beginner ski touring Maurienne",
+        ],
+      },
+      de: {
+        title: "Skitouren für Einsteiger in Albiez: Routen, Regeln und geführte Touren",
+        description:
+          "Skitourengehen in Albiez für Einsteiger: Der Aufstieg zu den Aplanes beginnt am Mollard, der Crêt de l'âne folgt danach. Niveau, Regeln auf den Pisten, Sicherheit, Verleih und Touren mit der ESF oder einem Bergführer.",
+        excerpt:
+          "Zwei markierte Routen, eine davon direkt bei der Wohnung, und vier Möglichkeiten, mit einem Profi einzusteigen.",
+        keywords: [
+          "Skitouren Albiez",
+          "Einführung Skitourengehen",
+          "Aufstieg zu den Aplanes",
+          "Crêt de l'âne",
+          "Skitouren Einsteiger Maurienne",
+        ],
+      },
+      es: {
+        title: "Empezar con el esquí de travesía en Albiez: itinerarios, normas y salidas guiadas",
+        description:
+          "Esquí de travesía en Albiez para principiantes: la subida a les Aplanes sale del Mollard, el Crêt de l'âne viene después. Nivel, normas en las pistas, seguridad, alquiler y salidas con la ESF o un guía.",
+        excerpt:
+          "Dos itinerarios balizados, uno de ellos al pie del apartamento, y cuatro maneras de iniciarse con un profesional.",
+        keywords: [
+          "esquí de travesía Albiez",
+          "iniciación esquí de travesía",
+          "subida a les Aplanes",
+          "Crêt de l'âne",
+          "esquí de travesía principiante Maurienne",
+        ],
+      },
+      it: {
+        title: "Iniziare lo scialpinismo ad Albiez: itinerari, regole e uscite accompagnate",
+        description:
+          "Scialpinismo ad Albiez per principianti: la salita agli Aplanes parte dal Mollard, il Crêt de l'âne viene dopo. Livello, regole sulle piste, sicurezza, noleggio e uscite con la ESF o una guida.",
+        excerpt:
+          "Due itinerari segnalati, di cui uno ai piedi dell'appartamento, e quattro modi di iniziare con un professionista.",
+        keywords: [
+          "scialpinismo Albiez",
+          "iniziazione scialpinismo",
+          "salita agli Aplanes",
+          "Crêt de l'âne",
+          "scialpinismo principianti Maurienne",
+        ],
+      },
+    },
+  },
+  {
+    slug: "motoneige-igloo-albiez",
+    date: "2026-11-08",
+    // Motoneiges sur le front de neige, Aiguilles d'Arves en fond. Photo reprise à la
+    // demande de l'hôte (2026-11-08) ; auteur supposé Mustang, qui organise les sorties.
+    // La photo de la soirée trappeur (site Mustang) est dans le corps de l'article.
+    image: "blog/motoneige-albiez.jpg",
+    imageCredit: {
+      author: "Mustang Albiez",
+      sourceUrl: "https://www.mustang-albiez.com/",
+    },
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Motoneige, igloo et fat bike : les soirées encadrées à Albiez",
+        description:
+          "Piloter une motoneige, dîner dans un igloo, enchaîner motoneige et fondue, rouler en fat bike la nuit : horaires, âges, tarifs et réservation des sorties du soir à Albiez-Montrond.",
+        excerpt:
+          "Quatre sorties encadrées à la nuit tombée à Albiez, dont trois au départ du Mollard, à quelques minutes à pied de l'appartement.",
+        keywords: [
+          "motoneige Albiez",
+          "soirée igloo Albiez",
+          "Mustang Sports Albiez",
+          "fat bike Albiez",
+          "activités hors ski Albiez-Montrond",
+        ],
+      },
+      en: {
+        title: "Snowmobile, igloo and fat bike: guided evening outings in Albiez",
+        description:
+          "Ride a snowmobile, dine in an igloo, combine snowmobiling and fondue, ride a fat bike at night: times, ages, prices and booking for the evening outings in Albiez-Montrond.",
+        excerpt:
+          "Four guided outings at nightfall in Albiez, three of them leaving from the Mollard, a few minutes' walk from the apartment.",
+        keywords: [
+          "snowmobile Albiez",
+          "igloo evening Albiez",
+          "Mustang Sports Albiez",
+          "fat bike Albiez",
+          "non-ski activities Albiez-Montrond",
+        ],
+      },
+      de: {
+        title: "Motorschlitten, Iglu und Fatbike: die geführten Abende in Albiez",
+        description:
+          "Einen Motorschlitten fahren, im Iglu essen, Motorschlitten und Fondue verbinden, nachts mit dem Fatbike fahren: Zeiten, Alter, Preise und Buchung der Abendausflüge in Albiez-Montrond.",
+        excerpt:
+          "Vier geführte Ausflüge bei Einbruch der Dunkelheit in Albiez, drei davon mit Start am Mollard, wenige Gehminuten von der Wohnung.",
+        keywords: [
+          "Motorschlitten Albiez",
+          "Igluabend Albiez",
+          "Mustang Sports Albiez",
+          "Fatbike Albiez",
+          "Aktivitäten abseits der Piste Albiez-Montrond",
+        ],
+      },
+      es: {
+        title: "Moto de nieve, iglú y fat bike: las veladas guiadas en Albiez",
+        description:
+          "Pilotar una moto de nieve, cenar en un iglú, encadenar moto de nieve y fondue, rodar en fat bike de noche: horarios, edades, tarifas y reserva de las salidas nocturnas en Albiez-Montrond.",
+        excerpt:
+          "Cuatro salidas guiadas al caer la noche en Albiez, tres de ellas desde el Mollard, a pocos minutos a pie del apartamento.",
+        keywords: [
+          "moto de nieve Albiez",
+          "velada iglú Albiez",
+          "Mustang Sports Albiez",
+          "fat bike Albiez",
+          "actividades sin esquí Albiez-Montrond",
+        ],
+      },
+      it: {
+        title: "Motoslitta, igloo e fat bike: le serate accompagnate ad Albiez",
+        description:
+          "Guidare una motoslitta, cenare in un igloo, abbinare motoslitta e fonduta, pedalare in fat bike di notte: orari, età, tariffe e prenotazione delle uscite serali ad Albiez-Montrond.",
+        excerpt:
+          "Quattro uscite accompagnate al calar della notte ad Albiez, di cui tre con partenza dal Mollard, a pochi minuti a piedi dall'appartamento.",
+        keywords: [
+          "motoslitta Albiez",
+          "serata igloo Albiez",
+          "Mustang Sports Albiez",
+          "fat bike Albiez",
+          "attività senza sci Albiez-Montrond",
+        ],
+      },
+    },
+  },
+  {
     slug: "forfait-saison-albiez",
     date: "2026-11-08",
     // Pas l'affiche de la promo de la station : elle n'est pas à nous. Une vue des pistes
@@ -996,9 +1334,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       fr: {
         title: "Louer ses skis à Albiez-Montrond : les quatre loueurs et comment payer moins cher",
         description:
-          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports : où louer ses skis à Albiez, au front de neige ou au Chef-lieu, et pourquoi réserver en ligne.",
+          "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports : où louer ses skis à Albiez, au front de neige du Mollard ou au Chef-lieu, et pourquoi réserver en ligne.",
         excerpt:
-          "Trois loueurs à 250 m du logement, un quatrième au Chef-lieu, et une réduction systématique en réservant avant d'arriver. Notre choix : Sport 2000 Aux Deux Frères.",
+          "Deux loueurs à 250 m du logement, deux au Chef-lieu, et une réduction systématique en réservant avant d'arriver. Notre choix : Sport 2000 Aux Deux Frères.",
         keywords: [
           "location ski Albiez",
           "Skiset Albiez",
@@ -1010,9 +1348,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       en: {
         title: "Ski hire in Albiez-Montrond: the four shops and how to pay less",
         description:
-          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports and Skimium Mustang Sports: where to hire skis in Albiez, by the slopes or in the village, and why to book online.",
+          "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: where to hire skis in Albiez, at the foot of the slopes in the Mollard or in the Chef-lieu, and why to book online.",
         excerpt:
-          "Three hire shops 250 m from the apartment, a fourth in the village, and a discount every time you book ahead. Our own choice: Sport 2000 Aux Deux Frères.",
+          "Two hire shops 250 m from the apartment, two in the Chef-lieu, and a discount every time you book ahead. Our own choice: Sport 2000 Aux Deux Frères.",
         keywords: [
           "ski hire Albiez",
           "Skiset Albiez",
@@ -1025,9 +1363,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         title:
           "Skiverleih in Albiez-Montrond: die vier Geschäfte und wie Sie weniger zahlen",
         description:
-          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports: wo Sie in Albiez Ski leihen, am Pistenzugang oder im Dorf, und warum Sie online buchen sollten.",
+          "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: wo Sie in Albiez Ski leihen, am Pistenzugang des Mollard oder im Chef-lieu, und warum Sie online buchen sollten.",
         excerpt:
-          "Drei Verleihe 250 m von der Wohnung, ein vierter im Dorf, und jedes Mal ein Rabatt, wenn Sie vorab buchen. Unsere Wahl: Sport 2000 Aux Deux Frères.",
+          "Zwei Verleihe 250 m von der Wohnung, zwei im Chef-lieu, und jedes Mal ein Rabatt, wenn Sie vor der Anreise buchen. Unsere Wahl: Sport 2000 Aux Deux Frères.",
         keywords: [
           "Skiverleih Albiez",
           "Skiset Albiez",
@@ -1040,9 +1378,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         title:
           "Alquilar los esquís en Albiez-Montrond: las cuatro tiendas y cómo pagar menos",
         description:
-          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports: dónde alquilar los esquís en Albiez, junto a las pistas o en el pueblo, y por qué reservar en línea.",
+          "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: dónde alquilar los esquís en Albiez, en el acceso a pistas del Mollard o en el Chef-lieu, y por qué reservar en línea.",
         excerpt:
-          "Tres tiendas a 250 m del alojamiento, una cuarta en el pueblo, y un descuento sistemático si reserva antes de llegar. Nuestra elección: Sport 2000 Aux Deux Frères.",
+          "Dos tiendas a 250 m del alojamiento, dos en el Chef-lieu, y un descuento sistemático si reserva antes de llegar. Nuestra elección: Sport 2000 Aux Deux Frères.",
         keywords: [
           "alquiler esquís Albiez",
           "Skiset Albiez",
@@ -1055,9 +1393,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         title:
           "Noleggiare gli sci ad Albiez-Montrond: i quattro negozi e come pagare meno",
         description:
-          "Sport 2000 Aux Deux Frères, Skiset Ski Attitude, Skiset Albiez Sports, Skimium Mustang Sports: dove noleggiare gli sci ad Albiez, all'accesso alle piste o in paese, e perché prenotare online.",
+          "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: dove noleggiare gli sci ad Albiez, all'accesso alle piste del Mollard o al Chef-lieu, e perché prenotare online.",
         excerpt:
-          "Tre noleggi a 250 m dall'alloggio, un quarto in paese e uno sconto sistematico prenotando prima di arrivare. La nostra scelta: Sport 2000 Aux Deux Frères.",
+          "Due noleggi a 250 m dall'alloggio, due al Chef-lieu, e uno sconto sistematico prenotando prima di arrivare. La nostra scelta: Sport 2000 Aux Deux Frères.",
         keywords: [
           "noleggio sci Albiez",
           "Skiset Albiez",

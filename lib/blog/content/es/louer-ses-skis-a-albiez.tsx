@@ -5,9 +5,10 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Albiez-Montrond cuenta con cuatro tiendas de alquiler de material: tres en el acceso a pistas del
-        Mollard, a 250 m del alojamiento, y una en el centro del pueblo. Todas ofrecen un descuento a quien
-        reserva en línea antes de llegar. Esto es lo que cubre cada una.
+        Albiez-Montrond cuenta con cuatro tiendas de alquiler de material, repartidas entre los dos
+        sectores de la estación: dos en el acceso a pistas del Mollard, a 250 m del alojamiento, y dos
+        en el Chef-lieu, el pueblo histórico. Todas ofrecen un descuento a quien reserva en línea antes
+        de llegar. Esto es lo que cubre cada una.
       </p>
 
       <h2>En el acceso a pistas del Mollard (250 m del alojamiento)</h2>
@@ -18,7 +19,7 @@ export default function Article() {
         lugar. El consejo es bueno, la acogida también, y todo se resuelve allí mismo sin subir al pueblo.
       </p>
       <p>
-        La más grande de las tres: <strong>135 m²</strong> de alquiler, taller de esquís y espacio de venta
+        <strong>135 m²</strong> de alquiler, taller de esquís y espacio de venta
         (material, accesorios, ropa). El catálogo es amplio: esquí alpino, freeride, esquí de travesía, esquí
         de fondo, snowboard, raquetas, botas, trineo para adultos, snowscoot, portabebés.
       </p>
@@ -38,21 +39,27 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>Skiset Ski Attitude</h3>
+      <h3>Mustang 1650 — Skiset</h3>
       <p>
-        El Skiset más cercano al alojamiento. Alquiler y mantenimiento de esquís y snowboard, con espacio de
-        venta: material de esquí en invierno, de senderismo en verano. Descuento interesante reservando en
-        línea.
+        La antigua tienda Ski Attitude, adquirida por Mustang, en pleno acceso a pistas y abierta todo el
+        año. Alquiler y venta de esquís y snowboard, asesoramiento sobre botas con un escáner 3D (Bootdoc),
+        taller de mantenimiento: afilado, encerado, ajustes. Descuento reservando en línea.
+      </p>
+      <p>
+        También es allí donde se reservan las salidas de Mustang: moto de nieve, veladas en iglú y de
+        trampero, <Link href="/es/guide/sunset-ride-albiez-vtt-pistes">Sunset Ride</Link> en BTT por las
+        pistas. El detalle está en nuestro artículo sobre la{" "}
+        <Link href="/es/guide/motoneige-igloo-albiez">moto de nieve y las veladas en iglú</Link>.
       </p>
 
-      <h3>Skimium — Mustang Sports</h3>
-      <p>
-        Con base en el centro del pueblo pero presente por la tarde en el acceso a pistas del Mollard, lo que
-        lo convierte en una opción práctica al volver de la pista. Más allá del esquí, Mustang Sports ofrece
-        moto de nieve, tardes en iglú, una escuela de ciclismo y BTT eléctricas.
-      </p>
+      <h2>En el Chef-lieu (2 km)</h2>
 
-      <h2>En el centro del pueblo (2 km)</h2>
+      <h3>Mustang 1550 — Skimium</h3>
+      <p>
+        La tienda de deportes más grande de la estación, abierta todo el año desde 1980, cerca de la place
+        Opinel. Alquiler y venta de esquís y snowboard, taller de esquí y de bicicleta, alquiler de BTT y de
+        BTT eléctricas. Trabaja con Mustang 1650: mismas salidas, mismo equipo.
+      </p>
 
       <h3>Skiset — Albiez Sports</h3>
       <p>

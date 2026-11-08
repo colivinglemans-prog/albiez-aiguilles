@@ -45,16 +45,18 @@ export default function Article() {
         Sommer.
       </p>
 
-      <h3>Skimium — Mustang Sports (Dorfkern)</h3>
+      <h3>Mustang — 1550 Skimium (Dorfkern) und 1650 Skiset (Le Mollard)</h3>
       <p>
-        <strong>Radschule</strong> und <strong>E-Mountainbikes</strong>. Man findet sie abends
-        auch am Pistenzugang von Le Mollard, 250 m von der Wohnung.
+        <strong>Mountainbikeschule</strong>, <strong>Verleih von Mountainbikes und
+        E-Mountainbikes</strong>, Enduro Park und Shuttles. Zwei ganzjährig geöffnete
+        Geschäfte: das 1550 im Dorfkern, nahe der place Opinel, und das 1650 am Pistenzugang
+        von Le Mollard, 250 m von der Wohnung.
       </p>
 
-      <h3>Skiset Ski Attitude und Sport 2000 (Pistenzugang Le Mollard)</h3>
+      <h3>Sport 2000 (Pistenzugang Le Mollard)</h3>
       <p>
-        Die beiden Verleihe, die der Wohnung am nächsten liegen, stellen im Sommer auf Wandern
-        um. Die Einzelheiten zu jedem stehen in unserem Artikel{" "}
+        Der andere Verleih am Pistenzugang, 250 m von der Wohnung, stellt im Sommer auf Wandern
+        um. Die Einzelheiten zu allen Verleihen stehen in unserem Artikel{" "}
         <Link href="/de/guide/louer-ses-skis-a-albiez">
           Ausrüstung leihen in Albiez-Montrond
         </Link>
