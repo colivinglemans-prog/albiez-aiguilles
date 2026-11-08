@@ -44,7 +44,7 @@ export const LATE_BOOKING_HOURS = 48;
 const preArrivee: MessageTemplate = {
   id: "avant-arrivee",
   label: "Avant l'arrivée (guide, heure, linge)",
-  version: 3,
+  version: 4,
   trigger: { anchor: "arrival", offsetDays: -7, at: "10:00" },
   // Rattrapé pour une réservation prise entre J-7 et 48 h avant l'arrivée ; en deçà, `minLeadHours`
   // l'écarte et le bloc `tardif` du code prend le relais.
@@ -80,7 +80,10 @@ Il vous attend dans l'appartement : draps, taies et une serviette de bain par pe
 {{/kitInclus}}{{#kitAbsent}}
 LE LINGE
 Le linge n'est pas inclus dans votre réservation : pensez à apporter draps, taies et serviettes de bain (1 lit double de 160 × 190 et 4 lits simples de 80 × 190). Couettes et oreillers sont sur place.{{#prixKit}} Vous préférez voyager léger ? Dites-le nous et nous ajoutons le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}.{{/prixKit}}
-{{/kitAbsent}}{{#pneus}}
+{{/kitAbsent}}
+À PRÉVOIR
+Pour la durée du séjour, pensez à apporter des tablettes lave-vaisselle, des sacs poubelle de 50 L, du papier toilette et des dosettes Nespresso.
+{{#pneus}}
 EN HIVER
 Les pneus neige ou les chaînes sont obligatoires pour monter à Albiez.{{#ski}} Si ce n'est pas fait, réservez vite vos skis et vos cours à l'ESF.{{/ski}}
 {{/pneus}}
@@ -109,7 +112,10 @@ It is waiting for you in the apartment: sheets, pillowcases and one bath towel p
 {{/kitInclus}}{{#kitAbsent}}
 LINEN
 Linen is not included in your booking: please bring sheets, pillowcases and bath towels (1 double bed 160 × 190 and 4 single beds 80 × 190). Duvets and pillows are provided.{{#prixKit}} Rather travel light? Let us know and we will add the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}.{{/prixKit}}
-{{/kitAbsent}}{{#pneus}}
+{{/kitAbsent}}
+TO BRING
+For your stay, please bring dishwasher tablets, 50 L bin bags, toilet paper and Nespresso pods.
+{{#pneus}}
 IN WINTER
 Snow tyres or chains are compulsory to drive up to Albiez.{{#ski}} If you have not done so yet, book your skis and ESF ski lessons soon.{{/ski}}
 {{/pneus}}
@@ -138,7 +144,10 @@ Es liegt in der Wohnung für Sie bereit: Bettlaken, Kissenbezüge und ein Badetu
 {{/kitInclus}}{{#kitAbsent}}
 BETT- UND BADEWÄSCHE
 Bett- und Badewäsche sind in Ihrer Buchung nicht enthalten: Bitte bringen Sie Bettlaken, Kissenbezüge und Badetücher mit (1 Doppelbett 160 × 190 und 4 Einzelbetten 80 × 190). Bettdecken und Kissen sind vorhanden.{{#prixKit}} Sie reisen lieber mit leichtem Gepäck? Sagen Sie uns Bescheid, und wir fügen das Wäschepaket hinzu, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Resolution-Center{{/viaAirbnb}}.{{/prixKit}}
-{{/kitAbsent}}{{#pneus}}
+{{/kitAbsent}}
+MITZUBRINGEN
+Bitte bringen Sie für Ihren Aufenthalt Spülmaschinentabs, Müllbeutel (50 L), Toilettenpapier und Nespresso-Kapseln mit.
+{{#pneus}}
 IM WINTER
 Winterreifen oder Schneeketten sind für die Auffahrt nach Albiez Pflicht.{{#ski}} Falls noch nicht geschehen, reservieren Sie bald Ihre Ski und Ihren Skiunterricht bei der ESF.{{/ski}}
 {{/pneus}}
@@ -167,7 +176,10 @@ Le espera en el apartamento: sábanas, fundas de almohada y una toalla de baño 
 {{/kitInclus}}{{#kitAbsent}}
 ROPA DE CAMA Y TOALLAS
 La ropa de cama no está incluida en su reserva: traiga sábanas, fundas de almohada y toallas de baño (1 cama doble de 160 × 190 y 4 camas individuales de 80 × 190). Hay edredones y almohadas.{{#prixKit}} ¿Prefiere viajar ligero? Díganoslo y añadimos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}.{{/prixKit}}
-{{/kitAbsent}}{{#pneus}}
+{{/kitAbsent}}
+QUÉ TRAER
+Para su estancia, traiga pastillas para el lavavajillas, bolsas de basura de 50 L, papel higiénico y cápsulas Nespresso.
+{{#pneus}}
 EN INVIERNO
 Los neumáticos de invierno o las cadenas son obligatorios para subir a Albiez.{{#ski}} Si aún no lo ha hecho, reserve pronto sus esquís y sus clases en la ESF.{{/ski}}
 {{/pneus}}
@@ -196,7 +208,10 @@ Vi aspetta nell'appartamento: lenzuola, federe e un telo da bagno a persona. I l
 {{/kitInclus}}{{#kitAbsent}}
 LA BIANCHERIA
 La biancheria non è inclusa nella prenotazione: portate lenzuola, federe e teli da bagno (1 letto matrimoniale 160 × 190 e 4 letti singoli 80 × 190). Piumoni e cuscini sono sul posto.{{#prixKit}} Preferite viaggiare leggeri? Ditecelo e aggiungiamo il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni di Airbnb{{/viaAirbnb}}.{{/prixKit}}
-{{/kitAbsent}}{{#pneus}}
+{{/kitAbsent}}
+DA PORTARE
+Per il soggiorno, portate pastiglie per lavastoviglie, sacchi della spazzatura da 50 L, carta igienica e capsule Nespresso.
+{{#pneus}}
 IN INVERNO
 Pneumatici invernali o catene sono obbligatori per salire ad Albiez.{{#ski}} Se non l'avete già fatto, prenotate presto sci e lezioni all'ESF.{{/ski}}
 {{/pneus}}
@@ -215,7 +230,7 @@ Alexandre`,
 const codeBoite: MessageTemplate = {
   id: "code-boite",
   label: "Code de la boîte à clés (jour d'arrivée)",
-  version: 4,
+  version: 5,
   trigger: { anchor: "arrival", offsetDays: 0, at: "08:00" },
   // Une réservation prise tard le jour même reçoit le code aussitôt, jusqu'au lendemain matin.
   late: { mode: "send", until: { anchor: "arrival", offsetDays: 1, at: "10:00" } },
@@ -238,7 +253,8 @@ Voici le code de la boîte à clés : {{code}}
 {{#tardif}}
 Votre réservation est toute récente, voici aussi l'essentiel :{{#kitInclus}}
 - votre kit linge vous attend dans l'appartement (draps, taies, une serviette de bain par personne) ; les lits ne sont pas faits.{{/kitInclus}}{{#kitAbsent}}
-- le linge n'est pas inclus : apportez draps, taies et serviettes (1 lit double 160 × 190, 4 lits simples 80 × 190){{#prixKit}}, ou demandez-nous le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- le linge n'est pas inclus : apportez draps, taies et serviettes (1 lit double 160 × 190, 4 lits simples 80 × 190){{#prixKit}}, ou demandez-nous le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}
+- à prévoir : tablettes lave-vaisselle, sacs poubelle de 50 L, papier toilette, dosettes Nespresso.{{#pneus}}
 - pneus neige ou chaînes obligatoires pour monter à Albiez.{{/pneus}}
 {{/tardif}}
 L'arrivée est possible dès 16h. Le guide d'arrivée vous mène jusqu'à l'appartement :
@@ -256,7 +272,8 @@ Here is the key box code: {{code}}
 {{#tardif}}
 As you booked very recently, here are the essentials too:{{#kitInclus}}
 - your linen kit is waiting in the apartment (sheets, pillowcases, one bath towel per person); the beds are not made.{{/kitInclus}}{{#kitAbsent}}
-- linen is not included: please bring sheets, pillowcases and towels (1 double bed 160 × 190, 4 single beds 80 × 190){{#prixKit}}, or ask us for the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- linen is not included: please bring sheets, pillowcases and towels (1 double bed 160 × 190, 4 single beds 80 × 190){{#prixKit}}, or ask us for the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}
+- to bring: dishwasher tablets, 50 L bin bags, toilet paper, Nespresso pods.{{#pneus}}
 - snow tyres or chains are compulsory to drive up to Albiez.{{/pneus}}
 {{/tardif}}
 Check-in is possible from 4 pm. The arrival guide takes you to the apartment:
@@ -274,7 +291,8 @@ Hier ist der Code des Schlüsselkastens: {{code}}
 {{#tardif}}
 Da Sie sehr kurzfristig gebucht haben, hier auch das Wichtigste:{{#kitInclus}}
 - Ihr Wäschepaket liegt in der Wohnung bereit (Bettwäsche, Kissenbezüge, ein Badetuch pro Person); die Betten sind nicht bezogen.{{/kitInclus}}{{#kitAbsent}}
-- Bettwäsche ist nicht inbegriffen: Bitte bringen Sie Laken, Kissenbezüge und Handtücher mit (1 Doppelbett 160 × 190, 4 Einzelbetten 80 × 190){{#prixKit}}, oder fragen Sie uns nach dem Wäschepaket, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Lösungscenter{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- Bettwäsche ist nicht inbegriffen: Bitte bringen Sie Laken, Kissenbezüge und Handtücher mit (1 Doppelbett 160 × 190, 4 Einzelbetten 80 × 190){{#prixKit}}, oder fragen Sie uns nach dem Wäschepaket, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Lösungscenter{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}
+- mitzubringen: Spülmaschinentabs, Müllbeutel (50 L), Toilettenpapier, Nespresso-Kapseln.{{#pneus}}
 - Winterreifen oder Schneeketten sind für die Auffahrt nach Albiez Pflicht.{{/pneus}}
 {{/tardif}}
 Die Anreise ist ab 16 Uhr möglich. Der Anreiseführer bringt Sie bis zur Wohnung:
@@ -292,7 +310,8 @@ Este es el código de la caja de llaves: {{code}}
 {{#tardif}}
 Como ha reservado hace muy poco, aquí tiene también lo esencial:{{#kitInclus}}
 - su kit de ropa de cama le espera en el apartamento (sábanas, fundas de almohada y una toalla de baño por persona); las camas no están hechas.{{/kitInclus}}{{#kitAbsent}}
-- la ropa de cama no está incluida: traiga sábanas, fundas y toallas (1 cama doble de 160 × 190, 4 camas individuales de 80 × 190){{#prixKit}}, o pídanos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- la ropa de cama no está incluida: traiga sábanas, fundas y toallas (1 cama doble de 160 × 190, 4 camas individuales de 80 × 190){{#prixKit}}, o pídanos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}
+- qué traer: pastillas para el lavavajillas, bolsas de basura de 50 L, papel higiénico, cápsulas Nespresso.{{#pneus}}
 - los neumáticos de invierno o las cadenas son obligatorios para subir a Albiez.{{/pneus}}
 {{/tardif}}
 La llegada es posible a partir de las 16:00. La guía de llegada le lleva hasta el apartamento:
@@ -310,7 +329,8 @@ Ecco il codice della cassetta delle chiavi: {{code}}
 {{#tardif}}
 Avendo prenotato da pochissimo, ecco anche l'essenziale:{{#kitInclus}}
 - il vostro kit biancheria vi aspetta nell'appartamento (lenzuola, federe e un telo bagno a persona); i letti non sono fatti.{{/kitInclus}}{{#kitAbsent}}
-- la biancheria non è inclusa: portate lenzuola, federe e asciugamani (1 letto matrimoniale 160 × 190, 4 letti singoli 80 × 190){{#prixKit}}, oppure chiedeteci il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- la biancheria non è inclusa: portate lenzuola, federe e asciugamani (1 letto matrimoniale 160 × 190, 4 letti singoli 80 × 190){{#prixKit}}, oppure chiedeteci il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}
+- da portare: pastiglie per lavastoviglie, sacchi della spazzatura da 50 L, carta igienica, capsule Nespresso.{{#pneus}}
 - pneumatici da neve o catene sono obbligatori per salire ad Albiez.{{/pneus}}
 {{/tardif}}
 L'arrivo è possibile dalle 16:00. La guida all'arrivo vi accompagna fino all'appartamento:
