@@ -754,7 +754,7 @@ export const it: Dictionary = {
     hostTitle: "Hosting",
     dataTitle: "Dati personali",
     dataText:
-      "Questo sito non raccoglie alcun dato personale al di fuori dei messaggi che ci inviate volontariamente per e-mail. Le statistiche di visita sono anonime e non permettono di identificarvi. Per qualsiasi domanda relativa ai vostri dati, scriveteci all'indirizzo indicato sopra.",
+      "La visita di questo sito è anonima: le statistiche di visita non permettono di identificarvi. Se prenotate l'appartamento, utilizziamo i dati della prenotazione trasmessi dalla piattaforma o inseriti in una prenotazione diretta — nome, lingua e, per una prenotazione diretta, indirizzo e-mail — per inviarvi i messaggi utili al soggiorno (informazioni di arrivo, codice della cassetta delle chiavi, indicazioni per la partenza). Questo trattamento è necessario all'esecuzione della prenotazione. I dati restano nel nostro strumento di gestione delle prenotazioni (Beds24); questo sito non li conserva né li cede a terzi. Per qualsiasi domanda relativa ai vostri dati, o per esercitare i diritti di accesso, rettifica e cancellazione, scriveteci all'indirizzo indicato sopra.",
     labels: {
       legalName: "Denominazione",
       legalForm: "Forma giuridica",

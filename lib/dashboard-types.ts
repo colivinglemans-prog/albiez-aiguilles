@@ -45,8 +45,9 @@ export type Canal = Channel;
  * Un séjour d'Albiez : le `Booking` du socle, plus quatre champs que ce bien est seul à
  * porter.
  *
- * Les champs d'identité du voyageur restent vides ici et doivent le rester : ce site ne
- * porte pas le scope `read:bookings-personal`, et rien dans son dashboard n'en a besoin.
+ * Les champs d'identité du voyageur restent vides ici et doivent le rester : seule la voie
+ * `messagerie` de Beds24 porte `read:bookings-personal`, réservée aux messages automatiques
+ * (`lib/messages/`), et rien dans le dashboard n'en a besoin.
  */
 export interface Sejour extends Booking {
   fraisMenage?: number | null;

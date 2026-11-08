@@ -754,7 +754,7 @@ export const es: Dictionary = {
     hostTitle: "Alojamiento web",
     dataTitle: "Datos personales",
     dataText:
-      "Este sitio no recoge ningún dato personal aparte de los mensajes que usted nos envía voluntariamente por correo electrónico. Las estadísticas de visitas son anónimas y no permiten identificarle. Para cualquier cuestión relativa a sus datos, escríbanos a la dirección indicada arriba.",
+      "La visita a este sitio es anónima: las estadísticas de visitas no permiten identificarle. Si reserva el apartamento, utilizamos los datos de su reserva transmitidos por la plataforma o introducidos en una reserva directa —nombre, idioma y, en una reserva directa, dirección de correo electrónico— para enviarle los mensajes útiles para su estancia (información de llegada, código de la caja de llaves, indicaciones de salida). Este tratamiento es necesario para la ejecución de su reserva. Estos datos permanecen en nuestra herramienta de gestión de reservas (Beds24); este sitio no los almacena ni los cede a terceros. Para cualquier cuestión relativa a sus datos, o para ejercer sus derechos de acceso, rectificación y supresión, escríbanos a la dirección indicada arriba.",
     labels: {
       legalName: "Denominación",
       legalForm: "Forma jurídica",

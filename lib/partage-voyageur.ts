@@ -5,11 +5,11 @@
  * la messagerie du canal (Airbnb, Booking, e-mail). Il ne connaît aucune réservation, et
  * c'est volontaire — voir ci-dessous.
  *
- * ⚠️ **Aucune donnée personnelle n'entre ici, parce que le site n'en lit aucune.** Les jetons
- * Beds24 d'Albiez ne portent pas `read:bookings-personal` : ni prénom, ni e-mail, ni pays.
- * Le message n'est donc pas nominatif et la langue n'est pas devinée — c'est l'administrateur
- * qui choisit, les cinq étant proposées à égalité. Ajouter le scope pour personnaliser une
- * formule de politesse échangerait une donnée de voyageur contre trois mots.
+ * ⚠️ **Aucune donnée personnelle n'entre ici.** Ce bloc de copier-coller ne connaît aucune
+ * réservation : le message n'est pas nominatif et la langue n'est pas devinée — c'est
+ * l'administrateur qui choisit, les cinq étant proposées à égalité. Les messages **automatiques**
+ * (nominatifs, dans la langue du voyageur) sont ailleurs : `lib/messages/`, seule partie du site
+ * à lire des données d'identité, par la voie `messagerie`.
  */
 
 import { LOCALES, type Locale } from "@/lib/i18n/locales";

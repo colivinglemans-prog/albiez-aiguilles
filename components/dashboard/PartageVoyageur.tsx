@@ -16,9 +16,9 @@ import { LANGUES_PARTAGE, messageVoyageur, urlGuideArrivee } from "@/lib/partage
  * refuse le rôle `viewer` de son côté.
  *
  * ⚠️ **Aucune présélection de langue.** Barbusse met en avant la langue probable d'après le
- * pays du voyageur ; impossible ici, et c'est voulu : les jetons Beds24 d'Albiez ne portent
- * pas `read:bookings-personal`, donc ni pays ni prénom n'entrent dans le site. Les cinq
- * langues sont à égalité, l'administrateur sait laquelle choisir.
+ * pays du voyageur ; pas ici : ce bloc ne lit aucune donnée d'identité (seuls les messages
+ * automatiques de `lib/messages/` le font). Les cinq langues sont à égalité, l'administrateur
+ * sait laquelle choisir.
  */
 export default function PartageVoyageur() {
   const [code, setCode] = useState<string | null>(null);

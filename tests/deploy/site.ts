@@ -148,6 +148,10 @@ const site = {
       { path: "/api/dashboard/stats", anonymous: [401], viewer: [403] },
       { path: `/api/dashboard/calendrier?mois=${moisCourant}`, anonymous: [401], viewer: [200] },
       { path: "/api/dashboard/code-acces", anonymous: [401], viewer: [403] },
+      // Messagerie voyageur (2026-11-08) : admin seulement, prénoms et aperçus de messages.
+      { path: "/api/dashboard/messages", anonymous: [401], viewer: [403] },
+      { path: "/api/dashboard/messages/apercu?bookingId=1&templateId=depart", anonymous: [401], viewer: [403] },
+      { path: "/api/dashboard/messages/envoyer", method: "POST", anonymous: [401], viewer: [403] },
       // Le proxy refuse le viewer avant la route : rien n'est écrit.
       { path: "/api/dashboard/notes", method: "POST", anonymous: [401], viewer: [403] },
       { path: "/dashboard", anonymous: [307], viewer: [307] },

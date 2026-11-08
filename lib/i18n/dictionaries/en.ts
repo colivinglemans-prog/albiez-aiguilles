@@ -732,7 +732,7 @@ export const en: Dictionary = {
     hostTitle: "Hosting",
     dataTitle: "Personal data",
     dataText:
-      "This site collects no personal data beyond the messages you choose to send us by email. Traffic statistics are anonymous and cannot identify you. For any question about your data, write to the address above.",
+      "Browsing this site is anonymous: traffic statistics cannot identify you. If you book the apartment, we use the details of your booking passed on by the platform or entered during a direct booking — first name, language and, for a direct booking, email address — to send you the messages you need for your stay (arrival information, key box code, departure instructions). This processing is necessary to perform your booking. This data stays in our booking management tool (Beds24); it is neither stored by this site nor shared with third parties. For any question about your data, or to exercise your rights of access, rectification and erasure, write to the address above.",
     labels: {
       legalName: "Legal name",
       legalForm: "Legal form",

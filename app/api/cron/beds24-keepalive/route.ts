@@ -3,7 +3,7 @@ import { verifyCronAuth } from "@sejour/socle/lib/cron-auth";
 import { entretenirTokens } from "@/lib/beds24";
 
 /**
- * Maintient les trois refresh tokens Beds24 en vie. À appeler une fois par semaine.
+ * Maintient les quatre refresh tokens Beds24 en vie (le quatrième, messagerie, depuis le 2026-11-08). À appeler une fois par semaine.
  *
  * Beds24 invalide un refresh token qui n'a pas servi depuis 30 jours. Aucun des trois ne
  * s'entretient tout seul de façon fiable : l'écriture ne sert qu'à poser une consigne de

@@ -16,6 +16,7 @@ import type { Role } from "@/lib/auth";
 const LIENS: DashboardLink[] = [
   { href: "/dashboard/calendrier", label: "Calendrier", adminOnly: false },
   { href: "/dashboard/statistiques", label: "Statistiques", adminOnly: true },
+  { href: "/dashboard/messages", label: "Messages", adminOnly: true },
   { href: "/dashboard/referencement", label: "Référencement", adminOnly: true },
   /*
    * Le guide d'arrivée est une page publique du site, pas un écran du dashboard : il s'ouvre

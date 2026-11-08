@@ -755,7 +755,7 @@ export const de: Dictionary = {
     hostTitle: "Hosting",
     dataTitle: "Personenbezogene Daten",
     dataText:
-      "Diese Website erhebt keine personenbezogenen Daten außer den Nachrichten, die Sie uns freiwillig per E-Mail senden. Die Besuchsstatistiken sind anonym und lassen keine Identifizierung zu. Bei Fragen zu Ihren Daten schreiben Sie uns an die oben genannte Adresse.",
+      "Der Besuch dieser Website ist anonym: Die Besuchsstatistiken lassen keine Identifizierung zu. Wenn Sie die Wohnung buchen, verwenden wir die Angaben Ihrer Buchung, die uns die Plattform übermittelt oder die Sie bei einer Direktbuchung eingeben — Vorname, Sprache und bei einer Direktbuchung die E-Mail-Adresse —, um Ihnen die für Ihren Aufenthalt nötigen Nachrichten zu senden (Anreiseinformationen, Code des Schlüsselkastens, Hinweise zur Abreise). Diese Verarbeitung ist für die Erfüllung Ihrer Buchung erforderlich. Die Daten bleiben in unserem Buchungsverwaltungsprogramm (Beds24); sie werden weder von dieser Website gespeichert noch an Dritte weitergegeben. Bei Fragen zu Ihren Daten oder zur Ausübung Ihrer Rechte auf Auskunft, Berichtigung und Löschung schreiben Sie uns an die oben genannte Adresse.",
     labels: {
       legalName: "Firmenname",
       legalForm: "Rechtsform",

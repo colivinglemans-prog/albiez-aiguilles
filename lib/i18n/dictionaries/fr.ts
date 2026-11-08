@@ -750,7 +750,7 @@ export const fr: Dictionary = {
     hostTitle: "Hébergement",
     dataTitle: "Données personnelles",
     dataText:
-      "Ce site ne collecte aucune donnée personnelle en dehors des messages que vous nous adressez volontairement par e-mail. Les statistiques de fréquentation sont anonymes et ne permettent pas de vous identifier. Pour toute question relative à vos données, écrivez-nous à l'adresse ci-dessus.",
+      "La visite de ce site est anonyme : les statistiques de fréquentation ne permettent pas de vous identifier. Si vous réservez l'appartement, nous utilisons les informations de votre réservation transmises par la plateforme ou saisies lors d'une réservation directe — prénom, langue et, pour une réservation directe, adresse e-mail — pour vous envoyer les messages utiles à votre séjour (informations d'arrivée, code de la boîte à clés, consignes de départ). Ce traitement est nécessaire à l'exécution de votre réservation. Ces données restent dans notre outil de gestion des réservations (Beds24) et ne sont ni stockées par ce site, ni cédées à des tiers. Pour toute question relative à vos données, ou pour exercer vos droits d'accès, de rectification et d'effacement, écrivez-nous à l'adresse ci-dessus.",
     labels: {
       legalName: "Dénomination",
       legalForm: "Forme juridique",

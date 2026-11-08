@@ -12,6 +12,7 @@ import type {
   Beds24AvailabilityRoom,
   Beds24Booking,
   Beds24CalendarRoom,
+  Beds24Message,
 } from "@sejour/socle/lib/beds24-types";
 import { ecartDeCollecte, touristTaxFromInvoiceItems } from "@sejour/socle/lib/taxe-sejour";
 
@@ -37,10 +38,10 @@ import { ecartDeCollecte, touristTaxFromInvoiceItems } from "@sejour/socle/lib/t
  * l'argent — les trois vérifiés contre l'API, pas supposés. L'ancien jeton unique portait dix
  * scopes, dont `write:bookings-personal` et `write:bookings-financial` que rien n'utilisait.
  *
- * **Pas de `read:bookings-personal`** : ce site ne lit aucun nom ni contact, et le type
- * `Sejour` n'a même pas de champ rempli pour ça. Le `Booking` du socle en a — Barbusse en a
- * besoin pour ses factures — mais ils sont optionnels, et rien ici ne doit pousser à réclamer
- * le scope pour les remplir.
+ * **`read:bookings-personal` sur la seule voie `messagerie`** (2026-11-08) : la messagerie
+ * voyageur (`lib/messages/`) lit prénom, langue et e-mail. Le dashboard n'en lit aucun : le type
+ * `Sejour` n'a pas de champ d'identité rempli, et rien ici ne doit employer la voie `messagerie`
+ * pour en remplir un.
  *
  * **Les trois sont des refresh tokens, aucun long life.** Un long life ne peut techniquement
  * porter que des scopes de lecture, ce qui forcerait de toute façon un second token pour
@@ -81,15 +82,26 @@ const client = createBeds24Client({
         "Sans BEDS24_READ_REFRESH_TOKEN, les lectures passent par le jeton d'écriture, qui " +
         "ne porte pas read:bookings-financial — les montants seront vides.",
     },
-    /** Écriture des consignes de ménage, et rien d'autre. Aucun repli : c'est un cul-de-sac. */
+    /**
+     * Écriture des consignes de ménage et du registre de la messagerie voyageur (`infoItems`
+     * `MSG_*`). Aucun repli : c'est un cul-de-sac.
+     */
     ecriture: { env: "BEDS24_REFRESH_TOKEN" },
+    /**
+     * Messagerie voyageur (2026-11-08) : `read:bookings`, `read:bookings-personal`,
+     * `write:bookings-personal` — device `albiez-aiguilles-messagerie-2026-11`. Lit le prénom,
+     * l'adresse et la langue du voyageur, et poste dans la messagerie de la plateforme.
+     * `/bookings/messages` refuse tout jeton sans la variante `-personal`. **Aucun repli** :
+     * aucune autre voie ne doit pouvoir écrire au voyageur.
+     */
+    messagerie: { env: "BEDS24_MESSAGES_REFRESH_TOKEN" },
   },
 });
 
 export type EtatToken = Beds24RouteState;
 
 /**
- * Entretient les trois refresh tokens — appelé par le cron hebdomadaire.
+ * Entretient les quatre refresh tokens — appelé par le cron hebdomadaire.
  *
  * Beds24 invalide un refresh token qui n'a pas servi depuis 30 jours, et aucun des trois ne
  * s'entretient de façon fiable tout seul : l'écriture ne sert qu'à poser une consigne de
@@ -99,7 +111,7 @@ export type EtatToken = Beds24RouteState;
  * privilèges, sans que rien ne le signale.
  */
 export function entretenirTokens(): Promise<Record<string, EtatToken>> {
-  return client.keepAlive(["public", "lecture", "ecriture"]);
+  return client.keepAlive(["public", "lecture", "ecriture", "messagerie"]);
 }
 
 /**
@@ -287,4 +299,98 @@ export async function contraintes(du: string, au: string): Promise<Contraintes> 
  */
 export function ecrireNotes(id: number, notes: string): Promise<void> {
   return client.updateNotes(id, notes, "ecriture");
+}
+
+/*
+ * ——— Messagerie voyageur (`lib/messages/engine.ts`) ———
+ *
+ * Lectures **fraîches** : le moteur relit le registre juste avant d'envoyer, et le cache de 60 s
+ * rendrait un registre en retard (champollion, 2026-11-08).
+ */
+
+/** Réservations confirmées ou nouvelles de la fenêtre, avec `infoItems` et données du voyageur. */
+export async function reservationsMessagerie(params: { departDu: string; arriveeAu: string }): Promise<Beds24Booking[]> {
+  const { data = [] } = await client.get<{ data: Beds24Booking[] }>("/bookings", {
+    params: {
+      // Comme les autres lectures serveur : la variable fait foi (voir `PROPERTY.beds24`).
+      propertyId: proprieteServeur(),
+      departureFrom: params.departDu,
+      arrivalTo: params.arriveeAu,
+      includeInfoItems: "true",
+    },
+    route: "messagerie",
+    fresh: true,
+  });
+  return data;
+}
+
+/** Une réservation, fraîche, avec `infoItems` et données du voyageur. */
+export async function reservationMessagerie(id: number): Promise<Beds24Booking | null> {
+  const { data = [] } = await client.get<{ data: Beds24Booking[] }>("/bookings", {
+    params: { id: String(id), includeInfoItems: "true" },
+    route: "messagerie",
+    fresh: true,
+  });
+  return data[0] ?? null;
+}
+
+/**
+ * Messages de l'hôte sur toutes les réservations des `jours` derniers jours, en une requête
+ * paginée (100 par page) plutôt qu'une par réservation. Sert à reprendre l'historique : ce que
+ * l'hôte a envoyé à la main avant l'outil.
+ */
+export async function messagesHote(jours: number): Promise<Beds24Message[]> {
+  const out: Beds24Message[] = [];
+  for (let page = 1; page <= 5; page++) {
+    const r = await client.get<{ data?: Beds24Message[]; pages?: { nextPageExists?: boolean } }>("/bookings/messages", {
+      params: { maxAge: String(jours), source: "host", page: String(page) },
+      route: "messagerie",
+      fresh: true,
+    });
+    out.push(...(r.data ?? []));
+    if (!r.pages?.nextPageExists) break;
+  }
+  return out;
+}
+
+/** Fil d'une réservation (première page). */
+export function filReservation(id: number): Promise<Beds24Message[]> {
+  return client.getMessages(id, "messagerie");
+}
+
+/** Poste un message dans la messagerie de la plateforme. */
+export function envoyerMessagePlateforme(id: number, texte: string): Promise<void> {
+  return client.sendMessage(id, texte, "messagerie");
+}
+
+/** Écrit une trace du registre (`MSG_*`) sur la réservation. */
+export function ecrireRegistre(id: number, code: string, texte: string): Promise<void> {
+  return client.addInfoItems(id, [{ code, text: texte }], "ecriture");
+}
+
+/**
+ * Le voyageur a-t-il pris le kit linge ? Seulement pour une réservation directe, où le kit est
+ * une option du tunnel Beds24. Lu dans les lignes de facture **par leur libellé**, jamais par le
+ * rang de l'upsell (le-dahu : il dépend de l'ordre dans l'interface).
+ */
+export async function kitLingePris(id: number): Promise<boolean> {
+  const { data = [] } = await client.get<{ data: Beds24Booking[] }>("/bookings", {
+    params: { id: String(id), includeInvoiceItems: "true" },
+    route: "lecture",
+    fresh: true,
+  });
+  return (data[0]?.invoiceItems ?? []).some(
+    (l) => l.type !== "payment" && /linge|linen|kit/i.test(l.description ?? "") && Number(l.qty ?? 0) > 0,
+  );
+}
+
+/** Crédits Beds24 restants, lus sur la dernière réponse (indicatif). */
+export function creditsBeds24(): number | undefined {
+  return client.quota()?.remaining;
+}
+
+function proprieteServeur(): string {
+  const id = process.env.BEDS24_PROPERTY_ID;
+  if (!id) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
+  return id;
 }

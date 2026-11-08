@@ -14,6 +14,7 @@ import {
   WEEK_GRID,
 } from "@sejour/socle/lib/calendar-lanes";
 import PartageVoyageur from "@/components/dashboard/PartageVoyageur";
+import { GuestMessagesBookingPanel } from "@sejour/socle/components/GuestMessagesDashboard";
 import { EVENTS } from "@/lib/events";
 
 const MOIS = [
@@ -730,6 +731,16 @@ export default function Calendrier({
             * un test qui laisserait croire qu'il existe un code par réservation.
             */}
           {!viewer && <PartageVoyageur />}
+          {/* Messages automatiques de ce séjour : envoyés, prévus, bloqués. Séjours Beds24 seulement. */}
+          {!viewer && popup.sejour.source === "live" && popup.sejour.id != null && (
+            <GuestMessagesBookingPanel
+              bookingId={popup.sejour.id}
+              accent="#0284c7"
+              endpoint="/api/dashboard/messages"
+              previewEndpoint="/api/dashboard/messages/apercu"
+              sendEndpoint="/api/dashboard/messages/envoyer"
+            />
+          )}
         </div>
       )}
     </div>

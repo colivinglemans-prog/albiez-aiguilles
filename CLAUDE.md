@@ -475,16 +475,21 @@ unique portait dix scopes, dont `write:bookings-personal`, `write:bookings-finan
 |---|---|---|---|
 | `BEDS24_PUBLIC_REFRESH_TOKEN` | `albiez-public-2026-09` | `read:inventory`, `read:properties` | `/api/disponibilites`, vitrine |
 | `BEDS24_READ_REFRESH_TOKEN` | `albiez-lecture-2026-09` | + `read:bookings`, `read:bookings-financial` | dashboard |
-| `BEDS24_REFRESH_TOKEN` | `albiez-ecriture-2026-09` | `read:bookings`, `write:bookings` | consignes de ménage |
+| `BEDS24_REFRESH_TOKEN` | `albiez-ecriture-2026-09` | `read:bookings`, `write:bookings` | consignes de ménage, registre de la messagerie (`MSG_*`) |
+| `BEDS24_MESSAGES_REFRESH_TOKEN` | `albiez-aiguilles-messagerie-2026-11` | `read:bookings`, `read:bookings-personal`, `write:bookings-personal` | messages voyageurs (`lib/messages/`) |
 
 Les trois sont des **refresh tokens**, aucun long life. Vérifié contre l'API, pas supposé : le
 jeton public reçoit `401` sur `/bookings`, celui d'écriture ne voit ni `price`, ni
 `commission`, ni `invoiceItems`.
 
-**Aucun `read:bookings-personal`** — ce site ne lit aucun nom ni contact. C'est ce qui le
-distingue de Barbusse, qui en a besoin pour ses factures. Le `Booking` du socle a bien des
-champs pour ça, tous **optionnels** et précisément pour cette raison : ils restent vides ici,
-et aucun calcul du socle ne doit en dépendre.
+**`read:bookings-personal` : sur la seule voie `messagerie`, depuis le 2026-11-08.** Décision de
+l'hôte : la messagerie voyageur (voir « Messages voyageurs ») a besoin du prénom, de la langue
+et, en direct, de l'adresse e-mail. Le quatrième jeton `BEDS24_MESSAGES_REFRESH_TOKEN`
+(`albiez-aiguilles-messagerie-2026-11` : `read:bookings`, `read:bookings-personal`,
+`write:bookings-personal`) ne sert **qu'à `lib/messages/`**, sans repli. Le dashboard, lui, ne
+lit toujours aucun nom ni contact : les champs d'identité du `Booking` restent vides dans
+`Sejour`, et aucun calcul du socle ne doit en dépendre. Mentions légales mises à jour le même
+jour (5 langues).
 
 Les deux scopes d'inventaire sur le jeton de lecture ne sont pas un oubli : ils font vivre le
 repli du chemin public. **Ce repli va vers la lecture, jamais vers l'écriture** — le point
@@ -813,8 +818,8 @@ Les noms de champs sont ceux du socle — anglais technique : `arrival`, `depart
 `gross`, `net`, `commission`, `channel`, `bookedAt`, `guests`, `id`, `source`. Le `source`
 vaut `"live"` ou `"archive"` (l'ancien `"beds24"` a disparu). Les champs d'identité du
 voyageur (`firstName`, `email`, `phone`, `country`…) existent sur `Booking` mais **restent
-vides ici** : ce site ne porte pas le scope `read:bookings-personal`, et rien ne doit pousser
-à le réclamer pour les remplir.
+vides ici** : seule la voie `messagerie` porte `read:bookings-personal`, et elle ne sert qu'à
+`lib/messages/` — rien ne doit l'employer pour remplir le dashboard.
 
 Le **fichier** d'archive, lui, garde ses clés françaises (`arrivee`, `depart`, `brut`,
 `canal`…) : c'est un export figé, le renommer obligerait à régénérer l'archive et à repousser
@@ -1202,12 +1207,10 @@ séjour, plutôt qu'en rouvrant le site pour recomposer l'URL et en cherchant le
 ancien message. Trois lignes : le lien du guide, le message complet prêt à coller, le code.
 
 **Les cinq langues sont proposées à égalité, sans présélection.** Barbusse met en avant la
-langue probable d'après le pays du voyageur ; impossible ici, et c'est voulu — les jetons
-Beds24 d'Albiez ne portent pas `read:bookings-personal`, donc ni pays, ni prénom, ni e-mail
-n'entrent dans le site (les champs d'identité de `Booking` restent vides ici). Le message
-n'est donc pas
-nominatif, et ajouter le scope pour personnaliser une formule de politesse échangerait une
-donnée de voyageur contre trois mots.
+langue probable d'après le pays du voyageur ; ici le bloc reste sans présélection, parce que le
+dashboard ne lit aucune donnée d'identité. Les messages **automatiques**, eux, sont nominatifs
+et dans la langue du voyageur (voir « Messages voyageurs ») : ils passent par la voie
+`messagerie`, seule à porter `read:bookings-personal`.
 
 Les textes vivent dans `lib/partage-voyageur.ts`, `Record<Locale, …>` : élargir `Locale` rend
 rouge la table, comme partout ailleurs. Ils **vouvoient dans les cinq langues**, comme
@@ -2055,3 +2058,35 @@ photos de couverture. Une photo très claire ou très chargée convient.
       et son total de première page l'inclut désormais (« Total including obligatory »). À
       trancher — l'annoncer sur la vitrine renseigne le visiteur, mais affiche un frais avant
       qu'il ait vu un prix.
+
+## Messages voyageurs (depuis le 2026-11-08, socle v3.17.0)
+
+Les messages automatiques ne sont plus écrits dans Beds24 mais **dans ce dépôt** :
+`lib/messages/templates.ts` (avant l'arrivée à J-7 10h, code de la boîte à clés le jour d'arrivée
+à 8h, veille du départ à 9h), en cinq langues, vouvoiement, signés « Isabelle et Alexandre ». Le
+moteur est celui du socle (`@sejour/socle/lib/guest-messaging`, section v3.17.0 de son CLAUDE.md).
+**La confirmation de réservation reste dans Beds24** (617008 et 625162, facture et lien de
+paiement) : décision de l'hôte, à rouvrir après une saison.
+
+- **Faire évoluer un texte** : modifier le français, reporter dans les quatre langues, incrémenter
+  `version`. `tests/messages.test.ts` bloque toute langue manquante, variable oubliée, reste de
+  syntaxe Beds24, numéro ou code écrit en dur. L'hôte relit l'aperçu dans **Dashboard → Messages**.
+- **Envoi** : messagerie de la plateforme (Airbnb, Booking.com) par `POST /bookings/messages`,
+  e-mail SMTP OVH pour une réservation directe (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`,
+  `SMTP_PASS`, `SMTP_FROM`, `SMTP_BCC` — non posées au 2026-11-08 : sans elles, une réservation
+  directe est « bloquée », jamais envoyée ailleurs). Canal non identifié : rien.
+- **Registre** : `infoItems` `MSG_<ID>_PENDING` puis `MSG_<ID>` sur la réservation (jeton
+  d'écriture), plus les messages de l'hôte reconnus dans les fils — c'est ce qui reprend
+  l'historique des envois faits à la main. ⚠️ Une empreinte trop large fait passer un message
+  pour envoyé : « code de la boite a clef » seul reconnaissait « je vous transmettrai le code…
+  plus tard ».
+- **Modes** : `MESSAGES_MODES=avant-arrivee:live,code-boite:shadow,depart:off` — **ombre par
+  défaut** (l'écran montre ce qui partirait, rien ne part) ; `MESSAGES_KILL_SWITCH=1` coupe tout.
+- **Cron** : `/api/cron/messages-voyageurs`, cron-job.org **toutes les 10 minutes**, Bearer
+  `CRON_SECRET`. Plafond de 5 envois par passage, alerte ntfy sur échec ou blocage. Il ne lit
+  rien tant qu'aucun modèle n'est en `live`.
+- **Écran** : `/dashboard/messages` (admin) et le panneau « Messages au voyageur » dans la fiche
+  d'un séjour du calendrier. Aperçu : tout masqué sauf `previewVisible` (le code ne l'est jamais).
+- **Avant de passer un modèle en `live`** : SMTP vérifié par un envoi à soi-même, une réservation
+  directe test ayant pris le kit linge (branche « kit inclus » jamais prouvée), liens chez
+  Booking.com constatés côté voyageur.
