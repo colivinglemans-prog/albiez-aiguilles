@@ -55,8 +55,8 @@ const confirmation: MessageTemplate = {
   late: { mode: "skip", graceHours: 24 },
   onAnchorChange: "ignore",
   variables: ["arrivee", "depart", "nuits", "adultes", "adresse", "guide", "telephone", "whatsapp"],
-  optionalVariables: ["prenom", "enfants", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb"],
-  previewVisible: ["prenom", "arrivee", "depart", "nuits", "adultes", "enfants", "adresse", "guide", "telephone", "whatsapp", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb"],
+  optionalVariables: ["prenom", "enfants", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "ski"],
+  previewVisible: ["prenom", "arrivee", "depart", "nuits", "adultes", "enfants", "adresse", "guide", "telephone", "whatsapp", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "ski"],
   subject: {
     fr: "Votre séjour à Albiez est confirmé",
     en: "Your stay in Albiez is confirmed",
@@ -74,6 +74,9 @@ Départ : {{depart}}, avant 10h
 Nuits : {{nuits}}
 Adultes : {{adultes}}{{#enfants}}
 Enfants : {{enfants}}{{/enfants}}
+
+CE QUI EST INCLUS
+Le ménage de fin de séjour (hors cuisine et vaisselle, qui restent à votre charge), les couettes et les oreillers.
 {{#kitInclus}}
 VOTRE KIT LINGE
 Il est inclus : draps, taies et une serviette de bain par personne vous attendent dans l'appartement. Les lits ne sont pas faits, le linge est mis à disposition. Une chose à nous dire dès maintenant : la répartition des couchages souhaitée (par exemple « 1 double + 2 simples »), pour que nous sortions les bonnes tailles de draps.
@@ -81,7 +84,10 @@ Il est inclus : draps, taies et une serviette de bain par personne vous attenden
 LE LINGE
 Le linge n'est pas inclus dans votre réservation : prévoyez draps, taies et serviettes de bain (1 lit double de 160 × 190 et 4 lits simples de 80 × 190).{{#prixKit}} Vous préférez voyager léger ? Dites-le-nous et nous ajoutons le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}.{{/prixKit}}
 {{/kitAbsent}}
-VOTRE ARRIVÉE
+{{#ski}}EN HIVER
+Pensez à réserver vos skis et vos cours à l'ESF sans tarder : les créneaux partent vite pendant les vacances scolaires.
+
+{{/ski}}VOTRE ARRIVÉE
 L'arrivée est autonome : vous recevrez le guide d'arrivée avant votre séjour, et le code de la boîte à clés le matin de votre arrivée.
 
 NOTRE GUIDE
@@ -95,13 +101,16 @@ Une question ? Répondez à ce message, ou écrivez-nous sur WhatsApp : {{teleph
 Alexandre`,
     en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
 
-Thank you very much for your booking and your trust! Your stay in Albiez is confirmed:
+Thank you very much for your booking and for your trust! Your stay in Albiez is confirmed:
 
 Arrival: {{arrivee}}, from 4 pm
 Departure: {{depart}}, before 10 am
 Nights: {{nuits}}
 Adults: {{adultes}}{{#enfants}}
 Children: {{enfants}}{{/enfants}}
+
+WHAT IS INCLUDED
+End-of-stay cleaning (excluding the kitchen and washing-up, which are left to you), duvets and pillows.
 {{#kitInclus}}
 YOUR LINEN KIT
 It is included: sheets, pillowcases and one bath towel per person will be waiting in the apartment. The beds are not made; the linen is provided for you to put on. One thing to tell us now: how you would like the beds arranged (for example "1 double + 2 singles"), so we put out the right sheet sizes.
@@ -109,7 +118,10 @@ It is included: sheets, pillowcases and one bath towel per person will be waitin
 LINEN
 Linen is not included in your booking: please bring sheets, pillowcases and bath towels (1 double bed 160 × 190 and 4 single beds 80 × 190).{{#prixKit}} Rather travel light? Let us know and we will add the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}.{{/prixKit}}
 {{/kitAbsent}}
-YOUR ARRIVAL
+{{#ski}}IN WINTER
+Book your ski rental and your ESF lessons early: slots fill up fast during the French school holidays.
+
+{{/ski}}YOUR ARRIVAL
 Check-in is self-service: you will receive the arrival guide before your stay, and the key box code on the morning of your arrival.
 
 OUR GUIDE
@@ -123,13 +135,16 @@ See you soon,
 Alexandre`,
     de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
 
-vielen Dank für Ihre Buchung und Ihr Vertrauen! Ihr Aufenthalt in Albiez ist bestätigt:
+vielen Dank für Ihre Buchung und für Ihr Vertrauen! Ihr Aufenthalt in Albiez ist bestätigt:
 
 Ankunft: {{arrivee}}, ab 16 Uhr
 Abreise: {{depart}}, bis 10 Uhr
 Nächte: {{nuits}}
 Erwachsene: {{adultes}}{{#enfants}}
 Kinder: {{enfants}}{{/enfants}}
+
+WAS ENTHALTEN IST
+Die Endreinigung (ausgenommen Küche und Geschirr, die Ihnen obliegen), Bettdecken und Kopfkissen.
 {{#kitInclus}}
 IHR WÄSCHEPAKET
 Es ist inbegriffen: Bettwäsche, Kissenbezüge und ein Badetuch pro Person liegen in der Wohnung bereit. Die Betten sind nicht bezogen, die Wäsche wird bereitgestellt. Eine Bitte schon jetzt: Teilen Sie uns die gewünschte Bettenaufteilung mit (zum Beispiel „1 Doppelbett + 2 Einzelbetten“), damit wir die richtigen Größen bereitlegen.
@@ -137,7 +152,10 @@ Es ist inbegriffen: Bettwäsche, Kissenbezüge und ein Badetuch pro Person liege
 BETTWÄSCHE
 Bettwäsche ist in Ihrer Buchung nicht inbegriffen: Bitte bringen Sie Laken, Kissenbezüge und Badetücher mit (1 Doppelbett 160 × 190 und 4 Einzelbetten 80 × 190).{{#prixKit}} Lieber mit leichtem Gepäck? Sagen Sie uns Bescheid, und wir fügen das Wäschepaket hinzu, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Lösungscenter{{/viaAirbnb}}.{{/prixKit}}
 {{/kitAbsent}}
-IHRE ANKUNFT
+{{#ski}}IM WINTER
+Buchen Sie Skiverleih und ESF-Kurse frühzeitig: In den französischen Schulferien sind die Plätze schnell vergeben.
+
+{{/ski}}IHRE ANKUNFT
 Die Anreise erfolgt selbstständig: Den Anreiseführer erhalten Sie vor Ihrem Aufenthalt, den Code des Schlüsselkastens am Morgen Ihrer Ankunft.
 
 UNSER GUIDE
@@ -158,6 +176,9 @@ Salida: {{depart}}, antes de las 10:00
 Noches: {{nuits}}
 Adultos: {{adultes}}{{#enfants}}
 Niños: {{enfants}}{{/enfants}}
+
+LO QUE ESTÁ INCLUIDO
+La limpieza final (excepto la cocina y la vajilla, que quedan a su cargo), los edredones y las almohadas.
 {{#kitInclus}}
 SU KIT DE ROPA DE CAMA
 Está incluido: sábanas, fundas de almohada y una toalla de baño por persona le esperan en el apartamento. Las camas no están hechas; la ropa de cama queda a su disposición. Una cosa que puede decirnos ya: cómo desea repartir las camas (por ejemplo, «1 doble + 2 individuales»), para preparar las medidas correctas.
@@ -165,7 +186,10 @@ Está incluido: sábanas, fundas de almohada y una toalla de baño por persona l
 ROPA DE CAMA
 La ropa de cama no está incluida en su reserva: traiga sábanas, fundas de almohada y toallas de baño (1 cama doble de 160 × 190 y 4 camas individuales de 80 × 190).{{#prixKit}} ¿Prefiere viajar ligero? Díganoslo y añadimos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}.{{/prixKit}}
 {{/kitAbsent}}
-SU LLEGADA
+{{#ski}}EN INVIERNO
+Reserve pronto el alquiler de esquís y las clases de la ESF: las plazas se agotan rápido durante las vacaciones escolares francesas.
+
+{{/ski}}SU LLEGADA
 La llegada es autónoma: recibirá la guía de llegada antes de su estancia y el código de la caja de llaves la mañana de su llegada.
 
 NUESTRA GUÍA
@@ -186,6 +210,9 @@ Partenza: {{depart}}, entro le 10:00
 Notti: {{nuits}}
 Adulti: {{adultes}}{{#enfants}}
 Bambini: {{enfants}}{{/enfants}}
+
+COSA È INCLUSO
+Le pulizie finali (escluse cucina e stoviglie, che restano a vostro carico), piumoni e cuscini.
 {{#kitInclus}}
 IL VOSTRO KIT BIANCHERIA
 È incluso: lenzuola, federe e un telo bagno a persona vi aspettano nell'appartamento. I letti non sono fatti, la biancheria è messa a disposizione. Una cosa da dirci fin d'ora: come desiderate sistemare i letti (per esempio «1 matrimoniale + 2 singoli»), per preparare le misure giuste.
@@ -193,7 +220,10 @@ IL VOSTRO KIT BIANCHERIA
 LA BIANCHERIA
 La biancheria non è inclusa nella prenotazione: portate lenzuola, federe e teli bagno (1 letto matrimoniale 160 × 190 e 4 letti singoli 80 × 190).{{#prixKit}} Preferite viaggiare leggeri? Ditecelo e aggiungiamo il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni Airbnb{{/viaAirbnb}}.{{/prixKit}}
 {{/kitAbsent}}
-IL VOSTRO ARRIVO
+{{#ski}}IN INVERNO
+Prenotate presto il noleggio sci e i corsi ESF: i posti si esauriscono in fretta durante le vacanze scolastiche francesi.
+
+{{/ski}}IL VOSTRO ARRIVO
 L'arrivo è autonomo: riceverete la guida all'arrivo prima del soggiorno e il codice della cassetta delle chiavi la mattina del vostro arrivo.
 
 LA NOSTRA GUIDA
@@ -206,8 +236,15 @@ Domande? Rispondete a questo messaggio o scriveteci su WhatsApp: {{telephone}} �
 A presto,
 Alexandre`,
   },
-  // L'auto-action Beds24 (« Merci beaucoup pour votre réservation et pour votre confiance »).
-  fingerprints: ["merci beaucoup pour votre reservation et pour votre confiance", "thank you very much for your booking and your trust"],
+  // L'auto-action Beds24, dans ses cinq langues (`docs/auto-actions-beds24.md`) : en `live`, une
+  // confirmation déjà partie de Beds24 compte comme envoyée.
+  fingerprints: [
+    "merci beaucoup pour votre reservation et pour votre confiance",
+    "thank you very much for your booking and for your trust",
+    "vielen dank fur ihre buchung und fur ihr vertrauen",
+    "muchas gracias por su reserva y por su confianza",
+    "grazie mille per la vostra prenotazione e per la vostra fiducia",
+  ],
 };
 
 const preArrivee: MessageTemplate = {
