@@ -185,7 +185,7 @@ export function overlapsTyreSeason(arrival: string, departure: string): boolean 
 /** Dates, nuits et voyageurs de la confirmation, dans la langue du voyageur. */
 function stayVars(b: Row): Record<string, string | undefined> {
   const fmt = (day: string) =>
-    new Intl.DateTimeFormat(b.locale, { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(
+    new Intl.DateTimeFormat(b.locale === "en" ? "en-GB" : b.locale, { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(
       new Date(`${day}T00:00:00Z`),
     );
   return {

@@ -33,7 +33,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
   const { killSwitch, modes: m } = modes();
-  if (killSwitch || !Object.values(m).some((x) => x === "live" || x === "test")) {
+  // Seule la confirmation a besoin de partir dans la minute ; les autres messages sont à heure
+  // fixe et le cron de 10 min suffit — inutile de payer un passage complet à chaque webhook.
+  if (killSwitch || (m.confirmation !== "live" && m.confirmation !== "test")) {
     return NextResponse.json({ ok: true, messages: null });
   }
   try {
