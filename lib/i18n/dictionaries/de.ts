@@ -425,7 +425,7 @@ export const de: Dictionary = {
   location: {
     title: "Wo die Wohnung liegt",
     subtitle:
-      "Chemin du Châtel, 73530 Albiez-Montrond — ruhig gelegen, im Tal der Maurienne.",
+      "Chemin du Châtel, 73300 Albiez-Montrond — ruhig gelegen, im Tal der Maurienne.",
     resortTitle: "Das Skigebiet Albiez",
     resortDescription:
       "Ein familiäres Skigebiet in der Maurienne, zwischen 1.500 und 2.060 Metern Höhe. Genug Pisten für eine Woche, wenig genug Betrieb, um dort Skifahren zu lernen.",

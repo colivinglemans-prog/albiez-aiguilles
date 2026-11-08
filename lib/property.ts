@@ -42,12 +42,12 @@ export const PROPERTY = {
 
   address: {
     street: "Chemin du Châtel",
-    postalCode: "73530",
+    postalCode: "73300",
     city: "Albiez-Montrond",
     department: "Savoie",
     region: "Auvergne-Rhône-Alpes",
     country: "France",
-    full: "Chemin du Châtel, 73530 Albiez-Montrond, France",
+    full: "Chemin du Châtel, 73300 Albiez-Montrond, France",
   },
 
   /** Surface loi Carrez, en m². */

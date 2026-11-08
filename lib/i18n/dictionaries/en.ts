@@ -405,7 +405,7 @@ export const en: Dictionary = {
   location: {
     title: "Where the apartment is",
     subtitle:
-      "Chemin du Châtel, 73530 Albiez-Montrond — quiet, in the Maurienne valley.",
+      "Chemin du Châtel, 73300 Albiez-Montrond — quiet, in the Maurienne valley.",
     resortTitle: "The Albiez ski area",
     resortDescription:
       "A family resort in the Maurienne, between 1,500 and 2,060 metres. Enough pistes for a week, few enough people to learn to ski on them.",

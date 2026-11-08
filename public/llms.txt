@@ -7,7 +7,7 @@
 - **Type** : appartement dans un des chalets de la résidence Le Hameau des Aiguilles (ce n'est pas un chalet entier), 2e et dernier étage
 - **Capacité** : jusqu'à 6 personnes (même prix de 1 à 4 personnes), 3 espaces de couchage : 1 chambre fermée (lit 160 × 190), 1 coin montagne ouvert avec lits superposés (2 × 80 × 190), 1 canapé gigogne au séjour (2 × 80 × 190)
 - **Surface** : 33 m² (loi Carrez)
-- **Adresse** : Chemin du Châtel, 73530 Albiez-Montrond, France
+- **Adresse** : Chemin du Châtel, 73300 Albiez-Montrond, France
 - **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds)
 - **Arrivée** : à partir de 16 h, autonome (boîte à clés), contact sur place. **Départ** : avant 10 h.
 - **Séjour minimum** (saison 2026-2027, l'API ci-dessous fait foi pour chaque date) :

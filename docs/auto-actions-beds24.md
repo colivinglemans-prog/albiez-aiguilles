@@ -220,7 +220,7 @@ VOTRE ARRIVÉE
   L'arrivée est 100 % autonome : vous arrivez à l'heure qui vous convient.
   Vous recevrez le guide d'arrivée une semaine avant, et le code d'accès le matin de votre arrivée.
 
-  Adresse : Chemin du Châtel, 73530 Albiez-Montrond
+  Adresse : Chemin du Châtel, 73300 Albiez-Montrond
   Plan    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
   Site    : https://www.albiez-aiguilles.fr/fr/
 
@@ -346,7 +346,7 @@ YOUR ARRIVAL
   Check-in is fully self-service: you arrive whenever suits you.
   You will receive the arrival guide a week before, and your access code on the morning of your arrival.
 
-  Address: Chemin du Châtel, 73530 Albiez-Montrond, France
+  Address: Chemin du Châtel, 73300 Albiez-Montrond, France
   Map    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
   Website: https://www.albiez-aiguilles.fr/en/
 
@@ -409,7 +409,7 @@ IHRE ANKUNFT
   Die Anreise erfolgt vollständig selbstständig: Sie kommen, wann es Ihnen passt.
   Den Anreiseführer erhalten Sie eine Woche vorher, den Zugangscode am Morgen Ihrer Ankunft.
 
-  Adresse: Chemin du Châtel, 73530 Albiez-Montrond, Frankreich
+  Adresse: Chemin du Châtel, 73300 Albiez-Montrond, Frankreich
   Karte  : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
   Website: https://www.albiez-aiguilles.fr/de/
 
@@ -472,7 +472,7 @@ SU LLEGADA
   La entrada es totalmente autónoma: llegue a la hora que le convenga.
   Recibirá la guía de llegada una semana antes, y el código de acceso la mañana de su llegada.
 
-  Dirección: Chemin du Châtel, 73530 Albiez-Montrond, Francia
+  Dirección: Chemin du Châtel, 73300 Albiez-Montrond, Francia
   Mapa     : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
   Web      : https://www.albiez-aiguilles.fr/es/
 
@@ -535,7 +535,7 @@ IL VOSTRO ARRIVO
   Il check-in è totalmente autonomo: arrivate all'ora che preferite.
   Riceverete la guida all'arrivo una settimana prima, e il codice di accesso la mattina del vostro arrivo.
 
-  Indirizzo: Chemin du Châtel, 73530 Albiez-Montrond, Francia
+  Indirizzo: Chemin du Châtel, 73300 Albiez-Montrond, Francia
   Mappa    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
   Sito     : https://www.albiez-aiguilles.fr/it/
 

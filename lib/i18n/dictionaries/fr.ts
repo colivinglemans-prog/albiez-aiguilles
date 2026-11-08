@@ -422,7 +422,7 @@ export const fr: Dictionary = {
   location: {
     title: "Où se trouve l'appartement",
     subtitle:
-      "Chemin du Châtel, 73530 Albiez-Montrond — au calme, dans la vallée de la Maurienne.",
+      "Chemin du Châtel, 73300 Albiez-Montrond — au calme, dans la vallée de la Maurienne.",
     resortTitle: "La station d'Albiez",
     resortDescription:
       "Une station familiale de Maurienne, entre 1 500 et 2 060 mètres d'altitude. Assez de pistes pour une semaine, assez peu de monde pour y apprendre à skier.",
