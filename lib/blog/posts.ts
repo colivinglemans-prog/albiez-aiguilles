@@ -1388,7 +1388,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Skiverleih in Albiez-Montrond: die 4 Verleihgeschäfte",
+          "Skiverleih in Albiez-Montrond: die 4 Skiverleihe",
         description:
           "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: wo Sie in Albiez Ski leihen, am Pistenzugang des Mollard oder im Chef-lieu, und warum Sie online buchen sollten.",
         excerpt:
@@ -1537,7 +1537,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Groceries in Albiez-Montrond: supermarket, delivery, drive",
+        title: "Groceries in Albiez: supermarket, delivery, click & collect",
         description:
           "The Sherpa by the slopes, the Sambuis Dufreney grocery and the bakery in the village, Carrefour Market and Lidl in Saint-Jean-de-Maurienne: where to shop, and in which order.",
         excerpt:
@@ -1552,7 +1552,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Einkaufen in Albiez-Montrond: Supermarkt, Lieferung, Drive",
+          "Einkaufen in Albiez: Supermarkt, Lieferung, Click & Collect",
         description:
           "Der Sherpa am Pistenzugang, der Lebensmittelladen Sambuis Dufreney und die Bäckerei im Dorf, Carrefour Market und Lidl in Saint-Jean-de-Maurienne: wo Sie einkaufen und in welcher Reihenfolge.",
         excerpt:
@@ -1567,7 +1567,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Compras en Albiez-Montrond: supermercado, entrega, drive",
+          "Compras en Albiez-Montrond: supermercado y entrega a domicilio",
         description:
           "El Sherpa junto a las pistas, la tienda Sambuis Dufreney y la panadería del pueblo, Carrefour Market y Lidl en Saint-Jean-de-Maurienne: dónde hacer la compra y en qué orden.",
         excerpt:
@@ -1822,7 +1822,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Albiez-Montrond in famiglia: asilo, slittino, bagno",
+          "Albiez-Montrond in famiglia: asilo sulla neve, slittino, bagno",
         description:
           "Club Piou-Piou, centro ricreativo Le Petit Montagnard, asilo nido Le Chat Perché, pista da slittino del Mollard, balneazione sorvegliata: ciò che rende Albiez praticabile con i bambini.",
         excerpt:

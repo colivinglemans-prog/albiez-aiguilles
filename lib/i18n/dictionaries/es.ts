@@ -48,7 +48,7 @@ export const es: Dictionary = {
       "¿Todavía no es miembro? Si se registra con mi código, ambos recibimos 250 GuestPoints.",
     seo: {
       title:
-        "Alquiler apartamento Albiez-Montrond — Hameau des Aiguilles",
+        "Alquiler de apartamento Albiez-Montrond — Hameau des Aiguilles",
       description:
         "Apartamento 4-6 personas en Albiez-Montrond (Saboya, 1600 m) a 250 m de pistas, balcón frente a las Aiguilles d'Arves. Invierno, verano, temporada baja.",
       keywords: [
