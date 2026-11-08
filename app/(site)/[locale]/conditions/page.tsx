@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cancellationText } from "@sejour/socle/lib/quote-labels";
 import { isLocale, LOCALES, type Locale } from "@/lib/i18n";
-import { CANCELLATION_POLICY, PAYMENT_POLICY, PROPERTY, SITE_URL } from "@/lib/property";
+import { CANCELLATION_POLICY, PAYMENT_POLICY, PROPERTY } from "@/lib/property";
 import { Section, SectionTitle } from "@/components/public/Section";
+import { alternatesFor, conditionsPath, openGraphLocales } from "@/lib/seo";
 
 /**
  * Conditions de réservation : la page que citent `llms.txt`, la page de devis et le profil
@@ -11,7 +12,6 @@ import { Section, SectionTitle } from "@/components/public/Section";
  * `lib/property.ts` — les mêmes que contrôle la surveillance (`llms.policies`) et que sert
  * l'API des IA —, les phrases sont ici, dans les cinq langues.
  */
-const PATH = "conditions";
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -25,7 +25,7 @@ interface Content {
 
 const linen = PROPERTY.linen.pricePerPerson;
 const cleaning = PROPERTY.services.cleaningFee;
-const { min, max } = PROPERTY.capacity;
+const { max } = PROPERTY.capacity;
 const upfront = PAYMENT_POLICY.direct.upfrontPct;
 const deposit = PAYMENT_POLICY.business?.depositPct ?? 30;
 const email = PROPERTY.contact.email;
@@ -50,14 +50,14 @@ function content(locale: Locale): Content {
             `Bed linen and towels optional: ${linen} € per person per stay, to be ticked on the payment page. Duvets and pillows are provided.`,
           ] },
           { title: "Capacity and house rules", items: [
-            `${min} to ${max} guests, babies included (baby kit on request).`,
+            `Up to ${max} guests, babies included (baby kit on request).`,
             "No pets. Non-smoking apartment.",
             "Minimum stay depends on the dates (weekly, Saturday to Saturday, during most of the ski season; usually 2 nights off-season): the booking calendar shows the rule for each date.",
             "Work stays: off-season only (not while the ski area is open, nor in July-August).",
             "Winter tyres or chains are mandatory in Savoie from 1 November to 31 March.",
           ] },
           { title: "Personal data", items: [
-            "The data needed for the booking (name, contact details, payment) is processed by Beds24, our booking software, and its payment provider, only to manage the booking and the stay.",
+            `The data needed for the booking (name, contact details, dates, payment) is used only to manage the booking and the stay. It is processed by Beds24 (booking software) and its payment provider; the site is hosted by Vercel. Nothing is sold or used for advertising. Data controller: the site publisher (see the legal notice, /en/mentions-legales). Access or deletion: ${PROPERTY.contact.email}.`,
             `To access, correct or delete your data: ${email}.`,
           ] },
         ],
@@ -79,14 +79,14 @@ function content(locale: Locale): Content {
             `Bettwäsche und Handtücher optional: ${linen} € pro Person und Aufenthalt, auf der Zahlungsseite anzukreuzen. Bettdecken und Kissen sind vorhanden.`,
           ] },
           { title: "Kapazität und Hausregeln", items: [
-            `${min} bis ${max} Gäste, Babys willkommen (Babyausstattung auf Anfrage).`,
+            `Bis zu ${max} Gäste, Babys willkommen (Babyausstattung auf Anfrage).`,
             "Keine Haustiere. Nichtraucherwohnung.",
             "Der Mindestaufenthalt hängt von den Daten ab (in weiten Teilen der Skisaison wochenweise von Samstag bis Samstag, außerhalb der Saison meist 2 Nächte): Der Buchungskalender zeigt die Regel für jedes Datum.",
             "Geschäftsaufenthalte nur außerhalb der Saison (nicht während der Skisaison und nicht im Juli-August).",
             "Winterreifen oder Schneeketten sind in Savoyen vom 1. November bis 31. März Pflicht.",
           ] },
           { title: "Personenbezogene Daten", items: [
-            "Die für die Buchung nötigen Daten (Name, Kontaktdaten, Zahlung) werden von Beds24, unserer Buchungssoftware, und deren Zahlungsdienstleister ausschließlich zur Verwaltung der Buchung und des Aufenthalts verarbeitet.",
+            `Die für die Buchung nötigen Daten (Name, Kontaktdaten, Daten, Zahlung) dienen nur der Verwaltung der Buchung und des Aufenthalts. Sie werden von Beds24 (Buchungssoftware) und deren Zahlungsdienstleister verarbeitet; die Website wird bei Vercel gehostet. Nichts wird verkauft oder für Werbung genutzt. Verantwortlicher: der Herausgeber der Website (siehe Impressum, /de/mentions-legales). Auskunft oder Löschung: ${PROPERTY.contact.email}.`,
             `Auskunft, Berichtigung oder Löschung: ${email}.`,
           ] },
         ],
@@ -108,14 +108,14 @@ function content(locale: Locale): Content {
             `Ropa de cama y toallas opcionales: ${linen} € por persona y estancia, a marcar en la página de pago. Edredones y almohadas incluidos.`,
           ] },
           { title: "Capacidad y normas", items: [
-            `De ${min} a ${max} personas, bebés incluidos (kit de bebé bajo petición).`,
+            `Hasta ${max} personas, bebés incluidos (kit de bebé bajo petición).`,
             "No se admiten mascotas. Apartamento para no fumadores.",
             "La estancia mínima depende de las fechas (por semanas, de sábado a sábado, durante gran parte de la temporada de esquí; en general 2 noches fuera de temporada): el calendario de reserva indica la regla de cada fecha.",
             "Estancias de trabajo solo fuera de temporada (ni con las pistas abiertas ni en julio-agosto).",
             "Neumáticos de invierno o cadenas obligatorios en Saboya del 1 de noviembre al 31 de marzo.",
           ] },
           { title: "Datos personales", items: [
-            "Los datos necesarios para la reserva (nombre, contacto, pago) los trata Beds24, nuestro programa de reservas, y su proveedor de pago, solo para gestionar la reserva y la estancia.",
+            `Los datos necesarios para la reserva (nombre, contacto, fechas, pago) solo se usan para gestionar la reserva y la estancia. Los tratan Beds24 (software de reservas) y su proveedor de pago; el sitio está alojado en Vercel. Nada se vende ni se usa con fines publicitarios. Responsable del tratamiento: el editor del sitio (ver aviso legal, /es/mentions-legales). Acceso o supresión: ${PROPERTY.contact.email}.`,
             `Para consultar, corregir o borrar sus datos: ${email}.`,
           ] },
         ],
@@ -137,14 +137,14 @@ function content(locale: Locale): Content {
             `Biancheria da letto e asciugamani opzionali: ${linen} € a persona per soggiorno, da spuntare nella pagina di pagamento. Piumini e cuscini forniti.`,
           ] },
           { title: "Capienza e regole", items: [
-            `Da ${min} a ${max} persone, neonati compresi (kit neonato su richiesta).`,
+            `Fino a ${max} persone, neonati compresi (kit neonato su richiesta).`,
             "Animali non ammessi. Appartamento non fumatori.",
             "Il soggiorno minimo dipende dalle date (a settimana, da sabato a sabato, per gran parte della stagione sciistica; in genere 2 notti fuori stagione): il calendario di prenotazione indica la regola di ogni data.",
             "Soggiorni di lavoro solo fuori stagione (non con le piste aperte né a luglio-agosto).",
             "Pneumatici invernali o catene obbligatori in Savoia dal 1° novembre al 31 marzo.",
           ] },
           { title: "Dati personali", items: [
-            "I dati necessari alla prenotazione (nome, recapiti, pagamento) sono trattati da Beds24, il nostro software di prenotazione, e dal suo fornitore di pagamento, solo per gestire la prenotazione e il soggiorno.",
+            `I dati necessari alla prenotazione (nome, recapiti, date, pagamento) servono solo a gestire la prenotazione e il soggiorno. Sono trattati da Beds24 (software di prenotazione) e dal suo fornitore di pagamento; il sito è ospitato da Vercel. Nulla viene venduto né usato per pubblicità. Titolare del trattamento: l'editore del sito (vedi note legali, /it/mentions-legales). Accesso o cancellazione: ${PROPERTY.contact.email}.`,
             `Per consultare, correggere o cancellare i dati: ${email}.`,
           ] },
         ],
@@ -166,14 +166,14 @@ function content(locale: Locale): Content {
             `Linge de lit et serviettes en option : ${linen} € par personne et par séjour, à cocher sur la page de paiement. Couettes et oreillers fournis.`,
           ] },
           { title: "Capacité et règles", items: [
-            `De ${min} à ${max} personnes, bébés compris (kit bébé sur demande).`,
+            `Jusqu'à ${max} personnes, bébés compris (kit bébé sur demande).`,
             "Animaux non autorisés. Logement non-fumeur.",
             "Le séjour minimum dépend des dates (à la semaine, du samedi au samedi, sur une grande partie de la saison de ski ; en général 2 nuits hors saison) : le calendrier de réservation indique la règle de chaque date.",
             "Séjours professionnels uniquement hors saison (ni pendant l'ouverture du domaine skiable, ni en juillet-août).",
             "Pneus hiver ou chaînes obligatoires en Savoie du 1er novembre au 31 mars.",
           ] },
           { title: "Données personnelles", items: [
-            "Les données nécessaires à la réservation (nom, coordonnées, paiement) sont traitées par Beds24, notre logiciel de réservation, et son prestataire de paiement, uniquement pour gérer la réservation et le séjour.",
+            `Les données nécessaires à la réservation (nom, coordonnées, dates, paiement) servent uniquement à gérer la réservation et le séjour. Elles sont traitées par Beds24 (logiciel de réservation) et son prestataire de paiement ; le site est hébergé par Vercel. Rien n'est vendu ni utilisé à des fins publicitaires. Responsable du traitement : l'éditeur du site (voir les mentions légales, /fr/mentions-legales). Accès ou suppression : ${PROPERTY.contact.email}.`,
             `Pour consulter, corriger ou supprimer vos données : ${email}.`,
           ] },
         ],
@@ -188,10 +188,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: c.title,
     description: c.intro,
-    alternates: {
-      canonical: `${SITE_URL}/${locale}/${PATH}`,
-      languages: Object.fromEntries(LOCALES.map((l) => [l, `${SITE_URL}/${l}/${PATH}`])),
-    },
+    alternates: alternatesFor(locale, conditionsPath),
+    openGraph: { ...openGraphLocales(locale) },
   };
 }
 

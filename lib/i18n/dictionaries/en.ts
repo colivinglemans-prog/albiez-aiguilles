@@ -379,7 +379,7 @@ export const en: Dictionary = {
       "There are around fifty steps between the car park and the apartment. That is the price of the view — but better to know before you book.",
     parking: "Outdoor parking 50 metres from the chalet.",
     keyBox:
-      "Key box: arrive and leave on your own schedule, no check-in appointment needed.",
+      "Key box: arrive and leave on your own, no check-in appointment needed (arrival from 4 pm, departure before 10 am).",
     skiLocker: "Large ski locker on the landing.",
     onSiteContact: "Someone is on site should anything go wrong.",
     servicesTitle: "Services",
@@ -677,7 +677,7 @@ export const en: Dictionary = {
       "Three separate sleeping spaces: ideal for two, or even three people, each with their own privacy.",
       "A full kitchen, oven and dishwasher: you will not be eating out six nights a week.",
       "A south-west-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
-      "Free parking and a key box: you come and go under your own steam, at whatever time suits.",
+      "Free parking and a key box: you come and go under your own steam, no appointment needed.",
       "1,600 metres of altitude, meaning cool nights in summer and dry air all year.",
     ],
     afterWorkTitle: "Getting out in the evening and at weekends",

@@ -44,7 +44,7 @@ export default async function QuotePage({ params }: { params: Promise<{ locale: 
         lang={locale}
         labels={quoteLabels(locale, INCLUDED[locale] ?? INCLUDED.fr)}
         calendarUrl={calendarUrl}
-        conditionsUrl={`/${locale}#reserver`}
+        conditionsUrl={`/${locale}/conditions`}
         cancellation={cancellationText(CANCELLATION_POLICY, locale)}
         header={<p className="text-sm uppercase tracking-wide text-secondary">{STAY_AGENT.facts(locale).name}</p>}
       />

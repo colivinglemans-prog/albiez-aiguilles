@@ -394,7 +394,7 @@ export const de: Dictionary = {
       "Zwischen Parkplatz und Wohnung liegen etwa fünfzig Stufen. Das ist der Preis für die Aussicht – aber man sollte es vor der Buchung wissen.",
     parking: "Außenparkplatz 50 Meter vom Chalet.",
     keyBox:
-      "Schlüsselbox: Sie kommen und gehen völlig selbstständig, zu der Zeit, die Ihnen passt.",
+      "Schlüsselbox: Sie kommen und gehen völlig selbstständig, ohne Termin (Anreise ab 16 Uhr, Abreise bis 10 Uhr).",
     skiLocker: "Großer Skiraum auf dem Treppenabsatz.",
     onSiteContact: "Eine Ansprechperson ist bei Problemen vor Ort.",
     servicesTitle: "Leistungen",
@@ -700,7 +700,7 @@ export const de: Dictionary = {
       "Drei getrennte Schlafbereiche: ideal für zwei, auch für drei Personen, jede mit ihrer Privatsphäre.",
       "Eine vollständige Küche mit Backofen und Spülmaschine: Man isst nicht sechs Abende die Woche auswärts.",
       "Ein Südwestbalkon mit Blick auf die Aiguilles d'Arves und die Stille eines Dorfs mit 300 Einwohnern.",
-      "Kostenloser Parkplatz und ein Schlüsselkasten: Man kommt und geht selbstständig, zu jeder passenden Zeit.",
+      "Kostenloser Parkplatz und ein Schlüsselkasten: Man kommt und geht selbstständig, ohne Termin.",
       "1 600 Meter Höhe, also kühle Sommernächte und trockene Luft das ganze Jahr.",
     ],
     afterWorkTitle: "Abends und am Wochenende hinaus",

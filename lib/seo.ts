@@ -55,6 +55,7 @@ export const blogPath = sectionPath("guide");
  * vacancier venu pour le ski n'a rien à faire sur une page qui parle de chantier.
  */
 export const longStayPath = sectionPath("sejour-longue-duree");
+export const conditionsPath = sectionPath("conditions");
 
 /**
  * Chemin d'un article. Le slug est commun aux cinq langues, contrairement aux

@@ -391,7 +391,7 @@ export const fr: Dictionary = {
       "Il y a une cinquantaine de marches entre le parking et l'appartement. C'est le prix de la vue — mais mieux vaut le savoir avant de réserver.",
     parking: "Parking extérieur à 50 mètres du chalet.",
     keyBox:
-      "Boîte à clés : vous arrivez et repartez en toute autonomie, à l'heure qui vous arrange.",
+      "Boîte à clés : vous arrivez et repartez en toute autonomie, sans rendez-vous (arrivée dès 16 h, départ avant 10 h).",
     skiLocker: "Grand casier à skis sur le palier.",
     onSiteContact: "Une personne est sur place en cas de souci.",
     servicesTitle: "Services",
@@ -695,7 +695,7 @@ export const fr: Dictionary = {
       "Trois espaces de couchage distincts : idéal pour deux, voire trois personnes, chacune avec son intimité.",
       "Une cuisine complète, four et lave-vaisselle : on ne mange pas au restaurant six soirs par semaine.",
       "Un balcon orienté sud-ouest face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
-      "Un parking gratuit et une boîte à clés : on arrive et on repart en autonomie, à l'heure qui arrange.",
+      "Un parking gratuit et une boîte à clés : on arrive et on repart en autonomie, sans rendez-vous.",
       "1 600 mètres d'altitude, soit des nuits fraîches en été et de l'air sec toute l'année.",
     ],
     afterWorkTitle: "S'aérer le soir et le week-end",

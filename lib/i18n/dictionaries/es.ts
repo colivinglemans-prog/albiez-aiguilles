@@ -393,7 +393,7 @@ export const es: Dictionary = {
       "Hay unos cincuenta escalones entre el aparcamiento y el apartamento. Es el precio de las vistas, pero conviene saberlo antes de reservar.",
     parking: "Aparcamiento exterior a 50 metros del chalé.",
     keyBox:
-      "Caja de llaves: llega y se va con total autonomía, a la hora que le convenga.",
+      "Caja de llaves: llega y se va con total autonomía, sin cita (llegada desde las 16 h, salida antes de las 10 h).",
     skiLocker: "Amplio guardaesquís en el rellano.",
     onSiteContact: "Hay una persona en el pueblo por si surge algún problema.",
     servicesTitle: "Servicios",
@@ -699,7 +699,7 @@ export const es: Dictionary = {
       "Tres espacios para dormir separados: ideal para dos, incluso tres personas, cada una con su intimidad.",
       "Una cocina completa, con horno y lavavajillas: no se cena fuera seis noches por semana.",
       "Un balcón orientado al suroeste frente a las Aiguilles d'Arves, y el silencio de un pueblo de 300 habitantes.",
-      "Aparcamiento gratuito y caja de llaves: se llega y se sale con total autonomía, a la hora que convenga.",
+      "Aparcamiento gratuito y caja de llaves: se llega y se sale con total autonomía, sin cita.",
       "1 600 metros de altitud: noches frescas en verano y aire seco todo el año.",
     ],
     afterWorkTitle: "Airearse por la tarde y el fin de semana",

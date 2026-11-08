@@ -393,7 +393,7 @@ export const it: Dictionary = {
       "Ci sono una cinquantina di gradini tra il parcheggio e l'appartamento. È il prezzo della vista, ma è meglio saperlo prima di prenotare.",
     parking: "Parcheggio esterno a 50 metri dallo chalet.",
     keyBox:
-      "Cassetta portachiavi: arrivate e ripartite in autonomia, all'ora che vi conviene.",
+      "Cassetta portachiavi: arrivate e ripartite in autonomia, senza appuntamento (arrivo dalle 16, partenza entro le 10).",
     skiLocker: "Ampio deposito sci sul pianerottolo.",
     onSiteContact: "Una persona è sul posto in caso di problemi.",
     servicesTitle: "Servizi",
@@ -699,7 +699,7 @@ export const it: Dictionary = {
       "Tre spazi letto distinti: ideale per due, anche tre persone, ciascuna con la propria intimità.",
       "Una cucina completa, con forno e lavastoviglie: non si cena fuori sei sere a settimana.",
       "Un balcone esposto a sud-ovest di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
-      "Parcheggio gratuito e cassetta portachiavi: si arriva e si riparte in autonomia, all'ora che si preferisce.",
+      "Parcheggio gratuito e cassetta portachiavi: si arriva e si riparte in autonomia, senza appuntamento.",
       "1 600 metri di quota: notti fresche d'estate e aria secca tutto l'anno.",
     ],
     afterWorkTitle: "Prendere aria la sera e nel fine settimana",
