@@ -17,10 +17,14 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@sejour/socle": "github:colivinglemans-prog/sejour-socle#v3.17.0",
 =======
     "@sejour/socle": "github:colivinglemans-prog/sejour-socle#803f46d730083f54ba9dc9428a363a3a712983fc",
 >>>>>>> bd74381 (Messages voyageurs : l'outil maison remplace les envois à la main (mode ombre))
+=======
+    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#ffb916f846d370540a720afe8582c78d36b229ba",
+>>>>>>> 583ecd3 (Socle épinglé sur la branche guest-messaging (ffb916f) — à remplacer par le tag v3.17.0 au merge)
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.1.0",
     "image-size": "^2.0.2",
