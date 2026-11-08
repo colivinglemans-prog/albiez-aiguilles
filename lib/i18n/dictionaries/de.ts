@@ -663,7 +663,7 @@ export const de: Dictionary = {
     cta: {
       title: "In Albiez übernachten",
       text: "Unsere Wohnung liegt am Mollard, 250 m vom Pistenzugang und vom Start der Wanderwege. Bis zu 6 Personen, Südwestbalkon mit Blick auf die Aiguilles d'Arves.",
-      button: "Die Wohnung ansehen",
+      button: "Verfügbarkeit ansehen",
     },
     seo: {
       title:

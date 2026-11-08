@@ -16,6 +16,7 @@ import {
   openGraphLocales,
 } from "@/lib/seo";
 import { PROPERTY, SITE_URL } from "@/lib/property";
+import { seasonHref } from "@/lib/seasons";
 import { getPhoto } from "@/lib/photos";
 import { formatDate } from "@sejour/socle/lib/dates";
 import { eventJsonLd, nextEdition } from "@sejour/socle/lib/events";
@@ -441,8 +442,14 @@ export default async function GuidePost({
         <aside className="mt-14 rounded-2xl border border-accent/30 bg-accent-soft px-6 py-7">
           <p className="text-lg font-semibold text-primary">{t.blog.cta.title}</p>
           <p className="mt-2 text-sm text-secondary">{t.blog.cta.text}</p>
+          {/*
+            Vers le calendrier, pas vers le haut de l'accueil : les articles pratiques (ESF,
+            courses, location de skis) captent l'essentiel des impressions Google, et l'encart
+            renvoyait à la page d'accueil, à six gestes de la réservation. Un article de saison
+            mène à la page de sa saison, qui porte le même calendrier.
+          */}
           <Link
-            href={`/${locale}`}
+            href={`${post.season ? seasonHref(locale, post.season) : `/${locale}`}#reserver`}
             className="mt-5 inline-block rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
           >
             {t.blog.cta.button}

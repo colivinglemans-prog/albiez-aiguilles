@@ -659,7 +659,7 @@ export const fr: Dictionary = {
     cta: {
       title: "Séjourner à Albiez",
       text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon orienté sud-ouest face aux Aiguilles d'Arves.",
-      button: "Voir le logement",
+      button: "Voir les disponibilités",
     },
     seo: {
       title: "Guide d'Albiez-Montrond — randonnées, ski, commerces et activités",

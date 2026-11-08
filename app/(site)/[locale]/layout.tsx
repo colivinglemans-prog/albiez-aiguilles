@@ -7,6 +7,7 @@ import { I18nProvider, isLocale, LOCALES } from "@/lib/i18n";
 import { SITE_NAME, SITE_URL } from "@/lib/property";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileBookBar from "@/components/public/MobileBookBar";
 import "../../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -60,6 +61,7 @@ export default async function LocaleLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <MobileBookBar />
         </I18nProvider>
         <Analytics />
         <SpeedInsights />

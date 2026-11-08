@@ -662,7 +662,7 @@ export const es: Dictionary = {
     cta: {
       title: "Alojarse en Albiez",
       text: "Nuestro apartamento está en Le Mollard, a 250 m del acceso a pistas y de la salida de los senderos. Hasta 6 personas, balcón al suroeste frente a las Aiguilles d'Arves.",
-      button: "Ver el alojamiento",
+      button: "Ver disponibilidad",
     },
     seo: {
       title:
