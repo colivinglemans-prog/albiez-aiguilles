@@ -29,6 +29,12 @@ describe("messages voyageurs d'Albiez", () => {
       telephone: "+33 0 00 00 00 00",
       whatsapp: "https://wa.me/0",
       code: "0000",
+      adresse: "Rue Exemple, Ville",
+      arrivee: "samedi 19 décembre",
+      depart: "samedi 26 décembre",
+      nuits: "7",
+      adultes: "4",
+      enfants: "2",
     };
     for (const t of TEMPLATES) {
       for (const locale of LOCALES) {

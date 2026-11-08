@@ -71,7 +71,7 @@ export function modes(): { modes: Record<string, TemplateMode>; display: Record<
   return parseModes(IDS, process.env.MESSAGES_MODES, process.env.MESSAGES_KILL_SWITCH?.trim() === "1");
 }
 
-type Row = MessagingBooking & { firstName?: string };
+type Row = MessagingBooking & { firstName?: string; adults?: number; children?: number };
 
 function toMessagingBooking(b: Beds24Booking, thread: readonly Beds24Message[]): Row {
   const { locale, source } = pickGuestLocale({ lang: b.lang, country: b.country });
@@ -89,6 +89,8 @@ function toMessagingBooking(b: Beds24Booking, thread: readonly Beds24Message[]):
     ledger: [...ledgerFromInfoItems(b.infoItems, IDS), ...ledgerFromThread(thread, TEMPLATES)],
     testLedger: testLedgerFromInfoItems(b.infoItems, IDS),
     firstName: b.firstName?.trim() || undefined,
+    adults: b.numAdult,
+    children: b.numChild,
   };
 }
 
@@ -130,6 +132,8 @@ async function variables(b: Row, t: MessageTemplate): Promise<Vars> {
     guide: `${SITE_URL}/${b.locale}/guide`,
     telephone: formatPhone(PROPERTY.contact.phone),
     whatsapp: PROPERTY.contact.whatsapp,
+    adresse: PROPERTY.address.full,
+    ...stayVars(b),
   };
   if (t.variables.includes("code")) vars.code = process.env.ALBIEZ_CODE_BOITE_A_CLES?.trim() || undefined;
   if (t.optionalVariables?.includes("kitInclus")) {
@@ -176,6 +180,21 @@ export function overlapsTyreSeason(arrival: string, departure: string): boolean 
     if (month >= 11 || month <= 3) return true;
   }
   return false;
+}
+
+/** Dates, nuits et voyageurs de la confirmation, dans la langue du voyageur. */
+function stayVars(b: Row): Record<string, string | undefined> {
+  const fmt = (day: string) =>
+    new Intl.DateTimeFormat(b.locale, { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(
+      new Date(`${day}T00:00:00Z`),
+    );
+  return {
+    arrivee: fmt(b.arrival),
+    depart: fmt(b.departure),
+    nuits: String(nightsOf(b)),
+    adultes: b.adults ? String(b.adults) : undefined,
+    enfants: b.children ? String(b.children) : undefined,
+  };
 }
 
 /** « +33620921005 » → « +33 6 20 92 10 05 ». */

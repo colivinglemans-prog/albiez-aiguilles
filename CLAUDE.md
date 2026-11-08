@@ -2093,6 +2093,11 @@ paiement) : décision de l'hôte, à rouvrir après une saison.
   bloc `tardif`. Lendemain de l'arrivée (3 nuits minimum) et départ sont des messages de confort
   (`quietHours: 12`) : ils sautent si un autre message vient de partir — sur une nuit, le départ
   ne double pas le code du matin.
+- **Confirmation** (`confirmation`, à la réservation) : **en mode test seulement** depuis le
+  2026-11-08 — la vraie reste dans Beds24 (617008 / 625162 : facture, lien de paiement). Le
+  webhook Beds24 du sous-compte ([app/api/webhooks/beds24/route.ts](app/api/webhooks/beds24/route.ts),
+  en-tête `x-webhook-secret` = `BEDS24_WEBHOOK_SECRET`) lance un passage dans la minute ; sans lui,
+  le cron de 10 min suffit.
 - **Lendemain de l'arrivée** : c'était un **message programmé dans Airbnb**, invisible de Beds24
   (aucune trace dans les fils). Au passage en `live`, **le couper dans Airbnb**, sinon les
   voyageurs Airbnb le reçoivent deux fois.

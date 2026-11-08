@@ -41,6 +41,175 @@ import type { MessageTemplate } from "@sejour/socle/lib/guest-messaging/types";
 /** Une réservation prise moins de 48 h avant le jour d'arrivée est « de dernière minute ». */
 export const LATE_BOOKING_HOURS = 48;
 
+/**
+ * Confirmation de réservation — **en mode test seulement** (2026-11-08) : la vraie confirmation
+ * reste dans Beds24 (617008 et 625162 : tableau de facture, lien de paiement des directes). Celle-ci
+ * en reprend les faits (`docs/auto-actions-beds24.md`) : linge selon le canal, répartition des
+ * couchages demandée si le kit est pris, guide avant le séjour, code le matin de l'arrivée.
+ */
+const confirmation: MessageTemplate = {
+  id: "confirmation",
+  label: "Confirmation de réservation",
+  version: 1,
+  trigger: { anchor: "booked", delayMinutes: 0 },
+  late: { mode: "skip", graceHours: 24 },
+  onAnchorChange: "ignore",
+  variables: ["arrivee", "depart", "nuits", "adultes", "adresse", "guide", "telephone", "whatsapp"],
+  optionalVariables: ["prenom", "enfants", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb"],
+  previewVisible: ["prenom", "arrivee", "depart", "nuits", "adultes", "enfants", "adresse", "guide", "telephone", "whatsapp", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb"],
+  subject: {
+    fr: "Votre séjour à Albiez est confirmé",
+    en: "Your stay in Albiez is confirmed",
+    de: "Ihr Aufenthalt in Albiez ist bestätigt",
+    es: "Su estancia en Albiez está confirmada",
+    it: "Il vostro soggiorno ad Albiez è confermato",
+  },
+  body: {
+    fr: `Bonjour{{#prenom}} {{prenom}}{{/prenom}},
+
+Merci beaucoup pour votre réservation et pour votre confiance ! Votre séjour à Albiez est confirmé :
+
+Arrivée : {{arrivee}}, à partir de 16h
+Départ : {{depart}}, avant 10h
+Nuits : {{nuits}}
+Adultes : {{adultes}}{{#enfants}}
+Enfants : {{enfants}}{{/enfants}}
+{{#kitInclus}}
+VOTRE KIT LINGE
+Il est inclus : draps, taies et une serviette de bain par personne vous attendent dans l'appartement. Les lits ne sont pas faits, le linge est mis à disposition. Une chose à nous dire dès maintenant : la répartition des couchages souhaitée (par exemple « 1 double + 2 simples »), pour que nous sortions les bonnes tailles de draps.
+{{/kitInclus}}{{#kitAbsent}}
+LE LINGE
+Le linge n'est pas inclus dans votre réservation : prévoyez draps, taies et serviettes de bain (1 lit double de 160 × 190 et 4 lits simples de 80 × 190).{{#prixKit}} Vous préférez voyager léger ? Dites-le-nous et nous ajoutons le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}
+VOTRE ARRIVÉE
+L'arrivée est autonome : vous recevrez le guide d'arrivée avant votre séjour, et le code de la boîte à clés le matin de votre arrivée.
+
+NOTRE GUIDE
+Activités et lieux à ne pas manquer autour de la résidence :
+{{guide}}
+
+Adresse : {{adresse}}
+Une question ? Répondez à ce message, ou écrivez-nous sur WhatsApp : {{telephone}} — {{whatsapp}}
+
+À très bientôt,
+Alexandre`,
+    en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
+
+Thank you very much for your booking and your trust! Your stay in Albiez is confirmed:
+
+Arrival: {{arrivee}}, from 4 pm
+Departure: {{depart}}, before 10 am
+Nights: {{nuits}}
+Adults: {{adultes}}{{#enfants}}
+Children: {{enfants}}{{/enfants}}
+{{#kitInclus}}
+YOUR LINEN KIT
+It is included: sheets, pillowcases and one bath towel per person will be waiting in the apartment. The beds are not made; the linen is provided for you to put on. One thing to tell us now: how you would like the beds arranged (for example "1 double + 2 singles"), so we put out the right sheet sizes.
+{{/kitInclus}}{{#kitAbsent}}
+LINEN
+Linen is not included in your booking: please bring sheets, pillowcases and bath towels (1 double bed 160 × 190 and 4 single beds 80 × 190).{{#prixKit}} Rather travel light? Let us know and we will add the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}
+YOUR ARRIVAL
+Check-in is self-service: you will receive the arrival guide before your stay, and the key box code on the morning of your arrival.
+
+OUR GUIDE
+Activities and places not to miss around the residence:
+{{guide}}
+
+Address: {{adresse}}
+Any question? Reply to this message, or message us on WhatsApp: {{telephone}} — {{whatsapp}}
+
+See you soon,
+Alexandre`,
+    de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
+
+vielen Dank für Ihre Buchung und Ihr Vertrauen! Ihr Aufenthalt in Albiez ist bestätigt:
+
+Ankunft: {{arrivee}}, ab 16 Uhr
+Abreise: {{depart}}, bis 10 Uhr
+Nächte: {{nuits}}
+Erwachsene: {{adultes}}{{#enfants}}
+Kinder: {{enfants}}{{/enfants}}
+{{#kitInclus}}
+IHR WÄSCHEPAKET
+Es ist inbegriffen: Bettwäsche, Kissenbezüge und ein Badetuch pro Person liegen in der Wohnung bereit. Die Betten sind nicht bezogen, die Wäsche wird bereitgestellt. Eine Bitte schon jetzt: Teilen Sie uns die gewünschte Bettenaufteilung mit (zum Beispiel „1 Doppelbett + 2 Einzelbetten“), damit wir die richtigen Größen bereitlegen.
+{{/kitInclus}}{{#kitAbsent}}
+BETTWÄSCHE
+Bettwäsche ist in Ihrer Buchung nicht inbegriffen: Bitte bringen Sie Laken, Kissenbezüge und Badetücher mit (1 Doppelbett 160 × 190 und 4 Einzelbetten 80 × 190).{{#prixKit}} Lieber mit leichtem Gepäck? Sagen Sie uns Bescheid, und wir fügen das Wäschepaket hinzu, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Lösungscenter{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}
+IHRE ANKUNFT
+Die Anreise erfolgt selbstständig: Den Anreiseführer erhalten Sie vor Ihrem Aufenthalt, den Code des Schlüsselkastens am Morgen Ihrer Ankunft.
+
+UNSER GUIDE
+Aktivitäten und sehenswerte Orte rund um die Residenz:
+{{guide}}
+
+Adresse: {{adresse}}
+Eine Frage? Antworten Sie auf diese Nachricht oder schreiben Sie uns auf WhatsApp: {{telephone}} — {{whatsapp}}
+
+Bis bald,
+Alexandre`,
+    es: `Hola{{#prenom}} {{prenom}}{{/prenom}}:
+
+¡Muchas gracias por su reserva y por su confianza! Su estancia en Albiez está confirmada:
+
+Llegada: {{arrivee}}, a partir de las 16:00
+Salida: {{depart}}, antes de las 10:00
+Noches: {{nuits}}
+Adultos: {{adultes}}{{#enfants}}
+Niños: {{enfants}}{{/enfants}}
+{{#kitInclus}}
+SU KIT DE ROPA DE CAMA
+Está incluido: sábanas, fundas de almohada y una toalla de baño por persona le esperan en el apartamento. Las camas no están hechas; la ropa de cama queda a su disposición. Una cosa que puede decirnos ya: cómo desea repartir las camas (por ejemplo, «1 doble + 2 individuales»), para preparar las medidas correctas.
+{{/kitInclus}}{{#kitAbsent}}
+ROPA DE CAMA
+La ropa de cama no está incluida en su reserva: traiga sábanas, fundas de almohada y toallas de baño (1 cama doble de 160 × 190 y 4 camas individuales de 80 × 190).{{#prixKit}} ¿Prefiere viajar ligero? Díganoslo y añadimos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}
+SU LLEGADA
+La llegada es autónoma: recibirá la guía de llegada antes de su estancia y el código de la caja de llaves la mañana de su llegada.
+
+NUESTRA GUÍA
+Actividades y lugares imprescindibles alrededor de la residencia:
+{{guide}}
+
+Dirección: {{adresse}}
+¿Alguna pregunta? Responda a este mensaje o escríbanos por WhatsApp: {{telephone}} — {{whatsapp}}
+
+Hasta pronto,
+Alexandre`,
+    it: `Buongiorno{{#prenom}} {{prenom}}{{/prenom}},
+
+grazie mille per la vostra prenotazione e per la vostra fiducia! Il vostro soggiorno ad Albiez è confermato:
+
+Arrivo: {{arrivee}}, dalle 16:00
+Partenza: {{depart}}, entro le 10:00
+Notti: {{nuits}}
+Adulti: {{adultes}}{{#enfants}}
+Bambini: {{enfants}}{{/enfants}}
+{{#kitInclus}}
+IL VOSTRO KIT BIANCHERIA
+È incluso: lenzuola, federe e un telo bagno a persona vi aspettano nell'appartamento. I letti non sono fatti, la biancheria è messa a disposizione. Una cosa da dirci fin d'ora: come desiderate sistemare i letti (per esempio «1 matrimoniale + 2 singoli»), per preparare le misure giuste.
+{{/kitInclus}}{{#kitAbsent}}
+LA BIANCHERIA
+La biancheria non è inclusa nella prenotazione: portate lenzuola, federe e teli bagno (1 letto matrimoniale 160 × 190 e 4 letti singoli 80 × 190).{{#prixKit}} Preferite viaggiare leggeri? Ditecelo e aggiungiamo il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni Airbnb{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}
+IL VOSTRO ARRIVO
+L'arrivo è autonomo: riceverete la guida all'arrivo prima del soggiorno e il codice della cassetta delle chiavi la mattina del vostro arrivo.
+
+LA NOSTRA GUIDA
+Attività e luoghi da non perdere intorno alla residenza:
+{{guide}}
+
+Indirizzo: {{adresse}}
+Domande? Rispondete a questo messaggio o scriveteci su WhatsApp: {{telephone}} — {{whatsapp}}
+
+A presto,
+Alexandre`,
+  },
+  // L'auto-action Beds24 (« Merci beaucoup pour votre réservation et pour votre confiance »).
+  fingerprints: ["merci beaucoup pour votre reservation et pour votre confiance", "thank you very much for your booking and your trust"],
+};
+
 const preArrivee: MessageTemplate = {
   id: "avant-arrivee",
   label: "Avant l'arrivée (guide, heure, linge)",
@@ -521,4 +690,4 @@ Alexandre`,
   fingerprints: ["indications pour votre depart", "a few notes for your departure"],
 };
 
-export const TEMPLATES: readonly MessageTemplate[] = [preArrivee, codeBoite, installe, depart];
+export const TEMPLATES: readonly MessageTemplate[] = [confirmation, preArrivee, codeBoite, installe, depart];
