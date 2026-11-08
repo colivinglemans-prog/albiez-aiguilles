@@ -27,7 +27,7 @@ export const it: Dictionary = {
       hiver: {
         title: "L'inverno sugli sci",
         description:
-          "40 km di piste tra 1500 e 2060 m, accesso alle piste a 250 metri con la scuola di sci e il club Piou-Piou, un ampio deposito sci sul pianerottolo e una raclette che vi aspetta al rientro.",
+          "40 km di piste tra 1500 e 2060 m, accesso alle piste a 250 metri con la scuola di sci e il club Piou-Piou, un ampio armadietto per gli sci sul pianerottolo e una raclette che vi aspetta al rientro.",
         cta: "Scoprire la stagione dello sci",
       },
       ete: {
@@ -79,9 +79,9 @@ export const it: Dictionary = {
             "Partenza delle piste, negozi, scuola di sci e club Piou-Piou sono tutti riuniti nello stesso posto, a cinque minuti a piedi. Un solo tragitto al giorno.",
         },
         {
-          title: "Ampio deposito sci",
+          title: "Ampio armadietto per gli sci",
           description:
-            "Un ampio deposito sci vi attende sul pianerottolo, accanto alla porta dell'appartamento.",
+            "Un ampio armadietto per gli sci vi attende sul pianerottolo, accanto alla porta dell'appartamento.",
         },
         {
           title: "Località per famiglie",
@@ -179,7 +179,7 @@ export const it: Dictionary = {
         title:
           "Settimana bianca Albiez-Montrond — 6 persone a 250 m dalle piste",
         description:
-          "Appartamento ad Albiez-Montrond, a 250 m da piste, scuola di sci e club per bambini. Da 4 a 6 persone, deposito sci, vista sulle Aiguilles d'Arves.",
+          "Appartamento ad Albiez-Montrond, a 250 m da piste, scuola di sci e club per bambini. Da 4 a 6 persone, armadietto per gli sci, vista sulle Aiguilles d'Arves.",
         keywords: [
           "appartamento sci Albiez",
           "settimana bianca Maurienne",
@@ -394,7 +394,7 @@ export const it: Dictionary = {
     parking: "Parcheggio esterno a 50 metri dallo chalet.",
     keyBox:
       "Cassetta portachiavi: arrivate e ripartite in autonomia, senza appuntamento (arrivo dalle 16, partenza entro le 10).",
-    skiLocker: "Ampio deposito sci sul pianerottolo.",
+    skiLocker: "Ampio armadietto per gli sci sul pianerottolo.",
     onSiteContact: "Una persona è sul posto in caso di problemi.",
     servicesTitle: "Servizi",
     cleaning:
@@ -796,18 +796,18 @@ export const it: Dictionary = {
         text: "Salite l'ultima scala: l'appartamento è la seconda porta a destra sul pianerottolo.",
       },
       porte: {
-        title: "La porta e il deposito sci",
-        text: "Il deposito sci si trova sullo stesso pianerottolo, proprio accanto alla porta, e porta lo stesso numero.",
+        title: "La porta e il armadietto per gli sci",
+        text: "Il armadietto per gli sci si trova sullo stesso pianerottolo, proprio accanto alla porta, e porta lo stesso numero.",
       },
       boiteAClef: {
         title: "La cassetta portachiavi",
-        text: "È fissata sullo stipite sinistro della porta. Fate scendere il coperchio nero, componete il codice che vi è stato trasmesso, poi abbassate il pulsante nero a sinistra delle rotelle per aprire. La chiave grande apre la porta, quella piccola il deposito sci.",
+        text: "È fissata sullo stipite sinistro della porta. Fate scendere il coperchio nero, componete il codice che vi è stato trasmesso, poi abbassate il pulsante nero a sinistra delle rotelle per aprire. La chiave grande apre la porta, quella piccola il armadietto per gli sci.",
       },
     },
     stairsNote: (steps) =>
       `Circa ${steps} gradini separano il parcheggio dall'appartamento. La vista va meritata!`,
     unitNote: (unit) =>
-      `Porta ${unit} — anche il deposito sci porta il ${unit}.`,
+      `Porta ${unit} — anche il armadietto per gli sci porta il ${unit}.`,
     keyBoxSecurity:
       "Ricordatevi di richiudere la cassetta e di scombinare il codice dopo ogni uso. Resta a vostra disposizione per tutto il soggiorno.",
     manualTitle: "Il manuale della casa",
@@ -847,7 +847,7 @@ export const it: Dictionary = {
       "Spegnere il riscaldamento.",
       "Chiudere le persiane.",
       "Spegnere luci e apparecchi.",
-      "Chiudere a chiave la porta e il deposito sci.",
+      "Chiudere a chiave la porta e il armadietto per gli sci.",
     ],
     checkoutKeysNote:
       "Rimettete un mazzo di chiavi nella cassetta e scombinate il codice, poi lasciate il secondo bene in vista sul tavolo: la cassetta è troppo piccola per entrambi.",

@@ -120,7 +120,7 @@ export default function Article() {
       </ul>
       <p>
         Un punto da prevedere, perché è concreto:{" "}
-        <strong>il deposito sci non è dimensionato per una bici</strong>. Due soluzioni sul
+        <strong>l'armadietto per gli sci non è dimensionato per una bici</strong>. Due soluzioni sul
         posto: legarla sul pianerottolo, che è coperto e riparato, o portarla sul balcone.
         Dal parcheggio sono una cinquantina di gradini.
       </p>

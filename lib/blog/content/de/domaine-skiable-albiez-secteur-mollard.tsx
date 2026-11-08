@@ -99,7 +99,7 @@ export default function Article() {
       </p>
 
       <p>
-        Die Einzelheiten zu den Entfernungen, zum Skiraum und zum Zugang zur Piste stehen auf{" "}
+        Die Einzelheiten zu den Entfernungen, zum Skischrank und zum Zugang zur Piste stehen auf{" "}
         <Link href="/de/ski">der Winterseite der Wohnung</Link>.
       </p>
     </>

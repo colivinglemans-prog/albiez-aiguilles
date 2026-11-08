@@ -27,7 +27,7 @@ export const de: Dictionary = {
       hiver: {
         title: "Winter zum Skifahren",
         description:
-          "40 km Pisten zwischen 1.500 und 2.060 m, Pistenzugang in 250 Metern mit Skischule und Kinderskiclub Piou-Piou, ein großer Skiraum auf dem Treppenabsatz und ein Raclette, das nach dem Skitag auf Sie wartet.",
+          "40 km Pisten zwischen 1.500 und 2.060 m, Pistenzugang in 250 Metern mit Skischule und Kinderskiclub Piou-Piou, ein großer Skischrank auf dem Treppenabsatz und ein Raclette, das nach dem Skitag auf Sie wartet.",
         cta: "Die Skisaison entdecken",
       },
       ete: {
@@ -79,9 +79,9 @@ export const de: Dictionary = {
             "Pistenstart, Geschäfte, Skischule und Kinderskiclub Piou-Piou liegen alle am selben Ort, fünf Minuten zu Fuß. Ein einziger Weg pro Tag.",
         },
         {
-          title: "Großer Skiraum",
+          title: "Großer Skischrank",
           description:
-            "Ein großer Skiraum erwartet Sie auf dem Treppenabsatz, direkt an der Wohnungstür.",
+            "Ein großer Skischrank erwartet Sie auf dem Treppenabsatz, direkt an der Wohnungstür.",
         },
         {
           title: "Familiäres Skigebiet",
@@ -179,7 +179,7 @@ export const de: Dictionary = {
         title:
           "Skiurlaub Albiez-Montrond — Wohnung für 6, 250 m zur Piste",
         description:
-          "Bergwohnung in Albiez-Montrond, 250 m von Piste, Skischule und Kinderskiclub. 4 bis 6 Personen, Skiraum, Blick auf die Aiguilles d'Arves.",
+          "Bergwohnung in Albiez-Montrond, 250 m von Piste, Skischule und Kinderskiclub. 4 bis 6 Personen, Skischrank, Blick auf die Aiguilles d'Arves.",
         keywords: [
           "Skiwohnung Albiez",
           "Ferienwohnung Skigebiet Savoyen",
@@ -333,7 +333,7 @@ export const de: Dictionary = {
           "Badezimmer mit Badewanne",
           "Handtuchheizkörper",
           "Separates WC",
-          "Skiraum auf dem Treppenabsatz",
+          "Skischrank auf dem Treppenabsatz",
         ],
       },
       {
@@ -395,7 +395,7 @@ export const de: Dictionary = {
     parking: "Außenparkplatz 50 Meter vom Chalet.",
     keyBox:
       "Schlüsselbox: Sie kommen und gehen völlig selbstständig, ohne Termin (Anreise ab 16 Uhr, Abreise bis 10 Uhr).",
-    skiLocker: "Großer Skiraum auf dem Treppenabsatz.",
+    skiLocker: "Großer Skischrank auf dem Treppenabsatz.",
     onSiteContact: "Eine Ansprechperson ist bei Problemen vor Ort.",
     servicesTitle: "Leistungen",
     cleaning:
@@ -625,7 +625,7 @@ export const de: Dictionary = {
       exterieur: {
         title: "Außenbereich",
         amenities: [
-          "Skiraum auf dem Treppenabsatz",
+          "Skischrank auf dem Treppenabsatz",
           "Außenparkplatz",
           "Residenz Le Hameau des Aiguilles",
         ],
@@ -797,17 +797,17 @@ export const de: Dictionary = {
         text: "Steigen Sie die letzte Treppe hinauf: die Wohnung ist die zweite Tür rechts auf dem Treppenabsatz.",
       },
       porte: {
-        title: "Die Tür und der Skiraum",
-        text: "Der Skiraum liegt auf demselben Treppenabsatz, direkt neben der Tür, und trägt dieselbe Nummer.",
+        title: "Die Tür und der Skischrank",
+        text: "Der Skischrank liegt auf demselben Treppenabsatz, direkt neben der Tür, und trägt dieselbe Nummer.",
       },
       boiteAClef: {
         title: "Die Schlüsselbox",
-        text: "Sie ist am linken Türrahmen befestigt. Schieben Sie die schwarze Abdeckung nach unten, stellen Sie den Code ein, den Sie erhalten haben, und drücken Sie dann den schwarzen Knopf links neben den Rädchen nach unten, um zu öffnen. Der große Schlüssel öffnet die Tür, der kleine den Skiraum.",
+        text: "Sie ist am linken Türrahmen befestigt. Schieben Sie die schwarze Abdeckung nach unten, stellen Sie den Code ein, den Sie erhalten haben, und drücken Sie dann den schwarzen Knopf links neben den Rädchen nach unten, um zu öffnen. Der große Schlüssel öffnet die Tür, der kleine den Skischrank.",
       },
     },
     stairsNote: (steps) =>
       `Etwa ${steps} Stufen trennen den Parkplatz von der Wohnung. Die Aussicht muss man sich verdienen!`,
-    unitNote: (unit) => `Tür ${unit} — der Skiraum trägt ebenfalls die ${unit}.`,
+    unitNote: (unit) => `Tür ${unit} — der Skischrank trägt ebenfalls die ${unit}.`,
     keyBoxSecurity:
       "Denken Sie daran, die Box wieder zu schließen und den Code zu verstellen. Sie steht Ihnen während des gesamten Aufenthalts zur Verfügung.",
     manualTitle: "Das Haushandbuch",
@@ -847,7 +847,7 @@ export const de: Dictionary = {
       "Die Heizung abschalten.",
       "Die Fensterläden schließen.",
       "Licht und Geräte ausschalten.",
-      "Tür und Skiraum abschließen.",
+      "Tür und Skischrank abschließen.",
     ],
     checkoutKeysNote:
       "Legen Sie einen Schlüsselbund in die Schlüsselbox und verstellen Sie den Code, den zweiten lassen Sie gut sichtbar auf dem Tisch: die Box ist zu klein für beide.",

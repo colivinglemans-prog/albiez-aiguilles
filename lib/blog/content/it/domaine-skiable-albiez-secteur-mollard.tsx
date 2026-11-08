@@ -98,7 +98,7 @@ export default function Article() {
       </p>
 
       <p>
-        Il dettaglio delle distanze, del deposito sci e dell'accesso alle piste è sulla{" "}
+        Il dettaglio delle distanze, dell'armadietto per gli sci e dell'accesso alle piste è sulla{" "}
         <Link href="/it/sci">pagina inverno dell'alloggio</Link>.
       </p>
     </>
