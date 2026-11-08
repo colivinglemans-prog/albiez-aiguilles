@@ -23,11 +23,19 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
+/**
+ * Le secret peut arriver par l'en-tête `x-webhook-secret` **ou** par le paramètre `key` de l'URL
+ * (2026-11-08) : chez Barbusse, Beds24 n'envoyait pas l'en-tête saisi dans « Custom Header »
+ * (appels relevés sans en-tête, ou avec une autre valeur). Le paramètre est saisi dans le même
+ * champ URL que l'adresse : l'appel qui en vient est reconnu quoi qu'il arrive à l'en-tête.
+ */
 type Result = "accepted" | "no-header" | "bad-secret" | "no-config";
 
 function check(request: NextRequest): { result: Result; bracketed: boolean } {
   const secret = process.env.BEDS24_WEBHOOK_SECRET?.trim();
-  const given = request.headers.get("x-webhook-secret");
+  const header = request.headers.get("x-webhook-secret");
+  const query = request.nextUrl.searchParams.get("key");
+  const given = query && secret && constantTimeEqual(query, secret) ? query : header;
   const bracketed = Boolean(given && given.startsWith("<") && given.endsWith(">"));
   if (!secret) return { result: "no-config", bracketed };
   if (!given) return { result: "no-header", bracketed };
