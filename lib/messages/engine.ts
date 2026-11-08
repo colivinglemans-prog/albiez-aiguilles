@@ -87,7 +87,15 @@ function toMessagingBooking(b: Beds24Booking, thread: readonly Beds24Message[]):
   };
 }
 
-const propertyId = () => Number(process.env.BEDS24_PROPERTY_ID);
+/**
+ * La propriété d'Albiez. **Échoue fermé** (cerbere) : sans `BEDS24_PROPERTY_ID`, rien n'est lu ni
+ * envoyé — le jeton de messagerie du sous-compte pourrait voir d'autres propriétés du compte.
+ */
+function propertyId(): number {
+  const id = Number(process.env.BEDS24_PROPERTY_ID);
+  if (!Number.isSafeInteger(id) || id <= 0) throw new Error("BEDS24_PROPERTY_ID n'est pas défini");
+  return id;
+}
 
 /** Réservations de la fenêtre, avec leur registre et l'historique des fils. */
 async function loadRows(): Promise<Row[]> {
@@ -99,13 +107,13 @@ async function loadRows(): Promise<Row[]> {
   const byBooking = new Map<number, Beds24Message[]>();
   for (const m of host) byBooking.set(m.bookingId, [...(byBooking.get(m.bookingId) ?? []), m]);
   return bookings
-    .filter((b) => !propertyId() || b.propertyId === propertyId())
+    .filter((b) => b.propertyId === propertyId())
     .map((b) => toMessagingBooking(b, byBooking.get(b.id) ?? []));
 }
 
 async function reload(id: number): Promise<Row | null> {
   const [b, thread] = await Promise.all([reservationMessagerie(id), filReservation(id)]);
-  if (!b || (propertyId() && b.propertyId !== propertyId())) return null;
+  if (!b || b.propertyId !== propertyId()) return null;
   return toMessagingBooking(b, thread);
 }
 
@@ -122,10 +130,16 @@ async function variables(b: Row, t: MessageTemplate): Promise<Vars> {
   if (t.optionalVariables?.includes("kitInclus")) {
     const kit = await linenOf(b);
     if (kit === "included") vars.kitInclus = "1";
-    if (kit === "absent") vars.kitAbsent = "1";
+    if (kit === "absent") {
+      vars.kitAbsent = "1";
+      vars.prixKit = `${PROPERTY.linen.pricePerPerson} €`;
+      // Chez Airbnb, le kit se règle par le centre de résolution, jamais par un lien.
+      if (b.channel === "Airbnb") vars.viaAirbnb = "1";
+    }
   }
-  if (t.optionalVariables?.includes("hiver") && saisonsEntre(b.arrival, b.departure).some((s) => s.saison === "hiver")) {
-    vars.hiver = "1";
+  if (t.optionalVariables?.includes("pneus") && overlapsTyreSeason(b.arrival, b.departure)) vars.pneus = "1";
+  if (t.optionalVariables?.includes("ski") && saisonsEntre(b.arrival, b.departure).some((s) => s.saison === "hiver")) {
+    vars.ski = "1";
   }
   return vars;
 }
@@ -140,6 +154,20 @@ async function linenOf(b: Row): Promise<"included" | "absent" | null> {
   if (b.channel === "Airbnb") return "absent";
   if (b.channel === "Direct") return (await kitLingePris(b.id)) ? "included" : "absent";
   return null;
+}
+
+/**
+ * Le séjour recoupe-t-il la période d'équipement hiver obligatoire en Savoie (loi Montagne II :
+ * du 1er novembre au 31 mars) ? Indépendant des dates du domaine skiable (le-dahu) : un séjour
+ * de fin novembre doit recevoir le rappel des pneus, pas celui des skis.
+ */
+export function overlapsTyreSeason(arrival: string, departure: string): boolean {
+  // Un jour du séjour (nuits comprises, départ exclu) tombe-t-il en novembre…mars ?
+  for (let d = arrival; d < departure; d = addDays(d, 1)) {
+    const month = Number(d.slice(5, 7));
+    if (month >= 11 || month <= 3) return true;
+  }
+  return false;
 }
 
 /** « +33620921005 » → « +33 6 20 92 10 05 ». */
@@ -187,12 +215,17 @@ export async function preview(bookingId: number, templateId: string): Promise<Gu
 }
 
 /** Passage du cron. */
-export async function runCron(now = new Date()): Promise<DispatchResult & { planned: number }> {
+export async function runCron(now = new Date()): Promise<DispatchResult & { planned: number; orphans: { bookingId: number; templateId: string }[] }> {
   const rows = await loadRows();
   const { modes: m } = modes();
   const plan = planMessages(rows, TEMPLATES, now);
   const result = await sendPlanned(plan, TEMPLATES, deps(), { now, cap: CAP, modes: m });
-  return { ...result, planned: plan.filter((p) => p.state.kind === "due").length };
+  return {
+    ...result,
+    planned: plan.filter((p) => p.state.kind === "due").length,
+    // Envois commencés jamais confirmés : jamais renvoyés, signalés à l'hôte.
+    orphans: plan.filter((p) => p.state.kind === "orphan" && m[p.templateId] === "live").map(({ bookingId, templateId }) => ({ bookingId, templateId })),
+  };
 }
 
 /** Envoi manuel depuis le dashboard. */

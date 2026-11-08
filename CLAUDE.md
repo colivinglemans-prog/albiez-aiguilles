@@ -2085,6 +2085,9 @@ paiement) : décision de l'hôte, à rouvrir après une saison.
 - **Cron** : `/api/cron/messages-voyageurs`, cron-job.org **toutes les 10 minutes**, Bearer
   `CRON_SECRET`. Plafond de 5 envois par passage, alerte ntfy sur échec ou blocage. Il ne lit
   rien tant qu'aucun modèle n'est en `live`.
+- **Pneus et ski** : `pneus` suit la période légale (1er novembre – 31 mars, `overlapsTyreSeason`), `ski` les
+  ouvertures du domaine (`HIVERS`). Un test échoue quand la fenêtre de 120 jours dépasse le dernier
+  hiver connu : ajouter l'hiver suivant dans `lib/seasons.ts`.
 - **Écran** : `/dashboard/messages` (admin) et le panneau « Messages au voyageur » dans la fiche
   d'un séjour du calendrier. Aperçu : tout masqué sauf `previewVisible` (le code ne l'est jamais).
 - **Avant de passer un modèle en `live`** : SMTP vérifié par un envoi à soi-même, une réservation

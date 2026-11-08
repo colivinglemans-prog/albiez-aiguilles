@@ -327,7 +327,7 @@ export async function reservationsMessagerie(params: { departDu: string; arrivee
 /** Une réservation, fraîche, avec `infoItems` et données du voyageur. */
 export async function reservationMessagerie(id: number): Promise<Beds24Booking | null> {
   const { data = [] } = await client.get<{ data: Beds24Booking[] }>("/bookings", {
-    params: { id: String(id), includeInfoItems: "true" },
+    params: { id: String(id), propertyId: proprieteServeur(), includeInfoItems: "true" },
     route: "messagerie",
     fresh: true,
   });
@@ -379,9 +379,12 @@ export async function kitLingePris(id: number): Promise<boolean> {
     route: "lecture",
     fresh: true,
   });
-  return (data[0]?.invoiceItems ?? []).some(
-    (l) => l.type !== "payment" && /linge|linen|kit/i.test(l.description ?? "") && Number(l.qty ?? 0) > 0,
-  );
+  // Montant positif exigé (le-dahu) : une ligne de remise sur le kit ne doit pas faire croire
+  // qu'il est pris — le message promettrait du linge qui ne sera pas là.
+  return (data[0]?.invoiceItems ?? []).some((l) => {
+    const total = Number(l.lineTotal ?? Number(l.amount ?? 0) * Number(l.qty ?? 1));
+    return l.type !== "payment" && /linge|linen|kit/i.test(l.description ?? "") && Number(l.qty ?? 0) > 0 && total > 0;
+  });
 }
 
 /** Crédits Beds24 restants, lus sur la dernière réponse (indicatif). */

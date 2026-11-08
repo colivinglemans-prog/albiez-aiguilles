@@ -15,6 +15,9 @@ import type { MessageTemplate } from "@sejour/socle/lib/guest-messaging/types";
  *
  * Ton : vouvoiement dans les cinq langues, comme le guide d'arrivée (`guide.codeNote`). Signature
  * « Isabelle et Alexandre », au nom de la SCI JUARISAL — jamais au nom de Coliving Barbusse.
+ * Les consignes de départ reprennent celles du guide (`guide.checkoutItems`) : un message qui
+ * contredirait la page qu'il annonce sèmerait le doute. On écrit « la résidence » ou
+ * « l'appartement », jamais « le chalet » (voir `SITE_NAME` dans `lib/property.ts`).
  *
  * Variables (fournies par `lib/messages/engine.ts`) :
  * - `prenom` (facultative) — prénom du voyageur ;
@@ -22,20 +25,23 @@ import type { MessageTemplate } from "@sejour/socle/lib/guest-messaging/types";
  * - `telephone`, `whatsapp` — contact de l'hôte (`PROPERTY.contact`) ;
  * - `code` — code de la boîte à clés, lu dans `ALBIEZ_CODE_BOITE_A_CLES` au moment de l'envoi ;
  * - `kitInclus` / `kitAbsent` (facultatives, l'une ou l'autre) — kit linge selon le canal et la facture ;
- * - `hiver` (facultative) — présente quand le séjour recoupe une ouverture du domaine skiable.
+ * - `prixKit` (facultative, avec `kitAbsent`) — prix du kit par personne (`PROPERTY.linen`) ;
+ * - `viaAirbnb` (facultative) — le kit s'ajoute alors par le centre de résolution Airbnb ;
+ * - `pneus` (facultative) — le séjour recoupe la période d'équipement obligatoire (1er novembre – 31 mars) ;
+ * - `ski` (facultative) — le séjour recoupe une ouverture du domaine skiable (`HIVERS`).
  */
 
 const preArrivee: MessageTemplate = {
   id: "avant-arrivee",
   label: "Avant l'arrivée (guide, heure, linge)",
-  version: 1,
+  version: 2,
   trigger: { anchor: "arrival", offsetDays: -7, at: "10:00" },
   // Utile même pour une réservation de dernière minute : rattrapé jusqu'au matin de l'arrivée.
   late: { mode: "send", until: { anchor: "arrival", offsetDays: 0, at: "07:00" } },
   onAnchorChange: "ignore",
   variables: ["guideArrivee", "guide", "telephone", "whatsapp"],
-  previewVisible: ["prenom", "guideArrivee", "guide", "telephone", "whatsapp"],
-  optionalVariables: ["prenom", "kitInclus", "kitAbsent", "hiver"],
+  optionalVariables: ["prenom", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus", "ski"],
+  previewVisible: ["prenom", "guideArrivee", "guide", "telephone", "whatsapp", "prixKit"],
   subject: {
     fr: "Votre séjour à Albiez approche",
     en: "Your stay in Albiez is coming up",
@@ -60,13 +66,13 @@ VOTRE KIT LINGE
 Il vous attend dans l'appartement : draps, taies et une serviette de bain par personne. Les lits ne sont pas faits, le linge est mis à disposition. Si ce n'est pas déjà fait, dites-nous la répartition des couchages souhaitée (par exemple « 1 double + 2 simples »).
 {{/kitInclus}}{{#kitAbsent}}
 LE LINGE
-Le linge n'est pas inclus dans votre réservation : pensez à apporter draps, taies et serviettes de bain (1 lit double de 160 × 190 et 4 lits simples de 80 × 190). Couettes et oreillers sont sur place.
-{{/kitAbsent}}{{#hiver}}
+Le linge n'est pas inclus dans votre réservation : pensez à apporter draps, taies et serviettes de bain (1 lit double de 160 × 190 et 4 lits simples de 80 × 190). Couettes et oreillers sont sur place.{{#prixKit}} Vous préférez voyager léger ? Dites-le nous et nous ajoutons le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}{{#pneus}}
 EN HIVER
-Les pneus neige ou les chaînes sont obligatoires pour monter à Albiez. Si ce n'est pas fait, réservez vite vos skis et vos cours à l'ESF.
-{{/hiver}}
+Les pneus neige ou les chaînes sont obligatoires pour monter à Albiez.{{#ski}} Si ce n'est pas fait, réservez vite vos skis et vos cours à l'ESF.{{/ski}}
+{{/pneus}}
 NOTRE GUIDE
-Activités, commerces et bonnes adresses autour du chalet :
+Activités, commerces et bonnes adresses autour de la résidence :
 {{guide}}
 
 Une question ? Répondez à ce message, ou écrivez-nous sur WhatsApp : {{telephone}} — {{whatsapp}}
@@ -89,13 +95,13 @@ YOUR LINEN KIT
 It is waiting for you in the apartment: sheets, pillowcases and one bath towel per person. The beds are not made; the linen is provided for you to put on. If you have not done so yet, let us know how you would like the beds arranged (for example "1 double + 2 singles").
 {{/kitInclus}}{{#kitAbsent}}
 LINEN
-Linen is not included in your booking: please bring sheets, pillowcases and bath towels (1 double bed 160 × 190 and 4 single beds 80 × 190). Duvets and pillows are provided.
-{{/kitAbsent}}{{#hiver}}
+Linen is not included in your booking: please bring sheets, pillowcases and bath towels (1 double bed 160 × 190 and 4 single beds 80 × 190). Duvets and pillows are provided.{{#prixKit}} Rather travel light? Let us know and we will add the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}{{#pneus}}
 IN WINTER
-Snow tyres or chains are compulsory to drive up to Albiez. If you have not done so yet, book your skis and ESF ski lessons soon.
-{{/hiver}}
+Snow tyres or chains are compulsory to drive up to Albiez.{{#ski}} If you have not done so yet, book your skis and ESF ski lessons soon.{{/ski}}
+{{/pneus}}
 OUR GUIDE
-Activities, shops and good addresses around the chalet:
+Activities, shops and good addresses around the residence:
 {{guide}}
 
 Any question? Reply to this message, or message us on WhatsApp: {{telephone}} — {{whatsapp}}
@@ -117,14 +123,14 @@ Eine Bitte: Teilen Sie uns Ihre ungefähre Ankunftszeit mit, einfach als Antwort
 IHR WÄSCHEPAKET
 Es liegt in der Wohnung für Sie bereit: Bettlaken, Kissenbezüge und ein Badetuch pro Person. Die Betten sind nicht bezogen, die Wäsche liegt bereit. Falls noch nicht geschehen, nennen Sie uns bitte die gewünschte Bettenaufteilung (zum Beispiel „1 Doppelbett + 2 Einzelbetten“).
 {{/kitInclus}}{{#kitAbsent}}
-BETTWÄSCHE
-Bettwäsche ist in Ihrer Buchung nicht enthalten: Bitte bringen Sie Bettlaken, Kissenbezüge und Badetücher mit (1 Doppelbett 160 × 190 und 4 Einzelbetten 80 × 190). Bettdecken und Kissen sind vorhanden.
-{{/kitAbsent}}{{#hiver}}
+BETT- UND BADEWÄSCHE
+Bett- und Badewäsche sind in Ihrer Buchung nicht enthalten: Bitte bringen Sie Bettlaken, Kissenbezüge und Badetücher mit (1 Doppelbett 160 × 190 und 4 Einzelbetten 80 × 190). Bettdecken und Kissen sind vorhanden.{{#prixKit}} Sie reisen lieber mit leichtem Gepäck? Sagen Sie uns Bescheid, und wir fügen das Wäschepaket hinzu, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Resolution-Center{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}{{#pneus}}
 IM WINTER
-Winterreifen oder Schneeketten sind für die Auffahrt nach Albiez Pflicht. Falls noch nicht geschehen, reservieren Sie bald Ihre Ski und Ihren Skiunterricht bei der ESF.
-{{/hiver}}
+Winterreifen oder Schneeketten sind für die Auffahrt nach Albiez Pflicht.{{#ski}} Falls noch nicht geschehen, reservieren Sie bald Ihre Ski und Ihren Skiunterricht bei der ESF.{{/ski}}
+{{/pneus}}
 UNSER REISEFÜHRER
-Aktivitäten, Geschäfte und gute Adressen rund um das Chalet:
+Aktivitäten, Geschäfte und gute Adressen rund um die Residenz:
 {{guide}}
 
 Eine Frage? Antworten Sie auf diese Nachricht oder schreiben Sie uns auf WhatsApp: {{telephone}} — {{whatsapp}}
@@ -146,14 +152,14 @@ Una cosa que pedirle: su hora aproximada de llegada, simplemente respondiendo a 
 SU KIT DE ROPA DE CAMA
 Le espera en el apartamento: sábanas, fundas de almohada y una toalla de baño por persona. Las camas no están hechas, la ropa está a su disposición. Si aún no lo ha hecho, indíquenos el reparto de camas que desea (por ejemplo «1 doble + 2 individuales»).
 {{/kitInclus}}{{#kitAbsent}}
-ROPA DE CAMA
-La ropa de cama no está incluida en su reserva: traiga sábanas, fundas de almohada y toallas de baño (1 cama doble de 160 × 190 y 4 camas individuales de 80 × 190). Hay edredones y almohadas.
-{{/kitAbsent}}{{#hiver}}
+ROPA DE CAMA Y TOALLAS
+La ropa de cama no está incluida en su reserva: traiga sábanas, fundas de almohada y toallas de baño (1 cama doble de 160 × 190 y 4 camas individuales de 80 × 190). Hay edredones y almohadas.{{#prixKit}} ¿Prefiere viajar ligero? Díganoslo y añadimos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}{{#pneus}}
 EN INVIERNO
-Los neumáticos de invierno o las cadenas son obligatorios para subir a Albiez. Si aún no lo ha hecho, reserve pronto sus esquís y sus clases en la ESF.
-{{/hiver}}
+Los neumáticos de invierno o las cadenas son obligatorios para subir a Albiez.{{#ski}} Si aún no lo ha hecho, reserve pronto sus esquís y sus clases en la ESF.{{/ski}}
+{{/pneus}}
 NUESTRA GUÍA
-Actividades, comercios y buenas direcciones alrededor del chalet:
+Actividades, comercios y buenas direcciones alrededor de la residencia:
 {{guide}}
 
 ¿Alguna pregunta? Responda a este mensaje o escríbanos por WhatsApp: {{telephone}} — {{whatsapp}}
@@ -176,13 +182,13 @@ IL VOSTRO KIT BIANCHERIA
 Vi aspetta nell'appartamento: lenzuola, federe e un telo da bagno a persona. I letti non sono fatti, la biancheria è a vostra disposizione. Se non l'avete già fatto, indicateci la disposizione dei letti che desiderate (per esempio «1 matrimoniale + 2 singoli»).
 {{/kitInclus}}{{#kitAbsent}}
 LA BIANCHERIA
-La biancheria non è inclusa nella prenotazione: portate lenzuola, federe e teli da bagno (1 letto matrimoniale 160 × 190 e 4 letti singoli 80 × 190). Piumoni e cuscini sono sul posto.
-{{/kitAbsent}}{{#hiver}}
+La biancheria non è inclusa nella prenotazione: portate lenzuola, federe e teli da bagno (1 letto matrimoniale 160 × 190 e 4 letti singoli 80 × 190). Piumoni e cuscini sono sul posto.{{#prixKit}} Preferite viaggiare leggeri? Ditecelo e aggiungiamo il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni di Airbnb{{/viaAirbnb}}.{{/prixKit}}
+{{/kitAbsent}}{{#pneus}}
 IN INVERNO
-Pneumatici invernali o catene sono obbligatori per salire ad Albiez. Se non l'avete già fatto, prenotate presto sci e lezioni all'ESF.
-{{/hiver}}
+Pneumatici invernali o catene sono obbligatori per salire ad Albiez.{{#ski}} Se non l'avete già fatto, prenotate presto sci e lezioni all'ESF.{{/ski}}
+{{/pneus}}
 LA NOSTRA GUIDA
-Attività, negozi e buoni indirizzi intorno allo chalet:
+Attività, negozi e buoni indirizzi intorno alla residenza:
 {{guide}}
 
 Una domanda? Rispondete a questo messaggio o scriveteci su WhatsApp: {{telephone}} — {{whatsapp}}
@@ -196,15 +202,15 @@ Isabelle e Alexandre`,
 const codeBoite: MessageTemplate = {
   id: "code-boite",
   label: "Code de la boîte à clés (jour d'arrivée)",
-  version: 1,
+  version: 2,
   trigger: { anchor: "arrival", offsetDays: 0, at: "08:00" },
-  // Une réservation prise le jour même reçoit le code aussitôt, jusqu'au soir.
-  late: { mode: "send", until: { anchor: "arrival", offsetDays: 0, at: "23:00" } },
+  // Une réservation prise tard le jour même reçoit le code aussitôt, jusqu'au lendemain matin.
+  late: { mode: "send", until: { anchor: "arrival", offsetDays: 1, at: "10:00" } },
   onAnchorChange: "resend",
   variables: ["code", "guideArrivee", "telephone"],
+  optionalVariables: ["prenom"],
   // Le code reste masqué dans l'aperçu : il n'est en clair qu'au moment de l'envoi.
   previewVisible: ["prenom", "guideArrivee", "telephone"],
-  optionalVariables: ["prenom"],
   subject: {
     fr: "Le code de la boîte à clés",
     en: "Your key box code",
@@ -217,7 +223,7 @@ const codeBoite: MessageTemplate = {
 
 Voici le code de la boîte à clés : {{code}}
 
-Le guide d'arrivée vous mène jusqu'à l'appartement :
+L'arrivée est possible dès 16h. Le guide d'arrivée vous mène jusqu'à l'appartement :
 {{guideArrivee}}
 
 N'hésitez pas à nous appeler au {{telephone}} si besoin.
@@ -228,7 +234,7 @@ Isabelle et Alexandre`,
 
 Here is the key box code: {{code}}
 
-The arrival guide takes you to the apartment:
+Check-in is possible from 4 pm. The arrival guide takes you to the apartment:
 {{guideArrivee}}
 
 Feel free to call us on {{telephone}} if needed.
@@ -239,7 +245,7 @@ Isabelle and Alexandre`,
 
 Hier ist der Code des Schlüsselkastens: {{code}}
 
-Der Anreiseführer bringt Sie bis zur Wohnung:
+Die Anreise ist ab 16 Uhr möglich. Der Anreiseführer bringt Sie bis zur Wohnung:
 {{guideArrivee}}
 
 Rufen Sie uns bei Bedarf gerne unter {{telephone}} an.
@@ -250,7 +256,7 @@ Isabelle und Alexandre`,
 
 Este es el código de la caja de llaves: {{code}}
 
-La guía de llegada le lleva hasta el apartamento:
+La llegada es posible a partir de las 16:00. La guía de llegada le lleva hasta el apartamento:
 {{guideArrivee}}
 
 No dude en llamarnos al {{telephone}} si lo necesita.
@@ -261,7 +267,7 @@ Isabelle y Alexandre`,
 
 Ecco il codice della cassetta delle chiavi: {{code}}
 
-La guida all'arrivo vi accompagna fino all'appartamento:
+L'arrivo è possibile dalle 16:00. La guida all'arrivo vi accompagna fino all'appartamento:
 {{guideArrivee}}
 
 Non esitate a chiamarci al {{telephone}} in caso di bisogno.
@@ -279,7 +285,7 @@ Isabelle e Alexandre`,
 const depart: MessageTemplate = {
   id: "depart",
   label: "Veille du départ (consignes et avis)",
-  version: 1,
+  version: 2,
   trigger: { anchor: "departure", offsetDays: -1, at: "09:00" },
   late: { mode: "skip", graceHours: 8 },
   onAnchorChange: "ignore",
@@ -296,14 +302,17 @@ const depart: MessageTemplate = {
   body: {
     fr: `Bonjour{{#prenom}} {{prenom}}{{/prenom}},
 
-Voici quelques indications pour votre départ, demain avant 10h.
+Voici quelques indications pour votre départ, demain avant 10h. Le ménage de fin de séjour est inclus, mais la cuisine et la vaisselle restent à votre charge.
 
-Le ménage est compris, sauf la cuisine : merci de laver votre vaisselle et de vider le lave-vaisselle avant de partir. Descendez les poubelles et rangez les couettes et les oreillers.
-
-Pensez à :
-- arrêter les radiateurs
+Avant de refermer la porte :
+- laisser la cuisine propre et rangée, vaisselle faite et remise en place
+- descendre les poubelles jusqu'aux conteneurs, devant lesquels vous vous êtes garé en arrivant
+- couper le chauffage
 - fermer les volets
-- remettre une paire de clés dans la boîte à clés (en brouillant le code) et laisser l'autre sur la table
+- éteindre les lumières et les appareils
+- verrouiller la porte et le casier à skis
+
+Remettez un trousseau dans la boîte à clés en brouillant le code, et laissez le second bien en évidence sur la table.
 
 Nous espérons que votre séjour s'est bien passé. Votre avis sur la plateforme où vous avez réservé nous aide beaucoup, et vos idées d'amélioration sont les bienvenues.
 
@@ -311,14 +320,17 @@ Encore merci, et à bientôt peut-être,
 Isabelle et Alexandre`,
     en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
 
-Here are a few notes for your departure, tomorrow before 10 am.
+Here are a few notes for your departure, tomorrow before 10 am. End-of-stay cleaning is included, but the kitchen and the dishes are up to you.
 
-Cleaning is included, except for the kitchen: please wash your dishes and empty the dishwasher before you leave. Take the rubbish down and put away the duvets and pillows.
-
-Please remember to:
-- turn off the radiators
+Before you close the door:
+- leave the kitchen clean and tidy, dishes washed and put away
+- take the rubbish down to the bins, the ones you parked in front of when you arrived
+- turn off the heating
 - close the shutters
-- put one set of keys back in the key box (scrambling the code) and leave the other on the table
+- switch off the lights and appliances
+- lock the door and the ski locker
+
+Put one set of keys back in the key box, scrambling the code, and leave the other clearly visible on the table.
 
 We hope you enjoyed your stay. A review on the platform where you booked helps us a lot, and your ideas for improvement are welcome.
 
@@ -326,14 +338,17 @@ Thank you again, and perhaps see you soon,
 Isabelle and Alexandre`,
     de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
 
-Hier einige Hinweise für Ihre Abreise morgen vor 10 Uhr.
+hier einige Hinweise für Ihre Abreise morgen vor 10 Uhr. Die Endreinigung ist inbegriffen, Küche und Geschirr bleiben jedoch Ihre Sache.
 
-Die Endreinigung ist inbegriffen, außer der Küche: Bitte spülen Sie Ihr Geschirr und räumen Sie die Spülmaschine aus, bevor Sie abreisen. Bringen Sie den Müll hinunter und räumen Sie Bettdecken und Kissen weg.
+Bevor Sie die Tür schließen:
+- die Küche sauber und aufgeräumt hinterlassen, Geschirr gespült und eingeräumt
+- den Müll zu den Containern bringen, vor denen Sie bei der Ankunft geparkt haben
+- die Heizung ausschalten
+- die Fensterläden schließen
+- Licht und Geräte ausschalten
+- die Tür und den Skischrank abschließen
 
-Bitte denken Sie daran:
-- die Heizkörper auszuschalten
-- die Fensterläden zu schließen
-- einen Schlüsselbund in den Schlüsselkasten zurückzulegen (Code verstellen) und den anderen auf dem Tisch zu lassen
+Legen Sie einen Schlüsselbund in den Schlüsselkasten zurück, verstellen Sie den Code, und lassen Sie den zweiten gut sichtbar auf dem Tisch.
 
 Wir hoffen, Sie hatten einen schönen Aufenthalt. Eine Bewertung auf der Plattform, auf der Sie gebucht haben, hilft uns sehr, und Ihre Verbesserungsvorschläge sind willkommen.
 
@@ -341,14 +356,17 @@ Nochmals vielen Dank, und vielleicht bis bald,
 Isabelle und Alexandre`,
     es: `Hola{{#prenom}} {{prenom}}{{/prenom}}:
 
-Aquí tiene algunas indicaciones para su salida, mañana antes de las 10:00.
+Aquí tiene algunas indicaciones para su salida, mañana antes de las 10:00. La limpieza final está incluida, pero la cocina y los platos corren de su cuenta.
 
-La limpieza está incluida, salvo la cocina: le rogamos que lave los platos y vacíe el lavavajillas antes de irse. Baje la basura y guarde los edredones y las almohadas.
-
-Recuerde:
-- apagar los radiadores
+Antes de cerrar la puerta:
+- dejar la cocina limpia y ordenada, con los platos fregados y guardados
+- bajar la basura a los contenedores, aquellos delante de los que aparcó al llegar
+- apagar la calefacción
 - cerrar las contraventanas
-- dejar un juego de llaves en la caja de llaves (cambiando el código) y el otro sobre la mesa
+- apagar las luces y los aparatos
+- cerrar con llave la puerta y el guardaesquís
+
+Deje un juego de llaves en la caja de llaves, cambiando el código, y el otro bien visible sobre la mesa.
 
 Esperamos que haya disfrutado de su estancia. Su opinión en la plataforma donde reservó nos ayuda mucho, y sus ideas de mejora son bienvenidas.
 
@@ -356,14 +374,17 @@ Muchas gracias de nuevo, y quizá hasta pronto,
 Isabelle y Alexandre`,
     it: `Buongiorno{{#prenom}} {{prenom}}{{/prenom}},
 
-Ecco alcune indicazioni per la vostra partenza, domani entro le 10:00.
+ecco alcune indicazioni per la vostra partenza, domani entro le 10:00. Le pulizie finali sono incluse, ma la cucina e le stoviglie restano a vostro carico.
 
-Le pulizie sono incluse, tranne la cucina: vi chiediamo di lavare le stoviglie e svuotare la lavastoviglie prima di partire. Portate giù la spazzatura e riponete piumoni e cuscini.
-
-Ricordatevi di:
-- spegnere i termosifoni
+Prima di chiudere la porta:
+- lasciare la cucina pulita e in ordine, stoviglie lavate e riposte
+- portare la spazzatura ai cassonetti, quelli davanti ai quali avete parcheggiato all'arrivo
+- spegnere il riscaldamento
 - chiudere le persiane
-- rimettere un mazzo di chiavi nella cassetta (cambiando il codice) e lasciare l'altro sul tavolo
+- spegnere luci e apparecchi
+- chiudere a chiave la porta e il deposito sci
+
+Rimettete un mazzo di chiavi nella cassetta cambiando il codice, e lasciate l'altro ben in vista sul tavolo.
 
 Speriamo che il soggiorno vi sia piaciuto. Una recensione sulla piattaforma dove avete prenotato ci aiuta molto, e le vostre idee di miglioramento sono benvenute.
 

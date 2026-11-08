@@ -40,8 +40,12 @@ export async function GET(request: NextRequest) {
         priority: 4,
         tags: ["warning"],
       });
-    } else if (failed.length || blocked.length) {
-      const lines = [...failed, ...blocked].map((r) => `#${r.bookingId} ${r.templateId} : ${r.outcome} (${r.reason ?? "?"})`);
+    } else if (failed.length || blocked.length || result.orphans.length) {
+      const lines = [
+        ...[...failed, ...blocked].map((r) => `#${r.bookingId} ${r.templateId} : ${r.outcome} (${r.reason ?? "?"})`),
+        // Un envoi commencé et jamais confirmé : à vérifier dans le fil, il ne sera pas renvoyé.
+        ...result.orphans.map((o) => `#${o.bookingId} ${o.templateId} : envoi à vérifier (jamais confirmé)`),
+      ];
       await sendNtfy(lines.join("\n"), { title: "Albiez — message voyageur non envoyé", priority: 4, tags: ["warning"] });
     }
     return NextResponse.json({
