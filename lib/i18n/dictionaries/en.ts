@@ -47,7 +47,7 @@ export const en: Dictionary = {
     offSeasonSponsorNote:
       "Not a member yet? Sign up with my code and we each receive 250 GuestPoints.",
     seo: {
-      title: "Albiez-Montrond apartment — skiing and lake, Aiguilles d'Arves",
+      title: "Albiez-Montrond apartment rental — Hameau des Aiguilles",
       description:
         "4-6 guest apartment in Albiez-Montrond (Savoie, 1,600 m), 250 m from the slopes, balcony facing the Aiguilles d'Arves. Winter, summer, off-season rental.",
       keywords: [

@@ -48,7 +48,7 @@ export const fr: Dictionary = {
       "Pas encore membre ? En vous inscrivant avec mon code, nous recevons chacun 250 GuestPoints.",
     seo: {
       title:
-        "Appartement Albiez-Montrond — ski et lac, Aiguilles d'Arves",
+        "Location appartement Albiez-Montrond — Hameau des Aiguilles",
       description:
         "Appartement 4 à 6 personnes à Albiez-Montrond (Savoie, 1 600 m), à 250 m des pistes, balcon face aux Aiguilles d'Arves. Location hiver, été et hors saison.",
       keywords: [

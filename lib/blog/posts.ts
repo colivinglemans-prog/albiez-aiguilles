@@ -1359,7 +1359,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Louer ses skis à Albiez-Montrond : les quatre loueurs et comment payer moins cher",
+        title: "Location de ski à Albiez-Montrond : les 4 loueurs",
         description:
           "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports : où louer ses skis à Albiez, au front de neige du Mollard ou au Chef-lieu, et pourquoi réserver en ligne.",
         excerpt:
@@ -1388,7 +1388,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Skiverleih in Albiez-Montrond: die vier Geschäfte und wie Sie weniger zahlen",
+          "Skiverleih in Albiez-Montrond: die 4 Verleihgeschäfte",
         description:
           "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: wo Sie in Albiez Ski leihen, am Pistenzugang des Mollard oder im Chef-lieu, und warum Sie online buchen sollten.",
         excerpt:
@@ -1403,7 +1403,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Alquilar los esquís en Albiez-Montrond: las cuatro tiendas y cómo pagar menos",
+          "Alquiler de esquís en Albiez-Montrond: las 4 tiendas",
         description:
           "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: dónde alquilar los esquís en Albiez, en el acceso a pistas del Mollard o en el Chef-lieu, y por qué reservar en línea.",
         excerpt:
@@ -1418,7 +1418,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Noleggiare gli sci ad Albiez-Montrond: i quattro negozi e come pagare meno",
+          "Noleggio sci ad Albiez-Montrond: i 4 negozi",
         description:
           "Sport 2000 Aux Deux Frères, Mustang 1650 Skiset, Mustang 1550 Skimium, Skiset Albiez Sports: dove noleggiare gli sci ad Albiez, all'accesso alle piste del Mollard o al Chef-lieu, e perché prenotare online.",
         excerpt:
@@ -1441,7 +1441,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Cours de ski à Albiez : l'ESF, le club Piou-Piou et le rendez-vous du Mollard",
+        title: "Cours de ski à Albiez-Montrond : ESF et leçons particulières",
         description:
           "Club Piou-Piou dès 3 ans et demi, cours enfants, ados et adultes, garderie, biathlon et DVA : le fonctionnement de l'École du Ski Français d'Albiez-Montrond.",
         excerpt:
@@ -1455,7 +1455,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Ski lessons in Albiez: the ESF, the Piou-Piou club and the Mollard meeting point",
+        title: "Ski school in Albiez-Montrond: ESF and private lessons",
         description:
           "Piou-Piou club from age 3½, children's, teens' and adults' lessons, childcare, biathlon and avalanche-transceiver taster sessions: how the Albiez-Montrond French ski school works.",
         excerpt:
@@ -1470,7 +1470,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Skikurse in Albiez: die ESF, der Club Piou-Piou und der Treffpunkt Le Mollard",
+          "Skischule in Albiez-Montrond: ESF und Privatstunden",
         description:
           "Club Piou-Piou ab 3½ Jahren, Kurse für Kinder, Jugendliche und Erwachsene, Kinderbetreuung, Biathlon und LVS-Schnupperkurse: wie die französische Skischule von Albiez-Montrond funktioniert.",
         excerpt:
@@ -1485,7 +1485,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Clases de esquí en Albiez: la ESF, el club Piou-Piou y el punto de encuentro del Mollard",
+          "Escuela de esquí en Albiez-Montrond: ESF y clases privadas",
         description:
           "Club Piou-Piou desde los 3 años y medio, clases para niños, adolescentes y adultos, guardería, biatlón e iniciación al ARVA: cómo funciona la Escuela de Esquí Francesa de Albiez-Montrond.",
         excerpt:
@@ -1500,7 +1500,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Corsi di sci ad Albiez: la ESF, il club Piou-Piou e il punto di ritrovo del Mollard",
+          "Scuola di sci ad Albiez-Montrond: ESF e lezioni private",
         description:
           "Club Piou-Piou dai 3 anni e mezzo, corsi per bambini, ragazzi e adulti, servizio di custodia, biathlon e prova dell'ARTVA: come funziona la Scuola di Sci Francese di Albiez-Montrond.",
         excerpt:
@@ -1523,7 +1523,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: null,
     locales: {
       fr: {
-        title: "Faire ses courses à Albiez-Montrond : commerces du village et arrêt à Saint-Jean",
+        title: "Courses à Albiez : supérette, livraison, drive, boucherie",
         description:
           "Sherpa au front de neige, épicerie Sambuis Dufreney et boulangerie au Chef-lieu, Carrefour Market et Lidl à Saint-Jean-de-Maurienne : où faire ses courses et dans quel ordre.",
         excerpt:
@@ -1537,7 +1537,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Food shopping in Albiez-Montrond: village shops and the stop in Saint-Jean",
+        title: "Groceries in Albiez-Montrond: supermarket, delivery, drive",
         description:
           "The Sherpa by the slopes, the Sambuis Dufreney grocery and the bakery in the village, Carrefour Market and Lidl in Saint-Jean-de-Maurienne: where to shop, and in which order.",
         excerpt:
@@ -1552,7 +1552,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Einkaufen in Albiez-Montrond: die Geschäfte im Dorf und der Halt in Saint-Jean",
+          "Einkaufen in Albiez-Montrond: Supermarkt, Lieferung, Drive",
         description:
           "Der Sherpa am Pistenzugang, der Lebensmittelladen Sambuis Dufreney und die Bäckerei im Dorf, Carrefour Market und Lidl in Saint-Jean-de-Maurienne: wo Sie einkaufen und in welcher Reihenfolge.",
         excerpt:
@@ -1567,7 +1567,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Hacer la compra en Albiez-Montrond: comercios del pueblo y parada en Saint-Jean",
+          "Compras en Albiez-Montrond: supermercado, entrega, drive",
         description:
           "El Sherpa junto a las pistas, la tienda Sambuis Dufreney y la panadería del pueblo, Carrefour Market y Lidl en Saint-Jean-de-Maurienne: dónde hacer la compra y en qué orden.",
         excerpt:
@@ -1582,7 +1582,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Fare la spesa ad Albiez-Montrond: i negozi del paese e la sosta a Saint-Jean",
+          "Spesa ad Albiez-Montrond: supermercato, consegna, drive",
         description:
           "Lo Sherpa all'accesso alle piste, l'alimentari Sambuis Dufreney e il panificio in paese, Carrefour Market e Lidl a Saint-Jean-de-Maurienne: dove fare la spesa e in quale ordine.",
         excerpt:
@@ -1763,7 +1763,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: null,
     locales: {
       fr: {
-        title: "Albiez-Montrond en famille : garderies, luge, baignade et aires de jeux",
+        title: "Albiez-Montrond en famille : garderies, luge, baignade",
         description:
           "Club Piou-Piou, centre de loisirs Le Petit Montagnard, halte-garderie Le Chat Perché, piste de luge du Mollard, baignade surveillée : ce qui rend Albiez praticable avec des enfants.",
         excerpt:
@@ -1777,7 +1777,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Albiez-Montrond with children: childcare, sledging, swimming and playgrounds",
+        title: "Albiez-Montrond with kids: ski kindergarten and childcare",
         description:
           "The Piou-Piou club, the Petit Montagnard holiday club, the Chat Perché day nursery, the Mollard sledging run and supervised swimming: what makes Albiez workable with children.",
         excerpt:
@@ -1792,7 +1792,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Albiez-Montrond mit Kindern: Betreuung, Rodeln, Baden und Spielplätze",
+          "Albiez-Montrond mit Kindern: Betreuung, Rodeln, Baden",
         description:
           "Club Piou-Piou, Ferienclub Le Petit Montagnard, Kinderkrippe Le Chat Perché, Rodelbahn am Mollard, bewachter Badebetrieb: was Albiez mit Kindern praktikabel macht.",
         excerpt:
@@ -1807,7 +1807,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Albiez-Montrond en familia: guarderías, trineo, baño y zonas de juego",
+          "Albiez-Montrond en familia: guarderías, trineo y baño",
         description:
           "Club Piou-Piou, centro de ocio Le Petit Montagnard, guardería Le Chat Perché, pista de trineos del Mollard, baño vigilado: lo que hace Albiez practicable con niños.",
         excerpt:
@@ -1822,7 +1822,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Albiez-Montrond in famiglia: servizi di custodia, slittino, bagno e aree gioco",
+          "Albiez-Montrond in famiglia: asilo, slittino, bagno",
         description:
           "Club Piou-Piou, centro ricreativo Le Petit Montagnard, asilo nido Le Chat Perché, pista da slittino del Mollard, balneazione sorvegliata: ciò che rende Albiez praticabile con i bambini.",
         excerpt:

@@ -48,7 +48,7 @@ export const de: Dictionary = {
       "Noch kein Mitglied? Wenn Sie sich mit meinem Code anmelden, erhalten wir beide 250 GuestPoints.",
     seo: {
       title:
-        "Ferienwohnung Albiez-Montrond — Ski und See, Aiguilles d'Arves",
+        "Ferienwohnung Albiez-Montrond — Hameau des Aiguilles",
       description:
         "Ferienwohnung für 4-6 Personen in Albiez-Montrond (Savoyen, 1.600 m), 250 m von den Pisten, Balkon zu den Aiguilles d'Arves. Winter, Sommer, Nebensaison.",
       keywords: [
