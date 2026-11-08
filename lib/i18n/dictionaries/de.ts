@@ -376,7 +376,7 @@ export const de: Dictionary = {
     },
     optionTitle: "Optional",
     optionIntro: (price) =>
-      `Für ${price} € pro Person liegt die Wäsche in der Wohnung bereit. Bei der Buchung angeben.`,
+      `Für ${price} € pro Person liegt die Wäsche in der Wohnung bereit. Auf der Zahlungsseite die Option „Wäschepaket“ ankreuzen.`,
     optionItems: [
       "Bettwäsche und Kopfkissenbezüge",
       "Ein Badetuch pro Person",

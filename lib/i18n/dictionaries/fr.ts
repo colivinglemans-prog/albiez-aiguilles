@@ -373,7 +373,7 @@ export const fr: Dictionary = {
     },
     optionTitle: "En option",
     optionIntro: (price) =>
-      `Pour ${price} € par personne, le linge vous attend dans l'appartement. À signaler à la réservation.`,
+      `Pour ${price} € par personne, le linge vous attend dans l'appartement. À cocher sur la page de paiement (option « kit linge »).`,
     optionItems: [
       "Draps et taies d'oreiller",
       "Une serviette de bain par personne",

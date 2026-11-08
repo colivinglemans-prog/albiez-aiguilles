@@ -5,17 +5,17 @@
 ## Informations clés
 
 - **Type** : appartement dans un des chalets de la résidence Le Hameau des Aiguilles (ce n'est pas un chalet entier), 2e et dernier étage
-- **Capacité** : 4 à 6 personnes, 3 espaces de couchage : 1 chambre fermée (lit 160 × 190), 1 coin montagne ouvert avec lits superposés (2 × 80 × 190), 1 canapé gigogne au séjour (2 × 80 × 190)
+- **Capacité** : jusqu'à 6 personnes (même prix de 1 à 4 personnes), 3 espaces de couchage : 1 chambre fermée (lit 160 × 190), 1 coin montagne ouvert avec lits superposés (2 × 80 × 190), 1 canapé gigogne au séjour (2 × 80 × 190)
 - **Surface** : 33 m² (loi Carrez)
 - **Adresse** : Chemin du Châtel, 73530 Albiez-Montrond, France
 - **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds)
 - **Arrivée** : à partir de 16 h, autonome (boîte à clés), contact sur place. **Départ** : avant 10 h.
 - **Séjour minimum** (saison 2026-2027, l'API ci-dessous fait foi pour chaque date) :
   - du samedi 19 décembre au samedi 2 janvier : à la semaine, arrivée et départ le samedi ;
-  - du 2 au 15 janvier : 3 nuits minimum, arrivée n'importe quel jour ;
+  - du 2 au 15 janvier : 3 nuits minimum, arrivée n'importe quel jour (une arrivée le 14 ou le 15 doit rester jusqu'au samedi 23, premier départ possible) ;
   - du samedi 16 janvier au samedi 13 mars : à la semaine, arrivée et départ le samedi ;
   - du 13 au 20 mars (fin de saison) : 6 nuits minimum, arrivée n'importe quel jour ;
-  - du 20 mars à mi-décembre : en général 2 nuits, sauf du 3 juillet au 20 août : 3 nuits minimum.
+  - du 20 mars à mi-décembre : en général 2 nuits, sauf pour les arrivées du 2 juillet au 20 août : 3 nuits minimum.
 - **Prix** : variables selon la saison et la demande, souvent les plus bas hors saison. Disponibilités et prix en temps réel : https://www.albiez-aiguilles.fr/fr#reserver (réservation directe)
 - **Paiement** : 100 % à la réservation, en ligne par carte bancaire (page de paiement sécurisée Beds24), taxe de séjour comprise. Sur facture (entreprises) : acompte de 30 % à la réservation, solde avant l'arrivée.
 - **Annulation** (politique Limitée, la même sur le site et sur Airbnb) : 100 % remboursés jusqu'à 14 jours avant l'arrivée ; 50 % remboursés entre 14 et 7 jours avant l'arrivée ; aucun remboursement à moins de 7 jours.
@@ -27,12 +27,12 @@ Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et 
 - Fiche, règles, annulation et paiement : https://www.albiez-aiguilles.fr/api/agent/info
 - Contrat OpenAPI : https://www.albiez-aiguilles.fr/api/agent/openapi
 - Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge — le voyageur devra cocher l'option « kit linge » sur la page de paiement —, `purpose=professionnel` pour un séjour de travail, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
-- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; renvoie 5 séjours libres par défaut (`limit` jusqu'à 8), chacun avec son prix et ses liens
+- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; ajouter `near=2027-01-16` pour trier les séjours autour d'une date ; renvoie 5 séjours libres par défaut (`limit` jusqu'à 8), chacun avec son prix et ses liens
 - Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
 - Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.
 - `children` = enfants de moins de 18 ans, bébés compris (6 voyageurs au plus, enfants compris).
 - Si la réponse contient `notices` (arrivée le jour même, kit linge à cocher), les relayer au voyageur **avant** de lui donner le lien de réservation.
-- La page de paiement Beds24 (`bookUrl`) charge ses prix en JavaScript : lue sans JavaScript, elle affiche un texte masqué « Pas de disponibilité ». Ce n'est pas l'état réel : l'API ci-dessus fait foi.
+- La page de paiement Beds24 (`bookUrl`) charge ses prix en JavaScript : lue sans JavaScript, elle affiche un texte masqué « Pas de disponibilité », et Beds24 répond parfois « service unavailable » aux robots. Ce n'est pas l'état réel : l'API ci-dessus fait foi, et le lien s'ouvre normalement dans le navigateur du voyageur. En cas de doute, donnez-lui plutôt `quoteUrl` (devis) ou `calendarUrl` (calendrier du site pré-rempli).
 
 ### Connecteur MCP
 
@@ -115,7 +115,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - Draps et serviettes fournis, ménage et changement des draps tous les quinze jours
 - Facture au nom de l'entreprise ou de l'agence : acompte de 30 % à la réservation, solde avant l'arrivée, par carte ou virement
 - Pas de remise longue durée : même prix à la nuit quelle que soit la durée
-- Devis : contact@albiez-aiguilles.fr
+- Devis : contact@albiez-aiguilles.fr, ou par téléphone / WhatsApp au +33 6 20 92 10 05
 - Page dédiée : https://www.albiez-aiguilles.fr/fr/sejour-longue-duree
 
 ## Règles

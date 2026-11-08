@@ -19,11 +19,20 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 /** « Compris », selon que le linge est pris ou non : jamais « en option » sous une ligne de linge comptée. */
 const INCLUDED: Record<string, { base: string; linenOptional: string; linenIncluded: string }> = {
-  fr: { base: "Taxe de séjour et ménage de fin de séjour compris.", linenOptional: "Linge de lit et serviettes en option.", linenIncluded: "Linge de lit et serviettes compris (à cocher sur la page de paiement)." },
-  en: { base: "Tourist tax and end-of-stay cleaning included.", linenOptional: "Bed linen and towels optional.", linenIncluded: "Bed linen and towels included (tick the option on the payment page)." },
-  de: { base: "Kurtaxe und Endreinigung inklusive.", linenOptional: "Bettwäsche und Handtücher optional.", linenIncluded: "Bettwäsche und Handtücher inklusive (auf der Zahlungsseite ankreuzen)." },
-  es: { base: "Tasa turística y limpieza final incluidas.", linenOptional: "Ropa de cama y toallas opcionales.", linenIncluded: "Ropa de cama y toallas incluidas (marque la opción en la página de pago)." },
-  it: { base: "Tassa di soggiorno e pulizia finale incluse.", linenOptional: "Biancheria e asciugamani opzionali.", linenIncluded: "Biancheria e asciugamani inclusi (spuntate l'opzione nella pagina di pagamento)." },
+  fr: { base: "Taxe de séjour et ménage de fin de séjour compris.", linenOptional: "Linge de lit et serviettes en option.", linenIncluded: "Linge de lit et serviettes ajoutés au devis : cochez l'option « kit linge » sur la page de paiement." },
+  en: { base: "Tourist tax and end-of-stay cleaning included.", linenOptional: "Bed linen and towels optional.", linenIncluded: "Bed linen and towels added to the quote: tick the “linen kit” option on the payment page." },
+  de: { base: "Kurtaxe und Endreinigung inklusive.", linenOptional: "Bettwäsche und Handtücher optional.", linenIncluded: "Bettwäsche und Handtücher im Angebot enthalten: auf der Zahlungsseite die Option „Wäschepaket“ ankreuzen." },
+  es: { base: "Tasa turística y limpieza final incluidas.", linenOptional: "Ropa de cama y toallas opcionales.", linenIncluded: "Ropa de cama y toallas añadidas al presupuesto: marque la opción «kit de ropa» en la página de pago." },
+  it: { base: "Tassa di soggiorno e pulizia finale incluse.", linenOptional: "Biancheria e asciugamani opzionali.", linenIncluded: "Biancheria e asciugamani aggiunti al preventivo: spuntate l'opzione «kit biancheria» nella pagina di pagamento." },
+};
+
+/** Rappel du paiement sur le devis (relevé par le test voyageur : le devis ne le disait pas). */
+const PAYMENT_NOTE: Record<string, string> = {
+  fr: "Paiement : 100 % à la réservation, par carte, sur la page sécurisée Beds24.",
+  en: "Payment: 100% at booking, by card, on the secure Beds24 page.",
+  de: "Zahlung: 100 % bei der Buchung, per Karte, auf der sicheren Beds24-Seite.",
+  es: "Pago: 100 % al reservar, con tarjeta, en la página segura de Beds24.",
+  it: "Pagamento: 100% alla prenotazione, con carta, sulla pagina sicura di Beds24.",
 };
 
 function included(lang: string) {
@@ -52,6 +61,7 @@ export default async function QuotePage({ params }: { params: Promise<{ locale: 
         calendarUrl={calendarUrl}
         conditionsUrl={`/${locale}/conditions`}
         cancellation={cancellationText(CANCELLATION_POLICY, locale)}
+        notes={[PAYMENT_NOTE[locale] ?? PAYMENT_NOTE.fr]}
         header={<p className="text-sm uppercase tracking-wide text-secondary">{STAY_AGENT.facts(locale).name}</p>}
       />
     </div>

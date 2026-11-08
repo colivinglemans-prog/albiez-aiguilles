@@ -375,7 +375,7 @@ export const es: Dictionary = {
     },
     optionTitle: "Opcional",
     optionIntro: (price) =>
-      `Por ${price} € por persona, la ropa de cama le espera en el apartamento. Indíquelo al reservar.`,
+      `Por ${price} € por persona, la ropa de cama le espera en el apartamento. Marque la opción «kit de ropa» en la página de pago.`,
     optionItems: [
       "Sábanas y fundas de almohada",
       "Una toalla de baño por persona",

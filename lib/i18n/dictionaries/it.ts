@@ -375,7 +375,7 @@ export const it: Dictionary = {
     },
     optionTitle: "Opzionale",
     optionIntro: (price) =>
-      `Per ${price} € a persona, la biancheria vi attende in appartamento. Da segnalare alla prenotazione.`,
+      `Per ${price} € a persona, la biancheria vi attende in appartamento. Spuntate l'opzione «kit biancheria» nella pagina di pagamento.`,
     optionItems: [
       "Lenzuola e federe",
       "Un telo da bagno a persona",

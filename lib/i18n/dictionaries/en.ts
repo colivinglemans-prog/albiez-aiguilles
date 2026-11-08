@@ -364,7 +364,7 @@ export const en: Dictionary = {
     },
     optionTitle: "Optional",
     optionIntro: (price) =>
-      `For €${price} per person the linen is waiting for you in the apartment. Just let us know when booking.`,
+      `For €${price} per person the linen is waiting for you in the apartment. Tick the “linen kit” option on the payment page.`,
     optionItems: ["Sheets and pillowcases", "One bath towel per person"],
     notMadeNote:
       "Beds are not made up on arrival: the linen is provided, it is yours to put on.",
