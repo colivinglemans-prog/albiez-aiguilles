@@ -177,15 +177,15 @@ export const PROPERTY = {
   valleyCommute: { km: 18, minutes: 22 },
 
   contact: {
-    email: "alexandre.delan@gmail.com",
     /**
-     * Adresse au nom du domaine, montrée aux entreprises et aux agences — aujourd'hui la
-     * seule page de séjour longue durée.
-     *
-     * Un devis et une facture qui partent d'une adresse personnelle passent mal un service
-     * achats, alors que l'adresse du domaine se vérifie d'un coup d'œil. Le reste du site
-     * continue d'afficher `email` : un voyageur n'a que faire de cette distinction, et les
-     * mentions légales doivent porter l'adresse de contact habituelle.
+     * Adresse de contact publique, au nom du domaine (boîte Zimbra ouverte le 2026-11-07).
+     * C'est celle que le site, les mentions légales, `llms.txt` et l'API des IA affichent :
+     * une seule adresse partout, et plus d'adresse personnelle dans une page publique.
+     */
+    email: "contact@albiez-aiguilles.fr",
+    /**
+     * Adresse montrée aux entreprises et aux agences (page de séjour longue durée). Aujourd'hui
+     * la même que `email` ; gardée à part pour pouvoir router les devis ailleurs un jour.
      */
     business: "contact@albiez-aiguilles.fr",
     phone: "+33620921005",

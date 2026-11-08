@@ -9,8 +9,13 @@
 - **Surface** : 33 m² (loi Carrez)
 - **Adresse** : Chemin du Châtel, 73530 Albiez-Montrond, France
 - **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds)
-- **Arrivée autonome** : boîte à clés, contact sur place
-- **Séjour minimum** : il varie selon les dates. En hiver, la location se fait le plus souvent à la semaine, du samedi au samedi (vacances scolaires, et aussi une partie de janvier) ; hors saison, en général 2 nuits. Les règles exactes de chaque date (durée minimale, jours d'arrivée possibles) sont données par l'API ci-dessous, qui fait foi.
+- **Arrivée** : à partir de 16 h, autonome (boîte à clés), contact sur place. **Départ** : avant 10 h.
+- **Séjour minimum** (saison 2026-2027, l'API ci-dessous fait foi pour chaque date) :
+  - du samedi 19 décembre au samedi 2 janvier : à la semaine, arrivée et départ le samedi ;
+  - du 2 au 15 janvier : 3 nuits minimum, arrivée n'importe quel jour ;
+  - du samedi 16 janvier au samedi 13 mars : à la semaine, arrivée et départ le samedi ;
+  - du 13 au 20 mars (fin de saison) : 6 nuits minimum, arrivée n'importe quel jour ;
+  - hors saison (avril à mi-décembre) : en général 2 nuits.
 - **Prix** : variables selon la saison et la demande, souvent les plus bas hors saison. Disponibilités et prix en temps réel : https://www.albiez-aiguilles.fr/fr#reserver (réservation directe)
 - **Paiement** : 100 % à la réservation, en ligne par carte bancaire (page de paiement sécurisée Beds24), taxe de séjour comprise. Sur facture (entreprises) : acompte de 30 % à la réservation, solde avant l'arrivée.
 - **Annulation** (politique Limitée, la même sur le site et sur Airbnb) : 100 % remboursés jusqu'à 14 jours avant l'arrivée ; 50 % remboursés entre 14 et 7 jours avant l'arrivée ; aucun remboursement à moins de 7 jours.
@@ -22,7 +27,7 @@ Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et 
 - Fiche, règles, annulation et paiement : https://www.albiez-aiguilles.fr/api/agent/info
 - Contrat OpenAPI : https://www.albiez-aiguilles.fr/api/agent/openapi
 - Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge — le voyageur devra cocher l'option « kit linge » sur la page de paiement —, `purpose=professionnel` pour un séjour de travail, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
-- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; renvoie jusqu'à 5 séjours libres, chacun avec son prix et ses liens
+- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; renvoie 5 séjours libres par défaut (`limit` jusqu'à 8), chacun avec son prix et ses liens
 - Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
 - Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.
 - `children` = enfants de moins de 18 ans, bébés compris (6 voyageurs au plus, enfants compris).
@@ -128,6 +133,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - Site web : https://www.albiez-aiguilles.fr/fr
 - Le site dans les autres langues : https://www.albiez-aiguilles.fr/en (English), https://www.albiez-aiguilles.fr/de (Deutsch), https://www.albiez-aiguilles.fr/es (Español), https://www.albiez-aiguilles.fr/it (Italiano)
 - Réservation directe : https://www.albiez-aiguilles.fr/fr#reserver
+- Conditions de réservation (paiement, annulation, arrivée, règles, données) : https://www.albiez-aiguilles.fr/fr/conditions
 - Page ski : https://www.albiez-aiguilles.fr/fr/ski
 - Page été : https://www.albiez-aiguilles.fr/fr/ete
 - Guide de la station : https://www.albiez-aiguilles.fr/fr/guide

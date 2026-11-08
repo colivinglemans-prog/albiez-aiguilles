@@ -656,6 +656,7 @@ export const en: Dictionary = {
     navigation: "Navigation",
     contact: "Contact",
     legal: "Legal information",
+    conditions: "Booking conditions",
     copyright: "All rights reserved.",
     tagline: "Mountain apartment in Albiez-Montrond, Savoie, France.",
   },

@@ -444,6 +444,7 @@ export interface Dictionary {
     navigation: string;
     contact: string;
     legal: string;
+    conditions: string;
     copyright: string;
     tagline: string;
   };

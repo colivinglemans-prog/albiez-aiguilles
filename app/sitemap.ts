@@ -49,6 +49,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: alternates((l) => `/${l}/sejour-longue-duree`),
     });
 
+    // Conditions de réservation : citées par llms.txt, la page de devis et le profil Stripe.
+    entries.push({
+      url: `${SITE_URL}/${locale}/conditions`,
+      changeFrequency: "monthly",
+      priority: 0.4,
+      alternates: alternates((l) => `/${l}/conditions`),
+    });
+
     // Le guide : l'index, puis un article par slug. Les slugs sont communs aux cinq
     // langues, ce qui rend les `alternates` triviaux à construire.
     entries.push({
