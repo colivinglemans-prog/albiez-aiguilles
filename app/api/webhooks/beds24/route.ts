@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { constantTimeEqual } from "@sejour/socle/lib/cron-auth";
+import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { modes, runCron } from "@/lib/messages/engine";
 
 /**
@@ -22,14 +23,38 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-function authorized(request: NextRequest): boolean {
+type Result = "accepted" | "no-header" | "bad-secret" | "no-config";
+
+function check(request: NextRequest): { result: Result; bracketed: boolean } {
   const secret = process.env.BEDS24_WEBHOOK_SECRET?.trim();
   const given = request.headers.get("x-webhook-secret");
-  return Boolean(secret && given && constantTimeEqual(given, secret));
+  const bracketed = Boolean(given && given.startsWith("<") && given.endsWith(">"));
+  if (!secret) return { result: "no-config", bracketed };
+  if (!given) return { result: "no-header", bracketed };
+  return { result: constantTimeEqual(given, secret) ? "accepted" : "bad-secret", bracketed };
+}
+
+/**
+ * Témoin des appels (demandé par l'hôte le 2026-11-08, pour prouver que Beds24 envoie le bon
+ * secret) : Albiez n'a pas de stockage, donc une notification ntfy — au plus une par issue et par
+ * heure, **par instance** (mémoire du processus, au mieux). Rien du secret n'est envoyé.
+ */
+const lastNotified = new Map<Result, number>();
+async function notify(result: Result, bracketed: boolean): Promise<void> {
+  const now = Date.now();
+  if (now - (lastNotified.get(result) ?? 0) < 3_600_000) return;
+  lastNotified.set(result, now);
+  const text =
+    result === "accepted"
+      ? "Webhook Beds24 reçu et accepté."
+      : `Webhook Beds24 refusé (${result}${bracketed ? ", valeur entre chevrons" : ""}) : vérifier le « Custom Header » dans Beds24.`;
+  await sendNtfy(text, { title: "Albiez — webhook Beds24", priority: result === "accepted" ? 2 : 3, tags: [result === "accepted" ? "white_check_mark" : "warning"] }).catch(() => {});
 }
 
 export async function POST(request: NextRequest) {
-  if (!authorized(request)) {
+  const { result, bracketed } = check(request);
+  await notify(result, bracketed);
+  if (result !== "accepted") {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
   const { killSwitch, modes: m } = modes();
