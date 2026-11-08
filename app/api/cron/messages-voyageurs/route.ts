@@ -14,6 +14,15 @@ import { modes, runCron } from "@/lib/messages/engine";
  * ntfy ne reçoit que des identifiants et des issues : jamais un prénom, un e-mail, un texte ni un
  * code.
  */
+/**
+ * Albiez n'a pas de stockage (choix de l'hôte) : un blocage durable (code de la boîte non
+ * configuré, e-mail absent) n'est rappelé qu'au premier passage de chaque heure, pas toutes les
+ * 10 minutes. Les échecs d'envoi, eux, sont signalés à chaque fois.
+ */
+function firstRunOfHour(now = new Date()): boolean {
+  return Number(now.toLocaleString("en-GB", { timeZone: "Europe/Paris", minute: "2-digit" })) < 10;
+}
+
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 // cron-job.org coupe à 30 s.
@@ -40,7 +49,7 @@ export async function GET(request: NextRequest) {
         priority: 4,
         tags: ["warning"],
       });
-    } else if (failed.length || blocked.length || result.orphans.length) {
+    } else if (failed.length || ((blocked.length || result.orphans.length) && firstRunOfHour())) {
       const lines = [
         ...[...failed, ...blocked].map((r) => `#${r.bookingId} ${r.templateId} : ${r.outcome} (${r.reason ?? "?"})`),
         // Un envoi commencé et jamais confirmé : à vérifier dans le fil, il ne sera pas renvoyé.

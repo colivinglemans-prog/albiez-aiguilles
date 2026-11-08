@@ -2090,6 +2090,11 @@ paiement) : décision de l'hôte, à rouvrir après une saison.
   hiver connu : ajouter l'hiver suivant dans `lib/seasons.ts`.
 - **Écran** : `/dashboard/messages` (admin) et le panneau « Messages au voyageur » dans la fiche
   d'un séjour du calendrier. Aperçu : tout masqué sauf `previewVisible` (le code ne l'est jamais).
+- **Bascule** : un modèle à la fois — départ, puis avant-arrivée, puis code. Au même moment, l'hôte
+  **arrête d'envoyer à la main** le code et les consignes de départ, sinon le voyageur les reçoit
+  deux fois (les envois manuels sont reconnus dans le fil, mais seulement s'ils partent avant).
+  Alertes : échecs à chaque passage ; blocages et orphelins au premier passage de chaque heure
+  (pas de stockage pour dédoublonner).
 - **Avant de passer un modèle en `live`** : SMTP vérifié par un envoi à soi-même, une réservation
   directe test ayant pris le kit linge (branche « kit inclus » jamais prouvée), liens chez
   Booking.com constatés côté voyageur.
