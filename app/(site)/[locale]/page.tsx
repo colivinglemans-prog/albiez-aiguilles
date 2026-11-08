@@ -36,7 +36,7 @@ export async function generateMetadata({
       description: t.home.seo.description,
       url: `${homePath(locale)}`,
       ...openGraphLocales(locale),
-      images: ogImage(),
+      images: ogImage(locale),
     },
   };
 }

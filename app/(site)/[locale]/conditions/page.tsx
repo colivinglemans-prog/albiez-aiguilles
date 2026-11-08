@@ -201,7 +201,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: `${c.title} — Albiez-Montrond`,
     description: c.metaDescription,
     alternates: alternatesFor(locale, conditionsPath),
-    openGraph: { ...openGraphLocales(locale), images: ogImage() },
+    openGraph: {
+      title: `${c.title} — Albiez-Montrond`,
+      description: c.metaDescription,
+      url: conditionsPath(locale),
+      ...openGraphLocales(locale),
+      images: ogImage(locale),
+    },
   };
 }
 

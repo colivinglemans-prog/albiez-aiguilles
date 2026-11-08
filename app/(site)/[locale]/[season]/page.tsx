@@ -42,7 +42,7 @@ export async function generateMetadata({
       description: seo.description,
       url: seasonPath(season)(locale),
       ...openGraphLocales(locale),
-      images: ogImage(season),
+      images: ogImage(locale, season),
     },
   };
 }

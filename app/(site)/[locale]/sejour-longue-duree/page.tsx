@@ -48,7 +48,7 @@ export async function generateMetadata({
       description: seo.description,
       url: longStayPath(locale),
       ...openGraphLocales(locale),
-      images: ogImage(),
+      images: ogImage(locale),
     },
   };
 }
