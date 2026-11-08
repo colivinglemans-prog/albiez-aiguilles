@@ -451,6 +451,8 @@ export interface Dictionary {
   longStay: LongStayContent;
   legal: {
     title: string;
+    /** Meta description (Bing : 120 à 155 caractères). */
+    description: string;
     editorTitle: string;
     hostTitle: string;
     dataTitle: string;

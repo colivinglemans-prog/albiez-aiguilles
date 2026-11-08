@@ -48,9 +48,9 @@ export const fr: Dictionary = {
       "Pas encore membre ? En vous inscrivant avec mon code, nous recevons chacun 250 GuestPoints.",
     seo: {
       title:
-        "Location appartement Albiez-Montrond — Ski et lac face aux Aiguilles d'Arves",
+        "Appartement Albiez-Montrond — ski et lac, Aiguilles d'Arves",
       description:
-        "Appartement 4 à 6 personnes à Albiez-Montrond (Savoie, 1 600 m), à 250 m des pistes et 350 m du lac. Balcon sud-ouest, vue Aiguilles d'Arves. Location hiver, été et hors saison.",
+        "Appartement 4 à 6 personnes à Albiez-Montrond (Savoie, 1 600 m), à 250 m des pistes, balcon face aux Aiguilles d'Arves. Location hiver, été et hors saison.",
       keywords: [
         "location Albiez-Montrond",
         "appartement Albiez",
@@ -177,9 +177,9 @@ export const fr: Dictionary = {
       },
       seo: {
         title:
-          "Location ski Albiez-Montrond — Appartement 6 personnes à 250 m des pistes",
+          "Location ski Albiez-Montrond — 6 personnes à 250 m des pistes",
         description:
-          "Appartement de montagne à Albiez-Montrond, à 250 m du départ des pistes, de l'ESF et du club Piou-Piou. 4 à 6 personnes, casier à skis, vue Aiguilles d'Arves. Saison 2026-2027.",
+          "Appartement à Albiez-Montrond, station familiale de Maurienne, à 250 m des pistes, de l'ESF et du club Piou-Piou. 4 à 6 personnes, casier à skis.",
         keywords: [
           "location ski Albiez",
           "appartement ski Albiez-Montrond",
@@ -254,9 +254,9 @@ export const fr: Dictionary = {
       },
       seo: {
         title:
-          "Location été Albiez-Montrond — Appartement près du lac et des randonnées",
+          "Location été Albiez-Montrond — près du lac et des randonnées",
         description:
-          "Appartement 4 à 6 personnes à Albiez-Montrond, à 350 m du lac avec baignade surveillée et 300 m du club d'équitation. Randonnée, VTT électrique, balcon vue Aiguilles d'Arves.",
+          "Appartement 4 à 6 personnes à Albiez-Montrond : lac et baignade surveillée à 350 m, équitation à 300 m. Randonnée, VTT électrique, vue Aiguilles d'Arves.",
         keywords: [
           "location été Albiez",
           "vacances été Maurienne",
@@ -659,7 +659,7 @@ export const fr: Dictionary = {
     seo: {
       title: "Guide d'Albiez-Montrond — randonnées, ski, commerces et activités",
       description:
-        "Randonnées balisées, location de ski, ESF, commerces du village, lac du Mollard, col du Mollard à vélo : le guide pratique d'Albiez-Montrond écrit par des habitués de la station.",
+        "Randonnées balisées, location de ski, ESF, commerces, lac et col du Mollard : le guide pratique d'Albiez-Montrond écrit par des habitués de la station.",
       keywords: [
         "guide Albiez-Montrond",
         "que faire à Albiez",
@@ -727,7 +727,7 @@ export const fr: Dictionary = {
     seo: {
       title: "Logement longue durée en Maurienne — chantier Lyon-Turin | Albiez",
       description:
-        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, en séjour de plusieurs semaines hors saison touristique. Draps fournis, ménage périodique, facture entreprise, paiement par carte ou virement.",
+        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, pour plusieurs semaines hors saison. Draps fournis, ménage, facture entreprise.",
       keywords: [
         "logement chantier Lyon-Turin",
         "hébergement longue durée Maurienne",
@@ -739,6 +739,8 @@ export const fr: Dictionary = {
   },
   legal: {
     title: "Mentions légales",
+    description:
+      "Mentions légales du site de l'appartement à Albiez-Montrond (Savoie) : éditeur SCI JUARISAL, hébergement du site, contact et données personnelles.",
     editorTitle: "Éditeur du site",
     hostTitle: "Hébergement",
     dataTitle: "Données personnelles",

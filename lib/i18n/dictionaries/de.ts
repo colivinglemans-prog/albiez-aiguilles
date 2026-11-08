@@ -48,9 +48,9 @@ export const de: Dictionary = {
       "Noch kein Mitglied? Wenn Sie sich mit meinem Code anmelden, erhalten wir beide 250 GuestPoints.",
     seo: {
       title:
-        "Ferienwohnung Albiez-Montrond — Ski und See vor den Aiguilles d'Arves",
+        "Ferienwohnung Albiez-Montrond — Ski und See, Aiguilles d'Arves",
       description:
-        "Ferienwohnung für 4 bis 6 Personen in Albiez-Montrond (Savoyen, 1.600 m), 250 m von den Pisten und 350 m vom See. Südwestbalkon, Blick auf die Aiguilles d'Arves. Winter, Sommer und Nebensaison.",
+        "Ferienwohnung für 4-6 Personen in Albiez-Montrond (Savoyen, 1.600 m), 250 m von den Pisten, Balkon zu den Aiguilles d'Arves. Winter, Sommer, Nebensaison.",
       keywords: [
         "Ferienwohnung Albiez-Montrond",
         "Skiwohnung Savoyen",
@@ -177,9 +177,9 @@ export const de: Dictionary = {
       },
       seo: {
         title:
-          "Skiwohnung Albiez-Montrond — Ferienwohnung für 6 Personen, 250 m zur Piste",
+          "Skiurlaub Albiez-Montrond — Wohnung für 6, 250 m zur Piste",
         description:
-          "Bergwohnung in Albiez-Montrond, 250 m vom Pistenstart, von der Skischule und vom Kinderskiclub. 4 bis 6 Personen, Skiraum, Blick auf die Aiguilles d'Arves. Saison 2026/2027.",
+          "Bergwohnung in Albiez-Montrond, 250 m von Piste, Skischule und Kinderskiclub. 4 bis 6 Personen, Skiraum, Blick auf die Aiguilles d'Arves.",
         keywords: [
           "Skiwohnung Albiez",
           "Ferienwohnung Skigebiet Savoyen",
@@ -254,9 +254,9 @@ export const de: Dictionary = {
       },
       seo: {
         title:
-          "Sommerurlaub Albiez-Montrond — Ferienwohnung nahe See und Wanderwegen",
+          "Sommerurlaub Albiez-Montrond — Wohnung nahe See und Wanderwegen",
         description:
-          "Ferienwohnung für 4 bis 6 Personen in Albiez-Montrond, 350 m vom See mit bewachtem Badebetrieb und 300 m vom Reitzentrum. Wandern, E-Mountainbike, Balkon mit Blick auf die Aiguilles d'Arves.",
+          "Ferienwohnung für 4-6 Personen in Albiez-Montrond, 350 m vom See mit Badeaufsicht, 300 m vom Reitzentrum. Wandern, E-MTB, Blick auf die Aiguilles d'Arves.",
         keywords: [
           "Sommerurlaub Albiez",
           "Bergurlaub Sommer Maurienne",
@@ -662,9 +662,9 @@ export const de: Dictionary = {
     },
     seo: {
       title:
-        "Reiseführer Albiez-Montrond — Wandern, Skifahren, Geschäfte und Aktivitäten",
+        "Reiseführer Albiez-Montrond — Wandern, Ski, Läden, Aktivitäten",
       description:
-        "Markierte Wanderwege, Skiverleih, Skischule, Geschäfte im Dorf, Lac du Mollard, Col du Mollard mit dem Rad: der praktische Reiseführer für Albiez-Montrond, geschrieben von Stammgästen.",
+        "Markierte Wanderwege, Skiverleih, Skischule, Läden, Lac und Col du Mollard: der praktische Reiseführer für Albiez-Montrond, von Stammgästen geschrieben.",
       keywords: [
         "Reiseführer Albiez-Montrond",
         "was tun in Albiez",
@@ -730,9 +730,9 @@ export const de: Dictionary = {
     quoteWhatsApp:
       "Guten Tag, ich hätte gerne ein Angebot für einen Langzeitaufenthalt in Albiez. Termine: … / Personen: … / Firma: … / Rechnungsanschrift: …",
     seo: {
-      title: "Langzeitunterkunft in der Maurienne — Baustelle Lyon-Turin | Albiez",
+      title: "Langzeitunterkunft Maurienne — Baustelle Lyon-Turin | Albiez",
       description:
-        "Möblierte Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für Aufenthalte von mehreren Wochen außerhalb der Feriensaison. Wäsche gestellt, regelmäßige Reinigung, Firmenrechnung, Zahlung per Karte oder Überweisung.",
+        "Möblierte Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für mehrere Wochen außerhalb der Saison. Wäsche, Reinigung, Firmenrechnung.",
       keywords: [
         "Unterkunft Baustelle Lyon-Turin",
         "Langzeitmiete Maurienne",
@@ -744,6 +744,8 @@ export const de: Dictionary = {
   },
   legal: {
     title: "Impressum",
+    description:
+      "Impressum der Website der Ferienwohnung in Albiez-Montrond (Savoyen): Herausgeber SCI JUARISAL, Hosting der Website, Kontakt und personenbezogene Daten.",
     editorTitle: "Herausgeber der Website",
     hostTitle: "Hosting",
     dataTitle: "Personenbezogene Daten",

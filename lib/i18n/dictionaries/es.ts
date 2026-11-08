@@ -48,9 +48,9 @@ export const es: Dictionary = {
       "¿Todavía no es miembro? Si se registra con mi código, ambos recibimos 250 GuestPoints.",
     seo: {
       title:
-        "Apartamento en Albiez-Montrond — Esquí y lago frente a las Aiguilles d'Arves",
+        "Apartamento en Albiez-Montrond — esquí y lago, Aiguilles d'Arves",
       description:
-        "Apartamento para 4 a 6 personas en Albiez-Montrond (Saboya, 1600 m), a 250 m de las pistas y 350 m del lago. Balcón al suroeste, vistas a las Aiguilles d'Arves. Invierno, verano y temporada baja.",
+        "Apartamento 4-6 personas en Albiez-Montrond (Saboya, 1600 m) a 250 m de pistas, balcón frente a las Aiguilles d'Arves. Invierno, verano, temporada baja.",
       keywords: [
         "apartamento Albiez-Montrond",
         "alquiler esquí Alpes franceses",
@@ -177,9 +177,9 @@ export const es: Dictionary = {
       },
       seo: {
         title:
-          "Alquiler esquí Albiez-Montrond — Apartamento 6 personas a 250 m de las pistas",
+          "Alquiler esquí Albiez-Montrond — 6 personas a 250 m de las pistas",
         description:
-          "Apartamento de montaña en Albiez-Montrond, a 250 m de la salida de pistas, de la escuela de esquí y del club infantil. De 4 a 6 personas, guardaesquís, vistas a las Aiguilles d'Arves. Temporada 2026-2027.",
+          "Apartamento en Albiez-Montrond, a 250 m de las pistas, la escuela de esquí y el club infantil. 4 a 6 personas, guardaesquís, vista a las Aiguilles d'Arves.",
         keywords: [
           "alquiler esquí Albiez",
           "apartamento esquí Saboya",
@@ -254,9 +254,9 @@ export const es: Dictionary = {
       },
       seo: {
         title:
-          "Verano en Albiez-Montrond — Apartamento cerca del lago y de las rutas",
+          "Verano en Albiez-Montrond — apartamento cerca del lago y rutas",
         description:
-          "Apartamento para 4 a 6 personas en Albiez-Montrond, a 350 m del lago con baño vigilado y 300 m del club de equitación. Senderismo, BTT eléctrica, balcón con vistas a las Aiguilles d'Arves.",
+          "Apartamento 4-6 personas en Albiez-Montrond, a 350 m del lago (baño vigilado), 300 m de la hípica. Senderos, BTT eléctrica, vista a las Aiguilles d'Arves.",
         keywords: [
           "verano Albiez alquiler",
           "vacaciones verano Alpes franceses",
@@ -661,9 +661,9 @@ export const es: Dictionary = {
     },
     seo: {
       title:
-        "Guía de Albiez-Montrond — senderismo, esquí, comercios y actividades",
+        "Guía de Albiez-Montrond — rutas, esquí, comercios y actividades",
       description:
-        "Senderos señalizados, alquiler de esquís, escuela de esquí, comercios del pueblo, lac du Mollard, col du Mollard en bicicleta: la guía práctica de Albiez-Montrond escrita por habituales de la estación.",
+        "Senderos señalizados, alquiler de esquís, escuela de esquí, comercios, lago y col du Mollard: la guía práctica de Albiez-Montrond, escrita por habituales.",
       keywords: [
         "guía Albiez-Montrond",
         "qué hacer en Albiez",
@@ -729,9 +729,9 @@ export const es: Dictionary = {
     quoteWhatsApp:
       "Buenos días, quisiera un presupuesto para una estancia larga en Albiez. Fechas: … / Número de personas: … / Empresa: … / Dirección de facturación: …",
     seo: {
-      title: "Alojamiento de larga duración en la Maurienne — obras del Lyon-Turín | Albiez",
+      title: "Larga estancia en la Maurienne — obras del Lyon-Turín | Albiez",
       description:
-        "Apartamento amueblado en Albiez-Montrond, a 18 km de Saint-Jean-de-Maurienne, para estancias de varias semanas fuera de temporada. Ropa de cama incluida, limpieza periódica, factura de empresa, pago con tarjeta o transferencia.",
+        "Apartamento amueblado en Albiez-Montrond, a 18 km de Saint-Jean-de-Maurienne, por semanas fuera de temporada. Ropa de cama, limpieza, factura de empresa.",
       keywords: [
         "alojamiento obras Lyon-Turín",
         "alquiler larga duración Maurienne",
@@ -743,6 +743,8 @@ export const es: Dictionary = {
   },
   legal: {
     title: "Aviso legal",
+    description:
+      "Aviso legal del sitio web del apartamento en Albiez-Montrond (Saboya): editor SCI JUARISAL, alojamiento del sitio, contacto y datos personales.",
     editorTitle: "Editor del sitio",
     hostTitle: "Alojamiento web",
     dataTitle: "Datos personales",

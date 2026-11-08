@@ -48,9 +48,9 @@ export const it: Dictionary = {
       "Non siete ancora iscritti? Iscrivendovi con il mio codice, riceviamo entrambi 250 GuestPoints.",
     seo: {
       title:
-        "Appartamento ad Albiez-Montrond — Sci e lago di fronte alle Aiguilles d'Arves",
+        "Appartamento ad Albiez-Montrond — sci e lago, Aiguilles d'Arves",
       description:
-        "Appartamento per 4-6 persone ad Albiez-Montrond (Savoia, 1600 m), a 250 m dalle piste e 350 m dal lago. Balcone a sud-ovest, vista sulle Aiguilles d'Arves. Inverno, estate e bassa stagione.",
+        "Appartamento 4-6 persone ad Albiez-Montrond (Savoia, 1600 m) a 250 m dalle piste, balcone davanti alle Aiguilles d'Arves. Inverno, estate, bassa stagione.",
       keywords: [
         "appartamento Albiez-Montrond",
         "appartamento sci Maurienne",
@@ -177,9 +177,9 @@ export const it: Dictionary = {
       },
       seo: {
         title:
-          "Settimana bianca Albiez-Montrond — Appartamento 6 persone a 250 m dalle piste",
+          "Settimana bianca Albiez-Montrond — 6 persone a 250 m dalle piste",
         description:
-          "Appartamento di montagna ad Albiez-Montrond, a 250 m dalla partenza delle piste, dalla scuola di sci e dal club per bambini. Da 4 a 6 persone, deposito sci, vista sulle Aiguilles d'Arves. Stagione 2026-2027.",
+          "Appartamento ad Albiez-Montrond, a 250 m da piste, scuola di sci e club per bambini. Da 4 a 6 persone, deposito sci, vista sulle Aiguilles d'Arves.",
         keywords: [
           "appartamento sci Albiez",
           "settimana bianca Maurienne",
@@ -254,9 +254,9 @@ export const it: Dictionary = {
       },
       seo: {
         title:
-          "Estate ad Albiez-Montrond — Appartamento vicino al lago e ai sentieri",
+          "Estate ad Albiez-Montrond — appartamento vicino a lago e sentieri",
         description:
-          "Appartamento per 4-6 persone ad Albiez-Montrond, a 350 m dal lago con balneazione sorvegliata e 300 m dal centro di equitazione. Escursioni, MTB elettrica, balcone con vista sulle Aiguilles d'Arves.",
+          "Appartamento 4-6 persone ad Albiez-Montrond, a 350 m dal lago (bagno sorvegliato), 300 m dal maneggio. Escursioni, MTB elettrica, vista Aiguilles d'Arves.",
         keywords: [
           "estate Albiez affitto",
           "vacanze estate Alpi francesi",
@@ -663,7 +663,7 @@ export const it: Dictionary = {
       title:
         "Guida di Albiez-Montrond — escursioni, sci, negozi e attività",
       description:
-        "Sentieri segnalati, noleggio sci, scuola di sci, negozi del paese, lac du Mollard, col du Mollard in bici: la guida pratica di Albiez-Montrond scritta da habitué della località.",
+        "Sentieri segnalati, noleggio sci, scuola di sci, negozi, lago e col du Mollard: la guida pratica di Albiez-Montrond scritta da habitué della località.",
       keywords: [
         "guida Albiez-Montrond",
         "cosa fare ad Albiez",
@@ -729,9 +729,9 @@ export const it: Dictionary = {
     quoteWhatsApp:
       "Buongiorno, vorrei un preventivo per un soggiorno lungo ad Albiez. Date: … / Numero di persone: … / Azienda: … / Indirizzo di fatturazione: …",
     seo: {
-      title: "Alloggio di lunga durata in Maurienne — cantiere Torino-Lione | Albiez",
+      title: "Lunghi soggiorni in Maurienne — cantiere Torino-Lione | Albiez",
       description:
-        "Appartamento ammobiliato ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per soggiorni di più settimane fuori stagione. Biancheria fornita, pulizie periodiche, fattura aziendale, pagamento con carta o bonifico.",
+        "Appartamento ammobiliato ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per più settimane fuori stagione. Biancheria, pulizie, fattura aziendale.",
       keywords: [
         "alloggio cantiere Torino-Lione",
         "affitto lunga durata Maurienne",
@@ -743,6 +743,8 @@ export const it: Dictionary = {
   },
   legal: {
     title: "Note legali",
+    description:
+      "Note legali del sito dell'appartamento ad Albiez-Montrond (Savoia): editore SCI JUARISAL, hosting del sito, contatti e trattamento dei dati personali.",
     editorTitle: "Editore del sito",
     hostTitle: "Hosting",
     dataTitle: "Dati personali",

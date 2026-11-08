@@ -22,6 +22,7 @@ export async function generateMetadata({
 
   return {
     title: t.legal.title,
+    description: t.legal.description,
     // Page de service : utile aux visiteurs, sans intérêt dans l'index de recherche.
     robots: { index: false, follow: true },
     alternates: { canonical: `${SITE_URL}/${locale}/${PATH}` },

@@ -47,9 +47,9 @@ export const en: Dictionary = {
     offSeasonSponsorNote:
       "Not a member yet? Sign up with my code and we each receive 250 GuestPoints.",
     seo: {
-      title: "Albiez-Montrond apartment rental — Skiing and lake, French Alps",
+      title: "Albiez-Montrond apartment — skiing and lake, Aiguilles d'Arves",
       description:
-        "Apartment for 4 to 6 guests in Albiez-Montrond (Savoie, 1,600 m), 250 m from the slopes and 350 m from the lake. South-west balcony facing the Aiguilles d'Arves. Winter, summer and off-season rental.",
+        "4-6 guest apartment in Albiez-Montrond (Savoie, 1,600 m), 250 m from the slopes, balcony facing the Aiguilles d'Arves. Winter, summer, off-season rental.",
       keywords: [
         "Albiez-Montrond rental",
         "Albiez apartment",
@@ -173,9 +173,9 @@ export const en: Dictionary = {
           "The arrow marks the apartment: the foot of the slopes, the ski school and the shops are 250 metres away.",
       },
       seo: {
-        title: "Ski rental Albiez-Montrond — Apartment for 6, 250 m from the slopes",
+        title: "Ski rental Albiez-Montrond — apartment for 6, 250 m from slopes",
         description:
-          "Mountain apartment in Albiez-Montrond, 250 m from the slopes, the ski school and the kids' club. Sleeps 4 to 6, ski locker, Aiguilles d'Arves view. 2026-2027 season.",
+          "Apartment in Albiez-Montrond, 250 m from the slopes, ski school and kids' club. Sleeps 4 to 6, ski locker, view of the Aiguilles d'Arves.",
         keywords: [
           "ski rental Albiez",
           "Albiez-Montrond ski apartment",
@@ -248,9 +248,9 @@ export const en: Dictionary = {
         lake: "Lake and supervised swimming",
       },
       seo: {
-        title: "Summer rental Albiez-Montrond — Apartment near the lake and trails",
+        title: "Summer rental Albiez-Montrond — apartment near lake and trails",
         description:
-          "Apartment for 4 to 6 guests in Albiez-Montrond, 350 m from the lake with supervised swimming and 300 m from the riding club. Hiking, e-biking, balcony facing the Aiguilles d'Arves.",
+          "Apartment for 4 to 6 in Albiez-Montrond, 350 m from the lake (supervised swimming), 300 m from the riding club. Hiking, e-biking, Aiguilles d'Arves view.",
         keywords: [
           "summer rental Albiez",
           "Maurienne summer holiday",
@@ -641,7 +641,7 @@ export const en: Dictionary = {
     seo: {
       title: "Albiez-Montrond guide — walks, skiing, shops and activities",
       description:
-        "Waymarked walks, ski hire, ski school, village shops, the Mollard lake and the Col du Mollard by bike: a practical guide to Albiez-Montrond written by regulars of the resort.",
+        "Waymarked walks, ski hire, ski school, village shops, the Mollard lake and pass: a practical guide to Albiez-Montrond (Savoie) by regulars of the resort.",
       keywords: [
         "Albiez-Montrond guide",
         "things to do in Albiez",
@@ -707,9 +707,9 @@ export const en: Dictionary = {
     quoteWhatsApp:
       "Hello, I would like a quote for a long stay in Albiez. Dates: … / Number of people: … / Company: … / Billing address: …",
     seo: {
-      title: "Long-term accommodation in the Maurienne — Lyon-Turin project | Albiez",
+      title: "Long-term stay in the Maurienne — Lyon-Turin project | Albiez",
       description:
-        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks outside the tourist season. Linen provided, regular cleaning, company invoice, payment by card or transfer.",
+        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks off-season. Linen provided, cleaning, company invoice.",
       keywords: [
         "Lyon-Turin project accommodation",
         "long term rental Maurienne",
@@ -721,6 +721,8 @@ export const en: Dictionary = {
   },
   legal: {
     title: "Legal notice",
+    description:
+      "Legal notice for the Albiez-Montrond apartment website (Savoie, French Alps): publisher SCI JUARISAL, website hosting, contact and personal data.",
     editorTitle: "Site publisher",
     hostTitle: "Hosting",
     dataTitle: "Personal data",

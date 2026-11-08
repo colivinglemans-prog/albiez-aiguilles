@@ -23,6 +23,8 @@ export function generateStaticParams() {
 interface Content {
   title: string;
   intro: string;
+  /** Meta description, distincte de l'intro affichée (Bing : 120 à 155 caractères). */
+  metaDescription: string;
   sections: { title: string; items: string[] }[];
 }
 
@@ -40,6 +42,7 @@ function content(locale: Locale): Content {
       return {
         title: "Booking conditions",
         intro: "These conditions apply to direct bookings made on this website. The cancellation policy is the same as on Airbnb.",
+        metaDescription: "Terms for direct bookings of our apartment in Albiez-Montrond, French Alps: payment, cancellation as on Airbnb, arrival from 4 pm, departure before 10 am.",
         sections: [
           { title: "Payment", items: [
             `Online booking: ${upfront}% paid at booking, by card, on the secure Beds24 payment page. Tourist tax included.`,
@@ -69,6 +72,7 @@ function content(locale: Locale): Content {
       return {
         title: "Buchungsbedingungen",
         intro: "Diese Bedingungen gelten für Direktbuchungen auf dieser Website. Die Stornierungsbedingungen sind dieselben wie bei Airbnb.",
+        metaDescription: "Bedingungen für Direktbuchungen der Ferienwohnung in Albiez-Montrond: Zahlung, Stornierung wie bei Airbnb, Anreise ab 16 Uhr, Abreise vor 10 Uhr.",
         sections: [
           { title: "Zahlung", items: [
             `Online-Buchung: ${upfront} % bei der Buchung, per Karte, auf der sicheren Zahlungsseite von Beds24. Kurtaxe inklusive.`,
@@ -98,6 +102,7 @@ function content(locale: Locale): Content {
       return {
         title: "Condiciones de reserva",
         intro: "Estas condiciones se aplican a las reservas directas en este sitio. La política de cancelación es la misma que en Airbnb.",
+        metaDescription: "Condiciones de reserva directa del apartamento en Albiez-Montrond: pago, cancelación como en Airbnb, llegada desde las 16 h, salida antes de las 10 h.",
         sections: [
           { title: "Pago", items: [
             `Reserva en línea: ${upfront} % al reservar, con tarjeta, en la página de pago segura de Beds24. Tasa turística incluida.`,
@@ -127,6 +132,7 @@ function content(locale: Locale): Content {
       return {
         title: "Condizioni di prenotazione",
         intro: "Queste condizioni valgono per le prenotazioni dirette su questo sito. La politica di cancellazione è la stessa di Airbnb.",
+        metaDescription: "Condizioni delle prenotazioni dirette dell'appartamento ad Albiez-Montrond: pagamento, cancellazione come su Airbnb, arrivo dalle 16, partenza entro le 10.",
         sections: [
           { title: "Pagamento", items: [
             `Prenotazione online: ${upfront}% alla prenotazione, con carta, sulla pagina di pagamento sicura di Beds24. Tassa di soggiorno inclusa.`,
@@ -156,6 +162,7 @@ function content(locale: Locale): Content {
       return {
         title: "Conditions de réservation",
         intro: "Ces conditions s'appliquent aux réservations directes faites sur ce site. La politique d'annulation est la même que sur Airbnb.",
+        metaDescription: "Conditions des réservations directes de l'appartement à Albiez-Montrond : paiement, annulation comme sur Airbnb, arrivée dès 16 h, départ avant 10 h.",
         sections: [
           { title: "Paiement", items: [
             `Réservation en ligne : ${upfront} % à la réservation, par carte, sur la page de paiement sécurisée Beds24. Taxe de séjour comprise.`,
@@ -190,7 +197,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const c = content(locale);
   return {
     title: c.title,
-    description: c.intro,
+    description: c.metaDescription,
     alternates: alternatesFor(locale, conditionsPath),
     openGraph: { ...openGraphLocales(locale) },
   };
