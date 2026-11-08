@@ -59,6 +59,7 @@ export default async function GuideIndex({
       excerpt: loc.excerpt,
       date: post.date,
       season: post.season,
+      stage: post.stage,
       photo: photo
         ? { src: photo.src, width: photo.width, height: photo.height }
         : null,

@@ -619,10 +619,15 @@ export const en: Dictionary = {
     yearRoundBadge: "All year",
     filter: {
       label: "Filter the guide by season",
-      all: "All year",
+      all: "All",
       hiver: "Winter",
       ete: "Summer",
-      note: "Year-round topics — shops, walks, family — stay visible under both seasons.",
+      note: (s, y) => `${s} article${s > 1 ? "s" : ""} for this season, then ${y} that apply all year round (grey badge): shops, hikes, family.`,
+    },
+    stage: {
+      "reserver": { title: "Choosing Albiez and your week", intro: "The ski area, the big events and what people come here for." },
+      "preparer": { title: "Planning your stay", intro: "What to book or organise before you come." },
+      "sur-place": { title: "During your stay", intro: "Activities, outings and good addresses in the village." },
     },
     back: "← Back to the guide",
     relatedTitle: "Read next",

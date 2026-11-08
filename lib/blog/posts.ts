@@ -1,5 +1,8 @@
 import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 import type { Season } from "@/lib/seasons";
+import { STAGES, type Stage } from "./stages";
+
+export { STAGES, type Stage };
 
 /**
  * Métadonnées d'un article, dans une langue.
@@ -30,6 +33,14 @@ export interface BlogPostMeta {
    * d'accent de la carte. `null` pour un sujet valable toute l'année.
    */
   season: Season | null;
+  /**
+   * Étape du parcours du voyageur, **une seule** (une liste recréerait les doublons du filtre de
+   * saison) : `reserver` (choisir Albiez et sa semaine), `preparer` (ce qui se réserve ou
+   * s'organise avant de venir), `sur-place` (pendant le séjour). Le guide en fait trois
+   * sections à ancre fixe (`#reserver`, `#preparer`, `#sur-place`), jamais renommées : la
+   * confirmation Beds24 renvoie vers `#preparer`.
+   */
+  stage: Stage;
   /**
    * Crédit de la photo de couverture. **Obligatoire** dès que l'image est sous une
    * licence à attribution (CC BY, CC BY-SA) : sans lui, l'usage est une violation de
@@ -74,6 +85,7 @@ export interface BlogPostMeta {
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
     slug: "sunset-ride-albiez-vtt-pistes",
+    stage: "sur-place",
     date: "2026-11-08",
     // Photo de Mustang, prise au sommet du télésiège du Loup, publiée sur Facebook. Reprise
     // avec leur accord (confirmé par l'hôte le 2026-11-08) : pas de licence, seulement
@@ -159,6 +171,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "animations-gratuites-albiez-semaine",
+    stage: "sur-place",
     date: "2026-11-08",
     // Piste de luge vue d'en haut, silhouettes minuscules. Photo de l'office de tourisme
     // (base Apidae), reprise à la demande de l'hôte (2026-11-08).
@@ -243,6 +256,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "ski-de-randonnee-albiez-debutant",
+    stage: "preparer",
     date: "2026-11-08",
     // Sentier balisé sous la neige fraîche. Photo de l'office de tourisme (base Apidae),
     // reprise à la demande de l'hôte (2026-11-08).
@@ -327,6 +341,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "motoneige-igloo-albiez",
+    stage: "sur-place",
     date: "2026-11-08",
     // Motoneiges sur le front de neige, Aiguilles d'Arves en fond. Photo reprise à la
     // demande de l'hôte (2026-11-08) ; auteur supposé Mustang, qui organise les sorties.
@@ -412,6 +427,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "forfait-saison-albiez",
+    stage: "preparer",
     date: "2026-11-08",
     // Pas l'affiche de la promo de la station : elle n'est pas à nous. Une vue des pistes
     // depuis le domaine, déjà dans nos photos.
@@ -492,6 +508,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "fetes-vallee-des-arves",
+    stage: "reserver",
     date: "2026-09-12",
     image: "ete/exterieur/01-lac-d-albiez-montrond.jpg",
     // Ni été ni hiver : l'article couvre le calendrier entier, de la Grande Odyssée en
@@ -573,6 +590,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "trail-etendard-espace-trail-arves",
+    stage: "reserver",
     date: "2026-09-12",
     // Le pic de l'Étendard et son glacier, la montagne qui donne son nom à la course.
     // Nous n'avons pas de photo à nous là-haut : c'est à plus de 3 000 m, au-dessus de
@@ -662,6 +680,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "tradi-cimes-albiez",
+    stage: "reserver",
     date: "2026-09-12",
     // Le plan d'eau, parce que c'est là que se tient la journée festive du samedi. Faute
     // d'un cliché de la fête elle-même, une photo du lieu vaut mieux qu'une vue générale
@@ -746,6 +765,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "cross-triathlon-swimrun-albiez",
+    stage: "reserver",
     date: "2026-09-12",
     image: "blog/cross-triathlon-aiguilles-d-arves.jpg",
     imageCredit: {
@@ -829,6 +849,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "turin-depuis-albiez",
+    stage: "reserver",
     date: "2026-09-11",
     // Pas de photo de Turin à nous : celle-ci vient de Wikimedia Commons, d'où le crédit.
     image: "blog/turin-piazza-san-carlo.jpg",
@@ -917,6 +938,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "marmotte-granfondo-alpes-albiez",
+    stage: "reserver",
     date: "2026-09-11",
     // La croix du col de la Croix de Fer : c'est le col qui sépare Albiez de
     // Bourg-d'Oisans, donc le sujet même de l'article. Nous n'avons pas de photo à nous
@@ -1006,6 +1028,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "albiez-camp-de-base-grands-cols",
+    stage: "reserver",
     date: "2026-09-11",
     image: "blog/col-du-mollard-velo.jpg",
     season: "ete",
@@ -1084,6 +1107,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "celti-cimes-festival-albiez",
+    stage: "reserver",
     date: "2026-09-11",
     image: "activites-ete/95-albiez-ete-1.jpg",
     season: "ete",
@@ -1163,6 +1187,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "randonnees-balisees-albiez",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "activites-ete/03-randonnee.jpg",
     // Trois des six itinéraires (Contamines, la Plaigne, le Chalmieu) se font en
@@ -1243,6 +1268,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "domaine-skiable-albiez-secteur-mollard",
+    stage: "reserver",
     date: "2026-08-07",
     image: "activites-hiver/_domaine-skiable-vue-aerienne.jpg",
     season: "hiver",
@@ -1324,6 +1350,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "louer-ses-skis-a-albiez",
+    stage: "preparer",
     date: "2026-08-07",
     // Devanture de Sport 2000 Aux Deux Frères, au front de neige du Mollard. Photo du
     // magasin, rapatriée depuis son site plutôt que servie à distance : les couvertures
@@ -1408,6 +1435,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "cours-de-ski-esf-albiez",
+    stage: "preparer",
     date: "2026-08-07",
     image: "activites-hiver/02-ecole-de-ski-esf.jpg",
     season: "hiver",
@@ -1489,6 +1517,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "faire-ses-courses-a-albiez",
+    stage: "preparer",
     date: "2026-08-07",
     image: "blog/faire-ses-courses-a-albiez.jpg",
     season: null,
@@ -1570,6 +1599,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "boulangerie-moulin-valentin-albiez",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/boulangerie-moulin-valentin-albiez.jpg",
     season: null,
@@ -1648,6 +1678,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "fromagerie-cooperative-beaufort-des-arves",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/fromagerie-cooperative-beaufort-des-arves.jpg",
     season: null,
@@ -1726,6 +1757,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "albiez-en-famille",
+    stage: "reserver",
     date: "2026-08-07",
     image: "activites-ete/90-aire-de-jeux-mollard.jpg",
     season: null,
@@ -1807,6 +1839,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "aiguilles-arves",
+    stage: "reserver",
     date: "2026-08-07",
     image: "activites-ete/98-albiez-ete-4.jpg",
     season: null,
@@ -1885,6 +1918,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "col-du-mollard-velo",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/col-du-mollard-velo.jpg",
     season: "ete",
@@ -1966,6 +2000,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "chiens-de-traineau-albiez",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/chiens-de-traineau-albiez.jpg",
     season: "hiver",
@@ -2044,6 +2079,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "albiez-c-show",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/albiez-c-show-descente-aux-flambeaux.jpg",
     season: "hiver",
@@ -2122,6 +2158,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "lac-du-mollard-baignade",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "activites-ete/01-lac-baignade.jpg",
     season: "ete",
@@ -2203,6 +2240,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "foret-du-rival",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/foret-du-rival-automne.jpg",
     season: "ete",
@@ -2281,6 +2319,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "refuge-chalet-la-croe",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/refuge-chalet-la-croe.jpg",
     season: "ete",
@@ -2362,6 +2401,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "equitation-le-kavalkada",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "activites-ete/02-poney-cheval.jpg",
     season: "ete",
@@ -2440,6 +2480,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
   },
   {
     slug: "bmx-vtt-trottinette-albiez",
+    stage: "sur-place",
     date: "2026-08-07",
     image: "blog/bmx-race-albiez-montrond.jpg",
     season: "ete",
@@ -2545,7 +2586,14 @@ export function splitImagePath(image: string): { dir: string; file: string } {
  */
 export function relatedPosts(post: BlogPostMeta, limit = 3): BlogPostMeta[] {
   const others = BLOG_POSTS.filter((p) => p.slug !== post.slug);
-  const sameSeason = others.filter((p) => p.season === post.season);
-  const rest = others.filter((p) => p.season !== post.season);
-  return [...sameSeason, ...rest].slice(0, limit);
+  // Même saison d'abord, puis toute l'année, puis l'autre saison (un article d'hiver ne
+  // remonte plus un article d'été avant un article valable toute l'année).
+  const seasonRank = (p: BlogPostMeta) =>
+    p.season === post.season ? 0 : p.season === null || post.season === null ? 1 : 2;
+  // À saison égale, l'étape suivante du parcours fait avancer le lecteur.
+  const next = STAGES[STAGES.indexOf(post.stage) + 1];
+  const stageRank = (p: BlogPostMeta) => (p.stage === next ? 0 : p.stage === post.stage ? 1 : 2);
+  return [...others]
+    .sort((a, b) => seasonRank(a) - seasonRank(b) || stageRank(a) - stageRank(b))
+    .slice(0, limit);
 }

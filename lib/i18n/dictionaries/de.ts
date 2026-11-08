@@ -641,10 +641,15 @@ export const de: Dictionary = {
     yearRoundBadge: "Ganzjährig",
     filter: {
       label: "Reiseführer nach Saison filtern",
-      all: "Ganzjährig",
+      all: "Alle",
       hiver: "Winter",
       ete: "Sommer",
-      note: "Ganzjährig gültige Themen – Geschäfte, Wanderungen, Familie – bleiben in beiden Saisons sichtbar.",
+      note: (s, y) => `${s} Artikel dieser Saison, dann ${y} ganzjährig gültige (graues Etikett): Geschäfte, Wanderungen, Familie.`,
+    },
+    stage: {
+      "reserver": { title: "Albiez und die richtige Woche wählen", intro: "Das Skigebiet, die großen Termine und was man hier sucht." },
+      "preparer": { title: "Den Aufenthalt vorbereiten", intro: "Was man vor der Anreise bucht oder organisiert." },
+      "sur-place": { title: "Vor Ort", intro: "Während des Aufenthalts: Aktivitäten, Ausflüge und gute Adressen im Dorf." },
     },
     back: "← Zurück zum Reiseführer",
     relatedTitle: "Auch interessant",

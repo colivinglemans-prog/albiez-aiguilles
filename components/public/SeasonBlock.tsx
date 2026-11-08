@@ -228,7 +228,7 @@ export default function SeasonBlock({
             {content.activitiesMore.text}
           </p>
           <Link
-            href={`/${locale}/guide`}
+            href={`/${locale}/guide?saison=${season}`}
             className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-accent underline-offset-4 hover:underline"
           >
             {content.activitiesMore.label}

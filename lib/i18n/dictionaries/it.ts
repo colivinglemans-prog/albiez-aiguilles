@@ -640,10 +640,15 @@ export const it: Dictionary = {
     yearRoundBadge: "Tutto l'anno",
     filter: {
       label: "Filtrare la guida per stagione",
-      all: "Tutto l'anno",
+      all: "Tutti",
       hiver: "Inverno",
       ete: "Estate",
-      note: "I temi validi tutto l'anno — negozi, escursioni, famiglia — restano visibili in entrambe le stagioni.",
+      note: (s, y) => `${s} articol${s > 1 ? "i" : "o"} della stagione, poi ${y} valid${y > 1 ? "i" : "o"} tutto l'anno (etichetta grigia): negozi, escursioni, famiglia.`,
+    },
+    stage: {
+      "reserver": { title: "Scegliere Albiez e la propria settimana", intro: "Il comprensorio, i grandi appuntamenti e ciò che si viene a cercare qui." },
+      "preparer": { title: "Preparare il soggiorno", intro: "Cosa prenotare o organizzare prima di arrivare." },
+      "sur-place": { title: "Sul posto", intro: "Durante il soggiorno: attività, uscite e buoni indirizzi del paese." },
     },
     back: "← Torna alla guida",
     relatedTitle: "Da leggere anche",

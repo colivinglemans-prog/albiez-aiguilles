@@ -410,9 +410,17 @@ export interface Dictionary {
       all: string;
       hiver: string;
       ete: string;
-      /** Explique pourquoi un sujet « toute l'année » apparaît sous les deux saisons. */
-      note: string;
+      /**
+       * Sous un filtre de saison : combien d'articles de la saison, et combien valables toute
+       * l'année (affichés après, pastille grise). Les nombres viennent du code, jamais écrits ici.
+       */
+      note: (seasonCount: number, yearRoundCount: number) => string;
     };
+    /**
+     * Les trois sections du guide, une par étape du parcours (`BlogPostMeta.stage`). Leurs ancres
+     * (`#reserver`, `#preparer`, `#sur-place`) sont fixes et identiques dans les 5 langues.
+     */
+    stage: Record<"reserver" | "preparer" | "sur-place", { title: string; intro: string }>;
     back: string;
     relatedTitle: string;
     /**

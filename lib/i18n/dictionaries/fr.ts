@@ -637,10 +637,15 @@ export const fr: Dictionary = {
     yearRoundBadge: "Toute l'année",
     filter: {
       label: "Filtrer le guide par saison",
-      all: "Toute l'année",
+      all: "Tous",
       hiver: "Hiver",
       ete: "Été",
-      note: "Les sujets valables toute l'année — commerces, randonnées, famille — restent affichés dans les deux saisons.",
+      note: (s, y) => `${s} article${s > 1 ? "s" : ""} de la saison, puis ${y} valable${y > 1 ? "s" : ""} toute l'année (pastille grise) : commerces, randonnées, famille.`,
+    },
+    stage: {
+      "reserver": { title: "Choisir Albiez et sa semaine", intro: "Le domaine, les grands rendez-vous et ce que l'on vient chercher ici." },
+      "preparer": { title: "Préparer son séjour", intro: "Ce qui se réserve ou s'organise avant de venir." },
+      "sur-place": { title: "Sur place", intro: "Pendant le séjour : activités, sorties et bonnes adresses du village." },
     },
     back: "← Retour au guide",
     relatedTitle: "À lire aussi",

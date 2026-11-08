@@ -1720,19 +1720,29 @@ Un préfixe `_` est accepté (`getPhoto` le charge, contrairement à `listPhotos
 Le champ `season` d'un article pose `data-season` sur la carte et sur la page : l'accent
 suit la saison, sans code conditionnel. `null` = valable toute l'année.
 
-**Le filtre de l'index** reprend la logique de celui des avis : trois entrées avec
-compteurs — *Toute l'année* (par défaut, tout est affiché), *Hiver*, *Été*. Un article
-`season: null` reste visible **sous chaque filtre** : « faire ses courses » ou « la
-boulangerie » servent autant en février qu'en août, et les exclure d'une saison donnerait
-une liste techniquement juste et pratiquement inutilisable. D'où des compteurs qui ne
-s'additionnent pas (21 / 12 / 16) — un encart l'explique dès qu'une saison est
-sélectionnée.
+**Le filtre de l'index** (refonte du 2026-11-08) : un seul filtre, la **saison** — *Tous*
+(par défaut), *Hiver*, *Été*, rendu par `FilterChips` du socle (v3.17.0). Les compteurs ne
+comptent que les articles **de** la saison (30 / 10 / 12). Un article `season: null` reste
+visible sous chaque saison, mais **après** ceux de la saison, avec une pastille **grise**
+« Toute l'année » (`bg-secondary`) au lieu de l'accent ; un encart donne les deux nombres.
+Avant, le bouton par défaut s'appelait « Toute l'année » comme cette pastille et les compteurs
+(30 / 18 / 20) ne s'additionnaient pas : le guide avait l'air bogué.
 
-Le filtre étant client, l'index résout les photos côté serveur et passe des cartes déjà
-mesurées. Les **21 cartes sont dans le HTML initial** (le filtre part sur « tout »), donc
-le filtrage ne coûte rien au référencement.
+**Le parcours en sections** : chaque article porte **un seul** `stage` (`lib/blog/stages.ts`,
+module sans données pour le paquet client) — `reserver` (choisir Albiez et sa semaine),
+`preparer` (ce qui se réserve ou s'organise avant de venir), `sur-place`. Le guide en fait
+trois sections à ancre **fixe, jamais renommée** : `#reserver`, `#preparer`, `#sur-place`
+(la confirmation Beds24 renvoie vers `#preparer`). Une section vide sous un filtre est
+masquée. Une liste de valeurs est interdite : elle recréerait les doublons.
 
-**Ajouter un article** : une entrée dans `BLOG_POSTS` (cinq blocs de métadonnées), cinq
+`?saison=hiver|ete` présélectionne la saison (lien des pages de saison, `SeasonBlock`) ; il
+est lu dans un effet, sans `Suspense`, pour que **les 30 cartes restent dans le HTML
+initial** (le filtre part sur « Tous ») : le filtrage ne coûte rien au référencement.
+
+« À lire aussi » (`relatedPosts`) : même saison, puis toute l'année, puis l'autre saison ; à
+saison égale, l'étape suivante du parcours d'abord.
+
+**Ajouter un article** : une entrée dans `BLOG_POSTS` (cinq blocs de métadonnées, `season` et **`stage`**), cinq
 fichiers dans `content/{fr,en,de,es,it}/`, une entrée de cinq lignes dans `CONTENT`. Le
 sitemap et l'index suivent tout seuls. Avancer **article par article, les cinq langues d'un
 coup** : les articles sont indépendants, et une entrée de `CONTENT` oubliée ne se voit pas.

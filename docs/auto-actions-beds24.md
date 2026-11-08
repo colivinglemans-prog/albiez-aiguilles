@@ -214,7 +214,7 @@ EN HIVER
 
 NOTRE GUIDE
   Les activités et les lieux à ne pas manquer autour du chalet :
-  https://www.albiez-aiguilles.fr/fr/guide
+  https://www.albiez-aiguilles.fr/fr/guide#preparer
 
 VOTRE ARRIVÉE
   L'arrivée est 100 % autonome : vous arrivez à l'heure qui vous convient.
@@ -340,7 +340,7 @@ IN WINTER
 
 OUR GUIDE
   The activities and the places not to miss around the chalet:
-  https://www.albiez-aiguilles.fr/en/guide
+  https://www.albiez-aiguilles.fr/en/guide#preparer
 
 YOUR ARRIVAL
   Check-in is fully self-service: you arrive whenever suits you.
@@ -403,7 +403,7 @@ IM WINTER
 
 UNSER GUIDE
   Aktivitäten und sehenswerte Orte rund um das Chalet:
-  https://www.albiez-aiguilles.fr/de/guide
+  https://www.albiez-aiguilles.fr/de/guide#preparer
 
 IHRE ANKUNFT
   Die Anreise erfolgt vollständig selbstständig: Sie kommen, wann es Ihnen passt.
@@ -466,7 +466,7 @@ EN INVIERNO
 
 NUESTRA GUÍA
   Las actividades y los lugares imprescindibles alrededor del chalet:
-  https://www.albiez-aiguilles.fr/es/guide
+  https://www.albiez-aiguilles.fr/es/guide#preparer
 
 SU LLEGADA
   La entrada es totalmente autónoma: llegue a la hora que le convenga.
@@ -529,7 +529,7 @@ IN INVERNO
 
 LA NOSTRA GUIDA
   Le attività e i luoghi da non perdere intorno allo chalet:
-  https://www.albiez-aiguilles.fr/it/guide
+  https://www.albiez-aiguilles.fr/it/guide#preparer
 
 IL VOSTRO ARRIVO
   Il check-in è totalmente autonomo: arrivate all'ora che preferite.
