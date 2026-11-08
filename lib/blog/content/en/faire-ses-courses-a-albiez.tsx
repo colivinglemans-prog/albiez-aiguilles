@@ -53,6 +53,13 @@ export default function Article() {
             sherpa.net — Albiez-Montrond
           </a>
         </p>
+        <p>
+          <strong>Out of season, it closes</strong> — in autumn in particular. If you come
+          outside the ski season, do your shopping in Saint-Jean-de-Maurienne before driving
+          up: the grocery in the Chef-lieu, open all year round, covers the rest. Our article{" "}
+          <Link href="/en/guide/albiez-hors-saison">Albiez out of season</Link> details what
+          stays open.
+        </p>
       </div>
       <p>
         It is also the best address for taking home something you will not find in a

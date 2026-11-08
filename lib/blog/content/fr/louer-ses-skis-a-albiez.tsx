@@ -89,6 +89,14 @@ export default function Article() {
         </li>
       </ul>
       <p>
+        Les loueurs lancent souvent des <strong>promotions en ligne dès l'automne</strong>,
+        bien avant l'ouverture du domaine, souvent réservées aux inscrits : créez votre
+        compte sur leur site pour les recevoir. C'est le meilleur moment pour réserver une
+        semaine de vacances scolaires. L'ordre à suivre entre cours, matériel et forfait est
+        dans notre article{" "}
+        <Link href="/fr/guide/reserver-ski-esf-en-avance">réserver à l'avance</Link>.
+      </p>
+      <p>
         Même logique pour les forfaits : ils peuvent être achetés avec les{" "}
         <Link href="/fr/guide/cours-de-ski-esf-albiez">cours de ski</Link> ou commandés en
         ligne et reçus par la poste, ce qui évite la course du premier matin. Pour qui

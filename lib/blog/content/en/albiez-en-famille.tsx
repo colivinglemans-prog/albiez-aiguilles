@@ -77,8 +77,10 @@ export default function Article() {
 
       <h2>In the apartment</h2>
       <p>
-        A <strong>baby kit</strong> (travel cot and high chair) is available on request. The
-        mountain alcove, with its bunk beds, is generally the first place children claim as
+        A <strong>baby kit</strong> is available on request: travel cot, small mattress,
+        high chair and baby sledge. Let us know before your arrival so that it is ready.
+        The children's sledges are kept in the ski locker, on the landing. The mountain
+        alcove, with its bunk beds, is generally the first place children claim as
         their own. Full sleeping details are on{" "}
         <Link href="/en#appartement">the apartment page</Link>.
       </p>

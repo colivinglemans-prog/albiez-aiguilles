@@ -76,7 +76,9 @@ export default function Article() {
 
       <h2>En el apartamento</h2>
       <p>
-        Hay un <strong>kit de bebé</strong> (cuna de viaje y trona) disponible a petición. El rincón de
+        Hay un <strong>kit de bebé</strong> disponible a petición: cuna de viaje, colchoncito,
+        trona y trineo de bebé. Avise antes de la llegada para que esté listo. Los trineos de
+        los niños están guardados en el guardaesquís, en el rellano. El rincón de
         montaña, con sus camas superpuestas, suele ser el primer lugar que los niños se apropian. El
         detalle de las plazas para dormir está en{" "}
         <Link href="/es#appartement">la página del alojamiento</Link>.

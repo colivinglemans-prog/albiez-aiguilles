@@ -84,6 +84,282 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "quelle-semaine-skier-albiez",
+    stage: "reserver",
+    date: "2026-11-08",
+    image: "activites-hiver/_albiez-vue-du-domaine-et-du-village.jpeg",
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Quelle semaine choisir pour skier à Albiez en 2026-2027",
+        description: "Noël, janvier, vacances d'hiver par zone, mars : le calendrier 2026-2027 d'Albiez et ce que chaque semaine apporte. Notre conseil : janvier.",
+        excerpt: "Hors vacances scolaires, janvier offre moins de monde, de la neige en général et des prix plus bas : le point semaine par semaine sur la saison 2026-2027.",
+        keywords: [
+          "quelle semaine skier Albiez",
+          "vacances d'hiver 2027 zones",
+          "ski janvier hors vacances scolaires",
+          "Albiez-Montrond saison 2026-2027",
+          "ski avec bébé Albiez"
+        ]
+      },
+      en: {
+        title: "Which week to choose for skiing in Albiez in 2026-2027",
+        description: "Christmas, January, winter holidays by zone, March: the 2026-2027 Albiez calendar and what each week offers. Our advice: January.",
+        excerpt: "Outside the school holidays, January means fewer people, snow as a rule and lower prices: a week-by-week look at the 2026-2027 season.",
+        keywords: [
+          "best week to ski in France",
+          "French school holidays 2027 ski",
+          "skiing in January France",
+          "Albiez-Montrond 2026-2027 season",
+          "skiing with a baby French Alps"
+        ]
+      },
+      de: {
+        title: "Welche Woche zum Skifahren in Albiez 2026-2027?",
+        description: "Weihnachten, Januar, französische Winterferien nach Zonen, März: der Kalender 2026-2027 von Albiez und was jede Woche bietet. Unser Rat: Januar.",
+        excerpt: "Außerhalb der Schulferien bietet der Januar weniger Andrang, in der Regel Schnee und niedrigere Preise: die Saison 2026-2027 Woche für Woche.",
+        keywords: [
+          "beste Woche Skiurlaub Frankreich",
+          "französische Winterferien 2027 Zonen",
+          "Skiurlaub Januar Frankreich",
+          "Albiez-Montrond Saison 2026-2027",
+          "Skiurlaub mit Baby Frankreich"
+        ]
+      },
+      es: {
+        title: "Qué semana elegir para esquiar en Albiez en 2026-2027",
+        description: "Navidad, enero, vacaciones de invierno por zonas, marzo: el calendario 2026-2027 de Albiez y lo que ofrece cada semana. Nuestro consejo: enero.",
+        excerpt: "Fuera de las vacaciones escolares, enero ofrece menos gente, nieve en general y precios más bajos: repaso semana a semana de la temporada 2026-2027.",
+        keywords: [
+          "mejor semana para esquiar Alpes",
+          "vacaciones escolares Francia 2027",
+          "esquiar en enero Francia",
+          "Albiez-Montrond temporada 2026-2027",
+          "esquiar con bebé Alpes"
+        ]
+      },
+      it: {
+        title: "Quale settimana scegliere per sciare ad Albiez nel 2026-2027",
+        description: "Natale, gennaio, vacanze invernali francesi per zona, marzo: il calendario 2026-2027 di Albiez e che cosa offre ogni settimana. Il consiglio: gennaio.",
+        excerpt: "Fuori dalle vacanze scolastiche, gennaio offre meno gente, neve in genere e prezzi più bassi: il punto settimana per settimana sulla stagione 2026-2027.",
+        keywords: [
+          "quando andare a sciare in Francia",
+          "settimana bianca gennaio",
+          "vacanze scolastiche francesi 2027",
+          "Albiez-Montrond stagione 2026-2027",
+          "sciare con bambini piccoli"
+        ]
+      },
+    },
+  },
+  {
+    slug: "albiez-hors-saison",
+    stage: "reserver",
+    date: "2026-11-08",
+    image: "blog/foret-du-rival-automne.jpg",
+    season: null,
+    locales: {
+      fr: {
+        title: "Albiez hors saison : ce qui reste ouvert, automne et printemps",
+        description: "Remontées et Sherpa fermés, épicerie du Chef-lieu ouverte, courses à Saint-Jean, neige dès octobre : réussir un séjour au calme à Albiez.",
+        excerpt: "Au printemps et à l'automne, Albiez redevient un village de montagne : voici ce qui reste ouvert et comment organiser un séjour au calme.",
+        keywords: [
+          "Albiez hors saison",
+          "Albiez automne",
+          "Albiez printemps",
+          "commerces ouverts Albiez-Montrond",
+          "que faire à Albiez hors saison"
+        ]
+      },
+      en: {
+        title: "Albiez out of season: what stays open in autumn and spring",
+        description: "Lifts and Sherpa closed, Chef-lieu grocery open, shopping in Saint-Jean, snow from October: how to enjoy a quiet off-season stay in Albiez.",
+        excerpt: "In spring and autumn, Albiez becomes a mountain village again: here is what stays open and how to organise a quiet stay.",
+        keywords: [
+          "Albiez off season",
+          "Albiez-Montrond autumn",
+          "French Alps in spring",
+          "what is open in Albiez-Montrond",
+          "things to do Albiez off season"
+        ]
+      },
+      de: {
+        title: "Albiez außerhalb der Saison: was im Herbst und Frühling offen hat",
+        description: "Lifte und Sherpa zu, Laden im Chef-lieu offen, Einkauf in Saint-Jean, Schnee ab Oktober: so gelingt ein ruhiger Aufenthalt in Albiez in der Nebensaison.",
+        excerpt: "Im Frühling und im Herbst wird Albiez wieder zu einem Bergdorf: was geöffnet bleibt und wie man einen ruhigen Aufenthalt organisiert.",
+        keywords: [
+          "Albiez Nebensaison",
+          "Albiez Herbst",
+          "Albiez Frühling",
+          "Albiez-Montrond Geschäfte geöffnet",
+          "Savoyen Nebensaison Urlaub"
+        ]
+      },
+      es: {
+        title: "Albiez fuera de temporada: qué abre en otoño y primavera",
+        description: "Remontes y Sherpa cerrados, tienda del Chef-lieu abierta, compras en Saint-Jean, nieve desde octubre: una estancia tranquila en Albiez.",
+        excerpt: "En primavera y en otoño, Albiez vuelve a ser un pueblo de montaña: esto es lo que sigue abierto y cómo organizar una estancia tranquila.",
+        keywords: [
+          "Albiez fuera de temporada",
+          "Alpes en otoño",
+          "Saboya en primavera",
+          "qué hacer en Albiez-Montrond",
+          "tiendas abiertas Albiez"
+        ]
+      },
+      it: {
+        title: "Albiez fuori stagione: cosa resta aperto in autunno e primavera",
+        description: "Impianti e Sherpa chiusi, alimentari del Chef-lieu aperto, spesa a Saint-Jean, neve già a ottobre: un soggiorno tranquillo ad Albiez in bassa stagione.",
+        excerpt: "In primavera e in autunno, Albiez torna a essere un paese di montagna: ecco che cosa resta aperto e come organizzare un soggiorno nella calma.",
+        keywords: [
+          "Albiez fuori stagione",
+          "Albiez autunno",
+          "Albiez primavera",
+          "negozi aperti Albiez-Montrond",
+          "cosa fare ad Albiez fuori stagione"
+        ]
+      },
+    },
+  },
+  {
+    slug: "pneus-neige-chaines-albiez",
+    stage: "preparer",
+    date: "2026-11-08",
+    image: "hiver/exterieur/02-residence-le-hameau-des-aiguilles.jpg",
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Monter à Albiez en hiver : pneus, chaînes, chaussettes et route",
+        description: "Loi Montagne en Savoie du 1er novembre au 31 mars : pneus 3PMSF ou chaînes, panneaux B58 et B26, et la route depuis Saint-Jean-de-Maurienne.",
+        excerpt: "Ce qu'exige la loi Montagne en Savoie et comment monter sans souci jusqu'à l'appartement du Mollard, même sous la neige.",
+        keywords: [
+          "pneus neige Savoie",
+          "chaînes neige Albiez",
+          "loi Montagne Savoie",
+          "chaussettes neige",
+          "route Albiez-Montrond hiver"
+        ]
+      },
+      en: {
+        title: "Driving to Albiez in winter: tyres, chains, snow socks and road",
+        description: "Loi Montagne in Savoie from 1 November to 31 March: 3PMSF tyres or chains, B58 and B26 signs, and the road up from Saint-Jean-de-Maurienne.",
+        excerpt: "What the loi Montagne requires in Savoie and how to drive up to the Mollard apartment without trouble, even in the snow.",
+        keywords: [
+          "snow chains Savoie",
+          "winter tyres France law",
+          "loi Montagne winter tyres",
+          "snow socks France",
+          "driving to French ski resort winter"
+        ]
+      },
+      de: {
+        title: "Im Winter nach Albiez: Winterreifen, Schneeketten und Straße",
+        description: "Loi Montagne in Savoyen vom 1. November bis 31. März: 3PMSF-Reifen oder Schneeketten, Schilder B58 und B26, und die Straße ab Saint-Jean-de-Maurienne.",
+        excerpt: "Was die Loi Montagne in Savoyen verlangt und wie man ohne Sorgen bis zur Wohnung am Mollard hinauffährt, auch bei Schnee.",
+        keywords: [
+          "Winterreifenpflicht Frankreich",
+          "Schneekettenpflicht Savoyen",
+          "Loi Montagne Winterreifen",
+          "Schneesocken Frankreich",
+          "Albiez-Montrond Anfahrt Winter"
+        ]
+      },
+      es: {
+        title: "Subir a Albiez en invierno: neumáticos, cadenas y carretera",
+        description: "Ley de montaña en Saboya del 1 de noviembre al 31 de marzo: neumáticos 3PMSF o cadenas, señales B58 y B26 y la carretera desde Saint-Jean.",
+        excerpt: "Lo que exige la loi Montagne en Saboya y cómo subir sin problemas hasta el apartamento del Mollard, incluso con nieve.",
+        keywords: [
+          "cadenas obligatorias Francia",
+          "neumáticos de invierno Francia",
+          "loi Montagne Saboya",
+          "fundas de nieve",
+          "carretera Albiez-Montrond invierno"
+        ]
+      },
+      it: {
+        title: "Salire ad Albiez d'inverno: gomme, catene, calze e strada",
+        description: "Legge Montagna in Savoia dal 1° novembre al 31 marzo: gomme 3PMSF o catene, cartelli B58 e B26, e la strada da Saint-Jean-de-Maurienne.",
+        excerpt: "Che cosa impone la legge Montagna in Savoia e come salire senza problemi fino all'appartamento del Mollard, anche sotto la neve.",
+        keywords: [
+          "catene obbligatorie Francia",
+          "gomme invernali Savoia",
+          "legge Montagna Francia",
+          "calze da neve",
+          "strada Albiez-Montrond inverno"
+        ]
+      },
+    },
+  },
+  {
+    slug: "reserver-ski-esf-en-avance",
+    stage: "preparer",
+    date: "2026-11-08",
+    image: "activites-hiver/02-ecole-de-ski-esf.jpg",
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "ESF, skis, forfait : dans quel ordre réserver à Albiez",
+        description: "Cours ESF, location de skis, forfait : ce qui part en premier pendant les vacances, ce qui peut attendre janvier, et une checklist datée.",
+        excerpt: "Les cours ESF d'abord, le matériel ensuite, le forfait en dernier : l'ordre qui évite le cours de fin de journée, la file du premier matin et le plein tarif.",
+        keywords: [
+          "réserver ESF Albiez",
+          "location ski en ligne Albiez",
+          "forfait Albiez en ligne",
+          "préparer séjour ski",
+          "checklist vacances ski"
+        ]
+      },
+      en: {
+        title: "ESF, skis, lift pass: in which order to book in Albiez",
+        description: "ESF lessons, ski hire, lift pass: what goes first during the holidays, what can wait until January, and a dated checklist.",
+        excerpt: "ESF lessons first, equipment next, lift pass last: the order that avoids the late-afternoon lesson, the first-morning queue and the full price.",
+        keywords: [
+          "book ESF lessons in advance",
+          "ski hire online Albiez",
+          "Albiez lift pass online",
+          "ski holiday planning",
+          "ski trip checklist"
+        ]
+      },
+      de: {
+        title: "ESF, Ski, Skipass: in welcher Reihenfolge in Albiez buchen",
+        description: "ESF-Kurse, Skiverleih, Skipass: was in den Ferien zuerst weg ist, was bis Januar warten kann, und eine Checkliste mit Terminen.",
+        excerpt: "Erst die ESF-Kurse, dann die Ausrüstung, zuletzt der Skipass: die Reihenfolge, die den Kurs am Tagesende, die Schlange am ersten Morgen und den vollen Preis erspart.",
+        keywords: [
+          "ESF Skikurs buchen",
+          "Skiverleih online buchen Frankreich",
+          "Skipass Albiez online",
+          "Skiurlaub planen",
+          "Checkliste Skiurlaub"
+        ]
+      },
+      es: {
+        title: "ESF, esquís, forfait: en qué orden reservar en Albiez",
+        description: "Clases ESF, alquiler de esquís, forfait: qué se agota antes en vacaciones, qué puede esperar a enero, y una lista de tareas con fechas.",
+        excerpt: "Primero las clases de la ESF, después el material y al final el forfait: el orden que evita la clase de última hora, la cola de la primera mañana y la tarifa completa.",
+        keywords: [
+          "reservar clases esquí ESF",
+          "alquiler esquís online Alpes",
+          "forfait Albiez online",
+          "preparar viaje de esquí",
+          "checklist vacaciones esquí"
+        ]
+      },
+      it: {
+        title: "ESF, sci, skipass: in che ordine prenotare ad Albiez",
+        description: "Lezioni ESF, noleggio sci, skipass: che cosa va via per primo durante le vacanze, che cosa può aspettare gennaio, e una checklist con le date.",
+        excerpt: "Prima le lezioni ESF, poi l'attrezzatura, lo skipass per ultimo: l'ordine che evita la lezione di fine giornata, la coda della prima mattina e la tariffa piena.",
+        keywords: [
+          "prenotare scuola sci ESF",
+          "noleggio sci online Francia",
+          "skipass Albiez online",
+          "preparare settimana bianca",
+          "checklist settimana bianca"
+        ]
+      },
+    },
+  },
+  {
     slug: "sunset-ride-albiez-vtt-pistes",
     stage: "sur-place",
     date: "2026-11-08",

@@ -120,7 +120,7 @@ export const en: Dictionary = {
         {
           title: "Winter off the pistes",
           description:
-            "The Le Mollard sledging run is right next to the residence, in full sun — snow cover there is not guaranteed, but when it is open it fills a whole late afternoon. Otherwise: snowshoe walks, cross-country skiing, dog sledding, snowmobiling, paragliding, drinks in an igloo. Children's sledges are kept in the apartment for you.",
+            "The Le Mollard sledging run is right next to the residence, in full sun — snow cover there is not guaranteed, but when it is open it fills a whole late afternoon. Otherwise: snowshoe walks, cross-country skiing, dog sledding, snowmobiling, paragliding, drinks in an igloo. Children's sledges are kept for you in the ski locker, on the landing.",
           link: {
             href: "/en/guide/chiens-de-traineau-albiez",
             label: "Dog sledding in Albiez",

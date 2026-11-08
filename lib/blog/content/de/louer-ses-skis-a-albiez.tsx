@@ -84,6 +84,14 @@ export default function Article() {
         </li>
       </ul>
       <p>
+        Die Verleiher starten oft schon <strong>ab dem Herbst Online-Aktionen</strong>, lange
+        vor der Öffnung des Skigebiets, oft nur für registrierte Kunden: Legen Sie ein Konto auf
+        ihrer Website an, um sie zu erhalten. Das ist der beste Zeitpunkt, um eine Woche in den
+        Schulferien zu buchen. Die Reihenfolge zwischen Kursen, Ausrüstung und Skipass steht in
+        unserem Artikel{" "}
+        <Link href="/de/guide/reserver-ski-esf-en-avance">im Voraus buchen</Link>.
+      </p>
+      <p>
         Dieselbe Logik gilt für die Skipässe: sie können mit den{" "}
         <Link href="/de/guide/cours-de-ski-esf-albiez">Skikursen</Link> gekauft oder online bestellt und per
         Post zugeschickt werden, was den Lauf am ersten Morgen erspart. Wer im Winter

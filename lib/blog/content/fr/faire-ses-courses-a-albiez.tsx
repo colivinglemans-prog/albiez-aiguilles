@@ -53,6 +53,13 @@ export default function Article() {
             sherpa.net — Albiez-Montrond
           </a>
         </p>
+        <p>
+          <strong>Hors saison, il ferme</strong> — à l'automne notamment. Si vous venez en
+          dehors de la saison de ski, faites vos courses à Saint-Jean-de-Maurienne avant de
+          monter : l'épicerie du Chef-lieu, ouverte toute l'année, dépanne pour le reste.
+          Notre article <Link href="/fr/guide/albiez-hors-saison">Albiez hors saison</Link>{" "}
+          détaille ce qui reste ouvert.
+        </p>
       </div>
       <p>
         C'est aussi la meilleure adresse pour rapporter quelque chose qui ne se trouve pas

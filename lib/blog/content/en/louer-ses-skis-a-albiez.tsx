@@ -87,6 +87,14 @@ export default function Article() {
         </li>
       </ul>
       <p>
+        The hire shops often launch <strong>online promotions as early as autumn</strong>,
+        well before the ski area opens, often reserved for registered customers: create an
+        account on their website to receive them. It is the best time to book a
+        school-holiday week. The order to follow between lessons, equipment and lift pass
+        is in our article{" "}
+        <Link href="/en/guide/reserver-ski-esf-en-avance">booking ahead</Link>.
+      </p>
+      <p>
         The same logic applies to lift passes: they can be bought together with{" "}
         <Link href="/en/guide/cours-de-ski-esf-albiez">ski lessons</Link>, or ordered
         online and posted to you, which avoids the first-morning scramble. If you come

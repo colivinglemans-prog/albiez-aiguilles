@@ -123,7 +123,7 @@ export const de: Dictionary = {
         {
           title: "Winter abseits der Pisten",
           description:
-            "Die Rodelbahn am Mollard liegt direkt neben der Residenz, in voller Sonne – Schneesicherheit gibt es keine, aber wenn sie offen ist, füllt sie einen ganzen Nachmittag. Dazu: Schneeschuhe, Langlauf, Hundeschlitten, Motorschlitten, Gleitschirm, Aperitif im Iglu. Kinderschlitten warten in der Wohnung.",
+            "Die Rodelbahn am Mollard liegt direkt neben der Residenz, in voller Sonne – Schneesicherheit gibt es keine, aber wenn sie offen ist, füllt sie einen ganzen Nachmittag. Dazu: Schneeschuhe, Langlauf, Hundeschlitten, Motorschlitten, Gleitschirm, Aperitif im Iglu. Kinderschlitten warten im Skischrank auf dem Treppenabsatz.",
           link: {
             href: "/de/guide/chiens-de-traineau-albiez",
             label: "Hundeschlittenfahrten in Albiez",

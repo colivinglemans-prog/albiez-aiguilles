@@ -77,7 +77,9 @@ export default function Article() {
 
       <h2>In der Wohnung</h2>
       <p>
-        Ein <strong>Baby-Set</strong> (Reisebett und Hochstuhl) ist auf Anfrage verfügbar. Die
+        Ein <strong>Baby-Set</strong> ist auf Anfrage verfügbar: Reisebett, kleine Matratze,
+        Hochstuhl und Babyschlitten. Melden Sie es vor der Ankunft, damit es bereitsteht. Die
+        Schlitten der Kinder sind im Skischrank auf dem Treppenabsatz verstaut. Die
         Schlafnische mit ihren Etagenbetten ist in der Regel der erste Ort, den die Kinder für sich
         beanspruchen. Die Einzelheiten zu den Schlafplätzen stehen auf{" "}
         <Link href="/de#appartement">der Seite der Wohnung</Link>.

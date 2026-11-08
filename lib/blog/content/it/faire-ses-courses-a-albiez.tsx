@@ -50,6 +50,13 @@ export default function Article() {
             sherpa.net — Albiez-Montrond
           </a>
         </p>
+        <p>
+          <strong>Fuori stagione chiude</strong> — in autunno in particolare. Se venite fuori dalla
+          stagione sciistica, fate la spesa a Saint-Jean-de-Maurienne prima di salire: l'alimentari del
+          Chef-lieu, aperto tutto l'anno, vi toglie d'impaccio per il resto. Il nostro articolo{" "}
+          <Link href="/it/guide/albiez-hors-saison">Albiez fuori stagione</Link> spiega nel dettaglio
+          che cosa resta aperto.
+        </p>
       </div>
       <p>
         È anche il miglior indirizzo per portarsi a casa qualcosa che non si trova nella grande distribuzione:

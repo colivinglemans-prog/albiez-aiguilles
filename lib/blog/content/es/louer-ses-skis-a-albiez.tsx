@@ -82,6 +82,14 @@ export default function Article() {
         </li>
       </ul>
       <p>
+        Las tiendas de alquiler lanzan a menudo <strong>promociones en línea desde el
+        otoño</strong>, mucho antes de la apertura del dominio, a menudo reservadas a los
+        clientes registrados: cree su cuenta en su web para recibirlas. Es el mejor momento
+        para reservar una semana de vacaciones escolares. El orden que conviene seguir entre
+        clases, material y forfait está en nuestro artículo{" "}
+        <Link href="/es/guide/reserver-ski-esf-en-avance">reservar con antelación</Link>.
+      </p>
+      <p>
         La misma lógica sirve para los forfaits: pueden comprarse con las{" "}
         <Link href="/es/guide/cours-de-ski-esf-albiez">clases de esquí</Link> o pedirse en línea y recibirse
         por correo, lo que evita la carrera de la primera mañana. Si vuelve varias veces

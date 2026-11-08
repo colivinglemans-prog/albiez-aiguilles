@@ -123,7 +123,7 @@ export const it: Dictionary = {
         {
           title: "L'inverno fuori pista",
           description:
-            "La pista da slittino del Mollard è proprio accanto alla residenza, in pieno sole: l'innevamento non è garantito, ma quando è aperta occupa un intero pomeriggio. Per il resto: ciaspole, sci di fondo, cani da slitta, motoslitta, parapendio, aperitivo in un igloo. Nell'appartamento vi attendono slittini per bambini.",
+            "La pista da slittino del Mollard è proprio accanto alla residenza, in pieno sole: l'innevamento non è garantito, ma quando è aperta occupa un intero pomeriggio. Per il resto: ciaspole, sci di fondo, cani da slitta, motoslitta, parapendio, aperitivo in un igloo. Nell'armadietto per gli sci, sul pianerottolo, vi attendono slittini per bambini.",
           link: {
             href: "/it/guide/chiens-de-traineau-albiez",
             label: "I cani da slitta ad Albiez",

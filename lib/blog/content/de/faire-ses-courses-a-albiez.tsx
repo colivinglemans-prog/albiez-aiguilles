@@ -51,6 +51,13 @@ export default function Article() {
             sherpa.net — Albiez-Montrond
           </a>
         </p>
+        <p>
+          <strong>Außerhalb der Saison ist er geschlossen</strong> — vor allem im Herbst. Wenn Sie
+          außerhalb der Skisaison kommen, kaufen Sie in Saint-Jean-de-Maurienne ein, bevor Sie
+          hinauffahren: Der ganzjährig geöffnete Lebensmittelladen im Chef-lieu hilft für den Rest aus.
+          Unser Artikel <Link href="/de/guide/albiez-hors-saison">Albiez außerhalb der Saison</Link>{" "}
+          zeigt, was geöffnet bleibt.
+        </p>
       </div>
       <p>
         Es ist auch die beste Adresse, um etwas mitzubringen, das man im Supermarkt nicht findet:

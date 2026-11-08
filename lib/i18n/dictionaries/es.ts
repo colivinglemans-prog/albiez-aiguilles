@@ -123,7 +123,7 @@ export const es: Dictionary = {
         {
           title: "El invierno fuera de las pistas",
           description:
-            "La pista de trineos del Mollard está junto a la residencia, a pleno sol; su nieve no está garantizada, pero cuando abre llena una tarde entera. Además: raquetas de nieve, esquí de fondo, trineos tirados por perros, motos de nieve, parapente, aperitivo en un iglú. En el apartamento le esperan trineos para niños.",
+            "La pista de trineos del Mollard está junto a la residencia, a pleno sol; su nieve no está garantizada, pero cuando abre llena una tarde entera. Además: raquetas de nieve, esquí de fondo, trineos tirados por perros, motos de nieve, parapente, aperitivo en un iglú. En el guardaesquís, en el rellano, le esperan trineos para niños.",
           link: {
             href: "/es/guide/chiens-de-traineau-albiez",
             label: "Los trineos tirados por perros en Albiez",

@@ -76,7 +76,9 @@ export default function Article() {
 
       <h2>Nell'appartamento</h2>
       <p>
-        Un <strong>kit bebè</strong> (culla da viaggio e seggiolone) è disponibile su richiesta. L'angolo
+        Un <strong>kit bebè</strong> è disponibile su richiesta: culla da viaggio, piccolo materasso,
+        seggiolone e slittino per bebè. Segnalatelo prima dell'arrivo perché sia pronto. Gli slittini dei
+        bambini sono riposti nell'armadietto per gli sci, sul pianerottolo. L'angolo
         montagna, con i suoi letti a castello, è in genere il primo posto che i bambini si appropriano. Il
         dettaglio dei posti letto è sulla{" "}
         <Link href="/it#appartement">pagina dell'alloggio</Link>.

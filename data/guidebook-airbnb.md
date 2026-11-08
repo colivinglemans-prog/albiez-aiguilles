@@ -207,7 +207,6 @@ La neige est garantie par un enneigement continu près de 6 mois par an. Le nive
 *[Fiche Airbnb](https://www.airbnb.fr/things-to-do/places/t-g-ChIJQ5ZcZywlikcRJNZvON70okA)*
 
 Le chalet se trouve dans la résidence du Hameau des Aiguilles
-La résidence est partiellement gérée par VVF
 
 ### Télésiège des Échaux
 *[Fiche Airbnb](https://www.airbnb.fr/things-to-do/places/t-g-ChIJv37UWqMkikcR9af85INR2ck)*

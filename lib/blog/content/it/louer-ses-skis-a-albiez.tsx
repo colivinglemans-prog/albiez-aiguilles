@@ -81,6 +81,13 @@ export default function Article() {
         </li>
       </ul>
       <p>
+        I noleggiatori lanciano spesso delle <strong>promozioni online già dall'autunno</strong>, ben
+        prima dell'apertura del comprensorio, spesso riservate agli iscritti: create un account sul loro
+        sito per riceverle. È il momento migliore per prenotare una settimana di vacanze scolastiche.
+        L'ordine da seguire tra lezioni, attrezzatura e skipass è nel nostro articolo{" "}
+        <Link href="/it/guide/reserver-ski-esf-en-avance">prenotare in anticipo</Link>.
+      </p>
+      <p>
         Stessa logica per gli skipass: possono essere acquistati con i{" "}
         <Link href="/it/guide/cours-de-ski-esf-albiez">corsi di sci</Link> oppure ordinati online e ricevuti per
         posta, evitando la corsa della prima mattina. Se tornate più volte in inverno,

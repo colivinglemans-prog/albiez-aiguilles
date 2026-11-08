@@ -8,7 +8,7 @@
 - **Capacité** : jusqu'à 6 personnes (même prix de 1 à 4 personnes), 3 espaces de couchage : 1 chambre fermée (lit 160 × 190), 1 coin montagne ouvert avec lits superposés (2 × 80 × 190), 1 canapé gigogne au séjour (2 × 80 × 190)
 - **Surface** : 33 m² (loi Carrez)
 - **Adresse** : Chemin du Châtel, 73300 Albiez-Montrond, France
-- **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds)
+- **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds) ; le chemin du Châtel et les marches sont déneigés, mais par forte chute de neige il peut en rester le temps que le déneigement passe
 - **Arrivée** : à partir de 16 h, autonome (boîte à clés), contact sur place. **Départ** : avant 10 h.
 - **Séjour minimum** (saison 2026-2027, l'API ci-dessous fait foi pour chaque date) :
   - du samedi 19 décembre au samedi 2 janvier : à la semaine, arrivée et départ le samedi ;
@@ -65,15 +65,16 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - Télévision
 - Une table pour les repas (pas de bureau dédié)
 - Casier à skis privatif sur le palier, juste à côté de la porte de l'appartement (pas de local au rez-de-chaussée)
-- Luges pour enfants dans l'appartement
-- Kit bébé sur demande (lit parapluie, chaise haute)
+- Luges pour enfants, luge bébé comprise, rangées dans le casier à skis (parfois sur le balcon)
+- Chauffage électrique, à régler librement
+- Kit bébé sur demande, à signaler avant l'arrivée (lit parapluie, petit matelas, chaise haute, luge bébé)
 - Ménage de fin de séjour compris (hors cuisine et vaisselle)
-- Linge de lit et serviettes en option (15 € par personne et par séjour, option « kit linge » à cocher sur la page de paiement)  ; avec l'option, les lits ne sont pas faits : draps, taies et une serviette de bain par personne sont mis à disposition, à installer soi-même (couettes et oreillers sont toujours fournis)
+- Linge de lit et serviettes en option (15 € par personne et par séjour, option « kit linge » à cocher sur la page de paiement)  ; avec l'option, les lits ne sont pas faits : draps, taies et une serviette de bain par personne sont mis à disposition, à installer soi-même (couettes et oreillers sont toujours fournis). Sur Booking.com, le linge est inclus dans le prix, mis à disposition de la même façon (les lits ne sont jamais faits). Avec ou sans option, l'hôte demande avant l'arrivée la répartition des couchages (par exemple, pour deux adultes : un lit double, ou un lit double et un lit simple) ; le prix ne change pas
 
 ## Albiez, une station familiale
 
 - **Deux secteurs, presque deux petits villages** reliés à ski par le domaine : le **Mollard** (le plus haut, le secteur des vacanciers, où se trouve l'appartement) et le **Chef-lieu** (le village historique, vivant à l'année : école, mairie, bibliothèque, salle des fêtes, cinéma, épicerie ouverte toute l'année). Chacun a son télésiège (Échaux au Mollard, Loup au Chef-lieu), son ESF, ses loueurs et sa caisse de forfaits. Le centre du Chef-lieu (place Opinel, office de tourisme) est à 2 km de l'appartement, le cinéma à 1,4 km.
-- **Tout à 250 m à pied** l'hiver : front de neige, pistes, École du Ski Français, club Piou-Piou, loueurs de skis, supermarché Sherpa. Aucune navette nécessaire une fois sur place.
+- **Tout à 250 m à pied** l'hiver : front de neige, pistes, École du Ski Français, club Piou-Piou, loueurs de skis, supermarché Sherpa. Aucune navette nécessaire une fois sur place. Le Sherpa ferme hors saison : à l'automne notamment, faire ses courses à Saint-Jean-de-Maurienne avant de monter (l'épicerie du Chef-lieu reste ouverte toute l'année).
 - **Garde d'enfants** : garderie de l'ESF ; centre de loisirs « Le Petit Montagnard » (4-12 ans) pendant les vacances scolaires d'hiver et d'été ; halte-garderie « Le Chat Perché » (3 mois - 6 ans), hiver comme été
 - **Animations des vacances scolaires d'hiver** : l'Albiez C'Show, le mardi soir pendant les vacances de Noël et de février, sur le front de neige (descente aux flambeaux ouverte aux enfants dès le niveau flocon, show des dameuses, démonstrations des moniteurs, feu d'artifice, vin chaud)
 - **Luge** : piste naturelle du Mollard juste à côté de la résidence, et une autre au Chef-lieu près de l'église (enneigement non garanti) ; c'est là que les familles se retrouvent après le ski
@@ -85,7 +86,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - **Débuter** : téléski Coucou pour les grands débutants, puis le Polytre, avec plusieurs points de sortie de difficulté croissante. Le télésiège des Échaux, à 250-300 m, ouvre tout le domaine.
 - **ESF** : club Piou-Piou dès 3 ans et demi, cours enfants 6-12 ans, ados, adultes. À la réservation, choisir le rassemblement **Mollard** (celui à 250 m de l'appartement). Les créneaux du matin partent en premier.
 - **Matériel et forfaits** : deux loueurs au front de neige du Mollard (Sport 2000 Aux Deux Frères, Mustang 1650 Skiset) et deux au Chef-lieu (Mustang 1550 Skimium, Skiset Albiez Sports), avec remise en réservant en ligne. Forfaits avec les cours ESF ou en ligne.
-- **Les Sybelles** (grand domaine relié, 136 pistes, 1 300 - 2 620 m) : à 20 min en voiture par Saint-Jean-d'Arves ; forfait 5 jours Albiez + 1 jour Sybelles proposé par la station.
+- **Les Sybelles** (4e plus grand domaine relié de France : six stations reliées entre elles — La Toussuire, Le Corbier, Saint-Sorlin-d'Arves, Saint-Jean-d'Arves, Saint-Colomban-des-Villards, Les Bottières ; environ 310 km de pistes, 68 remontées, de 1 100 à 2 620 m ; sommet de l'Ouillon à 2 431 m, vue sur les Aiguilles d'Arves ; non relié à Albiez par les pistes) : à 20 min en voiture (Saint-Sorlin-d'Arves est la porte d'entrée la plus proche) ; ouvert plus longtemps qu'Albiez (saison 2026-2027 : du 12 décembre 2026 au 9 avril 2027 sous réserve d'enneigement), ce qui permet de skier mi-décembre (avant l'ouverture d'Albiez le 19) ou fin mars - début avril en logeant à Albiez au tarif d'intersaison ; forfait 5 jours Albiez + 1 jour Sybelles proposé par la station.
 - **Chiens de traîneau** : départ des Contamines (Chef-lieu), de mi-décembre à début avril selon l'enneigement, sorties de 30 min ou 1 h, réservation indispensable longtemps à l'avance.
 
 ## L'été (juillet-août)

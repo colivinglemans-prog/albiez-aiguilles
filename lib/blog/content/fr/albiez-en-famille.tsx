@@ -84,8 +84,10 @@ export default function Article() {
 
       <h2>Dans l'appartement</h2>
       <p>
-        Un <strong>kit bébé</strong> (lit parapluie et chaise haute) est disponible sur
-        demande. Le coin montagne, avec ses lits superposés, est en général le premier
+        Un <strong>kit bébé</strong> est disponible sur demande : lit parapluie, petit
+        matelas, chaise haute et luge bébé. Signalez-le avant l'arrivée pour qu'il soit
+        prêt. Les luges des enfants sont rangées dans le casier à skis, sur le palier. Le
+        coin montagne, avec ses lits superposés, est en général le premier
         endroit que les enfants s'approprient. Le détail des couchages est sur{" "}
         <Link href="/fr#appartement">la page du logement</Link>.
       </p>

@@ -123,7 +123,7 @@ export const fr: Dictionary = {
         {
           title: "L'hiver hors des pistes",
           description:
-            "La piste de luge du Mollard est juste à côté de la résidence, en plein soleil — son enneigement n'est pas garanti, mais quand elle est ouverte elle occupe une fin d'après-midi entière. Pour le reste : raquettes, ski de fond, chiens de traîneau, motoneige, parapente, apéro dans un igloo. Des luges pour enfants vous attendent dans l'appartement.",
+            "La piste de luge du Mollard est juste à côté de la résidence, en plein soleil — son enneigement n'est pas garanti, mais quand elle est ouverte elle occupe une fin d'après-midi entière. Pour le reste : raquettes, ski de fond, chiens de traîneau, motoneige, parapente, apéro dans un igloo. Des luges pour enfants vous attendent dans le casier à skis, sur le palier.",
           link: {
             href: "/fr/guide/chiens-de-traineau-albiez",
             label: "Les chiens de traîneau à Albiez",

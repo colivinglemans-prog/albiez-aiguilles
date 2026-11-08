@@ -42,6 +42,34 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "quelle-semaine-skier-albiez": {
+    fr: () => import("@/lib/blog/content/fr/quelle-semaine-skier-albiez"),
+    en: () => import("@/lib/blog/content/en/quelle-semaine-skier-albiez"),
+    de: () => import("@/lib/blog/content/de/quelle-semaine-skier-albiez"),
+    es: () => import("@/lib/blog/content/es/quelle-semaine-skier-albiez"),
+    it: () => import("@/lib/blog/content/it/quelle-semaine-skier-albiez"),
+  },
+  "albiez-hors-saison": {
+    fr: () => import("@/lib/blog/content/fr/albiez-hors-saison"),
+    en: () => import("@/lib/blog/content/en/albiez-hors-saison"),
+    de: () => import("@/lib/blog/content/de/albiez-hors-saison"),
+    es: () => import("@/lib/blog/content/es/albiez-hors-saison"),
+    it: () => import("@/lib/blog/content/it/albiez-hors-saison"),
+  },
+  "pneus-neige-chaines-albiez": {
+    fr: () => import("@/lib/blog/content/fr/pneus-neige-chaines-albiez"),
+    en: () => import("@/lib/blog/content/en/pneus-neige-chaines-albiez"),
+    de: () => import("@/lib/blog/content/de/pneus-neige-chaines-albiez"),
+    es: () => import("@/lib/blog/content/es/pneus-neige-chaines-albiez"),
+    it: () => import("@/lib/blog/content/it/pneus-neige-chaines-albiez"),
+  },
+  "reserver-ski-esf-en-avance": {
+    fr: () => import("@/lib/blog/content/fr/reserver-ski-esf-en-avance"),
+    en: () => import("@/lib/blog/content/en/reserver-ski-esf-en-avance"),
+    de: () => import("@/lib/blog/content/de/reserver-ski-esf-en-avance"),
+    es: () => import("@/lib/blog/content/es/reserver-ski-esf-en-avance"),
+    it: () => import("@/lib/blog/content/it/reserver-ski-esf-en-avance"),
+  },
   "sunset-ride-albiez-vtt-pistes": {
     fr: () => import("@/lib/blog/content/fr/sunset-ride-albiez-vtt-pistes"),
     en: () => import("@/lib/blog/content/en/sunset-ride-albiez-vtt-pistes"),
