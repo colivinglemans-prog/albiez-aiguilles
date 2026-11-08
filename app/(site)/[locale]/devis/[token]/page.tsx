@@ -17,13 +17,19 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
-const INCLUDED: Record<string, string> = {
-  fr: "Taxe de séjour et ménage de fin de séjour compris. Linge de lit et serviettes en option.",
-  en: "Tourist tax and end-of-stay cleaning included. Bed linen and towels optional.",
-  de: "Kurtaxe und Endreinigung inklusive. Bettwäsche und Handtücher optional.",
-  es: "Tasa turística y limpieza final incluidas. Ropa de cama y toallas opcionales.",
-  it: "Tassa di soggiorno e pulizia finale incluse. Biancheria e asciugamani opzionali.",
+/** « Compris », selon que le linge est pris ou non : jamais « en option » sous une ligne de linge comptée. */
+const INCLUDED: Record<string, { base: string; linenOptional: string; linenIncluded: string }> = {
+  fr: { base: "Taxe de séjour et ménage de fin de séjour compris.", linenOptional: "Linge de lit et serviettes en option.", linenIncluded: "Linge de lit et serviettes compris (à cocher sur la page de paiement)." },
+  en: { base: "Tourist tax and end-of-stay cleaning included.", linenOptional: "Bed linen and towels optional.", linenIncluded: "Bed linen and towels included (tick the option on the payment page)." },
+  de: { base: "Kurtaxe und Endreinigung inklusive.", linenOptional: "Bettwäsche und Handtücher optional.", linenIncluded: "Bettwäsche und Handtücher inklusive (auf der Zahlungsseite ankreuzen)." },
+  es: { base: "Tasa turística y limpieza final incluidas.", linenOptional: "Ropa de cama y toallas opcionales.", linenIncluded: "Ropa de cama y toallas incluidas (marque la opción en la página de pago)." },
+  it: { base: "Tassa di soggiorno e pulizia finale incluse.", linenOptional: "Biancheria e asciugamani opzionali.", linenIncluded: "Biancheria e asciugamani inclusi (spuntate l'opzione nella pagina di pagamento)." },
 };
+
+function included(lang: string) {
+  const t = INCLUDED[lang] ?? INCLUDED.fr;
+  return (extras: string[]) => `${t.base} ${extras.includes("linge") ? t.linenIncluded : t.linenOptional}`;
+}
 
 export default async function QuotePage({ params }: { params: Promise<{ locale: string; token: string }> }) {
   const { locale, token } = await params;
@@ -42,7 +48,7 @@ export default async function QuotePage({ params }: { params: Promise<{ locale: 
       <QuoteSummary
         state={state}
         lang={locale}
-        labels={quoteLabels(locale, INCLUDED[locale] ?? INCLUDED.fr)}
+        labels={quoteLabels(locale, included(locale))}
         calendarUrl={calendarUrl}
         conditionsUrl={`/${locale}/conditions`}
         cancellation={cancellationText(CANCELLATION_POLICY, locale)}

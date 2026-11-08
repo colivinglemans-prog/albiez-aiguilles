@@ -658,10 +658,10 @@ suivent pas les redirections).
 `lib/agent.ts` déclare l'appartement à `@sejour/socle/lib/stay-agent` : une seule route publique
 `app/api/agent/[tool]/route.ts` (`info`, `availability`, `quote`, `find`, `openapi`, en GET,
 CORS ouvert), documentée dans `public/llms.txt`. Le prix vient de `getroomprice.php` (total
-Beds24 tout compris) et passe un **garde-fou** : `expectedTotal` recalcule la grille (nuits
+Beds24 tout compris) et passe un **garde-fou** : `breakdown` (le détail montré au voyageur) recalcule la grille (nuits
 −7 %, taxe de séjour 5,5 % des nuitées remisées, ménage 60). Un écart de plus de 1 € bloque le
 prix (`price-blocked`) et envoie un ntfy « Devis IA Albiez » : un réglage Beds24/Beyond a changé
-la grille — corriger `expectedTotal`, pas le contourner.
+la grille — corriger `breakdown`, pas le contourner. IndexNow : `npm run indexnow` (clé publique dans `public/<clé>.txt`) soumet sitemap + llms.txt à Bing et aux moteurs participants, à lancer après chaque déploiement de contenu.
 
 - Le linge est un supplément facultatif (`extras=linge`, 15 €/pers./séjour) ajouté au total.
 - Séjours pros refusés pendant l'ouverture du domaine et en juillet-août (`saisonsEntre`).
