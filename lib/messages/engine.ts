@@ -19,7 +19,7 @@ import {
   type TemplateMode,
 } from "@sejour/socle/lib/guest-messaging/overview";
 import type { Vars } from "@sejour/socle/lib/guest-messaging/render";
-import { addDays, parisAt, planByMode } from "@sejour/socle/lib/guest-messaging/schedule";
+import { addDays, isLateBooking, nightsOf, planByMode } from "@sejour/socle/lib/guest-messaging/schedule";
 import { createSmtpTransport, smtpConfigFrom, testRecipientFrom } from "@sejour/socle/lib/guest-messaging/smtp";
 import type { MessageTemplate, MessagingBooking } from "@sejour/socle/lib/guest-messaging/types";
 import { todayParis } from "@sejour/socle/lib/time";
@@ -143,7 +143,9 @@ async function variables(b: Row, t: MessageTemplate): Promise<Vars> {
     }
   }
   if (t.optionalVariables?.includes("pneus") && overlapsTyreSeason(b.arrival, b.departure)) vars.pneus = "1";
-  if (t.optionalVariables?.includes("tardif") && isLateBooking(b)) vars.tardif = "1";
+  if (t.optionalVariables?.includes("tardif") && isLateBooking(b, LATE_BOOKING_HOURS)) vars.tardif = "1";
+  // Une nuit : le départ (message de confort) saute, ses consignes de clés passent dans le code.
+  if (t.optionalVariables?.includes("uneNuit") && nightsOf(b) === 1) vars.uneNuit = "1";
   if (t.optionalVariables?.includes("ski") && saisonsEntre(b.arrival, b.departure).some((s) => s.saison === "hiver")) {
     vars.ski = "1";
   }
@@ -174,17 +176,6 @@ export function overlapsTyreSeason(arrival: string, departure: string): boolean 
     if (month >= 11 || month <= 3) return true;
   }
   return false;
-}
-
-/**
- * Réservation de dernière minute : prise moins de `LATE_BOOKING_HOURS` avant le jour d'arrivée —
- * la même mesure que la condition `minLeadHours` de l'avant-arrivée, pour qu'aucune réservation
- * ne tombe entre les deux (ni avant-arrivée, ni bloc `tardif`).
- */
-export function isLateBooking(b: Pick<MessagingBooking, "arrival" | "bookingTime">): boolean {
-  if (!b.bookingTime || !/(Z|[+-]\d{2}:?\d{2})$/.test(b.bookingTime)) return false;
-  const created = Date.parse(b.bookingTime);
-  return !Number.isNaN(created) && parisAt(b.arrival, "00:00").getTime() - created < LATE_BOOKING_HOURS * 3_600_000;
 }
 
 /** « +33620921005 » → « +33 6 20 92 10 05 ». */

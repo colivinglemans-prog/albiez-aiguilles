@@ -215,15 +215,15 @@ Alexandre`,
 const codeBoite: MessageTemplate = {
   id: "code-boite",
   label: "Code de la boîte à clés (jour d'arrivée)",
-  version: 3,
+  version: 4,
   trigger: { anchor: "arrival", offsetDays: 0, at: "08:00" },
   // Une réservation prise tard le jour même reçoit le code aussitôt, jusqu'au lendemain matin.
   late: { mode: "send", until: { anchor: "arrival", offsetDays: 1, at: "10:00" } },
   onAnchorChange: "resend",
   variables: ["code", "guideArrivee", "telephone"],
-  optionalVariables: ["prenom", "tardif", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus"],
+  optionalVariables: ["prenom", "tardif", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus", "uneNuit"],
   // Le code reste masqué dans l'aperçu : il n'est en clair qu'au moment de l'envoi.
-  previewVisible: ["prenom", "guideArrivee", "telephone", "tardif", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus"],
+  previewVisible: ["prenom", "guideArrivee", "telephone", "tardif", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus", "uneNuit"],
   subject: {
     fr: "Le code de la boîte à clés",
     en: "Your key box code",
@@ -244,7 +244,9 @@ Votre réservation est toute récente, voici aussi l'essentiel :{{#kitInclus}}
 L'arrivée est possible dès 16h. Le guide d'arrivée vous mène jusqu'à l'appartement :
 {{guideArrivee}}
 
-N'hésitez pas à nous appeler au {{telephone}} si besoin.
+{{#uneNuit}}Pour votre départ, demain avant 10h : remettez un trousseau dans la boîte à clés en brouillant le code, et laissez le second bien en évidence sur la table.
+
+{{/uneNuit}}N'hésitez pas à nous appeler au {{telephone}} si besoin.
 
 Bon séjour,
 Alexandre`,
@@ -260,7 +262,9 @@ As you booked very recently, here are the essentials too:{{#kitInclus}}
 Check-in is possible from 4 pm. The arrival guide takes you to the apartment:
 {{guideArrivee}}
 
-Feel free to call us on {{telephone}} if needed.
+{{#uneNuit}}For your departure, tomorrow before 10 am: put one set of keys back in the key box, scrambling the code, and leave the other clearly visible on the table.
+
+{{/uneNuit}}Feel free to call us on {{telephone}} if needed.
 
 Enjoy your stay,
 Alexandre`,
@@ -276,7 +280,9 @@ Da Sie sehr kurzfristig gebucht haben, hier auch das Wichtigste:{{#kitInclus}}
 Die Anreise ist ab 16 Uhr möglich. Der Anreiseführer bringt Sie bis zur Wohnung:
 {{guideArrivee}}
 
-Rufen Sie uns bei Bedarf gerne unter {{telephone}} an.
+{{#uneNuit}}Für Ihre Abreise morgen vor 10 Uhr: Legen Sie einen Schlüsselbund in den Schlüsselkasten zurück, verstellen Sie den Code, und lassen Sie den zweiten gut sichtbar auf dem Tisch.
+
+{{/uneNuit}}Rufen Sie uns bei Bedarf gerne unter {{telephone}} an.
 
 Einen schönen Aufenthalt,
 Alexandre`,
@@ -292,7 +298,9 @@ Como ha reservado hace muy poco, aquí tiene también lo esencial:{{#kitInclus}}
 La llegada es posible a partir de las 16:00. La guía de llegada le lleva hasta el apartamento:
 {{guideArrivee}}
 
-No dude en llamarnos al {{telephone}} si lo necesita.
+{{#uneNuit}}Para su salida, mañana antes de las 10:00: deje un juego de llaves en la caja de llaves, cambiando el código, y el otro bien visible sobre la mesa.
+
+{{/uneNuit}}No dude en llamarnos al {{telephone}} si lo necesita.
 
 Buena estancia,
 Alexandre`,
@@ -308,7 +316,9 @@ Avendo prenotato da pochissimo, ecco anche l'essenziale:{{#kitInclus}}
 L'arrivo è possibile dalle 16:00. La guida all'arrivo vi accompagna fino all'appartamento:
 {{guideArrivee}}
 
-Non esitate a chiamarci al {{telephone}} in caso di bisogno.
+{{#uneNuit}}Per la partenza, domani entro le 10:00: rimettete un mazzo di chiavi nella cassetta cambiando il codice, e lasciate l'altro ben in vista sul tavolo.
+
+{{/uneNuit}}Non esitate a chiamarci al {{telephone}} in caso di bisogno.
 
 Buon soggiorno,
 Alexandre`,

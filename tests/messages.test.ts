@@ -80,7 +80,8 @@ describe("garde-fous propres à Albiez (le-dahu)", () => {
   });
 
   it("dernière minute : pas d'avant-arrivée, l'essentiel part avec le code — et aucune réservation entre les deux", async () => {
-    const { isLateBooking } = await import("@/lib/messages/engine");
+    const { isLateBooking: lateBy } = await import("@sejour/socle/lib/guest-messaging/schedule");
+    const isLateBooking = (b: { arrival: string; bookingTime?: string }) => lateBy(b, 48);
     const { messageState } = await import("@sejour/socle/lib/guest-messaging/schedule");
     const pre = TEMPLATES.find((t) => t.id === "avant-arrivee")!;
     const base = { id: 1, status: "confirmed", channel: "Booking.com" as const, arrival: "2026-12-20", departure: "2026-12-23", locale: "fr" as const, localeSource: "beds24" as const, infoCodes: [], ledger: [] };

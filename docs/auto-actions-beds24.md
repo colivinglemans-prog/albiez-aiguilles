@@ -218,7 +218,7 @@ NOTRE GUIDE
 
 VOTRE ARRIVÉE
   L'arrivée est 100 % autonome : vous arrivez à l'heure qui vous convient.
-  Vous recevrez votre code d'accès et un mini-guide avant votre départ.
+  Vous recevrez le guide d'arrivée une semaine avant, et le code d'accès le matin de votre arrivée.
 
   Adresse : Chemin du Châtel, 73530 Albiez-Montrond
   Plan    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
@@ -344,7 +344,7 @@ OUR GUIDE
 
 YOUR ARRIVAL
   Check-in is fully self-service: you arrive whenever suits you.
-  You will receive your access code and a short guide before you set off.
+  You will receive the arrival guide a week before, and your access code on the morning of your arrival.
 
   Address: Chemin du Châtel, 73530 Albiez-Montrond, France
   Map    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
@@ -407,7 +407,7 @@ UNSER GUIDE
 
 IHRE ANKUNFT
   Die Anreise erfolgt vollständig selbstständig: Sie kommen, wann es Ihnen passt.
-  Ihren Zugangscode und einen kurzen Leitfaden erhalten Sie vor der Abreise.
+  Den Anreiseführer erhalten Sie eine Woche vorher, den Zugangscode am Morgen Ihrer Ankunft.
 
   Adresse: Chemin du Châtel, 73530 Albiez-Montrond, Frankreich
   Karte  : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
@@ -470,7 +470,7 @@ NUESTRA GUÍA
 
 SU LLEGADA
   La entrada es totalmente autónoma: llegue a la hora que le convenga.
-  Recibirá su código de acceso y una pequeña guía antes de su salida.
+  Recibirá la guía de llegada una semana antes, y el código de acceso la mañana de su llegada.
 
   Dirección: Chemin du Châtel, 73530 Albiez-Montrond, Francia
   Mapa     : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
@@ -533,7 +533,7 @@ LA NOSTRA GUIDA
 
 IL VOSTRO ARRIVO
   Il check-in è totalmente autonomo: arrivate all'ora che preferite.
-  Riceverete il codice di accesso e una breve guida prima della partenza.
+  Riceverete la guida all'arrivo una settimana prima, e il codice di accesso la mattina del vostro arrivo.
 
   Indirizzo: Chemin du Châtel, 73530 Albiez-Montrond, Francia
   Mappa    : https://maps.app.goo.gl/mQnt1JRWTJ92JePW9
