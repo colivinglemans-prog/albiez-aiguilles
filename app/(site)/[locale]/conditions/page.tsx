@@ -6,6 +6,9 @@ import { CANCELLATION_POLICY, PAYMENT_POLICY, PROPERTY } from "@/lib/property";
 import { Section, SectionTitle } from "@/components/public/Section";
 import { alternatesFor, conditionsPath, openGraphLocales } from "@/lib/seo";
 
+/** `+33620921005` → `+33 6 20 92 10 05`. */
+const PHONE = PROPERTY.contact.phone.replace(/^\+33(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/, "+33 $1 $2 $3 $4 $5");
+
 /**
  * Conditions de réservation : la page que citent `llms.txt`, la page de devis et le profil
  * Stripe (« politiques de la boutique »). Les nombres viennent des constantes de
@@ -57,7 +60,7 @@ function content(locale: Locale): Content {
             "Winter tyres or chains are mandatory in Savoie from 1 November to 31 March.",
           ] },
           { title: "Personal data", items: [
-            `The data needed for the booking (name, contact details, dates, payment) is used only to manage the booking and the stay. It is processed by Beds24 (booking software) and its payment provider; the site is hosted by Vercel. Nothing is sold or used for advertising. Data controller: the site publisher (see the legal notice, /en/mentions-legales). Access or deletion: ${PROPERTY.contact.email}.`,
+            `The data needed for the booking (name, contact details, dates, payment) is used only to manage the booking and the stay. It is processed by Beds24 (booking software) and its payment provider; the site is hosted by Vercel. Nothing is sold or used for advertising. Data controller: the site publisher (see the legal notice, /en/mentions-legales). Access or deletion: ${PROPERTY.contact.email}. Questions: ${PHONE} (phone or WhatsApp).`,
             `To access, correct or delete your data: ${email}.`,
           ] },
         ],
@@ -86,7 +89,7 @@ function content(locale: Locale): Content {
             "Winterreifen oder Schneeketten sind in Savoyen vom 1. November bis 31. März Pflicht.",
           ] },
           { title: "Personenbezogene Daten", items: [
-            `Die für die Buchung nötigen Daten (Name, Kontaktdaten, Daten, Zahlung) dienen nur der Verwaltung der Buchung und des Aufenthalts. Sie werden von Beds24 (Buchungssoftware) und deren Zahlungsdienstleister verarbeitet; die Website wird bei Vercel gehostet. Nichts wird verkauft oder für Werbung genutzt. Verantwortlicher: der Herausgeber der Website (siehe Impressum, /de/mentions-legales). Auskunft oder Löschung: ${PROPERTY.contact.email}.`,
+            `Die für die Buchung nötigen Daten (Name, Kontaktdaten, Daten, Zahlung) dienen nur der Verwaltung der Buchung und des Aufenthalts. Sie werden von Beds24 (Buchungssoftware) und deren Zahlungsdienstleister verarbeitet; die Website wird bei Vercel gehostet. Nichts wird verkauft oder für Werbung genutzt. Verantwortlicher: der Herausgeber der Website (siehe Impressum, /de/mentions-legales). Auskunft oder Löschung: ${PROPERTY.contact.email}. Fragen: ${PHONE} (Telefon oder WhatsApp).`,
             `Auskunft, Berichtigung oder Löschung: ${email}.`,
           ] },
         ],
@@ -115,7 +118,7 @@ function content(locale: Locale): Content {
             "Neumáticos de invierno o cadenas obligatorios en Saboya del 1 de noviembre al 31 de marzo.",
           ] },
           { title: "Datos personales", items: [
-            `Los datos necesarios para la reserva (nombre, contacto, fechas, pago) solo se usan para gestionar la reserva y la estancia. Los tratan Beds24 (software de reservas) y su proveedor de pago; el sitio está alojado en Vercel. Nada se vende ni se usa con fines publicitarios. Responsable del tratamiento: el editor del sitio (ver aviso legal, /es/mentions-legales). Acceso o supresión: ${PROPERTY.contact.email}.`,
+            `Los datos necesarios para la reserva (nombre, contacto, fechas, pago) solo se usan para gestionar la reserva y la estancia. Los tratan Beds24 (software de reservas) y su proveedor de pago; el sitio está alojado en Vercel. Nada se vende ni se usa con fines publicitarios. Responsable del tratamiento: el editor del sitio (ver aviso legal, /es/mentions-legales). Acceso o supresión: ${PROPERTY.contact.email}. Preguntas: ${PHONE} (teléfono o WhatsApp).`,
             `Para consultar, corregir o borrar sus datos: ${email}.`,
           ] },
         ],
@@ -144,7 +147,7 @@ function content(locale: Locale): Content {
             "Pneumatici invernali o catene obbligatori in Savoia dal 1° novembre al 31 marzo.",
           ] },
           { title: "Dati personali", items: [
-            `I dati necessari alla prenotazione (nome, recapiti, date, pagamento) servono solo a gestire la prenotazione e il soggiorno. Sono trattati da Beds24 (software di prenotazione) e dal suo fornitore di pagamento; il sito è ospitato da Vercel. Nulla viene venduto né usato per pubblicità. Titolare del trattamento: l'editore del sito (vedi note legali, /it/mentions-legales). Accesso o cancellazione: ${PROPERTY.contact.email}.`,
+            `I dati necessari alla prenotazione (nome, recapiti, date, pagamento) servono solo a gestire la prenotazione e il soggiorno. Sono trattati da Beds24 (software di prenotazione) e dal suo fornitore di pagamento; il sito è ospitato da Vercel. Nulla viene venduto né usato per pubblicità. Titolare del trattamento: l'editore del sito (vedi note legali, /it/mentions-legales). Accesso o cancellazione: ${PROPERTY.contact.email}. Domande: ${PHONE} (telefono o WhatsApp).`,
             `Per consultare, correggere o cancellare i dati: ${email}.`,
           ] },
         ],
@@ -173,7 +176,7 @@ function content(locale: Locale): Content {
             "Pneus hiver ou chaînes obligatoires en Savoie du 1er novembre au 31 mars.",
           ] },
           { title: "Données personnelles", items: [
-            `Les données nécessaires à la réservation (nom, coordonnées, dates, paiement) servent uniquement à gérer la réservation et le séjour. Elles sont traitées par Beds24 (logiciel de réservation) et son prestataire de paiement ; le site est hébergé par Vercel. Rien n'est vendu ni utilisé à des fins publicitaires. Responsable du traitement : l'éditeur du site (voir les mentions légales, /fr/mentions-legales). Accès ou suppression : ${PROPERTY.contact.email}.`,
+            `Les données nécessaires à la réservation (nom, coordonnées, dates, paiement) servent uniquement à gérer la réservation et le séjour. Elles sont traitées par Beds24 (logiciel de réservation) et son prestataire de paiement ; le site est hébergé par Vercel. Rien n'est vendu ni utilisé à des fins publicitaires. Responsable du traitement : l'éditeur du site (voir les mentions légales, /fr/mentions-legales). Accès ou suppression : ${PROPERTY.contact.email}. Questions : ${PHONE} (téléphone ou WhatsApp).`,
             `Pour consulter, corriger ou supprimer vos données : ${email}.`,
           ] },
         ],

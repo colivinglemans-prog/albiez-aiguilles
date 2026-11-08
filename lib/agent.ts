@@ -61,11 +61,11 @@ export const STAY_QUOTE: StayQuoteConfig = {
       perGuest: PROPERTY.linen.pricePerPerson,
       // La page de paiement Beds24 ne coche pas l'option d'elle-même (option n° 2, « kit linge »).
       bookingNote: {
-        fr: "Linge de lit et serviettes : cochez l'option « kit linge » sur la page de paiement, sinon il n'est pas compris.",
-        en: "Bed linen and towels: tick the “linen kit” option on the payment page, otherwise it is not included.",
-        de: "Bettwäsche und Handtücher: Kreuzen Sie auf der Zahlungsseite die Option „Wäschepaket“ an, sonst sind sie nicht enthalten.",
-        es: "Ropa de cama y toallas: marque la opción «kit de ropa» en la página de pago; si no, no está incluida.",
-        it: "Biancheria e asciugamani: spuntate l'opzione «kit biancheria» nella pagina di pagamento, altrimenti non è inclusa.",
+        fr: "Linge de lit et serviettes : cochez l'option « kit linge » sur la page de paiement, sinon il n'est pas compris. Les lits ne sont pas faits : draps et une serviette de bain par personne sont mis à disposition dans l'appartement.",
+        en: "Bed linen and towels: tick the “linen kit” option on the payment page, otherwise it is not included. Beds are not made up: sheets and one bath towel per person are left in the apartment.",
+        de: "Bettwäsche und Handtücher: Kreuzen Sie auf der Zahlungsseite die Option „Wäschepaket“ an, sonst sind sie nicht enthalten. Die Betten sind nicht bezogen: Bettwäsche und ein Badetuch pro Person liegen in der Wohnung bereit.",
+        es: "Ropa de cama y toallas: marque la opción «kit de ropa» en la página de pago; si no, no está incluida. Las camas no están hechas: las sábanas y una toalla de baño por persona se dejan en el apartamento.",
+        it: "Biancheria e asciugamani: spuntate l'opzione «kit biancheria» nella pagina di pagamento, altrimenti non è inclusa. I letti non sono fatti: lenzuola e un telo da bagno a persona vi attendono in appartamento.",
       },
     },
   ],
@@ -111,7 +111,7 @@ const FACTS_FR: Omit<PropertyFacts, "pages"> = {
   summary:
     "Appartement de montagne de 33 m² pour 4 à 6 personnes à Albiez-Montrond (Savoie, 1 600 m), à 250 m à pied du front de neige du Mollard, balcon sud-ouest face aux Aiguilles d'Arves. Station familiale, environ 2 h 30 de Lyon et de Genève.",
   address: PROPERTY.address.full,
-  capacity: { min: PROPERTY.capacity.min, max: PROPERTY.capacity.max, note: "1 chambre (lit 160), coin montagne (2 lits superposés 80), canapé gigogne (2 × 80)" },
+  capacity: { max: PROPERTY.capacity.max, recommended: PROPERTY.capacity.min, note: "Pensé pour 4, jusqu'à 6 ; même prix de 1 à 4 personnes. 1 chambre (lit 160), coin montagne (2 lits superposés 80), canapé gigogne (2 × 80)" },
   checkIn: "À partir de 16 h, arrivée autonome (boîte à clés), contact sur place",
   checkOut: "Avant 10 h",
   includes: ["Ménage de fin de séjour (hors cuisine et vaisselle)", "Taxe de séjour", "Casier à skis sur le palier", "Kit bébé sur demande"],
@@ -128,7 +128,7 @@ const FACTS_EN: Omit<PropertyFacts, "pages"> = {
   name: "Albiez - Apartment in the Chalet du Hameau des Aiguilles",
   summary:
     "33 m² mountain apartment for 4 to 6 guests in Albiez-Montrond (Savoie, French Alps, 1,600 m), a 250 m walk from the Mollard ski front, south-west balcony facing the Aiguilles d'Arves. Family resort, about 2 h 30 from Lyon and Geneva.",
-  capacity: { min: PROPERTY.capacity.min, max: PROPERTY.capacity.max, note: "1 bedroom (160 bed), mountain nook (2 bunk beds 80), trundle sofa (2 × 80)" },
+  capacity: { max: PROPERTY.capacity.max, recommended: PROPERTY.capacity.min, note: "Designed for 4, up to 6; same price from 1 to 4 guests. 1 bedroom (160 bed), mountain nook (2 bunk beds 80), trundle sofa (2 × 80)" },
   checkIn: "From 4 pm, self check-in (key box), on-site contact",
   checkOut: "Before 10 am",
   includes: ["End-of-stay cleaning (except kitchen and dishes)", "Tourist tax", "Ski locker on the landing", "Baby kit on request"],

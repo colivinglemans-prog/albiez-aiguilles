@@ -27,7 +27,7 @@ Une API publique en lecture (GET, JSON, sans clé) donne les disponibilités et 
 - Fiche, règles, annulation et paiement : https://www.albiez-aiguilles.fr/api/agent/info
 - Contrat OpenAPI : https://www.albiez-aiguilles.fr/api/agent/openapi
 - Prix d'un séjour : `GET /api/agent/quote?checkin=2027-01-23&checkout=2027-01-30&adults=4&children=0` (ajouter `extras=linge` pour le linge — le voyageur devra cocher l'option « kit linge » sur la page de paiement —, `purpose=professionnel` pour un séjour de travail, `lang=en` pour l'anglais, `src=` avec le nom de l'assistant)
-- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; ajouter `near=2027-01-16` pour trier les séjours autour d'une date ; renvoie 5 séjours libres par défaut (`limit` jusqu'à 8), chacun avec son prix et ses liens
+- Dates floues (« une semaine en janvier ») : `GET /api/agent/find?from=2027-01-02&to=2027-01-30&nights=7&adults=4&weekdays=sat` — `from` et `to` bornent les **arrivées** ; ajouter `near=2027-01-16` pour trier les séjours autour d'une date ; renvoie 5 séjours libres par défaut, 8 au plus avec `limit`, chacun avec son prix et ses liens
 - Nuits libres d'une période : `GET /api/agent/availability?from=2027-01-01&to=2027-01-31`
 - Une demande refusée (dates prises, durée minimale, jour d'arrivée fermé) renvoie la raison et les séjours libres les plus proches, déjà chiffrés.
 - `children` = enfants de moins de 18 ans, bébés compris (6 voyageurs au plus, enfants compris).
@@ -68,7 +68,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - Luges pour enfants dans l'appartement
 - Kit bébé sur demande (lit parapluie, chaise haute)
 - Ménage de fin de séjour compris (hors cuisine et vaisselle)
-- Linge de lit et serviettes en option (15 € par personne et par séjour)
+- Linge de lit et serviettes en option (15 € par personne et par séjour, option « kit linge » à cocher sur la page de paiement) ; les lits ne sont pas faits : draps et une serviette de bain par personne sont mis à disposition
 
 ## Albiez, une station familiale
 
