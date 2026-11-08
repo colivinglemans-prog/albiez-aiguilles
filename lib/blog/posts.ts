@@ -73,6 +73,86 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "forfait-saison-albiez",
+    date: "2026-11-08",
+    // Pas l'affiche de la promo de la station : elle n'est pas à nous. Une vue des pistes
+    // depuis le domaine, déjà dans nos photos.
+    image: "activites-hiver/01-ski-alpin.jpg",
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Forfait saison Albiez 2026-2027 : à partir de combien de jours il est rentable",
+        description:
+          "249 € au lieu de 497 € jusqu'au 2 décembre 2026. Comparé aux forfaits journée, 6 jours, week-end et au Pack Famille : le forfait saison d'Albiez est rentable dès deux semaines de ski.",
+        excerpt:
+          "Moitié prix jusqu'au 2 décembre. Une semaine ne suffit pas à l'amortir, deux oui — le calcul, famille comprise.",
+        keywords: [
+          "forfait saison Albiez",
+          "forfait ski Albiez 2026-2027",
+          "prix forfait Albiez-Montrond",
+          "forfait saison -50 %",
+          "Pack Famille Albiez",
+        ],
+      },
+      en: {
+        title: "Albiez season pass 2026-2027: how many days until it pays off",
+        description:
+          "€249 instead of €497 until 2 December 2026. Compared with day, 6-day, weekend passes and the Family Pack: the Albiez season pass pays off from two weeks of skiing.",
+        excerpt:
+          "Half price until 2 December. One week is not enough to pay it off, two are — the maths, families included.",
+        keywords: [
+          "Albiez season pass",
+          "Albiez lift pass 2026-2027",
+          "Albiez-Montrond ski pass price",
+          "half price season pass",
+          "Albiez Family Pack",
+        ],
+      },
+      de: {
+        title: "Saisonpass Albiez 2026-2027: ab wie vielen Tagen er sich lohnt",
+        description:
+          "249 € statt 497 € bis zum 2. Dezember 2026. Verglichen mit Tages-, 6-Tage-, Wochenendpass und Familienpaket: Der Saisonpass von Albiez lohnt sich ab zwei Skiwochen.",
+        excerpt:
+          "Halber Preis bis 2. Dezember. Eine Woche reicht nicht, um ihn reinzuholen, zwei schon — die Rechnung, Familien inklusive.",
+        keywords: [
+          "Saisonpass Albiez",
+          "Skipass Albiez 2026-2027",
+          "Skipass Preise Albiez-Montrond",
+          "Saisonpass halber Preis",
+          "Familienpaket Albiez",
+        ],
+      },
+      es: {
+        title: "Forfait de temporada Albiez 2026-2027: a partir de cuántos días sale a cuenta",
+        description:
+          "249 € en lugar de 497 € hasta el 2 de diciembre de 2026. Comparado con los forfaits de día, 6 días, fin de semana y el Pack Familia: el de temporada de Albiez compensa desde dos semanas de esquí.",
+        excerpt:
+          "A mitad de precio hasta el 2 de diciembre. Una semana no basta para amortizarlo, dos sí — el cálculo, familias incluidas.",
+        keywords: [
+          "forfait temporada Albiez",
+          "forfait esquí Albiez 2026-2027",
+          "precio forfait Albiez-Montrond",
+          "forfait temporada mitad de precio",
+          "Pack Familia Albiez",
+        ],
+      },
+      it: {
+        title: "Skipass stagionale Albiez 2026-2027: da quanti giorni conviene",
+        description:
+          "249 € invece di 497 € fino al 2 dicembre 2026. Confrontato con giornaliero, 6 giorni, weekend e Pack Famiglia: lo stagionale di Albiez conviene da due settimane di sci.",
+        excerpt:
+          "Metà prezzo fino al 2 dicembre. Una settimana non basta ad ammortizzarlo, due sì — il calcolo, famiglie comprese.",
+        keywords: [
+          "skipass stagionale Albiez",
+          "skipass Albiez 2026-2027",
+          "prezzi skipass Albiez-Montrond",
+          "stagionale metà prezzo",
+          "Pack Famiglia Albiez",
+        ],
+      },
+    },
+  },
+  {
     slug: "fetes-vallee-des-arves",
     date: "2026-09-12",
     image: "ete/exterieur/01-lac-d-albiez-montrond.jpg",

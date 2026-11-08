@@ -41,6 +41,13 @@ import {
 type ContentLoader = () => Promise<{ default: React.ComponentType }>;
 
 const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
+  "forfait-saison-albiez": {
+    fr: () => import("@/lib/blog/content/fr/forfait-saison-albiez"),
+    en: () => import("@/lib/blog/content/en/forfait-saison-albiez"),
+    de: () => import("@/lib/blog/content/de/forfait-saison-albiez"),
+    es: () => import("@/lib/blog/content/es/forfait-saison-albiez"),
+    it: () => import("@/lib/blog/content/it/forfait-saison-albiez"),
+  },
   "fetes-vallee-des-arves": {
     fr: () => import("@/lib/blog/content/fr/fetes-vallee-des-arves"),
     en: () => import("@/lib/blog/content/en/fetes-vallee-des-arves"),

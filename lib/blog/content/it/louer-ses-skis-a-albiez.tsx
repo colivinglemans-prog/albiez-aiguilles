@@ -75,7 +75,9 @@ export default function Article() {
       <p>
         Stessa logica per gli skipass: possono essere acquistati con i{" "}
         <Link href="/it/guide/cours-de-ski-esf-albiez">corsi di sci</Link> oppure ordinati online e ricevuti per
-        posta, evitando la corsa della prima mattina.
+        posta, evitando la corsa della prima mattina. Se tornate più volte in inverno,
+        vedete{" "}
+        <Link href="/it/guide/forfait-saison-albiez">quando conviene lo skipass stagionale</Link>.
       </p>
 
       <h2>Cosa resta da decidere sul posto</h2>

@@ -81,7 +81,9 @@ export default function Article() {
       <p>
         The same logic applies to lift passes: they can be bought together with{" "}
         <Link href="/en/guide/cours-de-ski-esf-albiez">ski lessons</Link>, or ordered
-        online and posted to you, which avoids the first-morning scramble.
+        online and posted to you, which avoids the first-morning scramble. If you come
+        back several times in the winter, see{" "}
+        <Link href="/en/guide/forfait-saison-albiez">when the season pass pays off</Link>.
       </p>
 
       <h2>What genuinely has to be decided in person</h2>

@@ -77,7 +77,12 @@ export default function Article() {
       <p>
         La misma lógica sirve para los forfaits: pueden comprarse con las{" "}
         <Link href="/es/guide/cours-de-ski-esf-albiez">clases de esquí</Link> o pedirse en línea y recibirse
-        por correo, lo que evita la carrera de la primera mañana.
+        por correo, lo que evita la carrera de la primera mañana. Si vuelve varias veces
+        en invierno, vea{" "}
+        <Link href="/es/guide/forfait-saison-albiez">
+          cuándo sale a cuenta el forfait de temporada
+        </Link>
+        .
       </p>
 
       <h2>Lo que queda por decidir en la tienda</h2>

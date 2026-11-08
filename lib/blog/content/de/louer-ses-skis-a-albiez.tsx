@@ -79,7 +79,9 @@ export default function Article() {
       <p>
         Dieselbe Logik gilt für die Skipässe: sie können mit den{" "}
         <Link href="/de/guide/cours-de-ski-esf-albiez">Skikursen</Link> gekauft oder online bestellt und per
-        Post zugeschickt werden, was den Lauf am ersten Morgen erspart.
+        Post zugeschickt werden, was den Lauf am ersten Morgen erspart. Wer im Winter
+        mehrmals kommt, liest{" "}
+        <Link href="/de/guide/forfait-saison-albiez">ab wann sich der Saisonpass lohnt</Link>.
       </p>
 
       <h2>Was vor Ort zu entscheiden bleibt</h2>

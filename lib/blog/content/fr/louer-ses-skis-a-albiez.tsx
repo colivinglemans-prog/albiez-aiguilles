@@ -83,7 +83,9 @@ export default function Article() {
       <p>
         Même logique pour les forfaits : ils peuvent être achetés avec les{" "}
         <Link href="/fr/guide/cours-de-ski-esf-albiez">cours de ski</Link> ou commandés en
-        ligne et reçus par la poste, ce qui évite la course du premier matin.
+        ligne et reçus par la poste, ce qui évite la course du premier matin. Pour qui
+        revient plusieurs fois dans l'hiver, voir{" "}
+        <Link href="/fr/guide/forfait-saison-albiez">quand le forfait saison est rentable</Link>.
       </p>
 
       <h2>Ce qu'il reste à décider sur place</h2>

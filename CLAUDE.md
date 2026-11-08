@@ -1371,11 +1371,11 @@ compilation » plus bas).
 | `/fr/ski`, `/en/ski`, `/de/ski`, `/es/esqui`, `/it/sci` | Page saison hiver |
 | `/fr/ete`, `/en/summer`, `/de/sommer`, `/es/verano`, `/it/estate` | Page saison été |
 | `/{locale}/guide` | Index du guide (blog éditorial) |
-| `/{locale}/guide/<slug>` | Article du guide — 17 slugs, communs aux cinq langues |
+| `/{locale}/guide/<slug>` | Article du guide — 26 slugs, communs aux cinq langues |
 | `/{locale}/mentions-legales` | Mentions légales (`noindex`) |
 | `/{locale}/guide-arrivee` | Guide d'arrivée — **page cachée** (voir plus bas) |
 
-Le build génère **105 pages indexables** (5 × [accueil + 2 saisons + index + 17 articles])
+Le build génère **150 pages indexables** (5 × [accueil + 2 saisons + index + 26 articles])
 plus 10 pages en `noindex`.
 
 Les slugs de saison sont **localisés** : le mot de l'URL pèse dans le référencement et les
@@ -1413,7 +1413,7 @@ Le contrat d'exhaustivité est ce qui rend l'ajout d'une langue tenable. `Dictio
 (`lib/i18n/types.ts`) est une **interface écrite à la main**, et non un `typeof fr` : le
 compilateur signale chaque clé manquante. Les tables sont typées `Record<Locale, …>`, donc
 élargir `Locale` rend rouge tout ce qui doit être complété — `SEASON_SLUGS`,
-`dictionaries`, les 17 entrées de `BLOG_POSTS`, la table `CONTENT` des articles.
+`dictionaries`, les 26 entrées de `BLOG_POSTS`, la table `CONTENT` des articles.
 `npx tsc --noEmit` sert de liste de tâches ; l'objectif est zéro erreur.
 
 Quatre maps du dictionnaire étaient typées `Record<string, …>`, où une clé manquante ne
@@ -2018,7 +2018,7 @@ photos de couverture. Une photo très claire ou très chargée convient.
       fait. **Ne pas ajouter de balise `google-site-verification`** dans le layout : la
       validation par DNS la rend inutile, contrairement à Barbusse qui en porte deux. Reste à
       soumettre `sitemap.xml` dans Indexation → Sitemaps (105 URLs, HTTP 200 vérifié).
-- [ ] **Guide** — 17 articles en ligne dans les cinq langues. Restent à vérifier avant la
+- [ ] **Guide** — 26 articles en ligne dans les cinq langues. Restent à vérifier avant la
       haute saison : les horaires des commerces et du centre équestre, et l'horaire exact de
       l'Albiez C'Show, qui changent chaque année — **et dans les cinq langues à la fois**.
       Dix articles ont une couverture dédiée dans `public/images/blog/` ; les sept autres
