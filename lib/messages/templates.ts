@@ -46,7 +46,8 @@ const preArrivee: MessageTemplate = {
   label: "Avant l'arrivée (guide, heure, linge)",
   version: 3,
   trigger: { anchor: "arrival", offsetDays: -7, at: "10:00" },
-  // Utile même pour une réservation de dernière minute : rattrapé jusqu'au matin de l'arrivée.
+  // Rattrapé pour une réservation prise entre J-7 et 48 h avant l'arrivée ; en deçà, `minLeadHours`
+  // l'écarte et le bloc `tardif` du code prend le relais.
   late: { mode: "send", until: { anchor: "arrival", offsetDays: 0, at: "07:00" } },
   // Dernière minute : pas d'avant-arrivée, l'essentiel part avec le code.
   conditions: { minLeadHours: LATE_BOOKING_HOURS },

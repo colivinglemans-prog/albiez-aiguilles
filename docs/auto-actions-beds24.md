@@ -213,7 +213,7 @@ EN HIVER
   partent vite pendant les vacances scolaires.
 
 NOTRE GUIDE
-  Les activités et les lieux à ne pas manquer autour du chalet :
+  Les activités et les lieux à ne pas manquer autour de la résidence :
   https://www.albiez-aiguilles.fr/fr/guide#preparer
 
 VOTRE ARRIVÉE
@@ -339,7 +339,7 @@ IN WINTER
   French school holidays.
 
 OUR GUIDE
-  The activities and the places not to miss around the chalet:
+  The activities and the places not to miss around the residence:
   https://www.albiez-aiguilles.fr/en/guide#preparer
 
 YOUR ARRIVAL
@@ -402,7 +402,7 @@ IM WINTER
   sind die Plätze schnell vergeben.
 
 UNSER GUIDE
-  Aktivitäten und sehenswerte Orte rund um das Chalet:
+  Aktivitäten und sehenswerte Orte rund um die Residenz:
   https://www.albiez-aiguilles.fr/de/guide#preparer
 
 IHRE ANKUNFT
@@ -465,7 +465,7 @@ EN INVIERNO
   rápido durante las vacaciones escolares francesas.
 
 NUESTRA GUÍA
-  Las actividades y los lugares imprescindibles alrededor del chalet:
+  Las actividades y los lugares imprescindibles alrededor de la residencia:
   https://www.albiez-aiguilles.fr/es/guide#preparer
 
 SU LLEGADA
@@ -528,7 +528,7 @@ IN INVERNO
   durante le vacanze scolastiche francesi.
 
 LA NOSTRA GUIDA
-  Le attività e i luoghi da non perdere intorno allo chalet:
+  Le attività e i luoghi da non perdere intorno alla residenza:
   https://www.albiez-aiguilles.fr/it/guide#preparer
 
 IL VOSTRO ARRIVO
