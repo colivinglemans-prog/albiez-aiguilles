@@ -1527,6 +1527,7 @@ Le header et le footer restent en bleu alpin (`primary`), volontairement hors sa
 | `lib/i18n/dictionaries/{fr,en}.ts` | **Textes** : tout ce qui se traduit, y compris les métadonnées SEO par page. |
 | `lib/seasons.ts` | Saisons, slugs, dates d'ouverture du domaine. |
 | `lib/seo.ts` | Compose `@sejour/socle/lib/seo` (`alternatesFor`, `hreflangMap`, `openGraphLocales`, `articleJsonLd`) et déclare les chemins du site. `apartmentJsonLd` reste ici : il décrit **ce bien**. |
+| `lib/og-image.ts` | `ogImage(locale, season?)` : image de partage par défaut (photo d'en-tête de la saison, repli sur la première de la visite, alt en 5 langues). Le layout n'en déclare pas : toute page qui pose son bloc `openGraph` sans image propre doit l'appeler (fusion en surface de Next). Figée à la saison du build. |
 | `lib/legal.ts` | Identité de l'éditeur — **SCI JUARISAL**, distincte de l'entreprise individuelle de Barbusse. |
 | `data/reviews.json` | Avis Airbnb + note de synthèse. |
 | `data/guidebook-airbnb.md` | **Matière première du guide** — le guidebook Airbnb de l'hôte, aspiré et converti. Pas lu par le code. |
