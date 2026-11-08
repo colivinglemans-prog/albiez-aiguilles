@@ -87,7 +87,10 @@ export default function LocaleSwitcher({
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label={label}
+        // Le nom accessible commence par le texte affiché (« FR ») : un lecteur d'écran ou une
+        // commande vocale (« cliquer sur FR ») doit retrouver ce que l'œil voit (audit Lighthouse
+        // du 2026-11-08, `label-content-name-mismatch`).
+        aria-label={`${LOCALE_META[locale].short} — ${label}`}
         aria-expanded={open}
         aria-haspopup="menu"
         className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-secondary transition-colors hover:bg-light-bg hover:text-foreground"

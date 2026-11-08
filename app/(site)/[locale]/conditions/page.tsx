@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og-image";
 import { notFound } from "next/navigation";
 import { cancellationText } from "@sejour/socle/lib/quote-labels";
 import { isLocale, LOCALES, type Locale } from "@/lib/i18n";
@@ -196,10 +197,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!isLocale(locale)) return {};
   const c = content(locale);
   return {
-    title: c.title,
+    // « Booking conditions » seul faisait 18 caractères, sans le nom du lieu (audit du 2026-11-08).
+    title: `${c.title} — Albiez-Montrond`,
     description: c.metaDescription,
     alternates: alternatesFor(locale, conditionsPath),
-    openGraph: { ...openGraphLocales(locale) },
+    openGraph: { ...openGraphLocales(locale), images: ogImage() },
   };
 }
 
@@ -209,7 +211,7 @@ export default async function ConditionsPage({ params }: { params: Promise<{ loc
   const c = content(locale);
   return (
     <Section>
-      <SectionTitle title={c.title} />
+      <SectionTitle as="h1" title={c.title} />
       <p className="mb-10 max-w-3xl text-secondary">{c.intro}</p>
       {c.sections.map((s) => (
         <div key={s.title} className="mb-10 max-w-3xl">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og-image";
 import { notFound } from "next/navigation";
 import {
   getDictionary,
@@ -47,6 +48,7 @@ export async function generateMetadata({
       description: seo.description,
       url: longStayPath(locale),
       ...openGraphLocales(locale),
+      images: ogImage(),
     },
   };
 }

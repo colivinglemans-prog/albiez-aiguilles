@@ -20,7 +20,7 @@ const PREVIEW_COUNT = 6;
 
 function Stars({ rating }: { rating: number }) {
   return (
-    <span className="inline-flex gap-0.5" aria-label={`${rating}/5`}>
+    <span className="inline-flex gap-0.5" role="img" aria-label={`${rating}/5`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <svg
           key={i}

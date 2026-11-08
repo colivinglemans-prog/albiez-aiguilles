@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og-image";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, LOCALES, LOCALE_META } from "@/lib/i18n";
 import { alternatesFor, seasonPath, openGraphLocales } from "@/lib/seo";
@@ -41,6 +42,7 @@ export async function generateMetadata({
       description: seo.description,
       url: seasonPath(season)(locale),
       ...openGraphLocales(locale),
+      images: ogImage(season),
     },
   };
 }

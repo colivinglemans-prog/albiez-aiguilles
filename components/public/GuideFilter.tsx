@@ -81,7 +81,7 @@ export default function GuideFilter({ cards }: { cards: GuideCard[] }) {
       </div>
 
       <ul className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((card) => (
+        {visible.map((card, index) => (
           <li
             key={card.slug}
             data-season={card.season ?? undefined}
@@ -96,6 +96,9 @@ export default function GuideFilter({ cards }: { cards: GuideCard[] }) {
                     width={card.photo.width}
                     height={card.photo.height}
                     sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 90vw"
+                    // La première vignette est l'image principale du premier écran sur mobile :
+                    // chargée en différé, elle retardait l'affichage (LCP, audit du 2026-11-08).
+                    priority={index === 0}
                     className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white shadow">
