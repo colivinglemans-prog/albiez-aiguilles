@@ -53,7 +53,8 @@ async function notify(result: Result, bracketed: boolean): Promise<void> {
 
 export async function POST(request: NextRequest) {
   const { result, bracketed } = check(request);
-  await notify(result, bracketed);
+  // Pas de notification sans en-tête : ce sont des robots, pas Beds24.
+  if (result !== "no-header") await notify(result, bracketed);
   if (result !== "accepted") {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
