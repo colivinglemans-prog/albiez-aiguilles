@@ -2059,12 +2059,13 @@ photos de couverture. Une photo très claire ou très chargée convient.
       trancher — l'annoncer sur la vitrine renseigne le visiteur, mais affiche un frais avant
       qu'il ait vu un prix.
 
-## Messages voyageurs (depuis le 2026-11-08, socle v3.17.0)
+## Messages voyageurs (depuis le 2026-11-08, socle v3.18.0)
 
 Les messages automatiques ne sont plus écrits dans Beds24 mais **dans ce dépôt** :
 `lib/messages/templates.ts` (avant l'arrivée à J-7 10h, code de la boîte à clés le jour d'arrivée
-à 8h, veille du départ à 9h), en cinq langues, vouvoiement, signés « Isabelle et Alexandre ». Le
-moteur est celui du socle (`@sejour/socle/lib/guest-messaging`, section v3.17.0 de son CLAUDE.md).
+à 8h, lendemain de l'arrivée à 9h, veille du départ à 9h), en cinq langues, vouvoiement, **signés
+« Alexandre »** (décision de l'hôte du 2026-11-08 : Isabelle ne gère rien). Le moteur est celui du
+socle (`@sejour/socle/lib/guest-messaging`, section v3.18.0 de son CLAUDE.md).
 **La confirmation de réservation reste dans Beds24** (617008 et 625162, facture et lien de
 paiement) : décision de l'hôte, à rouvrir après une saison.
 
@@ -2080,17 +2081,31 @@ paiement) : décision de l'hôte, à rouvrir après une saison.
   l'historique des envois faits à la main. ⚠️ Une empreinte trop large fait passer un message
   pour envoyé : « code de la boite a clef » seul reconnaissait « je vous transmettrai le code…
   plus tard ».
-- **Modes** : `MESSAGES_MODES=avant-arrivee:live,code-boite:shadow,depart:off` — **ombre par
-  défaut** (l'écran montre ce qui partirait, rien ne part) ; `MESSAGES_KILL_SWITCH=1` coupe tout.
+- **Modes** : `MESSAGES_MODES=avant-arrivee:test,code-boite:test,bien-installe:test,depart:test`
+  — **ombre par défaut** (l'écran montre ce qui partirait, rien ne part) ; `MESSAGES_KILL_SWITCH=1`
+  coupe tout. **`test`** (étape voulue par l'hôte avant de remplacer quoi que ce soit) : au moment
+  où le message partirait, une copie part à `MESSAGES_TEST_TO`, à défaut à `SMTP_FROM`
+  (`contact@albiez-aiguilles.fr`, transférée vers le Gmail de l'hôte), avec un bandeau « COPIE DE
+  TEST » ; rien au voyageur. Trace `MSG_<ID>_TEST`, jamais lue comme un envoi. Dans l'écran, le
+  bouton devient « M'envoyer une copie de test ».
+- **Dernière minute** : réservée moins de 48 h avant le jour d'arrivée (`LATE_BOOKING_HOURS`), pas
+  d'avant-arrivée ; le message du code reprend l'essentiel (linge selon le canal, pneus) dans son
+  bloc `tardif`. Lendemain de l'arrivée (3 nuits minimum) et départ sont des messages de confort
+  (`quietHours: 12`) : ils sautent si un autre message vient de partir — sur une nuit, le départ
+  ne double pas le code du matin.
+- **Lendemain de l'arrivée** : c'était un **message programmé dans Airbnb**, invisible de Beds24
+  (aucune trace dans les fils). Au passage en `live`, **le couper dans Airbnb**, sinon les
+  voyageurs Airbnb le reçoivent deux fois.
 - **Cron** : `/api/cron/messages-voyageurs`, cron-job.org **toutes les 10 minutes**, Bearer
   `CRON_SECRET`. Plafond de 5 envois par passage, alerte ntfy sur échec ou blocage. Il ne lit
-  rien tant qu'aucun modèle n'est en `live`.
+  rien tant qu'aucun modèle n'est en `live` ou en `test`.
 - **Pneus et ski** : `pneus` suit la période légale (1er novembre – 31 mars, `overlapsTyreSeason`), `ski` les
   ouvertures du domaine (`HIVERS`). Un test échoue quand la fenêtre de 120 jours dépasse le dernier
   hiver connu : ajouter l'hiver suivant dans `lib/seasons.ts`.
 - **Écran** : `/dashboard/messages` (admin) et le panneau « Messages au voyageur » dans la fiche
   d'un séjour du calendrier. Aperçu : tout masqué sauf `previewVisible` (le code ne l'est jamais).
-- **Bascule** : un modèle à la fois — départ, puis avant-arrivée, puis code. Au même moment, l'hôte
+- **Bascule** : un modèle à la fois — départ, lendemain de l'arrivée (couper le message programmé
+  Airbnb), puis avant-arrivée, puis code. Au même moment, l'hôte
   **arrête d'envoyer à la main** le code et les consignes de départ, sinon le voyageur les reçoit
   deux fois (les envois manuels sont reconnus dans le fil, mais seulement s'ils partent avant).
   Alertes : échecs à chaque passage ; blocages et orphelins au premier passage de chaque heure

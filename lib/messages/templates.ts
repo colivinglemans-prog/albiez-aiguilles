@@ -14,7 +14,13 @@ import type { MessageTemplate } from "@sejour/socle/lib/guest-messaging/types";
  * dur (le dépôt est public : ils passent par des variables).
  *
  * Ton : vouvoiement dans les cinq langues, comme le guide d'arrivée (`guide.codeNote`). Signature
- * « Isabelle et Alexandre », au nom de la SCI JUARISAL — jamais au nom de Coliving Barbusse.
+ * « Alexandre » (décision de l'hôte du 2026-11-08 : c'est lui qui gère), au nom de la SCI
+ * JUARISAL — jamais au nom de Coliving Barbusse.
+ *
+ * Dernière minute (même décision) : une réservation prise moins de `LATE_BOOKING_HOURS` avant le
+ * jour d'arrivée ne reçoit pas l'avant-arrivée ; l'essentiel (linge, pneus) passe dans le message
+ * du code (`tardif`). Les messages de confort (lendemain de l'arrivée, départ) sautent si un autre
+ * message vient de partir (`quietHours`).
  * Les consignes de départ reprennent celles du guide (`guide.checkoutItems`) : un message qui
  * contredirait la page qu'il annonce sèmerait le doute. On écrit « la résidence » ou
  * « l'appartement », jamais « le chalet » (voir `SITE_NAME` dans `lib/property.ts`).
@@ -28,16 +34,22 @@ import type { MessageTemplate } from "@sejour/socle/lib/guest-messaging/types";
  * - `prixKit` (facultative, avec `kitAbsent`) — prix du kit par personne (`PROPERTY.linen`) ;
  * - `viaAirbnb` (facultative) — le kit s'ajoute alors par le centre de résolution Airbnb ;
  * - `pneus` (facultative) — le séjour recoupe la période d'équipement obligatoire (1er novembre – 31 mars) ;
- * - `ski` (facultative) — le séjour recoupe une ouverture du domaine skiable (`HIVERS`).
+ * - `ski` (facultative) — le séjour recoupe une ouverture du domaine skiable (`HIVERS`) ;
+ * - `tardif` (facultative) — réservation de dernière minute (`LATE_BOOKING_HOURS`).
  */
+
+/** Une réservation prise moins de 48 h avant le jour d'arrivée est « de dernière minute ». */
+export const LATE_BOOKING_HOURS = 48;
 
 const preArrivee: MessageTemplate = {
   id: "avant-arrivee",
   label: "Avant l'arrivée (guide, heure, linge)",
-  version: 2,
+  version: 3,
   trigger: { anchor: "arrival", offsetDays: -7, at: "10:00" },
   // Utile même pour une réservation de dernière minute : rattrapé jusqu'au matin de l'arrivée.
   late: { mode: "send", until: { anchor: "arrival", offsetDays: 0, at: "07:00" } },
+  // Dernière minute : pas d'avant-arrivée, l'essentiel part avec le code.
+  conditions: { minLeadHours: LATE_BOOKING_HOURS },
   onAnchorChange: "ignore",
   variables: ["guideArrivee", "guide", "telephone", "whatsapp"],
   optionalVariables: ["prenom", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus", "ski"],
@@ -78,7 +90,7 @@ Activités, commerces et bonnes adresses autour de la résidence :
 Une question ? Répondez à ce message, ou écrivez-nous sur WhatsApp : {{telephone}} — {{whatsapp}}
 
 À très bientôt,
-Isabelle et Alexandre`,
+Alexandre`,
     en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
 
 Your stay in Albiez is coming up, and we look forward to welcoming you.
@@ -107,7 +119,7 @@ Activities, shops and good addresses around the residence:
 Any question? Reply to this message, or message us on WhatsApp: {{telephone}} — {{whatsapp}}
 
 See you soon,
-Isabelle and Alexandre`,
+Alexandre`,
     de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
 
 Ihr Aufenthalt in Albiez rückt näher, wir freuen uns auf Sie.
@@ -136,7 +148,7 @@ Aktivitäten, Geschäfte und gute Adressen rund um die Residenz:
 Eine Frage? Antworten Sie auf diese Nachricht oder schreiben Sie uns auf WhatsApp: {{telephone}} — {{whatsapp}}
 
 Bis bald,
-Isabelle und Alexandre`,
+Alexandre`,
     es: `Hola{{#prenom}} {{prenom}}{{/prenom}}:
 
 Su estancia en Albiez se acerca y estamos deseando recibirle.
@@ -165,7 +177,7 @@ Actividades, comercios y buenas direcciones alrededor de la residencia:
 ¿Alguna pregunta? Responda a este mensaje o escríbanos por WhatsApp: {{telephone}} — {{whatsapp}}
 
 Hasta muy pronto,
-Isabelle y Alexandre`,
+Alexandre`,
     it: `Buongiorno{{#prenom}} {{prenom}}{{/prenom}},
 
 Il vostro soggiorno ad Albiez si avvicina e non vediamo l'ora di accogliervi.
@@ -194,7 +206,7 @@ Attività, negozi e buoni indirizzi intorno alla residenza:
 Una domanda? Rispondete a questo messaggio o scriveteci su WhatsApp: {{telephone}} — {{whatsapp}}
 
 A presto,
-Isabelle e Alexandre`,
+Alexandre`,
   },
   fingerprints: ["le code de la boite a cles vous sera envoye le matin", "the key box code will be sent to you on the morning"],
 };
@@ -202,15 +214,15 @@ Isabelle e Alexandre`,
 const codeBoite: MessageTemplate = {
   id: "code-boite",
   label: "Code de la boîte à clés (jour d'arrivée)",
-  version: 2,
+  version: 3,
   trigger: { anchor: "arrival", offsetDays: 0, at: "08:00" },
   // Une réservation prise tard le jour même reçoit le code aussitôt, jusqu'au lendemain matin.
   late: { mode: "send", until: { anchor: "arrival", offsetDays: 1, at: "10:00" } },
   onAnchorChange: "resend",
   variables: ["code", "guideArrivee", "telephone"],
-  optionalVariables: ["prenom"],
+  optionalVariables: ["prenom", "tardif", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus"],
   // Le code reste masqué dans l'aperçu : il n'est en clair qu'au moment de l'envoi.
-  previewVisible: ["prenom", "guideArrivee", "telephone"],
+  previewVisible: ["prenom", "guideArrivee", "telephone", "tardif", "kitInclus", "kitAbsent", "prixKit", "viaAirbnb", "pneus"],
   subject: {
     fr: "Le code de la boîte à clés",
     en: "Your key box code",
@@ -222,58 +234,83 @@ const codeBoite: MessageTemplate = {
     fr: `Bonjour{{#prenom}} {{prenom}}{{/prenom}},
 
 Voici le code de la boîte à clés : {{code}}
-
+{{#tardif}}
+Votre réservation est toute récente, voici aussi l'essentiel :{{#kitInclus}}
+- votre kit linge vous attend dans l'appartement (draps, taies, une serviette de bain par personne) ; les lits ne sont pas faits.{{/kitInclus}}{{#kitAbsent}}
+- le linge n'est pas inclus : apportez draps, taies et serviettes (1 lit double 160 × 190, 4 lits simples 80 × 190){{#prixKit}}, ou demandez-nous le kit linge, {{prixKit}} par personne{{#viaAirbnb}}, réglé par le centre de résolution Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- pneus neige ou chaînes obligatoires pour monter à Albiez.{{/pneus}}
+{{/tardif}}
 L'arrivée est possible dès 16h. Le guide d'arrivée vous mène jusqu'à l'appartement :
 {{guideArrivee}}
 
 N'hésitez pas à nous appeler au {{telephone}} si besoin.
 
 Bon séjour,
-Isabelle et Alexandre`,
+Alexandre`,
     en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
 
 Here is the key box code: {{code}}
-
+{{#tardif}}
+As you booked very recently, here are the essentials too:{{#kitInclus}}
+- your linen kit is waiting in the apartment (sheets, pillowcases, one bath towel per person); the beds are not made.{{/kitInclus}}{{#kitAbsent}}
+- linen is not included: please bring sheets, pillowcases and towels (1 double bed 160 × 190, 4 single beds 80 × 190){{#prixKit}}, or ask us for the linen kit, {{prixKit}} per person{{#viaAirbnb}}, paid through the Airbnb Resolution Centre{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- snow tyres or chains are compulsory to drive up to Albiez.{{/pneus}}
+{{/tardif}}
 Check-in is possible from 4 pm. The arrival guide takes you to the apartment:
 {{guideArrivee}}
 
 Feel free to call us on {{telephone}} if needed.
 
 Enjoy your stay,
-Isabelle and Alexandre`,
+Alexandre`,
     de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
 
 Hier ist der Code des Schlüsselkastens: {{code}}
-
+{{#tardif}}
+Da Sie sehr kurzfristig gebucht haben, hier auch das Wichtigste:{{#kitInclus}}
+- Ihr Wäschepaket liegt in der Wohnung bereit (Bettwäsche, Kissenbezüge, ein Badetuch pro Person); die Betten sind nicht bezogen.{{/kitInclus}}{{#kitAbsent}}
+- Bettwäsche ist nicht inbegriffen: Bitte bringen Sie Laken, Kissenbezüge und Handtücher mit (1 Doppelbett 160 × 190, 4 Einzelbetten 80 × 190){{#prixKit}}, oder fragen Sie uns nach dem Wäschepaket, {{prixKit}} pro Person{{#viaAirbnb}}, bezahlt über das Airbnb-Lösungscenter{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- Winterreifen oder Schneeketten sind für die Auffahrt nach Albiez Pflicht.{{/pneus}}
+{{/tardif}}
 Die Anreise ist ab 16 Uhr möglich. Der Anreiseführer bringt Sie bis zur Wohnung:
 {{guideArrivee}}
 
 Rufen Sie uns bei Bedarf gerne unter {{telephone}} an.
 
 Einen schönen Aufenthalt,
-Isabelle und Alexandre`,
+Alexandre`,
     es: `Hola{{#prenom}} {{prenom}}{{/prenom}}:
 
 Este es el código de la caja de llaves: {{code}}
-
+{{#tardif}}
+Como ha reservado hace muy poco, aquí tiene también lo esencial:{{#kitInclus}}
+- su kit de ropa de cama le espera en el apartamento (sábanas, fundas de almohada y una toalla de baño por persona); las camas no están hechas.{{/kitInclus}}{{#kitAbsent}}
+- la ropa de cama no está incluida: traiga sábanas, fundas y toallas (1 cama doble de 160 × 190, 4 camas individuales de 80 × 190){{#prixKit}}, o pídanos el kit de ropa de cama, {{prixKit}} por persona{{#viaAirbnb}}, pagado a través del Centro de resoluciones de Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- los neumáticos de invierno o las cadenas son obligatorios para subir a Albiez.{{/pneus}}
+{{/tardif}}
 La llegada es posible a partir de las 16:00. La guía de llegada le lleva hasta el apartamento:
 {{guideArrivee}}
 
 No dude en llamarnos al {{telephone}} si lo necesita.
 
 Buena estancia,
-Isabelle y Alexandre`,
+Alexandre`,
     it: `Buongiorno{{#prenom}} {{prenom}}{{/prenom}},
 
 Ecco il codice della cassetta delle chiavi: {{code}}
-
+{{#tardif}}
+Avendo prenotato da pochissimo, ecco anche l'essenziale:{{#kitInclus}}
+- il vostro kit biancheria vi aspetta nell'appartamento (lenzuola, federe e un telo bagno a persona); i letti non sono fatti.{{/kitInclus}}{{#kitAbsent}}
+- la biancheria non è inclusa: portate lenzuola, federe e asciugamani (1 letto matrimoniale 160 × 190, 4 letti singoli 80 × 190){{#prixKit}}, oppure chiedeteci il kit biancheria, {{prixKit}} a persona{{#viaAirbnb}}, pagato tramite il Centro risoluzioni Airbnb{{/viaAirbnb}}{{/prixKit}}.{{/kitAbsent}}{{#pneus}}
+- pneumatici da neve o catene sono obbligatori per salire ad Albiez.{{/pneus}}
+{{/tardif}}
 L'arrivo è possibile dalle 16:00. La guida all'arrivo vi accompagna fino all'appartamento:
 {{guideArrivee}}
 
 Non esitate a chiamarci al {{telephone}} in caso di bisogno.
 
 Buon soggiorno,
-Isabelle e Alexandre`,
+Alexandre`,
   },
   // Les messages envoyés à la main avant l'outil (2026) disaient « un petit message pour vous
   // donner le code de la boite à clef ». ⚠️ Pas « code de la boite a clef » seul : il reconnaissait
@@ -282,12 +319,69 @@ Isabelle e Alexandre`,
   fingerprints: ["pour vous donner le code de la boite a clef", "voici le code de la boite a cles", "here is the key box code"],
 };
 
+/**
+ * Lendemain de l'arrivée — jusqu'ici un **message programmé dans Airbnb** (invisible de Beds24 :
+ * aucune trace dans les fils, relevé le 2026-11-08), le même qu'à Barbusse, très apprécié des
+ * voyageurs. ⚠️ Au passage en `live`, couper le message programmé dans Airbnb : le moteur ne le
+ * voit pas, les voyageurs Airbnb le recevraient deux fois.
+ */
+const installe: MessageTemplate = {
+  id: "bien-installe",
+  label: "Lendemain de l'arrivée",
+  version: 1,
+  trigger: { anchor: "arrival", offsetDays: 1, at: "09:00" },
+  late: { mode: "skip", graceHours: 6 },
+  // Sur deux nuits, le lendemain de l'arrivée est aussi la veille du départ.
+  conditions: { minNights: 3, quietHours: 12 },
+  onAnchorChange: "ignore",
+  variables: [],
+  optionalVariables: ["prenom"],
+  previewVisible: ["prenom"],
+  subject: {
+    fr: "Bien installés ?",
+    en: "All settled in?",
+    de: "Gut angekommen?",
+    es: "¿Bien instalados?",
+    it: "Vi siete sistemati bene?",
+  },
+  body: {
+    fr: `Bonjour{{#prenom}} {{prenom}}{{/prenom}},
+
+J'espère que vous êtes bien installés et que vous avez trouvé vos marques. S'il vous manque quoi que ce soit, répondez simplement à ce message.
+
+Alexandre`,
+    en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
+
+I hope you are all settled in and finding your way around the apartment. If you need anything at all, just reply to this message.
+
+Alexandre`,
+    de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
+
+ich hoffe, Sie haben sich gut eingelebt und finden sich in der Wohnung zurecht. Wenn Ihnen etwas fehlt, antworten Sie einfach auf diese Nachricht.
+
+Alexandre`,
+    es: `Hola{{#prenom}} {{prenom}}{{/prenom}}:
+
+Espero que estén bien instalados y que ya se sientan como en casa. Si les falta cualquier cosa, respondan simplemente a este mensaje.
+
+Alexandre`,
+    it: `Buongiorno{{#prenom}} {{prenom}}{{/prenom}},
+
+spero che vi siate sistemati bene e che vi troviate a vostro agio. Se vi manca qualcosa, rispondete semplicemente a questo messaggio.
+
+Alexandre`,
+  },
+  fingerprints: ["que vous etes bien installe", "you are all settled in"],
+};
+
 const depart: MessageTemplate = {
   id: "depart",
   label: "Veille du départ (consignes et avis)",
-  version: 2,
+  version: 3,
   trigger: { anchor: "departure", offsetDays: -1, at: "09:00" },
   late: { mode: "skip", graceHours: 8 },
+  // Sur une nuit, la veille du départ est le jour d'arrivée : le code vient de partir, on n'ajoute rien.
+  conditions: { quietHours: 12 },
   onAnchorChange: "ignore",
   variables: [],
   optionalVariables: ["prenom"],
@@ -317,7 +411,7 @@ Remettez un trousseau dans la boîte à clés en brouillant le code, et laissez 
 Nous espérons que votre séjour s'est bien passé. Votre avis sur la plateforme où vous avez réservé nous aide beaucoup, et vos idées d'amélioration sont les bienvenues.
 
 Encore merci, et à bientôt peut-être,
-Isabelle et Alexandre`,
+Alexandre`,
     en: `Hello{{#prenom}} {{prenom}}{{/prenom}},
 
 Here are a few notes for your departure, tomorrow before 10 am. End-of-stay cleaning is included, but the kitchen and the dishes are up to you.
@@ -335,7 +429,7 @@ Put one set of keys back in the key box, scrambling the code, and leave the othe
 We hope you enjoyed your stay. A review on the platform where you booked helps us a lot, and your ideas for improvement are welcome.
 
 Thank you again, and perhaps see you soon,
-Isabelle and Alexandre`,
+Alexandre`,
     de: `Guten Tag{{#prenom}} {{prenom}}{{/prenom}},
 
 hier einige Hinweise für Ihre Abreise morgen vor 10 Uhr. Die Endreinigung ist inbegriffen, Küche und Geschirr bleiben jedoch Ihre Sache.
@@ -353,7 +447,7 @@ Legen Sie einen Schlüsselbund in den Schlüsselkasten zurück, verstellen Sie d
 Wir hoffen, Sie hatten einen schönen Aufenthalt. Eine Bewertung auf der Plattform, auf der Sie gebucht haben, hilft uns sehr, und Ihre Verbesserungsvorschläge sind willkommen.
 
 Nochmals vielen Dank, und vielleicht bis bald,
-Isabelle und Alexandre`,
+Alexandre`,
     es: `Hola{{#prenom}} {{prenom}}{{/prenom}}:
 
 Aquí tiene algunas indicaciones para su salida, mañana antes de las 10:00. La limpieza final está incluida, pero la cocina y los platos corren de su cuenta.
@@ -371,7 +465,7 @@ Deje un juego de llaves en la caja de llaves, cambiando el código, y el otro bi
 Esperamos que haya disfrutado de su estancia. Su opinión en la plataforma donde reservó nos ayuda mucho, y sus ideas de mejora son bienvenidas.
 
 Muchas gracias de nuevo, y quizá hasta pronto,
-Isabelle y Alexandre`,
+Alexandre`,
     it: `Buongiorno{{#prenom}} {{prenom}}{{/prenom}},
 
 ecco alcune indicazioni per la vostra partenza, domani entro le 10:00. Le pulizie finali sono incluse, ma la cucina e le stoviglie restano a vostro carico.
@@ -389,10 +483,10 @@ Rimettete un mazzo di chiavi nella cassetta cambiando il codice, e lasciate l'al
 Speriamo che il soggiorno vi sia piaciuto. Una recensione sulla piattaforma dove avete prenotato ci aiuta molto, e le vostre idee di miglioramento sono benvenute.
 
 Grazie ancora, e forse a presto,
-Isabelle e Alexandre`,
+Alexandre`,
   },
   // « indications pour votre depart » : les messages envoyés à la main avant l'outil (2026).
   fingerprints: ["indications pour votre depart", "a few notes for your departure"],
 };
 
-export const TEMPLATES: readonly MessageTemplate[] = [preArrivee, codeBoite, depart];
+export const TEMPLATES: readonly MessageTemplate[] = [preArrivee, codeBoite, installe, depart];

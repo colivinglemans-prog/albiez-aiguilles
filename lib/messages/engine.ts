@@ -2,17 +2,25 @@ import type { Beds24Booking, Beds24Message } from "@sejour/socle/lib/beds24-type
 import { messagingChannel, realGuestEmail } from "@sejour/socle/lib/guest-messaging/channel-rules";
 import { sendNow, sendPlanned, type DispatchDeps, type DispatchItemResult, type DispatchResult } from "@sejour/socle/lib/guest-messaging/dispatch";
 import { pickGuestLocale } from "@sejour/socle/lib/guest-messaging/language";
-import { ledgerCode, ledgerFromInfoItems, ledgerFromThread, ledgerText } from "@sejour/socle/lib/guest-messaging/ledger";
+import {
+  ledgerCode,
+  ledgerFromInfoItems,
+  ledgerFromThread,
+  ledgerText,
+  testLedgerCode,
+  testLedgerFromInfoItems,
+} from "@sejour/socle/lib/guest-messaging/ledger";
 import {
   buildGuestMessagesReport,
   buildPreview,
+  parseModes,
   type GuestMessagePreview,
   type GuestMessagesReport,
   type TemplateMode,
 } from "@sejour/socle/lib/guest-messaging/overview";
 import type { Vars } from "@sejour/socle/lib/guest-messaging/render";
-import { addDays, planMessages } from "@sejour/socle/lib/guest-messaging/schedule";
-import { createSmtpTransport, smtpConfigFrom } from "@sejour/socle/lib/guest-messaging/smtp";
+import { addDays, parisAt, planByMode } from "@sejour/socle/lib/guest-messaging/schedule";
+import { createSmtpTransport, smtpConfigFrom, testRecipientFrom } from "@sejour/socle/lib/guest-messaging/smtp";
 import type { MessageTemplate, MessagingBooking } from "@sejour/socle/lib/guest-messaging/types";
 import { todayParis } from "@sejour/socle/lib/time";
 import {
@@ -28,7 +36,7 @@ import {
 import { urlGuideArrivee } from "@/lib/partage-voyageur";
 import { PROPERTY, SITE_URL } from "@/lib/property";
 import { saisonsEntre } from "@/lib/seasons";
-import { TEMPLATES } from "./templates";
+import { LATE_BOOKING_HOURS, TEMPLATES } from "./templates";
 
 /**
  * La messagerie voyageur d'Albiez : ce que le moteur du socle (`@sejour/socle/lib/guest-messaging`)
@@ -40,8 +48,11 @@ import { TEMPLATES } from "./templates";
  * - **Variables** : URL des guides dans la langue, contact, code de la boîte à clés (variable
  *   d'environnement, lue à l'envoi), kit linge selon le canal, hiver selon les **dates du séjour**
  *   (jamais `currentSeason()`, faite pour la vitrine).
- * - **Modes** : `MESSAGES_MODES` (`avant-arrivee:live,code-boite:shadow,…`), **ombre par défaut** ;
- *   `MESSAGES_KILL_SWITCH=1` coupe tout envoi.
+ * - **Modes** : `MESSAGES_MODES` (`avant-arrivee:test,code-boite:shadow,…`), **ombre par défaut** ;
+ *   `MESSAGES_KILL_SWITCH=1` coupe tout envoi. En `test`, la copie part à `MESSAGES_TEST_TO`, à
+ *   défaut à l'expéditeur SMTP (`contact@albiez-aiguilles.fr`), et rien au voyageur.
+ * - **Dernière minute** : `tardif` quand la réservation est prise moins de `LATE_BOOKING_HOURS`
+ *   avant le jour d'arrivée — le message du code reprend alors l'essentiel de l'avant-arrivée.
  *
  * Aucune donnée du voyageur ni aucun texte rendu ne sort de ce module, sauf vers Beds24 ou le
  * serveur SMTP. L'aperçu passe par `buildPreview`, qui masque tout sauf le prénom.
@@ -57,14 +68,7 @@ const IDS = TEMPLATES.map((t) => t.id);
 
 /** Modes effectifs. L'interrupteur général donne des modes tous `off` — c'est ce que voit le moteur. */
 export function modes(): { modes: Record<string, TemplateMode>; display: Record<string, TemplateMode>; killSwitch: boolean } {
-  const display: Record<string, TemplateMode> = Object.fromEntries(IDS.map((id) => [id, "shadow" as TemplateMode]));
-  for (const part of (process.env.MESSAGES_MODES ?? "").split(",")) {
-    const [id, mode] = part.split(":").map((x) => x?.trim());
-    if (id && IDS.includes(id) && (mode === "off" || mode === "shadow" || mode === "live")) display[id] = mode;
-  }
-  const killSwitch = process.env.MESSAGES_KILL_SWITCH?.trim() === "1";
-  const effective = killSwitch ? Object.fromEntries(IDS.map((id) => [id, "off" as TemplateMode])) : display;
-  return { modes: effective, display, killSwitch };
+  return parseModes(IDS, process.env.MESSAGES_MODES, process.env.MESSAGES_KILL_SWITCH?.trim() === "1");
 }
 
 type Row = MessagingBooking & { firstName?: string };
@@ -83,6 +87,7 @@ function toMessagingBooking(b: Beds24Booking, thread: readonly Beds24Message[]):
     email: realGuestEmail(b.email),
     infoCodes: (b.infoItems ?? []).map((i) => i.code),
     ledger: [...ledgerFromInfoItems(b.infoItems, IDS), ...ledgerFromThread(thread, TEMPLATES)],
+    testLedger: testLedgerFromInfoItems(b.infoItems, IDS),
     firstName: b.firstName?.trim() || undefined,
   };
 }
@@ -138,6 +143,7 @@ async function variables(b: Row, t: MessageTemplate): Promise<Vars> {
     }
   }
   if (t.optionalVariables?.includes("pneus") && overlapsTyreSeason(b.arrival, b.departure)) vars.pneus = "1";
+  if (t.optionalVariables?.includes("tardif") && isLateBooking(b)) vars.tardif = "1";
   if (t.optionalVariables?.includes("ski") && saisonsEntre(b.arrival, b.departure).some((s) => s.saison === "hiver")) {
     vars.ski = "1";
   }
@@ -170,6 +176,17 @@ export function overlapsTyreSeason(arrival: string, departure: string): boolean 
   return false;
 }
 
+/**
+ * Réservation de dernière minute : prise moins de `LATE_BOOKING_HOURS` avant le jour d'arrivée —
+ * la même mesure que la condition `minLeadHours` de l'avant-arrivée, pour qu'aucune réservation
+ * ne tombe entre les deux (ni avant-arrivée, ni bloc `tardif`).
+ */
+export function isLateBooking(b: Pick<MessagingBooking, "arrival" | "bookingTime">): boolean {
+  if (!b.bookingTime || !/(Z|[+-]\d{2}:?\d{2})$/.test(b.bookingTime)) return false;
+  const created = Date.parse(b.bookingTime);
+  return !Number.isNaN(created) && parisAt(b.arrival, "00:00").getTime() - created < LATE_BOOKING_HOURS * 3_600_000;
+}
+
 /** « +33620921005 » → « +33 6 20 92 10 05 ». */
 function formatPhone(e164: string): string {
   const m = /^\+33(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/.exec(e164);
@@ -178,6 +195,7 @@ function formatPhone(e164: string): string {
 
 function deps(): DispatchDeps {
   const smtp = smtpConfigFrom(process.env);
+  const testTo = testRecipientFrom(process.env);
   return {
     reload,
     variables: (b, t) => variables(b as Row, t),
@@ -188,7 +206,12 @@ function deps(): DispatchDeps {
     reserve: (b, t, e) => ecrireRegistre(b.id, ledgerCode(t.id, "pending"), ledgerText({ ...e, version: t.version })),
     confirm: (b, t, e) => ecrireRegistre(b.id, ledgerCode(t.id, "sent"), ledgerText({ ...e, version: t.version })),
     platform: envoyerMessagePlateforme,
-    email: smtp ? createSmtpTransport({ ...smtp, fromName: smtp.fromName ?? "Albiez — Isabelle et Alexandre" }) : null,
+    // Le nom d'expéditeur des e-mails Beds24 du sous-compte (réglé le 2026-11-07), pour que le
+    // voyageur reconnaisse l'expéditeur.
+    email: smtp ? createSmtpTransport({ ...smtp, fromName: smtp.fromName ?? "Appart au Chalet du Hameau des Aiguilles" }) : null,
+    test: testTo
+      ? { to: testTo, record: (b, t, e) => ecrireRegistre(b.id, testLedgerCode(t.id), ledgerText({ ...e, version: t.version })) }
+      : undefined,
   };
 }
 
@@ -218,7 +241,7 @@ export async function preview(bookingId: number, templateId: string): Promise<Gu
 export async function runCron(now = new Date()): Promise<DispatchResult & { planned: number; orphans: { bookingId: number; templateId: string }[] }> {
   const rows = await loadRows();
   const { modes: m } = modes();
-  const plan = planMessages(rows, TEMPLATES, now);
+  const plan = planByMode(rows, TEMPLATES, now, m);
   const result = await sendPlanned(plan, TEMPLATES, deps(), { now, cap: CAP, modes: m });
   return {
     ...result,

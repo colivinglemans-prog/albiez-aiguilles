@@ -6,7 +6,7 @@ import { modes, runCron } from "@/lib/messages/engine";
 /**
  * Messages automatiques aux voyageurs — appelé par cron-job.org **toutes les 10 minutes**
  * (Bearer `CRON_SECRET`). Le plan est recalculé à chaque passage ; seuls les modèles en mode
- * `live` (`MESSAGES_MODES`) envoient, et `MESSAGES_KILL_SWITCH=1` coupe tout.
+ * `live` (`MESSAGES_MODES`) envoient au voyageur, ceux en `test` une copie à l'hôte, et `MESSAGES_KILL_SWITCH=1` coupe tout.
  *
  * Plafond de 5 envois par passage : au-delà, rien ne part et une alerte prévient — un pic est le
  * signe d'un bug, pas d'une journée chargée.
@@ -34,8 +34,8 @@ export async function GET(request: NextRequest) {
   }
   const { killSwitch, modes: m } = modes();
   if (killSwitch) return NextResponse.json({ ok: true, disabled: true });
-  if (!Object.values(m).includes("live")) {
-    // Rien en réel : inutile de dépenser des crédits Beds24, l'écran de suivi calcule le plan lui-même.
+  if (!Object.values(m).some((x) => x === "live" || x === "test")) {
+    // Rien en réel ni en test : inutile de dépenser des crédits Beds24, l'écran de suivi calcule le plan lui-même.
     return NextResponse.json({ ok: true, live: 0 });
   }
 
@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
       ok: !result.aborted && failed.length === 0,
       planned: result.planned,
       sent: result.results.filter((r) => r.outcome === "sent").length,
+      tested: result.results.filter((r) => r.outcome === "tested").length,
       blocked: blocked.length,
       failed: failed.length,
       aborted: result.aborted ?? null,

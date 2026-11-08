@@ -33,7 +33,7 @@ describe("messages voyageurs d'Albiez", () => {
     for (const t of TEMPLATES) {
       for (const locale of LOCALES) {
         for (const prenom of ["Test", undefined]) {
-          const r = renderMessage(t, { channel: "Airbnb", locale }, { ...vars, prenom, kitAbsent: "1", prixKit: "15 €", viaAirbnb: "1", pneus: "1", ski: "1" });
+          const r = renderMessage(t, { channel: "Airbnb", locale }, { ...vars, prenom, kitAbsent: "1", prixKit: "15 €", viaAirbnb: "1", pneus: "1", ski: "1", tardif: "1" });
           expect(r.text).not.toMatch(/\{\{|\}\}|undefined/);
           if (!prenom) expect(r.text).not.toMatch(/^\S+ ,/);
         }
@@ -41,9 +41,10 @@ describe("messages voyageurs d'Albiez", () => {
     }
   });
 
-  it("signature au nom de la SCI, jamais de Coliving Barbusse", () => {
+  it("signé Alexandre seul (décision du 2026-11-08), jamais Coliving Barbusse", () => {
     for (const t of TEMPLATES) for (const l of LOCALES) {
-      expect(t.body[l]).toMatch(/Isabelle (et|and|und|y|e) Alexandre/);
+      expect(t.body[l]).toMatch(/\nAlexandre$/);
+      expect(t.body[l]).not.toMatch(/Isabelle/);
       expect(t.body[l]).not.toMatch(/Barbusse|Coliving/i);
     }
   });
@@ -76,5 +77,30 @@ describe("garde-fous propres à Albiez (le-dahu)", () => {
     // signale que si l'horizon atteint novembre suivant cette fin.
     const nextNovember = `${Number(lastWinterEnd.slice(0, 4))}-11-01`;
     expect(horizon < nextNovember, `Ajouter l'hiver ${nextNovember.slice(0, 4)}-${Number(nextNovember.slice(0, 4)) + 1} dans HIVERS (lib/seasons.ts)`).toBe(true);
+  });
+
+  it("dernière minute : pas d'avant-arrivée, l'essentiel part avec le code — et aucune réservation entre les deux", async () => {
+    const { isLateBooking } = await import("@/lib/messages/engine");
+    const { messageState } = await import("@sejour/socle/lib/guest-messaging/schedule");
+    const pre = TEMPLATES.find((t) => t.id === "avant-arrivee")!;
+    const base = { id: 1, status: "confirmed", channel: "Booking.com" as const, arrival: "2026-12-20", departure: "2026-12-23", locale: "fr" as const, localeSource: "beds24" as const, infoCodes: [], ledger: [] };
+    const now = new Date("2026-12-19T12:00:00Z");
+    for (const bookingTime of ["2026-12-17T22:59:00Z", "2026-12-17T23:01:00Z", "2026-12-19T11:00:00Z"]) {
+      const late = isLateBooking({ arrival: base.arrival, bookingTime });
+      const excluded = messageState({ ...base, bookingTime }, pre, now).kind === "excluded";
+      expect(late, bookingTime).toBe(excluded);
+    }
+  });
+
+  it("le bloc « tardif » du code dit le linge selon le canal, et rien sans réservation tardive", () => {
+    const code = TEMPLATES.find((t) => t.id === "code-boite")!;
+    const vars = { guideArrivee: "https://exemple.fr/a", telephone: "+33 0", code: "0000" };
+    const plain = renderMessage(code, { channel: "Booking.com", locale: "fr" }, { ...vars, kitInclus: "1", pneus: "1" }).text;
+    expect(plain).not.toContain("kit linge");
+    const late = renderMessage(code, { channel: "Booking.com", locale: "fr" }, { ...vars, kitInclus: "1", pneus: "1", tardif: "1" }).text;
+    expect(late).toContain("kit linge vous attend");
+    expect(late).toContain("pneus neige");
+    const airbnb = renderMessage(code, { channel: "Airbnb", locale: "fr" }, { ...vars, kitAbsent: "1", prixKit: "15 €", viaAirbnb: "1", tardif: "1" }).text;
+    expect(airbnb).toContain("centre de résolution Airbnb");
   });
 });

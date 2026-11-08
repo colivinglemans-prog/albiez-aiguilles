@@ -228,7 +228,7 @@ Une question ? Répondez à ce message, ou écrivez-nous sur WhatsApp :
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 À très bientôt,
-Isabelle et Alexandre
+Alexandre
 
 VOTRE RÉSERVATION EN DÉTAIL
 [INVOICE:PRI_QTY_CUA€]
@@ -354,7 +354,7 @@ Any questions? Reply to this message, or write to us on WhatsApp:
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 See you very soon,
-Isabelle and Alexandre
+Alexandre
 
 YOUR BOOKING IN DETAIL
 [INVOICE:PRI_QTY_CUA€]
@@ -417,7 +417,7 @@ Fragen? Antworten Sie auf diese Nachricht oder schreiben Sie uns auf WhatsApp:
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 Bis bald,
-Isabelle und Alexandre
+Alexandre
 
 IHRE BUCHUNG IM DETAIL
 [INVOICE:PRI_QTY_CUA€]
@@ -480,7 +480,7 @@ SU LLEGADA
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 Hasta muy pronto,
-Isabelle y Alexandre
+Alexandre
 
 SU RESERVA EN DETALLE
 [INVOICE:PRI_QTY_CUA€]
@@ -543,7 +543,7 @@ Domande? Rispondete a questo messaggio o scriveteci su WhatsApp:
 +[PROPERTYPHONE] — https://wa.me/[PROPERTYPHONE]
 
 A presto,
-Isabelle e Alexandre
+Alexandre
 
 LA VOSTRA PRENOTAZIONE IN DETTAGLIO
 [INVOICE:PRI_QTY_CUA€]
@@ -560,7 +560,7 @@ Riferimento [REFERENCENUMBER] · [GUESTFULLNAME] · [FIRSTNIGHT] -> [LEAVINGDAY]
 | « Pas de petit déjeuner (cuisine à votre disposition) » | Personne n'attend un petit déjeuner dans un appartement avec cuisine. L'annoncer crée un doute là où il n'y en avait pas. |
 | « Chambre : [ROOMNAME] » | Rend le nom complet du logement, et « chambre » est faux pour un appartement entier. |
 | Le pavé « Récapitulatif de réservation » | Répétait les dates déjà données plus haut. Réduit à une ligne de pied. |
-| « Cordialement, [PROPERTYNAME] » | Une signature de personnes vaut mieux qu'une signature d'annonce, et le message est déjà signé « Isabelle et Alexandre ». |
+| « Cordialement, [PROPERTYNAME] » | Une signature de personnes vaut mieux qu'une signature d'annonce, et le message est déjà signé « Alexandre » (Isabelle retirée le 2026-11-08 : elle ne gère rien). |
 | L'absence d'accents dans le corps | Le sujet en portait déjà (« réservation »), et l'adresse contient « Châtel ». Beds24 envoie en UTF-8 : la prudence était héritée d'un temps révolu. |
 
 ---
