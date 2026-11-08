@@ -34,13 +34,17 @@ export default function MobileBookBar() {
 
   // La barre vit dans le layout et survit aux navigations : on relit l'ancre de chaque page.
   useEffect(() => {
+    // Seuls l'accueil et les pages de saison portent le calendrier. L'index du guide a lui aussi
+    // une section `id="reserver"` (l'étape « Choisir » du parcours) : l'observer y masquerait la
+    // barre dès le chargement, sur la page d'entrée mobile qu'elle doit servir.
+    if (anchorBase(pathname, locale) !== pathname) return;
     const target = document.getElementById("reserver");
     if (!target || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(([entry]) =>
       setSeen({ path: pathname, hidden: entry.isIntersecting }),);
     observer.observe(target);
     return () => observer.disconnect();
-  }, [pathname]);
+  }, [pathname, locale]);
 
   if (HIDDEN_SECTIONS.has((pathname ?? "").split("/")[2] ?? "")) return null;
 
