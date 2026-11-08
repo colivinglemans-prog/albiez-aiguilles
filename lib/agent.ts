@@ -61,11 +61,11 @@ export const STAY_QUOTE: StayQuoteConfig = {
       perGuest: PROPERTY.linen.pricePerPerson,
       // La page de paiement Beds24 ne coche pas l'option d'elle-même (option n° 2, « kit linge »).
       bookingNote: {
-        fr: "Linge de lit et serviettes : cochez l'option « kit linge » sur la page de paiement, sinon il n'est pas compris. Les lits ne sont pas faits : draps et une serviette de bain par personne sont mis à disposition dans l'appartement.",
-        en: "Bed linen and towels: tick the “linen kit” option on the payment page, otherwise it is not included. Beds are not made up: sheets and one bath towel per person are left in the apartment.",
-        de: "Bettwäsche und Handtücher: Kreuzen Sie auf der Zahlungsseite die Option „Wäschepaket“ an, sonst sind sie nicht enthalten. Die Betten sind nicht bezogen: Bettwäsche und ein Badetuch pro Person liegen in der Wohnung bereit.",
-        es: "Ropa de cama y toallas: marque la opción «kit de ropa» en la página de pago; si no, no está incluida. Las camas no están hechas: las sábanas y una toalla de baño por persona se dejan en el apartamento.",
-        it: "Biancheria e asciugamani: spuntate l'opzione «kit biancheria» nella pagina di pagamento, altrimenti non è inclusa. I letti non sono fatti: lenzuola e un telo da bagno a persona vi attendono in appartamento.",
+        fr: "Linge de lit et serviettes : cochez l'option « kit linge » sur la page de paiement, sinon il n'est pas compris. Avec l'option, les lits ne sont pas faits : draps, taies et une serviette de bain par personne sont mis à disposition, à installer soi-même.",
+        en: "Bed linen and towels: tick the “linen kit” option on the payment page, otherwise it is not included. With the option, beds are not made up: sheets, pillowcases and one bath towel per person are left in the apartment, to put on yourselves.",
+        de: "Bettwäsche und Handtücher: Kreuzen Sie auf der Zahlungsseite die Option „Wäschepaket“ an, sonst sind sie nicht enthalten. Mit der Option sind die Betten nicht bezogen: Bettwäsche, Kissenbezüge und ein Badetuch pro Person liegen bereit, zum Selbstbeziehen.",
+        es: "Ropa de cama y toallas: marque la opción «kit de ropa» en la página de pago; si no, no está incluida. Con la opción, las camas no están hechas: las sábanas, las fundas de almohada y una toalla de baño por persona se dejan en el apartamento, para que las coloquen ustedes.",
+        it: "Biancheria e asciugamani: spuntate l'opzione «kit biancheria» nella pagina di pagamento, altrimenti non è inclusa. Con l'opzione, i letti non sono fatti: lenzuola, federe e un telo da bagno a persona vi attendono in appartamento, da sistemare da soli.",
       },
     },
   ],
