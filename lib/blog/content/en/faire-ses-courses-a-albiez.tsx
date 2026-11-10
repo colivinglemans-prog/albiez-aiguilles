@@ -15,8 +15,7 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne is on the way, roughly <strong>18 km</strong> and{" "}
         <strong>20 minutes</strong> from Albiez. It has a{" "}
-        <strong>Carrefour Market</strong> (with a click-and-collect service, so you can
-        order from home and load up in ten minutes) and a <strong>Lidl</strong>.
+        <strong>Carrefour Market</strong> and a <strong>Lidl</strong>.
       </p>
       <p>
         Worth knowing: there is a <strong>petrol station and a laundrette</strong> at the

@@ -75,8 +75,8 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne está en el camino, a <strong>18 km</strong> y de 20 a 25
         minutos del apartamento. Fuera de temporada, es allí donde hay que llenar el
-        maletero <strong>antes de subir</strong>: Carrefour Market (con recogida de pedidos
-        en coche, gasolinera y lavandería) y Lidl. El detalle está en nuestro artículo{" "}
+        maletero <strong>antes de subir</strong>: Carrefour Market (gasolinera y
+        lavandería) y Lidl. El detalle está en nuestro artículo{" "}
         <Link href="/es/guide/faire-ses-courses-a-albiez">hacer la compra en Albiez</Link>.
       </p>
       <p>

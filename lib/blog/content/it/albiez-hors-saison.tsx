@@ -74,7 +74,7 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne è sulla strada, a <strong>18 km</strong> e 20-25 minuti
         dall'appartamento. Fuori stagione, è lì che bisogna riempire il bagagliaio{" "}
-        <strong>prima di salire</strong>: Carrefour Market (con drive, distributore di
+        <strong>prima di salire</strong>: Carrefour Market (distributore di
         carburante e lavanderia) e Lidl. I dettagli sono nel nostro articolo{" "}
         <Link href="/it/guide/faire-ses-courses-a-albiez">fare la spesa ad Albiez</Link>.
       </p>

@@ -78,7 +78,7 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne est sur la route, à <strong>18 km</strong> et 20 à 25
         minutes de l'appartement. Hors saison, c'est là qu'il faut remplir le coffre{" "}
-        <strong>avant de monter</strong> : Carrefour Market (avec drive, station essence et
+        <strong>avant de monter</strong> : Carrefour Market (station essence et
         laverie) et Lidl. Le détail est dans notre article{" "}
         <Link href="/fr/guide/faire-ses-courses-a-albiez">faire ses courses à Albiez</Link>.
       </p>

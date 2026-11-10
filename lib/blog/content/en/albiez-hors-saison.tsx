@@ -74,8 +74,8 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne is on the way, <strong>18 km</strong> and 20 to 25 minutes
         from the apartment. Out of season, that is where to fill the boot{" "}
-        <strong>before driving up</strong>: Carrefour Market (with click-and-collect,
-        petrol station and launderette) and Lidl. The details are in our article{" "}
+        <strong>before driving up</strong>: Carrefour Market (petrol station and
+        launderette) and Lidl. The details are in our article{" "}
         <Link href="/en/guide/faire-ses-courses-a-albiez">food shopping in Albiez</Link>.
       </p>
       <p>

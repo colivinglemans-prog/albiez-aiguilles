@@ -15,8 +15,7 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne liegt auf dem Weg, etwa <strong>18 km</strong> und{" "}
         <strong>20 Minuten</strong> von Albiez. Dort gibt es einen{" "}
-        <strong>Carrefour Market</strong> (mit Abholservice, sodass man von daheim bestellen und in zehn Minuten
-        einladen kann) und einen <strong>Lidl</strong>.
+        <strong>Carrefour Market</strong> und einen <strong>Lidl</strong>.
       </p>
       <p>
         Gut zu wissen: <strong>Tankstelle und Waschsalon</strong> beim Carrefour Market. Bei einer Woche mit

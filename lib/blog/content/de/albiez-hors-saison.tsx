@@ -75,7 +75,7 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne liegt auf dem Weg, <strong>18 km</strong> und 20 bis 25
         Minuten von der Wohnung. Außerhalb der Saison füllt man dort den Kofferraum,{" "}
-        <strong>bevor man hinauffährt</strong>: Carrefour Market (mit Drive, Tankstelle und
+        <strong>bevor man hinauffährt</strong>: Carrefour Market (Tankstelle und
         Waschsalon) und Lidl. Die Einzelheiten stehen in unserem Artikel{" "}
         <Link href="/de/guide/faire-ses-courses-a-albiez">Einkaufen in Albiez</Link>.
       </p>

@@ -427,7 +427,7 @@ Pour les forfaits, il est possible de les prendre avec les cours de ski ou de le
 ### Manières d'économiser — Alimentation
 
 Pour arriver à Albiez, vous passez forcément par Saint-Jean de Maurienne.
-Vous pouvez en profiter pour faire vos courses d'alimentation au Carrefour Market (drive possible) ou au Lidl (20 min / 30 km d'Albiez).
+Vous pouvez en profiter pour faire vos courses d'alimentation au Carrefour Market ou au Lidl (20 min / 30 km d'Albiez).
 Sinon, y'a le Sherpa à 250 m du chalet, une boulangerie et une supérette-alimentation épicerie secteur Chef Lieu.
 NB: Essence et Laverie au Carrefour Market.
 

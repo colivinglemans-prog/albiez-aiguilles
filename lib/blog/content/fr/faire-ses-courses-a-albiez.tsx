@@ -16,8 +16,7 @@ export default function Article() {
       <p>
         Saint-Jean-de-Maurienne est sur la route, à environ <strong>18 km</strong> et{" "}
         <strong>20 minutes</strong> d'Albiez. On y trouve un{" "}
-        <strong>Carrefour Market</strong> (avec drive, ce qui permet de commander depuis
-        chez soi et de charger en dix minutes) et un <strong>Lidl</strong>.
+        <strong>Carrefour Market</strong> et un <strong>Lidl</strong>.
       </p>
       <p>
         Bon à savoir : <strong>station essence et laverie</strong> au Carrefour Market. Sur

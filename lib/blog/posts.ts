@@ -1799,7 +1799,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: null,
     locales: {
       fr: {
-        title: "Courses à Albiez : supérette, livraison, drive, boucherie",
+        title: "Courses à Albiez : supérette, boucherie et livraison",
         description:
           "Sherpa au front de neige, épicerie Sambuis Dufreney et boulangerie au Chef-lieu, Carrefour Market et Lidl à Saint-Jean-de-Maurienne : où faire ses courses et dans quel ordre.",
         excerpt:
@@ -1813,7 +1813,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Groceries in Albiez: supermarket, delivery, click & collect",
+        title: "Groceries in Albiez: supermarket, butcher's and delivery",
         description:
           "The Sherpa by the slopes, the Sambuis Dufreney grocery and the bakery in the village, Carrefour Market and Lidl in Saint-Jean-de-Maurienne: where to shop, and in which order.",
         excerpt:
@@ -1828,7 +1828,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Einkaufen in Albiez: Supermarkt, Lieferung, Click & Collect",
+          "Einkaufen in Albiez: Supermarkt, Metzgerei und Lieferung",
         description:
           "Der Sherpa am Pistenzugang, der Lebensmittelladen Sambuis Dufreney und die Bäckerei im Dorf, Carrefour Market und Lidl in Saint-Jean-de-Maurienne: wo Sie einkaufen und in welcher Reihenfolge.",
         excerpt:
@@ -1858,7 +1858,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Spesa ad Albiez-Montrond: supermercato, consegna, drive",
+          "Spesa ad Albiez-Montrond: supermercato, macelleria, consegna",
         description:
           "Lo Sherpa all'accesso alle piste, l'alimentari Sambuis Dufreney e il panificio in paese, Carrefour Market e Lidl a Saint-Jean-de-Maurienne: dove fare la spesa e in quale ordine.",
         excerpt:
