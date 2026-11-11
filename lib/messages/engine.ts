@@ -129,7 +129,9 @@ async function variables(b: Row, t: MessageTemplate): Promise<Vars> {
   const vars: Record<string, string | undefined> = {
     prenom: b.firstName,
     guideArrivee: urlGuideArrivee(b.locale),
-    guide: `${SITE_URL}/${b.locale}/guide`,
+    // Ancres stables du guide (#reserver, #preparer, #sur-place) : la confirmation pointe vers
+    // « préparer », comme celle de Beds24 ; les autres messages vers ce qui se fait sur place.
+    guide: `${SITE_URL}/${b.locale}/guide#${t.id === "confirmation" ? "preparer" : "sur-place"}`,
     telephone: formatPhone(PROPERTY.contact.phone),
     whatsapp: PROPERTY.contact.whatsapp,
     adresse: PROPERTY.address.full,
