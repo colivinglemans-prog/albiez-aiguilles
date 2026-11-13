@@ -61,8 +61,11 @@ async function notify(result: Result, bracketed: boolean): Promise<void> {
 
 export async function POST(request: NextRequest) {
   const { result, bracketed } = check(request);
-  // Pas de notification sans en-tête : ce sont des robots, pas Beds24.
-  if (result !== "no-header") await notify(result, bracketed);
+  // Un refus n'alerte que s'il vient de Beds24 (agent « Booking Notifier », relevé le 2026-11-13) :
+  // les robots, et le contrôle `security.webhooks` du socle, qui envoie exprès un faux secret,
+  // donnaient de fausses alertes.
+  const fromBeds24 = (request.headers.get("user-agent") ?? "").includes("Booking Notifier");
+  if (result === "accepted" || (result !== "no-header" && fromBeds24)) await notify(result, bracketed);
   if (result !== "accepted") {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
