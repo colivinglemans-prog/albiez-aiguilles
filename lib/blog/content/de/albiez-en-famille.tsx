@@ -40,6 +40,10 @@ export default function Article() {
         Naturbahn –, aber wenn sie liegt, ist sie dreißig Sekunden von der Tür entfernt.
       </p>
       <p>
+        Rund um das Chalet hat die Residenz am Hang <strong>Grünflächen</strong>, auf denen
+        Kinder sicher spielen und im Winter sogar rodeln können.
+      </p>
+      <p>
         Der <strong>Schlepplift Coucou</strong> ist der der Anfänger, und der{" "}
         <Link href="/de/guide/domaine-skiable-albiez-secteur-mollard">
           Schlepplift Polytre
@@ -60,8 +64,8 @@ export default function Article() {
       <h2>Im Sommer: Baden, Ponys und Rad</h2>
       <p>
         Der <Link href="/de/guide/lac-du-mollard-baignade">See am Mollard</Link>, 350 m entfernt, ist{" "}
-        <strong>vom 1. Juli bis 31. August von 12 bis 18 Uhr bewacht</strong>. Dort gibt es ein
-        aufblasbares Spielgerät, ein Planschbecken für die Kleinsten, Picknicktische, eine Boulebahn,
+        <strong>vom 1. Juli bis 31. August von 12 bis 18 Uhr bewacht</strong>. Dort gibt es einen
+        Spielplatz (den nächstgelegenen zur Wohnung), ein aufblasbares Spielgerät, ein Planschbecken für die Kleinsten, Picknicktische, eine Boulebahn,
         ein Volleyballfeld und öffentliche Toiletten.
       </p>
       <p>
@@ -81,12 +85,13 @@ export default function Article() {
         Hochstuhl und Babyschlitten. Melden Sie es vor der Ankunft, damit es bereitsteht. Die
         Schlitten der Kinder sind im Skischrank auf dem Treppenabsatz verstaut. Die
         Schlafnische mit ihren Etagenbetten ist in der Regel der erste Ort, den die Kinder für sich
-        beanspruchen. Die Einzelheiten zu den Schlafplätzen stehen auf{" "}
+        beanspruchen. Spiele, Spielzeug und Bücher warten in der Wohnung auf sie. Die Einzelheiten zu den Schlafplätzen stehen auf{" "}
         <Link href="/de#appartement">der Seite der Wohnung</Link>.
       </p>
       <p>
-        Eine Frage der Ehrlichkeit: der Zugang verlangt{" "}
-        <strong>etwa fünfzig Stufen</strong> ab dem Parkplatz. Mit einem Kinderwagen sollte man das vor
+        Eine Frage der Ehrlichkeit: Der kostenlose Parkplatz der Residenz liegt 50 m von der
+        Wohnung entfernt, doch diese 50 m führen über einen Weg mit kurzen Treppenabschnitten,{" "}
+        <strong>insgesamt etwa fünfzig Stufen</strong>. Mit einem Kinderwagen sollte man das vor
         der Buchung wissen.
       </p>
     </>

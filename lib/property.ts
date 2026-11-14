@@ -76,6 +76,8 @@ export const PROPERTY = {
     /** Le « coin montagne » n'est pas une chambre fermée : compté à part. */
     alcoves: 1,
     bathrooms: 1,
+    /** Salle de bain avec baignoire (pas une douche seule). */
+    bathtub: true,
     separateToilet: true,
   },
 
@@ -108,8 +110,13 @@ export const PROPERTY = {
   },
 
   access: {
-    /** Marches entre le parking et l'appartement. */
+    /** Marches entre le parking et l'appartement, au total, en petites volées. */
     steps: 50,
+    /**
+     * Distance parking → porte, **marches comprises** : ce ne sont pas 50 m de marche suivis
+     * de 50 marches. Le chemin monte par petites volées jusqu'à l'arrière du chalet (déjà au
+     * 1er étage), puis un dernier escalier mène au dernier étage.
+     */
     parkingDistanceM: 50,
     parkingType: "extérieur",
     keyBox: true,

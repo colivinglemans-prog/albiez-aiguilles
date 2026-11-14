@@ -123,7 +123,7 @@ export const de: Dictionary = {
         {
           title: "Winter abseits der Pisten",
           description:
-            "Die Rodelbahn am Mollard liegt direkt neben der Residenz, in voller Sonne – Schneesicherheit gibt es keine, aber wenn sie offen ist, füllt sie einen ganzen Nachmittag. Dazu: Schneeschuhe, Langlauf, Hundeschlitten, Motorschlitten, Gleitschirm, Aperitif im Iglu. Kinderschlitten warten im Skischrank auf dem Treppenabsatz.",
+            "Die Rodelbahn am Mollard liegt direkt neben der Residenz, in voller Sonne – Schneesicherheit gibt es keine, aber wenn sie offen ist, füllt sie einen ganzen Nachmittag. Rund um das Chalet gibt es Grünflächen, auf denen Kinder sicher spielen und sogar rodeln können. Dazu: Schneeschuhe, Langlauf, Hundeschlitten, Motorschlitten, Gleitschirm, Aperitif im Iglu. Kinderschlitten warten im Skischrank auf dem Treppenabsatz.",
           link: {
             href: "/de/guide/chiens-de-traineau-albiez",
             label: "Hundeschlittenfahrten in Albiez",
@@ -225,7 +225,7 @@ export const de: Dictionary = {
         {
           title: "Baden am See",
           description:
-            "Bewachter Badebetrieb im Juli und August, 350 Meter entfernt. Genug, um heiße Nachmittage zu füllen, ohne ins Auto zu steigen.",
+            "Bewachter Badebetrieb im Juli und August, 350 Meter entfernt, mit einem Spielplatz für die Kinder. Genug, um heiße Nachmittage zu füllen, ohne ins Auto zu steigen.",
         },
         {
           title: "Pony und Pferd",
@@ -341,6 +341,7 @@ export const de: Dictionary = {
         items: [
           "Kinderschlitten",
           "Gesellschaftsspiele",
+          "Kinderspielzeug",
           "Eine Auswahl an Büchern",
           "Reisebett mit Matratze (auf Anfrage)",
           "Hochstuhl (auf Anfrage)",
@@ -391,8 +392,8 @@ export const de: Dictionary = {
     title: "Praktische Hinweise",
     accessTitle: "Ankunft und Zugang",
     stepsWarning:
-      "Zwischen Parkplatz und Wohnung liegen etwa fünfzig Stufen. Das ist der Preis für die Aussicht – aber man sollte es vor der Buchung wissen.",
-    parking: "Außenparkplatz 50 Meter vom Chalet.",
+      "Der kostenlose Parkplatz der Residenz liegt 50 Meter von der Wohnung entfernt, Stufen inbegriffen: Der Weg steigt in kurzen Treppenabschnitten an, insgesamt etwa fünfzig Stufen. Das ist der Preis für die Aussicht – aber mit Kinderwagen oder schwerem Gepäck sollte man es vor der Buchung wissen.",
+    parking: "Kostenloser Außenparkplatz 50 Meter von der Wohnung, Stufen inbegriffen. Weg und Stufen werden geräumt, nach starkem Schneefall kann aber noch Schnee liegen.",
     keyBox:
       "Schlüsselbox: Sie kommen und gehen völlig selbstständig, ohne Termin (Anreise ab 16 Uhr, Abreise bis 10 Uhr).",
     skiLocker: "Großer Skischrank auf dem Treppenabsatz.",
@@ -627,6 +628,7 @@ export const de: Dictionary = {
         amenities: [
           "Skischrank auf dem Treppenabsatz",
           "Außenparkplatz",
+          "Grünflächen rund um das Chalet",
           "Residenz Le Hameau des Aiguilles",
         ],
       },
@@ -811,7 +813,7 @@ export const de: Dictionary = {
       },
     },
     stairsNote: (steps) =>
-      `Etwa ${steps} Stufen trennen den Parkplatz von der Wohnung. Die Aussicht muss man sich verdienen!`,
+      `Insgesamt etwa ${steps} Stufen zwischen Parkplatz und Wohnung, in kurzen Abschnitten. Die Aussicht muss man sich verdienen!`,
     unitNote: (unit) => `Tür ${unit} — der Skischrank trägt ebenfalls die ${unit}.`,
     keyBoxSecurity:
       "Denken Sie daran, die Box wieder zu schließen und den Code zu verstellen. Sie steht Ihnen während des gesamten Aufenthalts zur Verfügung.",

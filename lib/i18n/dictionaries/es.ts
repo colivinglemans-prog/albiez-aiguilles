@@ -123,7 +123,7 @@ export const es: Dictionary = {
         {
           title: "El invierno fuera de las pistas",
           description:
-            "La pista de trineos del Mollard está junto a la residencia, a pleno sol; su nieve no está garantizada, pero cuando abre llena una tarde entera. Además: raquetas de nieve, esquí de fondo, trineos tirados por perros, motos de nieve, parapente, aperitivo en un iglú. En el guardaesquís, en el rellano, le esperan trineos para niños.",
+            "La pista de trineos del Mollard está junto a la residencia, a pleno sol; su nieve no está garantizada, pero cuando abre llena una tarde entera. Alrededor del chalé hay zonas verdes donde los niños juegan seguros, e incluso se tiran en trineo. Además: raquetas de nieve, esquí de fondo, trineos tirados por perros, motos de nieve, parapente, aperitivo en un iglú. En el guardaesquís, en el rellano, le esperan trineos para niños.",
           link: {
             href: "/es/guide/chiens-de-traineau-albiez",
             label: "Los trineos tirados por perros en Albiez",
@@ -225,7 +225,7 @@ export const es: Dictionary = {
         {
           title: "Baño en el lago",
           description:
-            "Baño vigilado en julio y agosto, a 350 metros. Suficiente para llenar las tardes calurosas sin coger el coche.",
+            "Baño vigilado en julio y agosto, a 350 metros, con un parque infantil. Suficiente para llenar las tardes calurosas sin coger el coche.",
         },
         {
           title: "Poni y caballo",
@@ -340,6 +340,7 @@ export const es: Dictionary = {
         items: [
           "Trineos para niños",
           "Juegos de mesa",
+          "Juguetes para niños",
           "Una selección de libros",
           "Cuna de viaje con colchón (a petición)",
           "Trona (a petición)",
@@ -390,8 +391,8 @@ export const es: Dictionary = {
     title: "Información práctica",
     accessTitle: "Llegada y acceso",
     stepsWarning:
-      "Hay unos cincuenta escalones entre el aparcamiento y el apartamento. Es el precio de las vistas, pero conviene saberlo antes de reservar.",
-    parking: "Aparcamiento exterior a 50 metros del chalé.",
+      "El aparcamiento gratuito de la residencia está a 50 metros del apartamento, escalones incluidos: el camino sube por tramos cortos de escalones, unos cincuenta en total. Es el precio de las vistas, pero conviene saberlo antes de reservar si viene con carrito o equipaje pesado.",
+    parking: "Aparcamiento exterior gratuito a 50 metros del apartamento, escalones incluidos. El camino y los escalones se limpian de nieve, aunque puede quedar algo tras una nevada fuerte.",
     keyBox:
       "Caja de llaves: llega y se va con total autonomía, sin cita (llegada desde las 16 h, salida antes de las 10 h).",
     skiLocker: "Amplio guardaesquís en el rellano.",
@@ -626,6 +627,7 @@ export const es: Dictionary = {
         amenities: [
           "Guardaesquís en el rellano",
           "Aparcamiento exterior",
+          "Zonas verdes alrededor del chalé",
           "Residencia Le Hameau des Aiguilles",
         ],
       },
@@ -810,7 +812,7 @@ export const es: Dictionary = {
       },
     },
     stairsNote: (steps) =>
-      `Unos ${steps} escalones separan el aparcamiento del apartamento. ¡Las vistas hay que merecerlas!`,
+      `Unos ${steps} escalones en total entre el aparcamiento y el apartamento, en tramos cortos. ¡Las vistas hay que merecerlas!`,
     unitNote: (unit) =>
       `Puerta ${unit} — el guardaesquís lleva también el ${unit}.`,
     keyBoxSecurity:

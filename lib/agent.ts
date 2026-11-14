@@ -109,17 +109,17 @@ function pages(lang: string): Record<string, string> {
 const FACTS_FR: Omit<PropertyFacts, "pages"> = {
   name: SITE_NAME,
   summary:
-    "Appartement de montagne de 33 m² pour 4 à 6 personnes à Albiez-Montrond (Savoie, 1 600 m), à 250 m à pied du front de neige du Mollard, balcon sud-est face aux Aiguilles d'Arves. Station familiale, environ 2 h 30 de Lyon et de Genève.",
+    "Appartement de montagne de 33 m² pour 4 à 6 personnes à Albiez-Montrond (Savoie, 1 600 m), à 250 m à pied du front de neige du Mollard, balcon sud-est face aux Aiguilles d'Arves. Station familiale, environ 2 h 30 de Lyon et de Genève. Autour du chalet, des espaces verts où les enfants jouent en sécurité, et font même de la luge l'hiver (l'aire de jeux la plus proche est au plan d'eau, à 350 m).",
   address: PROPERTY.address.full,
   capacity: { max: PROPERTY.capacity.max, recommended: PROPERTY.capacity.min, note: "Pensé pour 4, jusqu'à 6 ; même prix de 1 à 4 personnes. 1 chambre (lit 160), coin montagne (2 lits superposés 80), canapé gigogne (2 × 80)" },
   checkIn: "À partir de 16 h, arrivée autonome (boîte à clés), contact sur place",
   checkOut: "Avant 10 h",
-  includes: ["Ménage de fin de séjour (hors cuisine et vaisselle)", "Taxe de séjour", "Casier à skis sur le palier", "Kit bébé sur demande"],
+  includes: ["Ménage de fin de séjour (hors cuisine et vaisselle)", "Taxe de séjour", "Casier à skis sur le palier", "Kit bébé sur demande", "Salle de bain avec baignoire, WC séparés", "Jeux, jouets et livres pour les enfants"],
   rules: [
     "Séjours professionnels uniquement hors saison (ni pendant l'ouverture du domaine skiable, ni en juillet-août) : devis à contact@albiez-aiguilles.fr",
     "Couettes et oreillers fournis ; draps et serviettes en option",
     "Animaux non autorisés",
-    "Non-fumeur", "Parking extérieur gratuit à 50 m puis une cinquantaine de marches", "Pneus hiver ou chaînes obligatoires du 1er novembre au 31 mars"],
+    "Non-fumeur", "Parking extérieur gratuit de la résidence à 50 m de l'appartement, par un chemin en petites volées de marches (une cinquantaine au total, à savoir avec une poussette ou des bagages lourds), déneigé mais il peut rester de la neige après une forte chute", "Pneus hiver ou chaînes obligatoires du 1er novembre au 31 mars"],
   contact: { phone: PROPERTY.contact.phone, whatsapp: PROPERTY.contact.whatsapp, email: PROPERTY.contact.business },
 };
 
@@ -127,16 +127,16 @@ const FACTS_EN: Omit<PropertyFacts, "pages"> = {
   ...FACTS_FR,
   name: "Albiez - Apartment in the Chalet du Hameau des Aiguilles",
   summary:
-    "33 m² mountain apartment for 4 to 6 guests in Albiez-Montrond (Savoie, French Alps, 1,600 m), a 250 m walk from the Mollard ski front, south-east balcony facing the Aiguilles d'Arves. Family resort, about 2 h 30 from Lyon and Geneva.",
+    "33 m² mountain apartment for 4 to 6 guests in Albiez-Montrond (Savoie, French Alps, 1,600 m), a 250 m walk from the Mollard ski front, south-east balcony facing the Aiguilles d'Arves. Family resort, about 2 h 30 from Lyon and Geneva. Around the chalet, green spaces where children can play safely, and even sledge in winter (the nearest playground is at the lake, 350 m away).",
   capacity: { max: PROPERTY.capacity.max, recommended: PROPERTY.capacity.min, note: "Designed for 4, up to 6; same price from 1 to 4 guests. 1 bedroom (160 bed), mountain nook (2 bunk beds 80), trundle sofa (2 × 80)" },
   checkIn: "From 4 pm, self check-in (key box), on-site contact",
   checkOut: "Before 10 am",
-  includes: ["End-of-stay cleaning (except kitchen and dishes)", "Tourist tax", "Ski locker on the landing", "Baby kit on request"],
+  includes: ["End-of-stay cleaning (except kitchen and dishes)", "Tourist tax", "Ski locker on the landing", "Baby kit on request", "Bathroom with bathtub, separate toilet", "Games, toys and books for children"],
   rules: [
     "Work stays off-season only (not while the ski area is open, nor in July-August): quote at contact@albiez-aiguilles.fr",
     "Duvets and pillows provided; sheets and towels optional",
     "No pets",
-    "Non-smoking", "Free outdoor parking 50 m away, then about fifty steps", "Winter tyres or chains mandatory from 1 November to 31 March"],
+    "Non-smoking", "Free outdoor residence parking 50 m from the apartment, along a path with short flights of steps (about fifty in all, worth knowing with a pushchair or heavy luggage), cleared of snow, though some may remain after a heavy snowfall", "Winter tyres or chains mandatory from 1 November to 31 March"],
 };
 
 export const STAY_AGENT: StayAgentConfig = {

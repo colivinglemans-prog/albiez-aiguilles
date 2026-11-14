@@ -39,6 +39,11 @@ export default function Article() {
         quando tiene, è a trenta secondi dalla porta.
       </p>
       <p>
+        Intorno allo chalet, la residenza, sul fianco della collina, ha{" "}
+        <strong>spazi verdi</strong> dove i bambini possono giocare in sicurezza, e d'inverno
+        perfino andare in slittino.
+      </p>
+      <p>
         Lo <strong>skilift Coucou</strong> è quello dei principianti, e lo{" "}
         <Link href="/it/guide/domaine-skiable-albiez-secteur-mollard">
           skilift Polytre
@@ -59,8 +64,8 @@ export default function Article() {
       <h2>L'estate: bagno, pony e bici</h2>
       <p>
         Lo <Link href="/it/guide/lac-du-mollard-baignade">specchio d'acqua del Mollard</Link>, a 350 m, è{" "}
-        <strong>sorvegliato dal 1° luglio al 31 agosto, dalle 12 alle 18</strong>. Vi si trovano una
-        struttura gonfiabile, una vasca per i più piccoli, tavoli da picnic, un campo da bocce, un campo
+        <strong>sorvegliato dal 1° luglio al 31 agosto, dalle 12 alle 18</strong>. Vi si trovano un
+        parco giochi (il più vicino all'alloggio), una struttura gonfiabile, una vasca per i più piccoli, tavoli da picnic, un campo da bocce, un campo
         da pallavolo e servizi igienici pubblici.
       </p>
       <p>
@@ -79,14 +84,16 @@ export default function Article() {
         Un <strong>kit bebè</strong> è disponibile su richiesta: culla da viaggio, piccolo materasso,
         seggiolone e slittino per bebè. Segnalatelo prima dell'arrivo perché sia pronto. Gli slittini dei
         bambini sono riposti nell'armadietto per gli sci, sul pianerottolo. L'angolo
-        montagna, con i suoi letti a castello, è in genere il primo posto che i bambini si appropriano. Il
+        montagna, con i suoi letti a castello, è in genere il primo posto che i bambini si appropriano. Giochi, giocattoli e libri li
+        aspettano nell'appartamento. Il
         dettaglio dei posti letto è sulla{" "}
         <Link href="/it#appartement">pagina dell'alloggio</Link>.
       </p>
       <p>
-        Un punto di onestà: l'accesso richiede{" "}
-        <strong>una cinquantina di gradini</strong> dal parcheggio. Con un passeggino, è meglio saperlo
-        prima di prenotare.
+        Un punto di onestà: il parcheggio gratuito della residenza è a 50 m dall'appartamento,
+        ma quei 50 m seguono un sentiero a brevi rampe di gradini,{" "}
+        <strong>una cinquantina in tutto</strong>. Con un passeggino, è meglio saperlo prima di
+        prenotare.
       </p>
     </>
   );

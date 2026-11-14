@@ -39,6 +39,10 @@ export default function Article() {
         pero cuando cuaja, queda a treinta segundos de la puerta.
       </p>
       <p>
+        Alrededor del chalé, la residencia, en plena ladera, tiene <strong>zonas verdes</strong>{" "}
+        donde los niños pueden jugar seguros, e incluso tirarse en trineo en invierno.
+      </p>
+      <p>
         El <strong>telesquí Coucou</strong> es el de los principiantes, y el{" "}
         <Link href="/es/guide/domaine-skiable-albiez-secteur-mollard">
           telesquí Polytre
@@ -59,8 +63,8 @@ export default function Article() {
       <h2>El verano: baño, ponis y bicicleta</h2>
       <p>
         El <Link href="/es/guide/lac-du-mollard-baignade">lago del Mollard</Link>, a 350 m, está{" "}
-        <strong>vigilado del 1 de julio al 31 de agosto, de 12 a 18 h</strong>. Allí hay una estructura
-        hinchable, una piscina infantil para los más pequeños, mesas de picnic, una cancha de petanca,
+        <strong>vigilado del 1 de julio al 31 de agosto, de 12 a 18 h</strong>. Allí hay un parque
+        infantil (el más cercano al alojamiento), una estructura hinchable, una piscina infantil para los más pequeños, mesas de picnic, una cancha de petanca,
         un campo de voleibol y aseos públicos.
       </p>
       <p>
@@ -79,14 +83,16 @@ export default function Article() {
         Hay un <strong>kit de bebé</strong> disponible a petición: cuna de viaje, colchoncito,
         trona y trineo de bebé. Avise antes de la llegada para que esté listo. Los trineos de
         los niños están guardados en el guardaesquís, en el rellano. El rincón de
-        montaña, con sus camas superpuestas, suele ser el primer lugar que los niños se apropian. El
+        montaña, con sus camas superpuestas, suele ser el primer lugar que los niños se apropian. Juegos, juguetes y libros los
+        esperan en el apartamento. El
         detalle de las plazas para dormir está en{" "}
         <Link href="/es#appartement">la página del alojamiento</Link>.
       </p>
       <p>
-        Un punto de honestidad: el acceso exige{" "}
-        <strong>unos cincuenta escalones</strong> desde el aparcamiento. Con un carrito, conviene
-        saberlo antes de reservar.
+        Un punto de honestidad: el aparcamiento gratuito de la residencia está a 50 m del
+        apartamento, pero esos 50 m siguen un camino con tramos cortos de escalones,{" "}
+        <strong>unos cincuenta en total</strong>. Con un carrito, conviene saberlo antes de
+        reservar.
       </p>
     </>
   );

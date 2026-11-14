@@ -44,6 +44,11 @@ export default function Article() {
         secondes de la porte.
       </p>
       <p>
+        Autour du chalet, la résidence, à flanc de colline, a des{" "}
+        <strong>espaces verts</strong> où les enfants peuvent jouer en sécurité, et même
+        faire de la luge l'hiver.
+      </p>
+      <p>
         Le <strong>téléski Coucou</strong> est celui des débutants, et le{" "}
         <Link href="/fr/guide/domaine-skiable-albiez-secteur-mollard">
           téléski Polytre
@@ -65,7 +70,7 @@ export default function Article() {
       <p>
         Le <Link href="/fr/guide/lac-du-mollard-baignade">plan d'eau du Mollard</Link>, à
         350 m, est <strong>surveillé du 1<sup>er</sup> juillet au 31 août, de 12 h à 18 h</strong>.
-        On y trouve une structure gonflable, un bassin « pataugeoire » pour les plus petits,
+        On y trouve une aire de jeux (la plus proche du logement), une structure gonflable, un bassin « pataugeoire » pour les plus petits,
         des tables de pique-nique, un terrain de pétanque, un terrain de volley et des
         toilettes publiques.
       </p>
@@ -88,12 +93,15 @@ export default function Article() {
         matelas, chaise haute et luge bébé. Signalez-le avant l'arrivée pour qu'il soit
         prêt. Les luges des enfants sont rangées dans le casier à skis, sur le palier. Le
         coin montagne, avec ses lits superposés, est en général le premier
-        endroit que les enfants s'approprient. Le détail des couchages est sur{" "}
+        endroit que les enfants s'approprient. Jeux, jouets et livres les attendent dans
+        l'appartement. Le détail des couchages est sur{" "}
         <Link href="/fr#appartement">la page du logement</Link>.
       </p>
       <p>
-        Un point d'honnêteté : l'accès demande <strong>une cinquantaine de marches</strong>{" "}
-        depuis le parking. Avec une poussette, il faut le savoir avant de réserver.
+        Un point d'honnêteté : le parking gratuit de la résidence est à 50 m de
+        l'appartement, mais ces 50 m se font par un chemin en petites volées de marches,{" "}
+        <strong>une cinquantaine au total</strong>. Avec une poussette, il faut le savoir
+        avant de réserver.
       </p>
     </>
   );

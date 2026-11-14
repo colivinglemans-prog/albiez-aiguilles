@@ -131,8 +131,9 @@ export default function Article() {
       <h3>Der Parkplatz und die letzten Meter</h3>
       <p>
         Die Wohnung liegt am Mollard, chemin du Châtel. Man parkt auf dem{" "}
-        <strong>kostenlosen Außenparkplatz</strong>, 50 m entfernt, dann bleiben noch{" "}
-        <strong>etwa fünfzig Stufen</strong> bis zur Residenz. Mit schwerem Gepäck oder einem
+        <strong>kostenlosen Außenparkplatz</strong> der Residenz, 50 m von der Wohnung,
+        Stufen inbegriffen: Der Weg steigt in kurzen Abschnitten an, insgesamt{" "}
+        <strong>etwa fünfzig Stufen</strong>. Mit schwerem Gepäck oder einem
         Kinderwagen planen Sie zwei Gänge ein. Der chemin du Châtel und die Stufen werden{" "}
         <strong>geräumt</strong>; bei starkem Schneefall kann trotzdem Schnee liegen, bis der
         Räumdienst vorbeikommt: Schuhe mit gutem Profil sind nicht zu viel.
@@ -164,8 +165,8 @@ export default function Article() {
           <strong>Route</strong>: A43, Ausfahrt Saint-Jean-de-Maurienne, dann 18 km Straße
           nach Albiez, den ganzen Winter geräumt
           <br />
-          <strong>Vor Ort</strong>: kostenloser Parkplatz 50 m entfernt, dann etwa fünfzig
-          Stufen
+          <strong>Vor Ort</strong>: kostenloser Parkplatz 50 m entfernt, Stufen inbegriffen
+          (etwa fünfzig, in kurzen Abschnitten)
           <br />
           <strong>Die offizielle Regel</strong>:{" "}
           <a

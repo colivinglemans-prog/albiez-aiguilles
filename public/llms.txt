@@ -8,7 +8,7 @@
 - **Capacité** : jusqu'à 6 personnes (même prix de 1 à 4 personnes), 3 espaces de couchage : 1 chambre fermée (lit 160 × 190), 1 coin montagne ouvert avec lits superposés (2 × 80 × 190), 1 canapé gigogne au séjour (2 × 80 × 190)
 - **Surface** : 33 m² (loi Carrez)
 - **Adresse** : Chemin du Châtel, 73300 Albiez-Montrond, France
-- **Accès** : parking extérieur gratuit à 50 m, puis une cinquantaine de marches (à savoir avec une poussette ou des bagages lourds) ; le chemin du Châtel et les marches sont déneigés, mais par forte chute de neige il peut en rester le temps que le déneigement passe
+- **Accès** : parking extérieur gratuit de la résidence à 50 m de l'appartement, marches comprises. Le chemin monte par petites volées de 3 ou 4 marches, avec une courte montée et des passages à plat, jusqu'à l'arrière du chalet, où l'on est déjà au 1er étage ; un dernier escalier mène au dernier étage. Une cinquantaine de marches au total (à savoir avec une poussette ou des bagages lourds) ; le chemin du Châtel et les marches sont déneigés, mais par forte chute de neige il peut en rester le temps que le déneigement passe
 - **Arrivée** : à partir de 16 h, autonome (boîte à clés), contact sur place. **Départ** : avant 10 h.
 - **Séjour minimum** (saison 2026-2027, l'API ci-dessous fait foi pour chaque date) :
   - du samedi 19 décembre au samedi 2 janvier : à la semaine, arrivée et départ le samedi ;
@@ -60,9 +60,10 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 ## Équipements
 
 - Cuisine complète : four, lave-vaisselle, machine Nespresso, cafetière filtre, moka
-- Salle de bain et WC séparés
+- Salle de bain avec baignoire et WC séparés
 - Balcon orienté sud-est, face aux Aiguilles d'Arves
 - Télévision
+- Jeux, jouets et livres pour les enfants
 - Une table pour les repas (pas de bureau dédié)
 - Casier à skis privatif sur le palier, juste à côté de la porte de l'appartement (pas de local au rez-de-chaussée)
 - Luges pour enfants, luge bébé comprise, rangées dans le casier à skis (parfois sur le balcon)
@@ -78,6 +79,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 - **Garde d'enfants** : garderie de l'ESF ; centre de loisirs « Le Petit Montagnard » (4-12 ans) pendant les vacances scolaires d'hiver et d'été ; halte-garderie « Le Chat Perché » (3 mois - 6 ans), hiver comme été
 - **Animations des vacances scolaires d'hiver** : l'Albiez C'Show, le mardi soir pendant les vacances de Noël et de février, sur le front de neige (descente aux flambeaux ouverte aux enfants dès le niveau flocon, show des dameuses, démonstrations des moniteurs, feu d'artifice, vin chaud)
 - **Luge** : piste naturelle du Mollard juste à côté de la résidence, et une autre au Chef-lieu près de l'église (enneigement non garanti) ; c'est là que les familles se retrouvent après le ski
+- **Autour du chalet** : la résidence du Hameau des Aiguilles, à flanc de colline, est faite de petits chalets, traversée par une route et son parking ; autour du chalet, des espaces verts où les enfants jouent en sécurité, et font même de la luge l'hiver. La résidence n'a pas d'aire de jeux : la plus proche est au plan d'eau du Mollard, à 350 m
 - Guide « Albiez en famille » : https://www.albiez-aiguilles.fr/fr/guide/albiez-en-famille
 
 ## L'hiver : ski
@@ -92,7 +94,7 @@ Temps de route hors bouchons ; les samedis d'hiver les allongent nettement.
 ## L'été (juillet-août)
 
 - **Fraîcheur** : 1 600 m d'altitude, nuits fraîches en plein été
-- **Baignade** : plan d'eau du Mollard à 350 m, surveillé du 1er juillet au 31 août de 12 h à 18 h ; pataugeoire, structure gonflable, pique-nique, pétanque, volley, toilettes
+- **Baignade** : plan d'eau du Mollard à 350 m, surveillé du 1er juillet au 31 août de 12 h à 18 h ; pataugeoire, aire de jeux, structure gonflable, pique-nique, pétanque, volley, toilettes
 - **Randonnée** : six itinéraires balisés autour du village, de 30 min à 3 h 30 (croix du Châtel, tour du plan d'eau, sentier de la Plaigne au départ du logement ou tout près) ; Promenade Savoyarde de Découverte des Aiguilles d'Arves accessible aux poussettes ; refuge du Chalet la Croë (2 076 m), ouvert de mi-juin à mi-septembre ; accompagnateur en montagne au village
 - **Trail** : Espace Trail du Pays des Aiguilles d'Arves, 550 km balisés, départs à 15-20 min en voiture
 - **Enfants** : poneys au centre équestre Le Kavalkada à 300 m (balades de 30 min ou 1 h, stages à la semaine) ; piste de BMX en accès libre et aires de jeux au Chef-lieu ; location de VTT électriques et trottinettes au village

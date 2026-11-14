@@ -84,7 +84,7 @@ export default function Article() {
         Un punto que conviene anticipar, porque es concreto:{" "}
         <strong>el guardaesquís no está dimensionado para una bicicleta</strong>. Dos
         soluciones in situ: atarla en el rellano, que está cubierto y protegido, o meterla
-        en el balcón. Cuente unos cincuenta escalones desde el aparcamiento.
+        en el balcón. El aparcamiento está a 50 m, por un camino con tramos cortos de escalones (unos cincuenta en total).
       </p>
 
       <h2>Y si no tiene dorsal</h2>

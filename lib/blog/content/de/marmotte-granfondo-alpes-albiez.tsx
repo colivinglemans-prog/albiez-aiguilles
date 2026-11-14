@@ -84,7 +84,7 @@ export default function Article() {
         Eines ist einzuplanen, ganz konkret:{" "}
         <strong>Der Skischrank ist nicht für ein Fahrrad bemessen</strong>. Zwei Möglichkeiten
         vor Ort: es auf dem überdachten, geschützten Treppenabsatz anschließen oder auf den
-        Balkon stellen. Vom Parkplatz sind es rund fünfzig Stufen.
+        Balkon stellen. Der Parkplatz liegt 50 m entfernt, über einen Weg mit kurzen Treppenabschnitten (insgesamt rund fünfzig Stufen).
       </p>
 
       <h2>Und ohne Startplatz</h2>

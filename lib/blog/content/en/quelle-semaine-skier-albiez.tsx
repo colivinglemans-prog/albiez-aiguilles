@@ -159,8 +159,9 @@ export default function Article() {
       <p>
         The baby kit (travel cot, small mattress, high chair, baby sledge) is lent on
         request, to be mentioned before arrival. The sledges are kept in the ski locker, on
-        the landing. One point to know before booking: the free car park is 50 m away and
-        there are around fifty steps up to the apartment, which matters with a pushchair.
+        the landing. One point to know before booking: the free car park is 50 m away,
+        along a path with short flights of steps (about fifty in all), which matters with
+        a pushchair.
         More ideas in our guide{" "}
         <Link href="/en/guide/albiez-en-famille">Albiez with children</Link>.
       </p>

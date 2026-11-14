@@ -165,8 +165,8 @@ export default function Article() {
         El kit de bebé (cuna de viaje, colchoncito, trona, trineo de bebé) se presta a
         petición; avise antes de la llegada. Los trineos están guardados en el guardaesquís,
         en el rellano. Un dato que conviene saber antes de reservar: el aparcamiento
-        gratuito está a 50 m y hay que subir unos cincuenta escalones hasta el apartamento,
-        lo que cuenta con un cochecito. Más ideas en nuestra guía{" "}
+        gratuito está a 50 m, por un camino con tramos cortos de escalones (unos cincuenta en
+        total), lo que cuenta con un cochecito. Más ideas en nuestra guía{" "}
         <Link href="/es/guide/albiez-en-famille">Albiez en familia</Link>.
       </p>
 

@@ -168,8 +168,8 @@ export default function Article() {
         Le kit bébé (lit parapluie, petit matelas, chaise haute, luge bébé) est prêté sur
         demande, à signaler avant l'arrivée. Les luges sont rangées dans le casier à skis,
         sur le palier. Un point à savoir avant de réserver : le parking gratuit est à 50 m
-        et il faut monter une cinquantaine de marches jusqu'à l'appartement, ce qui compte
-        avec une poussette. Plus d'idées dans notre guide{" "}
+        de l'appartement, par un chemin en petites volées de marches (une cinquantaine au
+        total), ce qui compte avec une poussette. Plus d'idées dans notre guide{" "}
         <Link href="/fr/guide/albiez-en-famille">Albiez en famille</Link>.
       </p>
 

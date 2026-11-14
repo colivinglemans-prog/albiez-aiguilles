@@ -122,7 +122,7 @@ export default function Article() {
         Un punto da prevedere, perché è concreto:{" "}
         <strong>l'armadietto per gli sci non è dimensionato per una bici</strong>. Due soluzioni sul
         posto: legarla sul pianerottolo, che è coperto e riparato, o portarla sul balcone.
-        Dal parcheggio sono una cinquantina di gradini.
+        Il parcheggio è a 50 m, lungo un sentiero a brevi rampe di gradini (una cinquantina in tutto).
       </p>
       <p>
         Per le mountain bike e i monopattini elettrici, vedi{" "}

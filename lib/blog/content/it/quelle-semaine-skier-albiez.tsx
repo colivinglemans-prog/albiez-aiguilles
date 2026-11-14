@@ -160,8 +160,8 @@ export default function Article() {
         Il kit bebè (culla da viaggio, piccolo materasso, seggiolone, slittino per bebè) viene
         prestato su richiesta, da segnalare prima dell'arrivo. Gli slittini sono riposti
         nell'armadietto per gli sci, sul pianerottolo. Un punto da sapere prima di prenotare:
-        il parcheggio gratuito è a 50 m e bisogna salire una cinquantina di gradini fino
-        all'appartamento, il che conta con un passeggino. Altre idee nella nostra guida{" "}
+        il parcheggio gratuito è a 50 m, lungo un sentiero a brevi rampe di gradini (una
+        cinquantina in tutto), il che conta con un passeggino. Altre idee nella nostra guida{" "}
         <Link href="/it/guide/albiez-en-famille">Albiez in famiglia</Link>.
       </p>
 

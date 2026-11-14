@@ -122,7 +122,7 @@ export default function Article() {
         One thing to plan for, because it is concrete:{" "}
         <strong>the ski locker is not sized for a bike</strong>. Two options on site: lock
         it on the landing, which is covered and sheltered, or bring it onto the balcony.
-        Allow about fifty steps up from the car park.
+        The car park is 50 m away, along a path with short flights of steps (about fifty in all).
       </p>
       <p>
         For mountain bikes and electric scooters, see{" "}

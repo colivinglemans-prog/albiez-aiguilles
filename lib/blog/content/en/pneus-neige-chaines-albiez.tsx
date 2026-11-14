@@ -128,8 +128,9 @@ export default function Article() {
       <h3>The car park and the last few metres</h3>
       <p>
         The apartment is in the Mollard, chemin du Châtel. You park in the{" "}
-        <strong>free outdoor car park</strong>, 50 m away, then there are{" "}
-        <strong>around fifty steps</strong> up to the residence. With heavy luggage or a
+        <strong>free outdoor car park</strong>, 50 m from the apartment, steps
+        included: the path climbs in short flights, with{" "}
+        <strong>around fifty steps</strong> in all. With heavy luggage or a
         pushchair, plan two trips. The chemin du Châtel and the steps are{" "}
         <strong>cleared of snow</strong>; in heavy snowfall, some may still remain until
         the clearing comes through: shoes with good grip are no luxury.
@@ -160,7 +161,8 @@ export default function Article() {
           <strong>Route</strong>: A43, exit Saint-Jean-de-Maurienne, then 18 km of road to
           Albiez, cleared of snow all winter
           <br />
-          <strong>On site</strong>: free car park 50 m away, then around fifty steps
+          <strong>On site</strong>: free car park 50 m away, steps included (about fifty, in
+          short flights)
           <br />
           <strong>The official rule</strong>:{" "}
           <a

@@ -123,7 +123,7 @@ export const fr: Dictionary = {
         {
           title: "L'hiver hors des pistes",
           description:
-            "La piste de luge du Mollard est juste à côté de la résidence, en plein soleil — son enneigement n'est pas garanti, mais quand elle est ouverte elle occupe une fin d'après-midi entière. Pour le reste : raquettes, ski de fond, chiens de traîneau, motoneige, parapente, apéro dans un igloo. Des luges pour enfants vous attendent dans le casier à skis, sur le palier.",
+            "La piste de luge du Mollard est juste à côté de la résidence, en plein soleil — son enneigement n'est pas garanti, mais quand elle est ouverte elle occupe une fin d'après-midi entière. Autour du chalet, des espaces verts où les enfants jouent en sécurité, et font même de la luge. Pour le reste : raquettes, ski de fond, chiens de traîneau, motoneige, parapente, apéro dans un igloo. Des luges pour enfants vous attendent dans le casier à skis, sur le palier.",
           link: {
             href: "/fr/guide/chiens-de-traineau-albiez",
             label: "Les chiens de traîneau à Albiez",
@@ -225,7 +225,7 @@ export const fr: Dictionary = {
         {
           title: "Baignade au lac",
           description:
-            "Baignade surveillée en juillet et août, à 350 mètres. De quoi occuper les après-midis chauds sans prendre la voiture.",
+            "Baignade surveillée en juillet et août, à 350 mètres, avec une aire de jeux pour les enfants. De quoi occuper les après-midis chauds sans prendre la voiture.",
         },
         {
           title: "Poney et cheval",
@@ -340,6 +340,7 @@ export const fr: Dictionary = {
         items: [
           "Luges pour enfants",
           "Jeux de société",
+          "Jouets pour enfants",
           "Sélection de livres",
           "Lit parapluie avec matelas (sur demande)",
           "Chaise haute (sur demande)",
@@ -388,8 +389,8 @@ export const fr: Dictionary = {
     title: "Infos pratiques",
     accessTitle: "Arrivée et accès",
     stepsWarning:
-      "Il y a une cinquantaine de marches entre le parking et l'appartement. C'est le prix de la vue — mais mieux vaut le savoir avant de réserver.",
-    parking: "Parking extérieur à 50 mètres du chalet.",
+      "Le parking gratuit de la résidence est à 50 mètres de l'appartement, marches comprises : le chemin monte par petites volées de marches, une cinquantaine au total. C'est le prix de la vue — mais mieux vaut le savoir avant de réserver, avec une poussette ou des bagages lourds.",
+    parking: "Parking extérieur gratuit à 50 mètres de l'appartement, marches comprises. Chemin et marches sont déneigés, mais il peut rester de la neige après une forte chute.",
     keyBox:
       "Boîte à clés : vous arrivez et repartez en toute autonomie, sans rendez-vous (arrivée dès 16 h, départ avant 10 h).",
     skiLocker: "Grand casier à skis sur le palier.",
@@ -623,6 +624,7 @@ export const fr: Dictionary = {
         amenities: [
           "Casier à skis sur le palier",
           "Parking extérieur",
+          "Espaces verts autour du chalet",
           "Résidence Le Hameau des Aiguilles",
         ],
       },
@@ -806,7 +808,7 @@ export const fr: Dictionary = {
       },
     },
     stairsNote: (steps) =>
-      `Environ ${steps} marches séparent le parking de l'appartement. La vue se mérite !`,
+      `Environ ${steps} marches au total entre le parking et l'appartement, en petites volées. La vue se mérite !`,
     unitNote: (unit) => `Porte ${unit} — le casier à skis porte lui aussi le ${unit}.`,
     keyBoxSecurity:
       "Pensez à refermer la boîte et à brouiller le code après chaque utilisation. Elle reste à votre disposition pendant tout le séjour.",

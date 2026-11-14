@@ -127,8 +127,9 @@ export default function Article() {
       <h3>Il parcheggio e gli ultimi metri</h3>
       <p>
         L'appartamento è al Mollard, chemin du Châtel. Si parcheggia nel{" "}
-        <strong>parcheggio esterno gratuito</strong>, a 50 m, poi resta una{" "}
-        <strong>cinquantina di gradini</strong> fino alla residenza. Con bagagli pesanti o un
+        <strong>parcheggio esterno gratuito</strong> della residenza, a 50 m
+        dall'appartamento, gradini compresi: il sentiero sale a brevi rampe, una{" "}
+        <strong>cinquantina di gradini</strong> in tutto. Con bagagli pesanti o un
         passeggino, mettete in conto due viaggi. Il chemin du Châtel e i gradini vengono{" "}
         <strong>sgomberati dalla neve</strong>; con forti nevicate, può comunque restarne un
         po' finché non passa lo sgombero: scarpe che fanno presa non sono di troppo.
@@ -159,8 +160,8 @@ export default function Article() {
           <strong>Itinerario</strong>: A43, uscita Saint-Jean-de-Maurienne, poi 18 km di
           strada di Albiez, sgomberata dalla neve per tutto l'inverno
           <br />
-          <strong>Sul posto</strong>: parcheggio gratuito a 50 m, poi una cinquantina di
-          gradini
+          <strong>Sul posto</strong>: parcheggio gratuito a 50 m, gradini compresi (una
+          cinquantina, a brevi rampe)
           <br />
           <strong>La norma ufficiale</strong>:{" "}
           <a

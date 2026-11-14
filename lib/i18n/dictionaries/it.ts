@@ -123,7 +123,7 @@ export const it: Dictionary = {
         {
           title: "L'inverno fuori pista",
           description:
-            "La pista da slittino del Mollard è proprio accanto alla residenza, in pieno sole: l'innevamento non è garantito, ma quando è aperta occupa un intero pomeriggio. Per il resto: ciaspole, sci di fondo, cani da slitta, motoslitta, parapendio, aperitivo in un igloo. Nell'armadietto per gli sci, sul pianerottolo, vi attendono slittini per bambini.",
+            "La pista da slittino del Mollard è proprio accanto alla residenza, in pieno sole: l'innevamento non è garantito, ma quando è aperta occupa un intero pomeriggio. Intorno allo chalet ci sono spazi verdi dove i bambini giocano in sicurezza, e d'inverno vanno perfino in slittino. Per il resto: ciaspole, sci di fondo, cani da slitta, motoslitta, parapendio, aperitivo in un igloo. Nell'armadietto per gli sci, sul pianerottolo, vi attendono slittini per bambini.",
           link: {
             href: "/it/guide/chiens-de-traineau-albiez",
             label: "I cani da slitta ad Albiez",
@@ -225,7 +225,7 @@ export const it: Dictionary = {
         {
           title: "Bagno al lago",
           description:
-            "Balneazione sorvegliata in luglio e agosto, a 350 metri. Quanto basta per riempire i pomeriggi caldi senza prendere l'auto.",
+            "Balneazione sorvegliata in luglio e agosto, a 350 metri, con un parco giochi per i bambini. Quanto basta per riempire i pomeriggi caldi senza prendere l'auto.",
         },
         {
           title: "Pony e cavallo",
@@ -340,6 +340,7 @@ export const it: Dictionary = {
         items: [
           "Slittini per bambini",
           "Giochi da tavolo",
+          "Giocattoli per bambini",
           "Una selezione di libri",
           "Culla da viaggio con materasso (su richiesta)",
           "Seggiolone (su richiesta)",
@@ -390,8 +391,8 @@ export const it: Dictionary = {
     title: "Informazioni pratiche",
     accessTitle: "Arrivo e accesso",
     stepsWarning:
-      "Ci sono una cinquantina di gradini tra il parcheggio e l'appartamento. È il prezzo della vista, ma è meglio saperlo prima di prenotare.",
-    parking: "Parcheggio esterno a 50 metri dallo chalet.",
+      "Il parcheggio gratuito della residenza è a 50 metri dall'appartamento, gradini compresi: il sentiero sale a brevi rampe di gradini, una cinquantina in tutto. È il prezzo della vista, ma con un passeggino o bagagli pesanti è meglio saperlo prima di prenotare.",
+    parking: "Parcheggio esterno gratuito a 50 metri dall'appartamento, gradini compresi. Sentiero e gradini vengono sgomberati dalla neve, ma dopo una forte nevicata può restarne un po'.",
     keyBox:
       "Cassetta portachiavi: arrivate e ripartite in autonomia, senza appuntamento (arrivo dalle 16, partenza entro le 10).",
     skiLocker: "Ampio armadietto per gli sci sul pianerottolo.",
@@ -626,6 +627,7 @@ export const it: Dictionary = {
         amenities: [
           "Deposito sci sul pianerottolo",
           "Parcheggio esterno",
+          "Spazi verdi intorno allo chalet",
           "Residenza Le Hameau des Aiguilles",
         ],
       },
@@ -810,7 +812,7 @@ export const it: Dictionary = {
       },
     },
     stairsNote: (steps) =>
-      `Circa ${steps} gradini separano il parcheggio dall'appartamento. La vista va meritata!`,
+      `Circa ${steps} gradini in tutto tra il parcheggio e l'appartamento, a brevi rampe. La vista va meritata!`,
     unitNote: (unit) =>
       `Porta ${unit} — anche il armadietto per gli sci porta il ${unit}.`,
     keyBoxSecurity:

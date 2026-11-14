@@ -159,8 +159,8 @@ export default function Article() {
         Das Baby-Set (Reisebett, kleine Matratze, Hochstuhl, Babyschlitten) wird auf Anfrage
         ausgeliehen, bitte vor der Ankunft melden. Die Schlitten sind im Skischrank auf dem
         Treppenabsatz verstaut. Ein Punkt, den man vor der Buchung wissen sollte: Der
-        kostenlose Parkplatz liegt 50 m entfernt, und bis zur Wohnung sind etwa fünfzig
-        Stufen zu steigen, was mit einem Kinderwagen zählt. Weitere Ideen in unserem Ratgeber{" "}
+        kostenlose Parkplatz liegt 50 m entfernt, über einen Weg mit kurzen Treppenabschnitten
+        (insgesamt etwa fünfzig Stufen), was mit einem Kinderwagen zählt. Weitere Ideen in unserem Ratgeber{" "}
         <Link href="/de/guide/albiez-en-famille">Albiez mit der Familie</Link>.
       </p>
 

@@ -120,7 +120,7 @@ export const en: Dictionary = {
         {
           title: "Winter off the pistes",
           description:
-            "The Le Mollard sledging run is right next to the residence, in full sun — snow cover there is not guaranteed, but when it is open it fills a whole late afternoon. Otherwise: snowshoe walks, cross-country skiing, dog sledding, snowmobiling, paragliding, drinks in an igloo. Children's sledges are kept for you in the ski locker, on the landing.",
+            "The Le Mollard sledging run is right next to the residence, in full sun — snow cover there is not guaranteed, but when it is open it fills a whole late afternoon. Around the chalet, green spaces where children can play safely, and even sledge. Otherwise: snowshoe walks, cross-country skiing, dog sledding, snowmobiling, paragliding, drinks in an igloo. Children's sledges are kept for you in the ski locker, on the landing.",
           link: {
             href: "/en/guide/chiens-de-traineau-albiez",
             label: "Dog sledding in Albiez",
@@ -220,7 +220,7 @@ export const en: Dictionary = {
         {
           title: "Swimming at the lake",
           description:
-            "Supervised swimming in July and August, 350 metres away — enough to fill the hot afternoons without taking the car.",
+            "Supervised swimming in July and August, 350 metres away, with a playground for the children — enough to fill the hot afternoons without taking the car.",
         },
         {
           title: "Ponies and horses",
@@ -331,6 +331,7 @@ export const en: Dictionary = {
         items: [
           "Children's sledges",
           "Board games",
+          "Toys for children",
           "A selection of books",
           "Travel cot with mattress (on request)",
           "High chair (on request)",
@@ -376,8 +377,8 @@ export const en: Dictionary = {
     title: "Practical information",
     accessTitle: "Arrival and access",
     stepsWarning:
-      "There are around fifty steps between the car park and the apartment. That is the price of the view — but better to know before you book.",
-    parking: "Outdoor parking 50 metres from the chalet.",
+      "The residence's free car park is 50 metres from the apartment, steps included: the path climbs in short flights of steps, about fifty in all. That is the price of the view — but better to know before you book, with a pushchair or heavy luggage.",
+    parking: "Free outdoor parking 50 metres from the apartment, steps included. The path and steps are cleared of snow, though some may remain after a heavy snowfall.",
     keyBox:
       "Key box: arrive and leave on your own, no check-in appointment needed (arrival from 4 pm, departure before 10 am).",
     skiLocker: "Large ski locker on the landing.",
@@ -605,6 +606,7 @@ export const en: Dictionary = {
         amenities: [
           "Ski locker on the landing",
           "Outdoor parking",
+          "Green spaces around the chalet",
           "Le Hameau des Aiguilles residence",
         ],
       },
@@ -788,7 +790,7 @@ export const en: Dictionary = {
       },
     },
     stairsNote: (steps) =>
-      `About ${steps} steps separate the car park from the apartment. The view has to be earned!`,
+      `About ${steps} steps in all between the car park and the apartment, in short flights. The view has to be earned!`,
     unitNote: (unit) => `Door ${unit} — the ski locker is also marked ${unit}.`,
     keyBoxSecurity:
       "Please close the box and scramble the dials after each use. It stays available to you throughout your stay.",

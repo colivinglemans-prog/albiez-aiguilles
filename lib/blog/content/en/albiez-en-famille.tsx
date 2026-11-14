@@ -41,6 +41,10 @@ export default function Article() {
         run — but when it is in, it is thirty seconds from the door.
       </p>
       <p>
+        Around the chalet, the hillside residence has <strong>green spaces</strong> where
+        children can play safely, and even sledge in winter.
+      </p>
+      <p>
         The <strong>Coucou</strong> drag lift is the beginners' one, and the{" "}
         <Link href="/en/guide/domaine-skiable-albiez-secteur-mollard">Polytre</Link> offers
         several places to let go of the bar, with increasing difficulty: enough to progress
@@ -59,8 +63,8 @@ export default function Article() {
       <h2>Summer: swimming, ponies and bikes</h2>
       <p>
         The <Link href="/en/guide/lac-du-mollard-baignade">Mollard lake</Link>, 350 m away,
-        is <strong>supervised from 1 July to 31 August, noon to 6 pm</strong>. There is an
-        inflatable play structure, a paddling pool for the smallest, picnic tables, a
+        is <strong>supervised from 1 July to 31 August, noon to 6 pm</strong>. There is a
+        playground (the nearest one to the apartment), an inflatable play structure, a paddling pool for the smallest, picnic tables, a
         pétanque pitch, a volleyball court and public toilets.
       </p>
       <p>
@@ -81,12 +85,14 @@ export default function Article() {
         high chair and baby sledge. Let us know before your arrival so that it is ready.
         The children's sledges are kept in the ski locker, on the landing. The mountain
         alcove, with its bunk beds, is generally the first place children claim as
-        their own. Full sleeping details are on{" "}
+        their own. Games, toys and books are waiting for them in the apartment. Full sleeping details are on{" "}
         <Link href="/en#appartement">the apartment page</Link>.
       </p>
       <p>
-        One point of honesty: access involves <strong>around fifty steps</strong> up from the
-        car park. With a pushchair, that is worth knowing before booking.
+        One point of honesty: the residence's free car park is 50 m from the apartment, but
+        those 50 m follow a path with short flights of steps,{" "}
+        <strong>about fifty in all</strong>. With a pushchair, that is worth knowing before
+        booking.
       </p>
     </>
   );

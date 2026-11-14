@@ -85,7 +85,7 @@ export default function Article() {
         Un point à anticiper, parce qu'il est concret :{" "}
         <strong>le casier à skis n'est pas dimensionné pour un vélo</strong>. Deux
         solutions sur place : l'attacher sur le palier, qui est couvert et protégé, ou le
-        rentrer sur le balcon. Comptez une cinquantaine de marches depuis le parking.
+        rentrer sur le balcon. Le parking est à 50 m, par un chemin en petites volées de marches (une cinquantaine au total).
       </p>
 
       <h2>Et si vous n'avez pas de dossard</h2>

@@ -131,8 +131,9 @@ export default function Article() {
       <h3>Le parking et les derniers mètres</h3>
       <p>
         L'appartement est au Mollard, chemin du Châtel. On se gare sur le{" "}
-        <strong>parking extérieur gratuit</strong>, à 50 m, puis il reste une{" "}
-        <strong>cinquantaine de marches</strong> jusqu'à la résidence. Avec des bagages
+        <strong>parking extérieur gratuit</strong> de la résidence, à 50 m de
+        l'appartement, marches comprises : le chemin monte par petites volées, une{" "}
+        <strong>cinquantaine de marches</strong> au total. Avec des bagages
         lourds ou une poussette, prévoyez deux allers-retours. Le chemin du Châtel et les
         marches sont <strong>déneigés</strong> ; par forte chute de neige, il peut quand
         même en rester le temps que le déneigement passe : des chaussures qui accrochent
@@ -165,8 +166,8 @@ export default function Article() {
           <strong>Itinéraire</strong> : A43, sortie Saint-Jean-de-Maurienne, puis 18 km
           de route d'Albiez, déneigée tout l'hiver
           <br />
-          <strong>Sur place</strong> : parking gratuit à 50 m, puis une cinquantaine de
-          marches
+          <strong>Sur place</strong> : parking gratuit à 50 m, marches comprises (une
+          cinquantaine, en petites volées)
           <br />
           <strong>La règle officielle</strong> :{" "}
           <a

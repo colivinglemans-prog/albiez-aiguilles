@@ -133,8 +133,9 @@ export default function Article() {
       <h3>El aparcamiento y los últimos metros</h3>
       <p>
         El apartamento está en el Mollard, chemin du Châtel. Se aparca en el{" "}
-        <strong>aparcamiento exterior gratuito</strong>, a 50 m, y luego quedan{" "}
-        <strong>unos cincuenta escalones</strong> hasta la residencia. Con equipaje pesado o
+        <strong>aparcamiento exterior gratuito</strong> de la residencia, a 50 m del
+        apartamento, escalones incluidos: el camino sube por tramos cortos, con{" "}
+        <strong>unos cincuenta escalones</strong> en total. Con equipaje pesado o
         un cochecito, cuente con dos viajes. El chemin du Châtel y los escalones se{" "}
         <strong>limpian de nieve</strong>; con una nevada fuerte, puede quedar algo hasta
         que pase la limpieza: un calzado que agarre no está de más.
@@ -165,8 +166,8 @@ export default function Article() {
           <strong>Itinerario</strong>: A43, salida Saint-Jean-de-Maurienne, después 18 km de
           carretera de Albiez, limpia de nieve todo el invierno
           <br />
-          <strong>En el lugar</strong>: aparcamiento gratuito a 50 m, después unos cincuenta
-          escalones
+          <strong>En el lugar</strong>: aparcamiento gratuito a 50 m, escalones incluidos
+          (unos cincuenta, en tramos cortos)
           <br />
           <strong>La norma oficial</strong>:{" "}
           <a
