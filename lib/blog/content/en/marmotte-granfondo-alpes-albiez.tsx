@@ -75,7 +75,7 @@ export default function Article() {
       </p>
       <p>
         Add the prosaic: a proper kitchen, so you eat what you want when you want rather
-        than waiting for a service; a south-west-facing balcony that dries a jersey in an hour;
+        than waiting for a service; a south-east-facing balcony that dries a jersey in an hour;
         and the quiet of a village of 300 people in the week Bourg-d'Oisans fills up.
       </p>
       <p>

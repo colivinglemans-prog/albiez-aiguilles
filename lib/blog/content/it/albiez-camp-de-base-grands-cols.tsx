@@ -114,7 +114,7 @@ export default function Article() {
           che conta dopo una giornata a 30 °C a fondovalle.
         </li>
         <li>
-          <strong>Un balcone esposto a sud-ovest</strong> che asciuga una maglia in un'ora, e una
+          <strong>Un balcone esposto a sud-est</strong> che asciuga una maglia in un'ora, e una
           cucina per non dipendere dagli orari dei ristoranti.
         </li>
       </ul>

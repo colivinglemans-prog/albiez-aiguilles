@@ -17,9 +17,9 @@ export const it: Dictionary = {
   home: {
     heroTitle: "Appartamento di fronte alle Aiguilles d'Arves",
     heroSubtitle:
-      "A 1600 m di quota ad Albiez-Montrond, in tranquillità in uno chalet della Maurienne. Da 4 a 6 persone, balcone esposto a sud-ovest.",
+      "A 1600 m di quota ad Albiez-Montrond, in tranquillità in uno chalet della Maurienne. Da 4 a 6 persone, balcone esposto a sud-est.",
     intro:
-      "All'ultimo piano di un piccolo chalet della residenza Le Hameau des Aiguilles, il nostro appartamento per famiglie si apre su un balcone esposto a sud-ovest con vista libera sulle Aiguilles d'Arves. Piste, negozi e scuola di sci sono a 250 metri. Il lago e il suo centro di equitazione a pochi minuti a piedi. Lo affittiamo tutto l'anno.",
+      "All'ultimo piano di un piccolo chalet della residenza Le Hameau des Aiguilles, il nostro appartamento per famiglie si apre su un balcone esposto a sud-est con vista libera sulle Aiguilles d'Arves. Piste, negozi e scuola di sci sono a 250 metri. Il lago e il suo centro di equitazione a pochi minuti a piedi. Lo affittiamo tutto l'anno.",
     chooseSeason: "Due stagioni, due soggiorni",
     chooseSeasonSubtitle:
       "Albiez non si vive allo stesso modo d'inverno e nella bella stagione. Scegliete la vostra.",
@@ -197,7 +197,7 @@ export const it: Dictionary = {
       heading: "L'estate ad Albiez: il lago, i cavalli e la montagna",
       tagline: (p) => `Balneazione sorvegliata al lago in ${p.mois}`,
       intro:
-        "D'estate Albiez cambia ritmo. Il lago con la sua balneazione sorvegliata è a 350 metri dall'appartamento, il centro di equitazione a 300 metri, e le partenze di escursioni e di mountain bike sono a portata immediata. Il balcone esposto a sud-ovest diventa la stanza principale della casa, di fronte alle Aiguilles d'Arves.",
+        "D'estate Albiez cambia ritmo. Il lago con la sua balneazione sorvegliata è a 350 metri dall'appartamento, il centro di equitazione a 300 metri, e le partenze di escursioni e di mountain bike sono a portata immediata. Il balcone esposto a sud-est diventa la stanza principale della casa, di fronte alle Aiguilles d'Arves.",
       highlights: [
         {
           title: "Il lago a 350 m",
@@ -215,9 +215,9 @@ export const it: Dictionary = {
             "Gli itinerari partono nelle immediate vicinanze. Mountain bike elettriche e monopattini elettrici si noleggiano in paese.",
         },
         {
-          title: "Il balcone a sud-ovest",
+          title: "Il balcone a sud-est",
           description:
-            "Vista panoramica sulle Aiguilles d'Arves e sole fino a fine serata.",
+            "Vista panoramica sulle Aiguilles d'Arves, al sole fin dal mattino.",
         },
       ],
       activitiesTitle: "Cosa fare ad Albiez d'estate",
@@ -301,7 +301,7 @@ export const it: Dictionary = {
     bathroomsCount: (n) => (n !== 1 ? `${n} bagni` : "1 bagno"),
     bathroom: "Bagno con vasca e scaldasalviette, WC separato.",
     balcony:
-      "Balcone esposto a sud-ovest con vista panoramica sulle Aiguilles d'Arves.",
+      "Balcone esposto a sud-est con vista panoramica sulle Aiguilles d'Arves.",
     amenitiesTitle: "Le dotazioni",
     amenityGroups: [
       {
@@ -328,7 +328,7 @@ export const it: Dictionary = {
       {
         title: "Comfort",
         items: [
-          "Balcone a sud-ovest",
+          "Balcone a sud-est",
           "Bagno con vasca",
           "Scaldasalviette",
           "WC separato",
@@ -552,7 +552,7 @@ export const it: Dictionary = {
 
   spaces: {
     subtitle:
-      "La visita spazio per spazio. Soggiorno, angolo cottura e zona pranzo condividono la stessa stanza, aperta a sud-ovest sul balcone.",
+      "La visita spazio per spazio. Soggiorno, angolo cottura e zona pranzo condividono la stessa stanza, aperta a sud-est sul balcone.",
     // L'italien pluralise dès zéro, contrairement au français.
     photoCount: (count) => (count !== 1 ? `${count} foto` : "1 foto"),
     list: {
@@ -615,7 +615,7 @@ export const it: Dictionary = {
       balcon: {
         title: "Balcone",
         amenities: [
-          "Esposto a sud-ovest",
+          "Esposto a sud-est",
           "Vista sulle Aiguilles d'Arves",
           "Tavolo e sedie",
           "Slittini",
@@ -661,7 +661,7 @@ export const it: Dictionary = {
     },
     cta: {
       title: "Soggiornare ad Albiez",
-      text: "Il nostro appartamento si trova a Le Mollard, a 250 m dall'accesso alle piste e dalla partenza dei sentieri. Fino a 6 persone, balcone a sud-ovest di fronte alle Aiguilles d'Arves.",
+      text: "Il nostro appartamento si trova a Le Mollard, a 250 m dall'accesso alle piste e dalla partenza dei sentieri. Fino a 6 persone, balcone a sud-est di fronte alle Aiguilles d'Arves.",
       button: "Vedere le disponibilità",
     },
     seo: {
@@ -703,7 +703,7 @@ export const it: Dictionary = {
     flatItems: [
       "Tre spazi letto distinti: ideale per due, anche tre persone, ciascuna con la propria intimità.",
       "Una cucina completa, con forno e lavastoviglie: non si cena fuori sei sere a settimana.",
-      "Un balcone esposto a sud-ovest di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
+      "Un balcone esposto a sud-est di fronte alle Aiguilles d'Arves, e il silenzio di un paese di 300 abitanti.",
       "Parcheggio gratuito e cassetta portachiavi: si arriva e si riparte in autonomia, senza appuntamento.",
       "1 600 metri di quota: notti fresche d'estate e aria secca tutto l'anno.",
     ],

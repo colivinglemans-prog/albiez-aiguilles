@@ -61,7 +61,7 @@ export default function Article() {
       <p>Drei Aussichtspunkte verlangen keine besondere Anstrengung:</p>
       <ul>
         <li>
-          <strong>Der Balkon der Wohnung</strong>, nach Südwesten ausgerichtet, den Aiguilles
+          <strong>Der Balkon der Wohnung</strong>, nach Südosten ausgerichtet, den Aiguilles
           gegenüber.
         </li>
         <li>

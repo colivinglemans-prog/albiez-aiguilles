@@ -61,7 +61,7 @@ export default function Article() {
       <p>Tre punti panoramici non richiedono alcuno sforzo particolare:</p>
       <ul>
         <li>
-          <strong>Il balcone dell'alloggio</strong>, esposto a sud-ovest, di fronte alle Aiguilles.
+          <strong>Il balcone dell'alloggio</strong>, esposto a sud-est, di fronte alle Aiguilles.
         </li>
         <li>
           <strong>Il col du Mollard</strong> (1638 m), che offre un panorama sul massiccio

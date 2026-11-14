@@ -178,7 +178,7 @@ export default function Article() {
 
       <h3>Regarder les Aiguilles d'Arves</h3>
       <p>
-        Le balcon de l'appartement, orienté sud-ouest, donne sur les{" "}
+        Le balcon de l'appartement, orienté sud-est, donne sur les{" "}
         <Link href="/fr/guide/aiguilles-arves">Aiguilles d'Arves</Link>. Le col du Mollard
         et la boucle du plan d'eau offrent la même vue sans effort. La montée vers la Basse
         du Gerbier (2 578 m) est un itinéraire d'été : hors saison, la neige et le froid

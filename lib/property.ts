@@ -103,7 +103,7 @@ export const PROPERTY = {
   },
 
   balcony: {
-    orientation: "sud-ouest",
+    orientation: "sud-est",
     view: "Aiguilles d'Arves",
   },
 

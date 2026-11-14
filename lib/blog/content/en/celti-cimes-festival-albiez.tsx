@@ -95,7 +95,7 @@ export default function Article() {
       <p>
         Our flat is at Le Mollard, the upper part of the village, a few minutes from the
         Chef-lieu where the village hall and Place Opinel are. Up to six people, a kitchen
-        equipped well enough that you are not tied to restaurant hours, a south-west-facing
+        equipped well enough that you are not tied to restaurant hours, a south-east-facing
         balcony looking at the{" "}
         <Link href="/en/guide/aiguilles-arves">Aiguilles d'Arves</Link>, and an instrument
         that stays dry.

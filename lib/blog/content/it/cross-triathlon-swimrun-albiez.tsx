@@ -87,7 +87,7 @@ export default function Article() {
       <p>
         Dall'appartamento ci si va a piedi. Nessuna auto da parcheggiare in una giornata
         affollata, nessuna borsa da portarsi dietro per l'intera giornata: si risale a
-        cambiarsi fra due partenze, e il balcone esposto a sud-ovest asciuga una muta in un'ora.
+        cambiarsi fra due partenze, e il balcone esposto a sud-est asciuga una muta in un'ora.
       </p>
 
       <h2>Restare la settimana</h2>

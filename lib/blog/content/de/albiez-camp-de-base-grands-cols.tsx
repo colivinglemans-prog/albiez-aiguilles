@@ -116,7 +116,7 @@ export default function Article() {
           nach einem Tag bei 30 °C im Tal zählt.
         </li>
         <li>
-          <strong>Ein Südwestbalkon</strong>, der ein Trikot in einer Stunde trocknet, und eine
+          <strong>Ein Südostbalkon</strong>, der ein Trikot in einer Stunde trocknet, und eine
           Küche, damit man nicht an Restaurantzeiten hängt.
         </li>
       </ul>

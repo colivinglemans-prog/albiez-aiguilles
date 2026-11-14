@@ -88,7 +88,7 @@ export default function Article() {
       <p>
         Desde el apartamento se va andando. Ningún coche que aparcar un día de afluencia,
         ninguna bolsa que cargar para la jornada entera: se sube a cambiarse entre dos
-        salidas, y el balcón orientado al suroeste seca un neopreno en una hora.
+        salidas, y el balcón orientado al sureste seca un neopreno en una hora.
       </p>
 
       <h2>Quedarse la semana</h2>

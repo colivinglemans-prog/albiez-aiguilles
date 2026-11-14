@@ -17,9 +17,9 @@ export const fr: Dictionary = {
   home: {
     heroTitle: "Appartement face aux Aiguilles d'Arves",
     heroSubtitle:
-      "À 1 600 m d'altitude à Albiez-Montrond, au calme dans un chalet de Maurienne. 4 à 6 personnes, balcon orienté sud-ouest-ouest.",
+      "À 1 600 m d'altitude à Albiez-Montrond, au calme dans un chalet de Maurienne. 4 à 6 personnes, balcon orienté sud-est.",
     intro:
-      "Au dernier étage d'un petit chalet de la résidence Le Hameau des Aiguilles, notre appartement familial ouvre sur un balcon exposé sud-ouest et une vue dégagée sur les Aiguilles d'Arves. Les pistes, les commerces et l'école de ski sont à 250 mètres. Le lac et son club d'équitation sont à quelques minutes à pied. Nous le louons toute l'année.",
+      "Au dernier étage d'un petit chalet de la résidence Le Hameau des Aiguilles, notre appartement familial ouvre sur un balcon exposé sud-est et une vue dégagée sur les Aiguilles d'Arves. Les pistes, les commerces et l'école de ski sont à 250 mètres. Le lac et son club d'équitation sont à quelques minutes à pied. Nous le louons toute l'année.",
     chooseSeason: "Deux saisons, deux séjours",
     chooseSeasonSubtitle:
       "Albiez ne se visite pas de la même façon en hiver et pendant la belle saison. Choisissez la vôtre.",
@@ -197,7 +197,7 @@ export const fr: Dictionary = {
       heading: "L'été à Albiez : le lac, les chevaux et la montagne",
       tagline: (p) => `Baignade surveillée au lac en ${p.mois}`,
       intro:
-        "L'été, Albiez change de rythme. Le lac et sa baignade surveillée sont à 350 mètres de l'appartement, le club d'équitation à 300 mètres, et les départs de randonnée et de VTT sont à portée immédiate. Le balcon exposé sud-ouest devient la pièce principale du logement, face aux Aiguilles d'Arves.",
+        "L'été, Albiez change de rythme. Le lac et sa baignade surveillée sont à 350 mètres de l'appartement, le club d'équitation à 300 mètres, et les départs de randonnée et de VTT sont à portée immédiate. Le balcon exposé sud-est devient la pièce principale du logement, face aux Aiguilles d'Arves.",
       highlights: [
         {
           title: "Le lac à 350 m",
@@ -215,9 +215,9 @@ export const fr: Dictionary = {
             "Les itinéraires partent à proximité immédiate. VTT électriques et trottinettes électriques se louent sur place.",
         },
         {
-          title: "Le balcon sud-ouest",
+          title: "Le balcon sud-est",
           description:
-            "Vue panoramique sur les Aiguilles d'Arves et le soleil jusqu'au bout de la soirée.",
+            "Vue panoramique sur les Aiguilles d'Arves, au soleil dès le matin.",
         },
       ],
       activitiesTitle: "Que faire à Albiez l'été",
@@ -301,7 +301,7 @@ export const fr: Dictionary = {
     bathroom:
       "Salle de bains avec baignoire et sèche-serviettes, toilettes séparées.",
     balcony:
-      "Balcon exposé sud-ouest avec vue panoramique sur les Aiguilles d'Arves.",
+      "Balcon exposé sud-est avec vue panoramique sur les Aiguilles d'Arves.",
     amenitiesTitle: "Les équipements",
     amenityGroups: [
       {
@@ -328,7 +328,7 @@ export const fr: Dictionary = {
       {
         title: "Confort",
         items: [
-          "Balcon sud-ouest",
+          "Balcon sud-est",
           "Salle de bains avec baignoire",
           "Sèche-serviettes",
           "Toilettes séparées",
@@ -550,7 +550,7 @@ export const fr: Dictionary = {
 
   spaces: {
     subtitle:
-      "La visite espace par espace. Salon, kitchenette et coin repas partagent la même pièce, ouverte plein sud-ouest sur le balcon.",
+      "La visite espace par espace. Salon, kitchenette et coin repas partagent la même pièce, ouverte plein sud-est sur le balcon.",
     photoCount: (count) => (count > 1 ? `${count} photos` : "1 photo"),
     list: {
       salon: {
@@ -612,7 +612,7 @@ export const fr: Dictionary = {
       balcon: {
         title: "Balcon",
         amenities: [
-          "Exposé sud-ouest",
+          "Exposé sud-est",
           "Vue sur les Aiguilles d'Arves",
           "Table et chaises",
           "Luges",
@@ -658,7 +658,7 @@ export const fr: Dictionary = {
     },
     cta: {
       title: "Séjourner à Albiez",
-      text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon orienté sud-ouest face aux Aiguilles d'Arves.",
+      text: "Notre appartement se trouve au Mollard, à 250 m du front de neige et du départ des sentiers. Jusqu'à 6 personnes, balcon orienté sud-est face aux Aiguilles d'Arves.",
       button: "Voir les disponibilités",
     },
     seo: {
@@ -699,7 +699,7 @@ export const fr: Dictionary = {
     flatItems: [
       "Trois espaces de couchage distincts : idéal pour deux, voire trois personnes, chacune avec son intimité.",
       "Une cuisine complète, four et lave-vaisselle : on ne mange pas au restaurant six soirs par semaine.",
-      "Un balcon orienté sud-ouest face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
+      "Un balcon orienté sud-est face aux Aiguilles d'Arves, et le silence d'un village de 300 habitants.",
       "Un parking gratuit et une boîte à clés : on arrive et on repart en autonomie, sans rendez-vous.",
       "1 600 mètres d'altitude, soit des nuits fraîches en été et de l'air sec toute l'année.",
     ],

@@ -173,7 +173,7 @@ export default function Article() {
 
       <h3>Contemplar las Aiguilles d'Arves</h3>
       <p>
-        El balcón del apartamento, orientado al suroeste, da a las{" "}
+        El balcón del apartamento, orientado al sureste, da a las{" "}
         <Link href="/es/guide/aiguilles-arves">Aiguilles d'Arves</Link>. El col du Mollard
         y la vuelta al lago ofrecen la misma vista sin esfuerzo. La subida a la Basse du
         Gerbier (2 578 m) es un itinerario de verano: fuera de temporada, la nieve y el

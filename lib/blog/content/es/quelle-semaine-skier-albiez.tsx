@@ -241,7 +241,7 @@ export default function Article() {
           claramente más largos — la señal más sencilla: el descenso con antorchas pasa de
           las 17:45 o las 18 h en invierno a las 18:15 en marzo. La oficina de turismo
           anuncia todavía dos descensos, los miércoles 3 y 10 de marzo. Esquí al sol, comida
-          en el balcón orientado al suroeste.
+          en el balcón orientado al sureste.
         </li>
         <li>
           <strong>Lo que se pierde</strong>: la nieve depende mucho del año. Puede estar

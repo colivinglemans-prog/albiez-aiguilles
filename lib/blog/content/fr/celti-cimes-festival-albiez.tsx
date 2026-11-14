@@ -97,7 +97,7 @@ export default function Article() {
         Notre appartement est au Mollard, la partie haute du village, à quelques minutes du
         Chef-lieu où se tiennent la salle des fêtes et la place Opinel. Jusqu'à six
         personnes, une cuisine équipée pour ne pas dépendre des horaires de restaurant, un
-        balcon orienté sud-ouest face aux{" "}
+        balcon orienté sud-est face aux{" "}
         <Link href="/fr/guide/aiguilles-arves">Aiguilles d'Arves</Link>, et un instrument
         qui reste au sec.
       </p>

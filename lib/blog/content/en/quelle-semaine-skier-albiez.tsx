@@ -235,7 +235,7 @@ export default function Article() {
           noticeably longer — the simplest sign: the torchlight descent moves from 5:45 pm
           or 6 pm in winter to 6:15 pm in March. The tourist office still announces two
           descents, on Wednesdays 3 and 10 March. Skiing in the sun, lunch on the
-          south-west-facing balcony.
+          south-east-facing balcony.
         </li>
         <li>
           <strong>What you lose</strong>: the snow depends a great deal on the year. It can

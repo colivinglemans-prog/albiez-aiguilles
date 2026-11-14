@@ -76,7 +76,7 @@ export default function Article() {
       </p>
       <p>
         A eso se añade lo prosaico: una cocina equipada, para comer lo que se quiere a la
-        hora que se quiere en lugar de esperar un servicio; un balcón orientado al suroeste que
+        hora que se quiere en lugar de esperar un servicio; un balcón orientado al sureste que
         seca un maillot en una hora; y la calma de un pueblo de 300 habitantes la semana en
         que Bourg-d'Oisans se llena.
       </p>

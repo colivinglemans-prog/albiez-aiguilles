@@ -242,7 +242,7 @@ export default function Article() {
           <strong>Ce qu'on y gagne</strong> : le soleil avant tout. Le calme revient, et les
           jours sont nettement plus longs — le signe le plus simple : la descente aux flambeaux passe de 17 h 45
           ou 18 h en hiver à 18 h 15 en mars. L'office annonce encore deux descentes, les
-          mercredis 3 et 10 mars. Ski au soleil, déjeuner sur le balcon orienté sud-ouest.
+          mercredis 3 et 10 mars. Ski au soleil, déjeuner sur le balcon orienté sud-est.
         </li>
         <li>
           <strong>Ce qu'on y perd</strong> : la neige dépend beaucoup de l'année. Elle peut

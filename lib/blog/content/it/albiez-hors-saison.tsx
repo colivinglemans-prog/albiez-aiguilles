@@ -172,7 +172,7 @@ export default function Article() {
 
       <h3>Guardare le Aiguilles d'Arves</h3>
       <p>
-        Il balcone dell'appartamento, esposto a sud-ovest, dà sulle{" "}
+        Il balcone dell'appartamento, esposto a sud-est, dà sulle{" "}
         <Link href="/it/guide/aiguilles-arves">Aiguilles d'Arves</Link>. Il col du Mollard e
         l'anello del lago offrono la stessa vista senza fatica. La salita verso la Basse du
         Gerbier (2 578 m) è un itinerario estivo: fuori stagione, la neve e il freddo la

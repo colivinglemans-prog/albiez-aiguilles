@@ -98,7 +98,7 @@ export default function Article() {
       <p>
         Unsere Wohnung liegt in Le Mollard, dem oberen Dorfteil, wenige Minuten vom
         Chef-lieu mit Gemeindesaal und Place Opinel. Bis zu sechs Personen, eine Küche, die
-        gut genug ausgestattet ist, um nicht von Restaurantzeiten abzuhängen, ein Südwestbalkon
+        gut genug ausgestattet ist, um nicht von Restaurantzeiten abzuhängen, ein Südostbalkon
         mit Blick auf die{" "}
         <Link href="/de/guide/aiguilles-arves">Aiguilles d'Arves</Link> — und ein
         Instrument, das trocken bleibt.

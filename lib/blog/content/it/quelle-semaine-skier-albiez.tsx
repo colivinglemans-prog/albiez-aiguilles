@@ -234,7 +234,7 @@ export default function Article() {
           giornate sono nettamente più lunghe — il segnale più semplice: la fiaccolata passa
           dalle 17:45 o 18:00 d'inverno alle 18:15 a marzo. L'ufficio del turismo annuncia
           ancora due fiaccolate, mercoledì 3 e 10 marzo. Sci al sole, pranzo sul balcone
-          esposto a sud-ovest.
+          esposto a sud-est.
         </li>
         <li>
           <strong>Che cosa si perde</strong>: la neve dipende molto dall'annata. Può essere

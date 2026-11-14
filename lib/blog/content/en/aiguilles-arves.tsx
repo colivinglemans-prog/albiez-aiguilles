@@ -62,7 +62,7 @@ export default function Article() {
       <p>Three viewpoints require no particular effort:</p>
       <ul>
         <li>
-          <strong>The apartment's balcony</strong>, facing south-west, straight at the
+          <strong>The apartment's balcony</strong>, facing south-east, straight at the
           Aiguilles.
         </li>
         <li>

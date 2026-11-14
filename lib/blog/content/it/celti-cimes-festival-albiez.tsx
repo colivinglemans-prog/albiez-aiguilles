@@ -96,7 +96,7 @@ export default function Article() {
         Il nostro appartamento si trova a Le Mollard, la parte alta del paese, a pochi
         minuti dal Chef-lieu dove si trovano la sala delle feste e piazza Opinel. Fino a sei
         persone, una cucina attrezzata per non dipendere dagli orari dei ristoranti, un
-        balcone esposto a sud-ovest di fronte alle{" "}
+        balcone esposto a sud-est di fronte alle{" "}
         <Link href="/it/guide/aiguilles-arves">Aiguilles d'Arves</Link>, e uno strumento che
         resta all'asciutto.
       </p>

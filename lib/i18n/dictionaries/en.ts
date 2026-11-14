@@ -17,9 +17,9 @@ export const en: Dictionary = {
   home: {
     heroTitle: "Apartment facing the Aiguilles d'Arves",
     heroSubtitle:
-      "At 1,600 m in Albiez-Montrond, tucked away in a Maurienne chalet. Sleeps 4 to 6, with a south-west facing balcony.",
+      "At 1,600 m in Albiez-Montrond, tucked away in a Maurienne chalet. Sleeps 4 to 6, with a south-east facing balcony.",
     intro:
-      "On the top floor of a small chalet in the Hameau des Aiguilles residence, our family apartment opens onto a south-west facing balcony with a clear view of the Aiguilles d'Arves. The slopes, the village shops and the ski school are 250 metres away. The lake and the riding club are a few minutes on foot. We rent it all year round.",
+      "On the top floor of a small chalet in the Hameau des Aiguilles residence, our family apartment opens onto a south-east facing balcony with a clear view of the Aiguilles d'Arves. The slopes, the village shops and the ski school are 250 metres away. The lake and the riding club are a few minutes on foot. We rent it all year round.",
     chooseSeason: "Two seasons, two very different stays",
     chooseSeasonSubtitle:
       "Albiez is not the same place in winter and in the warmer months. Pick yours.",
@@ -192,7 +192,7 @@ export const en: Dictionary = {
       heading: "Summer in Albiez: the lake, the horses and the mountains",
       tagline: (p) => `Supervised swimming at the lake in ${p.mois}`,
       intro:
-        "Albiez changes pace in summer. The lake and its supervised swimming area are 350 metres from the apartment, the riding club is at 300 metres, and hiking and mountain-bike trails start right nearby. The south-west balcony becomes the main room of the place, facing the Aiguilles d'Arves.",
+        "Albiez changes pace in summer. The lake and its supervised swimming area are 350 metres from the apartment, the riding club is at 300 metres, and hiking and mountain-bike trails start right nearby. The south-east balcony becomes the main room of the place, facing the Aiguilles d'Arves.",
       highlights: [
         {
           title: "The lake, 350 m away",
@@ -210,9 +210,9 @@ export const en: Dictionary = {
             "Hiking and biking routes start nearby. Electric mountain bikes and e-scooters can be hired in the village.",
         },
         {
-          title: "The south-west balcony",
+          title: "The south-east balcony",
           description:
-            "A panoramic view of the Aiguilles d'Arves, and sun until the end of the evening.",
+            "A panoramic view of the Aiguilles d'Arves, in the sun from the morning.",
         },
       ],
       activitiesTitle: "What to do in Albiez in summer",
@@ -292,7 +292,7 @@ export const en: Dictionary = {
     bathroomsCount: (n) => `${n} bathroom`,
     bathroom: "Bathroom with bathtub and heated towel rail, separate toilet.",
     balcony:
-      "South-west facing balcony with a panoramic view of the Aiguilles d'Arves.",
+      "South-east facing balcony with a panoramic view of the Aiguilles d'Arves.",
     amenitiesTitle: "Amenities",
     amenityGroups: [
       {
@@ -319,7 +319,7 @@ export const en: Dictionary = {
       {
         title: "Comfort",
         items: [
-          "South-west balcony",
+          "South-east balcony",
           "Bathroom with bathtub",
           "Heated towel rail",
           "Separate toilet",
@@ -532,7 +532,7 @@ export const en: Dictionary = {
 
   spaces: {
     subtitle:
-      "A room-by-room tour. The living area, kitchenette and dining space share one open room, facing south-west onto the balcony.",
+      "A room-by-room tour. The living area, kitchenette and dining space share one open room, facing south-east onto the balcony.",
     photoCount: (count) => (count > 1 ? `${count} photos` : "1 photo"),
     list: {
       salon: {
@@ -594,7 +594,7 @@ export const en: Dictionary = {
       balcon: {
         title: "Balcony",
         amenities: [
-          "South-west facing",
+          "South-east facing",
           "View of the Aiguilles d'Arves",
           "Table and chairs",
           "Sledges",
@@ -640,7 +640,7 @@ export const en: Dictionary = {
     },
     cta: {
       title: "Staying in Albiez",
-      text: "Our apartment sits in the Mollard hamlet, 250 m from the slopes and from the start of the trails. Sleeps up to 6, south-west-facing balcony looking straight at the Aiguilles d'Arves.",
+      text: "Our apartment sits in the Mollard hamlet, 250 m from the slopes and from the start of the trails. Sleeps up to 6, south-east-facing balcony looking straight at the Aiguilles d'Arves.",
       button: "Check availability",
     },
     seo: {
@@ -681,7 +681,7 @@ export const en: Dictionary = {
     flatItems: [
       "Three separate sleeping spaces: ideal for two, or even three people, each with their own privacy.",
       "A full kitchen, oven and dishwasher: you will not be eating out six nights a week.",
-      "A south-west-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
+      "A south-east-facing balcony looking at the Aiguilles d'Arves, and the silence of a village of 300 people.",
       "Free parking and a key box: you come and go under your own steam, no appointment needed.",
       "1,600 metres of altitude, meaning cool nights in summer and dry air all year.",
     ],

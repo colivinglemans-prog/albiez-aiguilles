@@ -92,7 +92,7 @@ export default function Article() {
       <p>
         Depuis l'appartement on y va à pied. Pas de voiture à garer un jour d'affluence, pas
         de sac à porter pour la journée entière : on remonte se changer entre deux départs,
-        et le balcon orienté sud-ouest sèche une combinaison en une heure.
+        et le balcon orienté sud-est sèche une combinaison en une heure.
       </p>
 
       <h2>Rester la semaine</h2>

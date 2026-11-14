@@ -171,7 +171,7 @@ export default function Article() {
 
       <h3>Looking at the Aiguilles d'Arves</h3>
       <p>
-        The apartment's south-west-facing balcony looks out on the{" "}
+        The apartment's south-east-facing balcony looks out on the{" "}
         <Link href="/en/guide/aiguilles-arves">Aiguilles d'Arves</Link>. The col du Mollard
         and the lake loop offer the same view without effort. The climb to the Basse du
         Gerbier (2,578 m) is a summer route: out of season, snow and cold make it much

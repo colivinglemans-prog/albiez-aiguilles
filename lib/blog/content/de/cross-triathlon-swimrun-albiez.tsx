@@ -92,7 +92,7 @@ export default function Article() {
       <p>
         Von der Wohnung geht man zu Fuß hin. Kein Auto abzustellen an einem vollen Tag,
         keine Tasche für den ganzen Tag zu schleppen: Man geht zwischen zwei Starts hinauf
-        und zieht sich um, und der Südwestbalkon trocknet einen Neoprenanzug in einer Stunde.
+        und zieht sich um, und der Südostbalkon trocknet einen Neoprenanzug in einer Stunde.
       </p>
 
       <h2>Die Woche bleiben</h2>

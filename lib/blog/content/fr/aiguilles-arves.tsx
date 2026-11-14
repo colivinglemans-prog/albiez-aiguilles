@@ -64,7 +64,7 @@ export default function Article() {
       </p>
       <ul>
         <li>
-          <strong>Le balcon du logement</strong>, orienté sud-ouest, face aux Aiguilles.
+          <strong>Le balcon du logement</strong>, orienté sud-est, face aux Aiguilles.
         </li>
         <li>
           <strong>Le col du Mollard</strong> (1 638 m), qui offre un panorama sur le massif

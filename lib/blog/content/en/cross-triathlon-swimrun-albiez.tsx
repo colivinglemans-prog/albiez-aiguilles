@@ -83,7 +83,7 @@ export default function Article() {
       </p>
       <p>
         From the flat you walk there. No car to park on a busy day, no bag to carry for a
-        whole day out: you go back up to change between starts, and the south-west-facing balcony
+        whole day out: you go back up to change between starts, and the south-east-facing balcony
         dries a wetsuit in an hour.
       </p>
 

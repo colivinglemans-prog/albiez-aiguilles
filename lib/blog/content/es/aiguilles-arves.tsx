@@ -61,7 +61,7 @@ export default function Article() {
       <p>Tres miradores no exigen ningún esfuerzo particular:</p>
       <ul>
         <li>
-          <strong>El balcón del alojamiento</strong>, orientado al suroeste, frente a las Aiguilles.
+          <strong>El balcón del alojamiento</strong>, orientado al sureste, frente a las Aiguilles.
         </li>
         <li>
           <strong>El col du Mollard</strong> (1638 m), que ofrece un panorama sobre el macizo

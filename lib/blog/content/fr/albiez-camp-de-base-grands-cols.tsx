@@ -116,7 +116,7 @@ export default function Article() {
           plein mois de juillet, ce qui compte après une journée à 30 °C dans la vallée.
         </li>
         <li>
-          <strong>Un balcon orienté sud-ouest</strong> qui sèche un maillot en une heure, et une
+          <strong>Un balcon orienté sud-est</strong> qui sèche un maillot en une heure, et une
           cuisine pour ne pas dépendre des horaires de restaurant.
         </li>
       </ul>

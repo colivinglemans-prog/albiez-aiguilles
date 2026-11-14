@@ -235,7 +235,7 @@ export default function Article() {
           die Tage sind deutlich länger — das einfachste Zeichen: Die Fackelabfahrt rückt von
           17:45 oder 18 Uhr im Winter auf 18:15 Uhr im März. Das Tourismusbüro kündigt noch
           zwei Abfahrten an, am Mittwoch, 3., und Mittwoch, 10. März. Skifahren in der Sonne,
-          Mittagessen auf dem Südwestbalkon.
+          Mittagessen auf dem Südostbalkon.
         </li>
         <li>
           <strong>Was man verliert</strong>: Der Schnee hängt stark vom Jahr ab. Er kann
