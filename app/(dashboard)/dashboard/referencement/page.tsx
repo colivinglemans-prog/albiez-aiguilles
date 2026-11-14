@@ -24,6 +24,10 @@ export default function ReferencementPage() {
             label: "Search Console",
           },
           {
+            href: "https://www.bing.com/webmasters/home?siteUrl=https://www.albiez-aiguilles.fr/",
+            label: "Bing Webmaster (pages indexées, ChatGPT)",
+          },
+          {
             href: "https://vercel.com/colivinglemans-progs-projects/albiez-aiguilles/analytics",
             label: "Visites (Vercel Analytics)",
           },
