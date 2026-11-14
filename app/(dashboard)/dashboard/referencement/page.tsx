@@ -2,7 +2,7 @@ import DashboardNav from "@/components/dashboard/DashboardNav";
 import SearchConsoleDashboard from "@sejour/socle/components/SearchConsoleDashboard";
 
 /**
- * Ce que Google Search Console sait des recherches qui mènent au site : requêtes, clics,
+ * Ce que Google Search Console (et, en dessous, Bing Webmaster) sait des recherches qui mènent au site : requêtes, clics,
  * impressions, position. Le composant est celui du socle, **le même que chez Barbusse** ; ne
  * restent ici que les données propres au bien. Accent : le bleu alpin, comme les statistiques.
  *
@@ -15,9 +15,10 @@ export default function ReferencementPage() {
       <DashboardNav />
       <SearchConsoleDashboard
         title="Albiez — référencement"
-        subtitle="Recherches Google qui mènent au site"
+        subtitle="Recherches Google et Bing qui mènent au site"
         accent="#0284c7"
         endpoint="/api/dashboard/referencement"
+        bingEndpoint="/api/dashboard/referencement/bing"
         links={[
           {
             href: "https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Aalbiez-aiguilles.fr",
