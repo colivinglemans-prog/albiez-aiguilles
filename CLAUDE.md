@@ -666,7 +666,7 @@ CORS ouvert), documentée dans `public/llms.txt`. Le prix vient de `getroomprice
 Beds24 tout compris) et passe un **garde-fou** : `breakdown` (le détail montré au voyageur) recalcule la grille (nuits
 −7 %, taxe de séjour 5,5 % des nuitées remisées, ménage 60). Un écart de plus de 1 € bloque le
 prix (`price-blocked`) et envoie un ntfy « Devis IA Albiez » : un réglage Beds24/Beyond a changé
-la grille — corriger `breakdown`, pas le contourner. IndexNow : `npm run indexnow` (clé publique dans `public/<clé>.txt`) soumet sitemap + llms.txt à Bing et aux moteurs participants, à lancer après chaque déploiement de contenu.
+la grille — corriger `breakdown`, pas le contourner. **Indexation automatique** (socle v3.24.0, `lib/indexing.ts`) : le cron `/api/cron/indexing` (cron-job.org, 1×/jour 06:30 Paris, `Authorization: Bearer $CRON_SECRET`) envoie les pages **nouvelles ou modifiées** du sitemap, et `/llms.txt` quand son contenu change, à IndexNow et à l’API Bing (`SubmitUrlBatch`, ~100 URL/jour, `BING_WEBMASTER_API_KEY`), puis le reliquat jamais soumis à Bing dans le quota restant — jamais une page inchangée. État dans Upstash (`lib/kv.ts`, `KV_REST_API_URL` / `KV_REST_API_TOKEN`, clé `albiez:indexing:state`, alerte ntfy sous `…:alert`, deux passages KO de suite) ; **sans Upstash branché la route répond 503** (sauf `?dry=1`, qui rend le plan sans rien envoyer). Plus besoin de `npm run indexnow` après un déploiement : le script (clé publique dans `public/<clé>.txt`) reste pour un envoi manuel. Google n’en a pas besoin : il relit le sitemap seul.
 
 - Le linge est un supplément facultatif (`extras=linge`, 15 €/pers./séjour) ajouté au total.
 - Séjours pros refusés pendant l'ouverture du domaine et en juillet-août (`saisonsEntre`).
