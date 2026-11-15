@@ -3,10 +3,12 @@ import { verifyCronAuth } from "@sejour/socle/lib/cron-auth";
 import { runIndexing, type IndexingConfig } from "@sejour/socle/lib/indexing";
 import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { emptyStore, hasKv, kvStore } from "@/lib/kv";
+import { SITE_URL } from "@/lib/property";
 
 /**
  * Indexation automatique, une fois par jour (cron-job.org, 06:30 heure de Paris, en-tête
- * `Authorization: Bearer $CRON_SECRET`) : les pages **nouvelles ou modifiées** du sitemap, et
+ * `Authorization: Bearer $CRON_SECRET`) : les pages **nouvelles**, ou **modifiées selon le `lastmod`** du sitemap (une page sans
+ * `lastmod` n'est soumise qu'une fois : seuls les articles et `/llms.txt` sont vraiment suivis), et
  * `/llms.txt` quand son contenu change, vont à IndexNow (Bing, Yandex…) et à l'API Bing
  * (`SubmitUrlBatch`, ~100 URL/jour), puis le reliquat jamais soumis à Bing dans le quota
  * restant. Jamais une page inchangée. Toute la logique est dans `@sejour/socle/lib/indexing`
@@ -20,11 +22,14 @@ import { emptyStore, hasKv, kvStore } from "@/lib/kv";
  * La route n'est pas couverte par le matcher de `proxy.ts` : sa protection est ce seul secret.
  * Remplace le `npm run indexnow` manuel après déploiement (le script reste pour l'usage manuel).
  */
+export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const CONFIG: IndexingConfig = {
-  siteUrl: "https://www.albiez-aiguilles.fr",
-  bingSiteUrl: "https://albiez-aiguilles.fr/",
+  siteUrl: SITE_URL,
+  // La propriété Bing est le **domaine nu** (`https://albiez-aiguilles.fr/`, vérifié par
+  // `GetUserSites`), pas le `SITE_URL` en www : on retire le `www.`, on ne le remplace pas.
+  bingSiteUrl: `${new URL(SITE_URL).origin.replace("://www.", "://")}/`,
   indexNowKey: "665c5a478fa47b3dbc1e2c94bfa76e22",
   extraPaths: ["/llms.txt"],
   primaryLocale: "fr",
@@ -53,9 +58,9 @@ export async function GET(request: NextRequest) {
     });
     return NextResponse.json({ success: true, ...report });
   } catch (e) {
-    // Les erreurs du socle ne portent jamais la clé Bing ; on ne renvoie que leur message.
-    const message = e instanceof Error ? e.message : String(e);
-    console.error("Indexation :", message);
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    // Le détail ne va qu'au journal (les erreurs du socle ne portent jamais la clé Bing) ; le
+    // client reçoit un message générique.
+    console.error("[indexing]", e instanceof Error ? e.message : String(e));
+    return NextResponse.json({ success: false, error: "Indexation momentanément impossible." }, { status: 500 });
   }
 }
