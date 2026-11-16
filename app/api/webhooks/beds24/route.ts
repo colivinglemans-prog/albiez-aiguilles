@@ -15,9 +15,13 @@ import { modes, runCron } from "@/lib/messages/engine";
  * Authentification : en-tête `x-webhook-secret` (champ « Custom Header » du webhook Beds24),
  * comparé à `BEDS24_WEBHOOK_SECRET`. Variable absente ⇒ refus.
  *
- * Nos propres écritures de registre (`MSG_*`) rappellent ce webhook ; le passage suivant ne trouve
- * plus rien à envoyer. Sans verrou (Albiez n'a pas de stockage), deux appels simultanés en mode
- * `test` peuvent doubler une copie — à l'hôte seulement ; en `live`, le départage du moteur tient.
+ * Nos propres écritures de registre (`MSG_*`) rappellent ce webhook ; le passage suivant relit le
+ * registre et n'envoie que ce qui reste dû. Depuis le socle v3.26.1, toute trace est relue avant
+ * l'envoi : une trace qui ne se relit pas (code tronqué à 20 caractères par Beds24, comme
+ * `MSG_CONFIRMATION_TEST` le 2026-11-16) **bloque** le message (`ledger-unreadable`) au lieu de
+ * le laisser dû — au pire un envoi manqué, jamais une boucle. Sans verrou (Albiez n'a pas de
+ * stockage), deux appels simultanés en mode `test` peuvent doubler une copie — à l'hôte
+ * seulement ; en `live`, le départage du moteur tient.
  */
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";

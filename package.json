@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
-    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#v3.26.0",
+    "@sejour/socle": "github:colivinglemans-prog/sejour-socle#bf0655b55e0ce5c1db6896563308b2d08fcf4b11",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.1.0",
     "image-size": "^2.0.2",
