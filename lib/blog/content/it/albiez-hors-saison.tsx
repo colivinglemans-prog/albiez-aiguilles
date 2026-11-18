@@ -170,13 +170,29 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret, nato in Maurienne, vive anche lui ad Albiez-Montrond, nella
+        frazione di la Saussaz. Accompagnatore di media montagna, e maestro di sci all'ESF di
+        Albiez, propone escursioni a piedi e con le ciaspole <strong>in tutte le
+        stagioni</strong>, dalla mezza giornata al trekking di più giorni, per bambini e adulti.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — escursioni ad Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>Guardare le Aiguilles d'Arves</h3>
       <p>
         Il balcone dell'appartamento, esposto a sud-est, dà sulle{" "}
         <Link href="/it/guide/aiguilles-arves">Aiguilles d'Arves</Link>. Il col du Mollard e
         l'anello del lago offrono la stessa vista senza fatica. La salita verso la Basse du
         Gerbier (2 578 m) è un itinerario estivo: fuori stagione, la neve e il freddo la
-        rendono molto più impegnativa. Chiedete consiglio all'accompagnatore prima di partire.
+        rendono molto più impegnativa. Chiedete consiglio a uno degli accompagnatori prima di partire.
       </p>
 
       <h3>Il col du Mollard in bici</h3>

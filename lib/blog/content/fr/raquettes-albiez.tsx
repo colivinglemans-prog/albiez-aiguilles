@@ -142,7 +142,7 @@ export default function Article() {
 
       <p>
         Alain Mollaret, natif de la Maurienne, vit au hameau de la Saussaz, à
-        Albiez-Montrond. Accompagnateur en montagne et moniteur de ski diplômé, il emmène
+        Albiez-Montrond. Accompagnateur en montagne, et moniteur de ski à l'ESF d'Albiez, il emmène
         enfants et adultes en raquettes pour une <strong>demi-journée ou une journée</strong>,
         sur une neige souvent vierge de toute trace, hormis celles des animaux.
       </p>

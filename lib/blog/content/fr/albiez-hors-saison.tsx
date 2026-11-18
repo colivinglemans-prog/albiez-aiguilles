@@ -176,13 +176,29 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret, natif de la Maurienne, vit lui aussi à Albiez-Montrond, au hameau
+        de la Saussaz. Accompagnateur en montagne, et moniteur de ski à l'ESF d'Albiez, il
+        propose des randonnées à pied et en raquettes <strong>en toutes saisons</strong>, de la
+        demi-journée au trek de plusieurs jours, pour les enfants comme pour les adultes.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — randonnées à Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>Regarder les Aiguilles d'Arves</h3>
       <p>
         Le balcon de l'appartement, orienté sud-est, donne sur les{" "}
         <Link href="/fr/guide/aiguilles-arves">Aiguilles d'Arves</Link>. Le col du Mollard
         et la boucle du plan d'eau offrent la même vue sans effort. La montée vers la Basse
         du Gerbier (2 578 m) est un itinéraire d'été : hors saison, la neige et le froid
-        la rendent beaucoup plus engagée. Demandez conseil à l'accompagnateur avant de
+        la rendent beaucoup plus engagée. Demandez conseil à un accompagnateur avant de
         partir.
       </p>
 

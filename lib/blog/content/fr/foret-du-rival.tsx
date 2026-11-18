@@ -92,6 +92,22 @@ export default function Article() {
       </div>
 
       <p>
+        Alain Mollaret, natif de la Maurienne et installé au hameau de la Saussaz, à
+        Albiez-Montrond, est lui aussi accompagnateur en montagne — et moniteur de ski à l'ESF
+        d'Albiez. Il propose des randonnées à pied et en raquettes <strong>en toutes
+        saisons</strong>, et son site consacre une page entière à la faune et à la flore.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — randonnées à Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
+      <p>
         Voir aussi{" "}
         <Link href="/fr/guide/randonnees-balisees-albiez">
           les six randonnées balisées d'Albiez-Montrond

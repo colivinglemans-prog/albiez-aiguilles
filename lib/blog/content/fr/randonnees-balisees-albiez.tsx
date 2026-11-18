@@ -169,6 +169,23 @@ export default function Article() {
           </a>
         </p>
       </div>
+
+      <p>
+        Alain Mollaret, natif de la Maurienne, vit au hameau de la Saussaz, à
+        Albiez-Montrond. Accompagnateur en montagne, et moniteur de ski à l'ESF d'Albiez, il
+        emmène enfants et adultes en randonnée, à pied ou en raquettes, <strong>en toutes
+        saisons</strong>, de la demi-journée au trek de plusieurs jours : parmi ses treks, le
+        tour des Aiguilles d'Arves (2025) et celui du Mont Thabor.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — randonnées à Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
       <p>
         L'office de tourisme d'Albiez-Montrond, au Chef-lieu, vend par ailleurs des
         topo-guides couvrant quatre secteurs, dont celui d'Albiez-Montrond et

@@ -131,7 +131,7 @@ export default function Article() {
 
       <p>
         Alain Mollaret, born in the Maurienne, lives in the hamlet of la Saussaz, in
-        Albiez-Montrond. A qualified mountain leader and ski instructor, he takes children and
+        Albiez-Montrond. A mountain leader, and a ski instructor at the Albiez ESF, he takes children and
         adults out on snowshoes for a <strong>half-day or a full day</strong>, on snow often
         untouched by any tracks except those of the animals.
       </p>

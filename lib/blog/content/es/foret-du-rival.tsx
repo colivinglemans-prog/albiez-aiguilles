@@ -89,6 +89,22 @@ export default function Article() {
       </div>
 
       <p>
+        Alain Mollaret, nacido en la Maurienne y establecido en la aldea de la Saussaz, en
+        Albiez-Montrond, es también guía de media montaña — y monitor de esquí en la ESF de
+        Albiez. Propone rutas a pie y con raquetas <strong>en todas las estaciones</strong>, y su
+        web dedica una página entera a la fauna y la flora.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — senderismo en Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
+      <p>
         Vea también{" "}
         <Link href="/es/guide/randonnees-balisees-albiez">
           las seis rutas señalizadas de Albiez-Montrond

@@ -135,7 +135,7 @@ export default function Article() {
 
       <p>
         Alain Mollaret, nacido en la Maurienne, vive en la aldea de la Saussaz, en
-        Albiez-Montrond. Guía de media montaña y monitor de esquí titulado, lleva a niños y
+        Albiez-Montrond. Guía de media montaña, y monitor de esquí en la ESF de Albiez, lleva a niños y
         adultos con raquetas durante <strong>media jornada o una jornada completa</strong>,
         sobre una nieve a menudo sin más huellas que las de los animales.
       </p>

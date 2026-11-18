@@ -90,6 +90,22 @@ export default function Article() {
       </div>
 
       <p>
+        Alain Mollaret, born in the Maurienne and settled in the hamlet of la Saussaz, in
+        Albiez-Montrond, is also a mountain leader — and a ski instructor at the Albiez ESF. He
+        offers walks on foot and on snowshoes <strong>in every season</strong>, and his website
+        gives a whole page to the wildlife and the plants.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — walks in Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
+      <p>
         See also{" "}
         <Link href="/en/guide/randonnees-balisees-albiez">
           six waymarked walks from Albiez-Montrond

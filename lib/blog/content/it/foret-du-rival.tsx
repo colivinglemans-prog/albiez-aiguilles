@@ -89,6 +89,22 @@ export default function Article() {
       </div>
 
       <p>
+        Alain Mollaret, nato in Maurienne e stabilito nella frazione di la Saussaz, ad
+        Albiez-Montrond, è anche lui accompagnatore di media montagna — e maestro di sci all'ESF
+        di Albiez. Propone escursioni a piedi e con le ciaspole <strong>in tutte le
+        stagioni</strong>, e il suo sito dedica un'intera pagina alla fauna e alla flora.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — escursioni ad Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
+      <p>
         Vedete anche{" "}
         <Link href="/it/guide/randonnees-balisees-albiez">
           le sei escursioni segnalate di Albiez-Montrond

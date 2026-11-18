@@ -156,6 +156,23 @@ export default function Article() {
           </a>
         </p>
       </div>
+
+      <p>
+        Alain Mollaret, nacido en la Maurienne, vive en la aldea de la Saussaz, en
+        Albiez-Montrond. Guía de media montaña, y monitor de esquí en la ESF de Albiez, lleva a
+        niños y adultos de ruta, a pie o con raquetas, <strong>en todas las estaciones</strong>,
+        desde media jornada hasta un trekking de varios días: entre sus treks, la vuelta a las
+        Aiguilles d'Arves (2025) y la del Mont Thabor.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — senderismo en Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
       <p>
         La oficina de turismo de Albiez-Montrond, en el centro del pueblo, vende además guías de senderismo que cubren
         cuatro sectores, entre ellos el de Albiez-Montrond y Albiez-le-Jeune.

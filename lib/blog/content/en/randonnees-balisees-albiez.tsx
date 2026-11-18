@@ -167,6 +167,23 @@ export default function Article() {
           </a>
         </p>
       </div>
+
+      <p>
+        Alain Mollaret, born in the Maurienne, lives in the hamlet of la Saussaz, in
+        Albiez-Montrond. A mountain leader, and a ski instructor at the Albiez ESF, he takes
+        children and adults walking, on foot or on snowshoes, <strong>in every season</strong>,
+        from a half-day to a trek of several days: among his treks are a tour of the Aiguilles
+        d'Arves (2025) and one of the Mont Thabor.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — walks in Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
       <p>
         The Albiez-Montrond tourist office, in the village centre, also sells route guides
         covering four sectors, including Albiez-Montrond and Albiez-le-Jeune.

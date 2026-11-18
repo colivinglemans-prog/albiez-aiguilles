@@ -89,6 +89,22 @@ export default function Article() {
       </div>
 
       <p>
+        Alain Mollaret stammt aus der Maurienne, lebt im Weiler la Saussaz in Albiez-Montrond
+        und ist ebenfalls Bergwanderführer – und Skilehrer an der ESF Albiez. Er bietet
+        Wanderungen zu Fuß und mit Schneeschuhen <strong>zu jeder Jahreszeit</strong> an, und
+        seine Website widmet Tierwelt und Pflanzen eine eigene Seite.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — Wanderungen in Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
+      <p>
         Siehe auch{" "}
         <Link href="/de/guide/randonnees-balisees-albiez">
           die sechs markierten Wanderungen von Albiez-Montrond

@@ -134,7 +134,7 @@ export default function Article() {
 
       <p>
         Alain Mollaret stammt aus der Maurienne und lebt im Weiler la Saussaz in
-        Albiez-Montrond. Als staatlich geprüfter Bergwanderführer und Skilehrer nimmt er Kinder
+        Albiez-Montrond. Als Bergwanderführer und Skilehrer an der ESF Albiez nimmt er Kinder
         und Erwachsene für einen <strong>halben oder ganzen Tag</strong> auf Schneeschuhtour
         mit, durch Schnee, auf dem oft nur die Spuren der Tiere zu sehen sind.
       </p>
