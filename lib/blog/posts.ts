@@ -374,7 +374,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Sunset Ride à Albiez : descendre les pistes en VTT électrique au coucher du soleil",
+        title: "Sunset Ride à Albiez : descendre les pistes en VTT électrique",
         description:
           "Le jeudi, Mustang Sports fait monter un petit groupe en VTT électrique par le dernier télésiège, puis redescendre les pistes d'Albiez au coucher du soleil. Dès 13 ans, à partir de 89 €.",
         excerpt:
@@ -388,7 +388,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Sunset Ride in Albiez: riding down the pistes on an e-mountain bike at sunset",
+        title: "Sunset Ride in Albiez: e-bike down the ski pistes at sunset",
         description:
           "On Thursdays, Mustang Sports takes a small group up the last chairlift on electric mountain bikes, then back down the Albiez pistes at sunset. From age 13, from €89.",
         excerpt:
@@ -402,7 +402,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       de: {
-        title: "Sunset Ride in Albiez: mit dem E-Mountainbike bei Sonnenuntergang die Pisten hinunter",
+        title: "Sunset Ride in Albiez: mit dem E-MTB die Pisten hinunter",
         description:
           "Donnerstags bringt Mustang Sports eine kleine Gruppe mit E-Mountainbikes per letztem Sessellift nach oben und fährt dann bei Sonnenuntergang die Pisten von Albiez hinunter. Ab 13 Jahren, ab 89 €.",
         excerpt:
@@ -416,7 +416,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "Sunset Ride en Albiez: bajar las pistas en BTT eléctrica a la puesta de sol",
+        title: "Sunset Ride en Albiez: bajar las pistas en BTT eléctrica",
         description:
           "Los jueves, Mustang Sports sube a un grupo reducido en BTT eléctrica por el último telesilla y lo hace bajar por las pistas de Albiez a la puesta de sol. A partir de 13 años, desde 89 €.",
         excerpt:
@@ -430,7 +430,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "Sunset Ride ad Albiez: scendere le piste in mountain bike elettrica al tramonto",
+        title: "Sunset Ride ad Albiez: le piste in mountain bike elettrica",
         description:
           "Il giovedì, Mustang Sports porta un piccolo gruppo in mountain bike elettrica sull'ultima seggiovia, poi giù per le piste di Albiez al tramonto. Dai 13 anni, a partire da 89 €.",
         excerpt:
@@ -459,7 +459,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Animations gratuites à Albiez : la semaine type de l'hiver 2026-2027",
+        title: "Animations gratuites à Albiez : semaine type, hiver 2026-2027",
         description:
           "Luge tubing, Yooner, igloo, pot de bienvenue, karaoké, escape games : le programme hebdomadaire de l'office de tourisme d'Albiez, jour par jour, avec ce qui se réserve et la distance depuis le Mollard.",
         excerpt:
@@ -487,7 +487,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       de: {
-        title: "Kostenlose Veranstaltungen in Albiez: die typische Woche im Winter 2026-2027",
+        title: "Kostenlose Events in Albiez: die typische Winterwoche 2026-2027",
         description:
           "Tubing-Rodeln, Yooner, Iglu, Begrüßungsumtrunk, Karaoke, Escape Games: das Wochenprogramm des Tourismusbüros von Albiez, Tag für Tag, mit dem, was gebucht werden muss, und der Entfernung vom Mollard.",
         excerpt:
@@ -501,7 +501,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "Animaciones gratuitas en Albiez: la semana tipo del invierno 2026-2027",
+        title: "Animaciones gratuitas en Albiez: semana tipo, invierno 2026-2027",
         description:
           "Trineo tubing, Yooner, iglú, aperitivo de bienvenida, karaoke, escape games: el programa semanal de la oficina de turismo de Albiez, día a día, con lo que hay que reservar y la distancia desde el Mollard.",
         excerpt:
@@ -515,7 +515,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "Animazioni gratuite ad Albiez: la settimana tipo dell'inverno 2026-2027",
+        title: "Animazioni gratuite ad Albiez: settimana tipo, inverno 2026-2027",
         description:
           "Tubing, Yooner, igloo, aperitivo di benvenuto, karaoke, escape game: il programma settimanale dell'ufficio del turismo di Albiez, giorno per giorno, con cosa va prenotato e la distanza dal Mollard.",
         excerpt:
@@ -711,7 +711,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Forfait saison Albiez 2026-2027 : à partir de combien de jours il est rentable",
+        title: "Forfait saison Albiez 2026-2027 : rentable à partir de quand ?",
         description:
           "249 € au lieu de 497 € jusqu'au 2 décembre 2026. Comparé aux forfaits journée, 6 jours, week-end et au Pack Famille : le forfait saison d'Albiez est rentable dès deux semaines de ski.",
         excerpt:
@@ -753,7 +753,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "Forfait de temporada Albiez 2026-2027: a partir de cuántos días sale a cuenta",
+        title: "Forfait de temporada en Albiez 2026-2027: cuándo sale a cuenta",
         description:
           "249 € en lugar de 497 € hasta el 2 de diciembre de 2026. Comparado con los forfaits de día, 6 días, fin de semana y el Pack Familia: el de temporada de Albiez compensa desde dos semanas de esquí.",
         excerpt:
@@ -835,7 +835,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "Las fiestas del valle de los Arves, ordenadas por tiempo de carretera",
+        title: "Las fiestas del valle de los Arves, por tiempo de carretera",
         description:
           "Fête du Mouton en la Croix de Fer, Instant Beaufort en Saint-Sorlin, Le Charoc en Saint-Jean, 14 de julio y 15 de agosto en Albiez: qué ocurre cerca y cuántos minutos de coche exige de verdad.",
         excerpt:
@@ -1052,7 +1052,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     event: "cross-triathlon-arves",
     locales: {
       fr: {
-        title: "Cross Triathlon et Swimrun des Aiguilles d'Arves, au plan d'eau d'Albiez",
+        title: "Cross Triathlon et Swimrun des Aiguilles d'Arves à Albiez",
         description:
           "Deux épreuves mi-juillet au plan d'eau d'Albiez-Montrond, à 300 m de l'appartement : cross triathlon le matin, swimrun l'après-midi. Formats, distances et horaires, dès 8 ans.",
         excerpt:
@@ -1066,7 +1066,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Cross Triathlon and Swimrun des Aiguilles d'Arves, at the Albiez lake",
+        title: "Cross Triathlon and Swimrun des Aiguilles d'Arves in Albiez",
         description:
           "Two races in mid-July at the Albiez-Montrond lake, 300 m from the flat: cross triathlon in the morning, swimrun in the afternoon. Formats, distances and start times, from age 8.",
         excerpt:
@@ -1080,7 +1080,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       de: {
-        title: "Cross-Triathlon und Swimrun des Aiguilles d'Arves, am Badesee von Albiez",
+        title: "Cross-Triathlon und Swimrun des Aiguilles d'Arves in Albiez",
         description:
           "Zwei Wettkämpfe Mitte Juli am Badesee von Albiez-Montrond, 300 m von der Wohnung: vormittags Cross-Triathlon, nachmittags Swimrun. Formate, Distanzen und Startzeiten, ab 8 Jahren.",
         excerpt:
@@ -1094,7 +1094,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "Cross Triatlón y Swimrun des Aiguilles d'Arves, en el lago de Albiez",
+        title: "Cross Triatlón y Swimrun des Aiguilles d'Arves en Albiez",
         description:
           "Dos pruebas a mediados de julio en el lago de Albiez-Montrond, a 300 m del apartamento: cross triatlón por la mañana, swimrun por la tarde. Formatos, distancias y horarios, desde los 8 años.",
         excerpt:
@@ -1108,7 +1108,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "Cross Triathlon e Swimrun des Aiguilles d'Arves, al laghetto di Albiez",
+        title: "Cross Triathlon e Swimrun des Aiguilles d'Arves ad Albiez",
         description:
           "Due gare a metà luglio al laghetto di Albiez-Montrond, a 300 m dall'appartamento: cross triathlon la mattina, swimrun il pomeriggio. Formati, distanze e orari, dagli 8 anni.",
         excerpt:
@@ -1550,7 +1550,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Skier à Albiez depuis le secteur Mollard : télésièges, téléskis et pistes",
+        title: "Skier à Albiez au Mollard : télésièges, téléskis et pistes",
         description:
           "40 km de pistes, 13 remontées, 22 pistes de 1 500 à 2 060 m. Comment attaquer le domaine d'Albiez depuis le Mollard : Échaux, Aplanes, Coucou et Polytre.",
         excerpt:
@@ -1564,7 +1564,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Skiing Albiez from the Mollard sector: chairlifts, drag lifts and pistes",
+        title: "Skiing Albiez from Le Mollard: chairlifts, drag lifts and pistes",
         description:
           "40 km of pistes, 13 lifts and 22 runs between 1,500 and 2,060 m. How to open your day on the Albiez ski area from the Mollard: Échaux, Aplanes, Coucou and Polytre.",
         excerpt:
@@ -1579,7 +1579,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Skifahren in Albiez ab dem Sektor Le Mollard: Sessellifte, Schlepplifte und Pisten",
+          "Skifahren in Albiez ab Le Mollard: Sessellifte, Schlepper, Pisten",
         description:
           "40 km Pisten, 13 Bergbahnen, 22 Abfahrten von 1.500 bis 2.060 m. Wie Sie das Skigebiet von Albiez ab Le Mollard angehen: Échaux, Aplanes, Coucou und Polytre.",
         excerpt:
@@ -1594,7 +1594,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Esquiar en Albiez desde el sector Le Mollard: telesillas, telesquís y pistas",
+          "Esquiar en Albiez desde Le Mollard: telesillas, telesquís, pistas",
         description:
           "40 km de pistas, 13 remontes y 22 pistas de 1500 a 2060 m. Cómo atacar el dominio de Albiez desde Le Mollard: Échaux, Aplanes, Coucou y Polytre.",
         excerpt:
@@ -1609,7 +1609,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Sciare ad Albiez dal settore Le Mollard: seggiovie, skilift e piste",
+          "Sciare ad Albiez da Le Mollard: seggiovie, skilift e piste",
         description:
           "40 km di piste, 13 impianti, 22 piste da 1500 a 2060 m. Come affrontare il comprensorio di Albiez da Le Mollard: Échaux, Aplanes, Coucou e Polytre.",
         excerpt:
@@ -1960,7 +1960,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: null,
     locales: {
       fr: {
-        title: "Le Beaufort des Arves : la coopérative où faire ses provisions de fromage",
+        title: "Le Beaufort des Arves : la coopérative où acheter son fromage",
         description:
           "Beaufort AOP au lait cru d'alpages jusqu'à 2 500 m, affiné 6 à 12 mois, raclette de Savoie IGP, fondue râpée : la Fromagerie Coopérative de la vallée des Arves et sa boutique d'Albiez-Montrond.",
         excerpt:
@@ -2016,7 +2016,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "Il Beaufort des Arves: la cooperativa dove fare provvista di formaggio",
+        title: "Il Beaufort des Arves: la cooperativa dove comprare il formaggio",
         description:
           "Beaufort AOP di latte crudo di alpeggi fino a 2500 m, stagionato da 6 a 12 mesi, raclette de Savoie IGP, fonduta già grattugiata: il caseificio cooperativo della valle degli Arves e il suo negozio ad Albiez-Montrond.",
         excerpt:
@@ -2200,7 +2200,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "ete",
     locales: {
       fr: {
-        title: "Le col du Mollard à vélo : trois montées et le tour Arvan-Villards",
+        title: "Col du Mollard à vélo : trois montées et le tour Arvan-Villards",
         description:
           "1 638 m d'altitude, passage du Tour de France en 2006 et 2011 : la montée chronométrée depuis Saint-Jean, la boucle panoramique, la variante par Albiez-le-Jeune et le tour des trois cols.",
         excerpt:
@@ -2214,7 +2214,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "The Col du Mollard by bike: three climbs and the Arvan-Villards loop",
+        title: "Col du Mollard by bike: three climbs and the Arvan-Villards loop",
         description:
           "1,638 m high and used by the Tour de France in 2006 and 2011: the timed climb from Saint-Jean, the panoramic loop, the Albiez-le-Jeune variant and the three-col circuit.",
         excerpt:
@@ -2229,7 +2229,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Der Col du Mollard mit dem Rad: drei Auffahrten und die Runde Arvan-Villards",
+          "Col du Mollard per Rad: drei Auffahrten und Runde Arvan-Villards",
         description:
           "1.638 m hoch, 2006 und 2011 von der Tour de France befahren: die gemessene Auffahrt von Saint-Jean, die Panoramarunde, die Variante über Albiez-le-Jeune und die Drei-Pässe-Runde.",
         excerpt:
@@ -2244,7 +2244,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "El col du Mollard en bicicleta: tres subidas y la vuelta Arvan-Villards",
+          "Col du Mollard en bici: tres subidas y la vuelta Arvan-Villards",
         description:
           "1638 m de altitud, paso del Tour de Francia en 2006 y 2011: la subida cronometrada desde Saint-Jean, la vuelta panorámica, la variante por Albiez-le-Jeune y la ruta de los tres puertos.",
         excerpt:
@@ -2361,7 +2361,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "L'Albiez C'Show, la soirée du mardi sur le front de neige du Mollard",
+        title: "L'Albiez C'Show, le mardi soir sur le front de neige du Mollard",
         description:
           "Descente aux flambeaux encadrée par l'ESF, démonstration de dameuses, show des moniteurs, feu d'artifice et vin chaud : le rendez-vous des vacances scolaires à Albiez-Montrond.",
         excerpt:
@@ -2403,7 +2403,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "El Albiez C'Show, la fiesta del martes en el acceso a pistas del Mollard",
+        title: "Albiez C'Show: la fiesta del martes a pie de pista del Mollard",
         description:
           "Bajada de antorchas dirigida por la escuela de esquí, demostración de máquinas pisanieves, espectáculo de los monitores, fuegos artificiales y vino caliente: la cita de las vacaciones escolares en Albiez-Montrond.",
         excerpt:
@@ -2417,7 +2417,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "L'Albiez C'Show, la serata del martedì all'accesso alle piste del Mollard",
+        title: "Albiez C'Show: il martedì sera ai piedi delle piste del Mollard",
         description:
           "Fiaccolata guidata dalla scuola di sci, dimostrazione dei gatti delle nevi, spettacolo dei maestri, fuochi d'artificio e vin brulé: l'appuntamento delle vacanze scolastiche ad Albiez-Montrond.",
         excerpt:
@@ -2440,7 +2440,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "ete",
     locales: {
       fr: {
-        title: "Le lac du Mollard : baignade surveillée, structure gonflable et base de loisirs",
+        title: "Lac du Mollard à Albiez : baignade surveillée et base de loisirs",
         description:
           "À 350 m du logement, le plan d'eau du Mollard sert de réserve pour la neige de culture l'hiver et de base de baignade l'été, surveillée du 1er juillet au 31 août de 12 h à 18 h.",
         excerpt:
@@ -2454,7 +2454,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "The Mollard lake: supervised swimming, inflatables and a leisure area",
+        title: "Lac du Mollard in Albiez: supervised swimming and leisure area",
         description:
           "350 m from the apartment, the Mollard lake stores water for snowmaking in winter and becomes a swimming spot in summer, supervised from 1 July to 31 August, noon to 6 pm.",
         excerpt:
@@ -2469,7 +2469,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Der Lac du Mollard: bewachter Badebetrieb, Wasserspielgerät und Freizeitgelände",
+          "Lac du Mollard in Albiez: bewachtes Baden und Freizeitgelände",
         description:
           "350 m von der Wohnung dient der See am Mollard im Winter als Wasserspeicher für die Beschneiung und im Sommer als Badestelle, bewacht vom 1. Juli bis 31. August von 12 bis 18 Uhr.",
         excerpt:
@@ -2499,7 +2499,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Il lac du Mollard: balneazione sorvegliata, gonfiabile e base ricreativa",
+          "Lac du Mollard ad Albiez: bagno sorvegliato e base ricreativa",
         description:
           "A 350 m dall'alloggio, lo specchio d'acqua del Mollard fa da riserva per la neve artificiale d'inverno e da zona balneabile d'estate, sorvegliata dal 1° luglio al 31 agosto dalle 12 alle 18.",
         excerpt:
@@ -2601,7 +2601,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "ete",
     locales: {
       fr: {
-        title: "Le Chalet d'la Croë, refuge à 2 076 m au pied des Aiguilles d'Arves",
+        title: "Chalet d'la Croé, refuge à 2 076 m sous les Aiguilles d'Arves",
         description:
           "Refuge privé rénové en 2013, ouvert du 18 juin au 13 septembre 2026 : restauration, hébergement en dômes, produits locaux faits maison, au cœur des alpages d'Albiez-Montrond.",
         excerpt:
@@ -2615,7 +2615,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Le Chalet d'la Croë, a refuge at 2,076 m below the Aiguilles d'Arves",
+        title: "Chalet d'la Croé, a 2,076 m refuge below the Aiguilles d'Arves",
         description:
           "A private refuge renovated in 2013, open from 18 June to 13 September 2026: meals, dome accommodation and home-made local produce, in the high pastures of Albiez-Montrond.",
         excerpt:
@@ -2630,7 +2630,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Le Chalet d'la Croë, Hütte auf 2.076 m am Fuß der Aiguilles d'Arves",
+          "Chalet d'la Croé, Hütte auf 2.076 m unter den Aiguilles d'Arves",
         description:
           "Private, 2013 renovierte Hütte, geöffnet vom 18. Juni bis 13. September 2026: Bewirtung, Übernachtung in Kuppelzelten, hausgemachte regionale Erzeugnisse, mitten in den Almen von Albiez-Montrond.",
         excerpt:
@@ -2645,7 +2645,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Le Chalet d'la Croë, refugio a 2076 m al pie de las Aiguilles d'Arves",
+          "Chalet d'la Croé, refugio a 2076 m bajo las Aiguilles d'Arves",
         description:
           "Refugio privado renovado en 2013, abierto del 18 de junio al 13 de septiembre de 2026: restauración, alojamiento en domos, productos locales caseros, en el corazón de los pastos de Albiez-Montrond.",
         excerpt:
@@ -2660,7 +2660,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Le Chalet d'la Croë, rifugio a 2076 m ai piedi delle Aiguilles d'Arves",
+          "Chalet d'la Croé, rifugio a 2076 m sotto le Aiguilles d'Arves",
         description:
           "Rifugio privato ristrutturato nel 2013, aperto dal 18 giugno al 13 settembre 2026: ristorazione, pernottamento in domi, prodotti locali fatti in casa, nel cuore degli alpeggi di Albiez-Montrond.",
         excerpt:
@@ -2739,7 +2739,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "Le Kavalkada: passeggiate a cavallo e in pony a 300 m dall'alloggio",
+        title: "Le Kavalkada: passeggiate a cavallo e pony a 300 m dall'alloggio",
         description:
           "Il centro equestre di Albiez-Montrond: passeggiate nel bosco e in alpeggio, corsi di pony settimanali, lezioni in campo con istruttori diplomati. Orari dall'8 luglio al 31 agosto.",
         excerpt:
