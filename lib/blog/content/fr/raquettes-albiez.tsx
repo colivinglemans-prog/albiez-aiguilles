@@ -140,6 +140,22 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret, natif de la Maurienne, vit au hameau de la Saussaz, à
+        Albiez-Montrond. Accompagnateur en montagne et moniteur de ski diplômé, il emmène
+        enfants et adultes en raquettes pour une <strong>demi-journée ou une journée</strong>,
+        sur une neige souvent vierge de toute trace, hormis celles des animaux.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — randonnées à Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/pr%C3%A9sentation/activit%C3%A9s-hivernales/raquettes/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>Le soir : la soirée trappeur de Mustang</h3>
       <p>
         Les mercredis et jeudis soirs, Mustang emmène des petits groupes de Montrond au

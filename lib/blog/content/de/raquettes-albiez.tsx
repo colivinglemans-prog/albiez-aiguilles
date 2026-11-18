@@ -132,6 +132,22 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret stammt aus der Maurienne und lebt im Weiler la Saussaz in
+        Albiez-Montrond. Als staatlich geprüfter Bergwanderführer und Skilehrer nimmt er Kinder
+        und Erwachsene für einen <strong>halben oder ganzen Tag</strong> auf Schneeschuhtour
+        mit, durch Schnee, auf dem oft nur die Spuren der Tiere zu sehen sind.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — Wanderungen in Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/pr%C3%A9sentation/activit%C3%A9s-hivernales/raquettes/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>Am Abend: der Trapper-Abend von Mustang</h3>
       <p>
         Mittwoch- und Donnerstagabends bringt Mustang kleine Gruppen von Montrond hinauf zur

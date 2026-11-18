@@ -133,6 +133,22 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret, nacido en la Maurienne, vive en la aldea de la Saussaz, en
+        Albiez-Montrond. Guía de media montaña y monitor de esquí titulado, lleva a niños y
+        adultos con raquetas durante <strong>media jornada o una jornada completa</strong>,
+        sobre una nieve a menudo sin más huellas que las de los animales.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — senderismo en Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/pr%C3%A9sentation/activit%C3%A9s-hivernales/raquettes/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>De noche: la velada trampero de Mustang</h3>
       <p>
         Los miércoles y jueves por la noche, Mustang lleva a grupos reducidos desde Montrond

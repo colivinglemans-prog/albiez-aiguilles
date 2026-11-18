@@ -131,6 +131,22 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret, nato in Maurienne, vive nella frazione di la Saussaz, ad
+        Albiez-Montrond. Accompagnatore di media montagna e maestro di sci diplomato,
+        accompagna bambini e adulti con le ciaspole per <strong>mezza giornata o una giornata
+        intera</strong>, su una neve spesso senza altre tracce che quelle degli animali.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — escursioni ad Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/pr%C3%A9sentation/activit%C3%A9s-hivernales/raquettes/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>La sera: la serata trapper di Mustang</h3>
       <p>
         Il mercoledì e il giovedì sera, Mustang porta piccoli gruppi da Montrond fino

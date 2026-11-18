@@ -129,6 +129,22 @@ export default function Article() {
         </p>
       </div>
 
+      <p>
+        Alain Mollaret, born in the Maurienne, lives in the hamlet of la Saussaz, in
+        Albiez-Montrond. A qualified mountain leader and ski instructor, he takes children and
+        adults out on snowshoes for a <strong>half-day or a full day</strong>, on snow often
+        untouched by any tracks except those of the animals.
+      </p>
+      <div className="facts">
+        <p>
+          <strong>Alain Mollaret — walks in Albiez-Montrond</strong>
+          <br />
+          <a href="https://www.alain-mollaret-randonnees.fr/pr%C3%A9sentation/activit%C3%A9s-hivernales/raquettes/" target="_blank" rel="noopener noreferrer">
+            alain-mollaret-randonnees.fr
+          </a>
+        </p>
+      </div>
+
       <h3>In the evening: Mustang's trapper night</h3>
       <p>
         On Wednesday and Thursday evenings, Mustang takes small groups from Montrond up to
