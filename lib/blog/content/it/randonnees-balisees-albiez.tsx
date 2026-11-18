@@ -157,7 +157,7 @@ export default function Article() {
       </div>
 
       <p>
-        Alain Mollaret, nato in Maurienne, vive nella frazione di la Saussaz, ad
+        Alain Mollaret, nato in Maurienne, vive nella frazione La Saussaz, ad
         Albiez-Montrond. Accompagnatore di media montagna, e maestro di sci all'ESF di Albiez,
         accompagna bambini e adulti in escursione, a piedi o con le ciaspole, <strong>in tutte
         le stagioni</strong>, dalla mezza giornata al trekking di più giorni: tra i suoi

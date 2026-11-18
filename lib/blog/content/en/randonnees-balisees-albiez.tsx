@@ -173,7 +173,7 @@ export default function Article() {
         Albiez-Montrond. A mountain leader, and a ski instructor at the Albiez ESF, he takes
         children and adults walking, on foot or on snowshoes, <strong>in every season</strong>,
         from a half-day to a trek of several days: among his treks are a tour of the Aiguilles
-        d'Arves (2025) and one of the Mont Thabor.
+        d'Arves (2025) and one of Mont Thabor.
       </p>
       <div className="facts">
         <p>
