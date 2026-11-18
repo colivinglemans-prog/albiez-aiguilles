@@ -65,7 +65,7 @@ export default function Article() {
         <strong>à la carte</strong>, by the day and the time slot.
       </p>
       <p>
-        The same reflexes as for group lessons apply: morning slots go first during the
+        The same rules of thumb as for group lessons apply: morning slots go first during the
         school holidays, and you need to choose the <strong>Mollard meeting point</strong>,
         250 m from the apartment. Prices and availability are on the ESF website or at the
         Mollard office (<a href="tel:+33479593180">+33 4 79 59 31 80</a>).

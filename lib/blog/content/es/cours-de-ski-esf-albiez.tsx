@@ -59,7 +59,7 @@ export default function Article() {
         <strong>a la carta</strong>, por día y por franja horaria.
       </p>
       <p>
-        Valen los mismos reflejos que para las clases colectivas: durante las vacaciones
+        Se aplican las mismas recomendaciones que para las clases colectivas: durante las vacaciones
         escolares, las franjas de la mañana se agotan primero, y hay que elegir el{" "}
         <strong>punto de encuentro del Mollard</strong>, a 250 m del apartamento. Precios y
         disponibilidad en la web de la ESF o en la oficina del Mollard (

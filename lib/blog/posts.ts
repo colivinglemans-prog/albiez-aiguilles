@@ -127,7 +127,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       de: {
         title: "Schneeschuhwandern in Albiez-Montrond: Routen und Touren",
         description:
-          "Schneeschuhtouren in Albiez-Montrond: drei markierte Routen nahe dem Mollard, geführt mit der ESF oder einem Bergwanderführer, Verleih und Sicherheitstipps.",
+          "Schneeschuhtouren in Albiez-Montrond: drei markierte Routen am Mollard, geführt mit der ESF oder einem Bergwanderführer, Verleih und Sicherheitstipps.",
         excerpt:
           "Allein auf markierten Wegen, mit einem ESF-Skilehrer oder einem Bergwanderführer, oder abends hinauf zur Almhütte: Schneeschuhe ganz ohne Skikenntnisse.",
         keywords: [
@@ -143,7 +143,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         description:
           "Salidas con raquetas en Albiez-Montrond: tres rutas balizadas cerca del Mollard, salidas con la ESF o un guía, alquiler de raquetas y normas de seguridad.",
         excerpt:
-          "Por libre en senderos balizados, con un monitor de la ESF o un guía, o de noche hasta un chalet de alpage: raquetas sin necesidad de saber esquiar.",
+          "Por libre en senderos balizados, con un monitor de la ESF o un guía, o de noche hasta un refugio de montaña: raquetas sin necesidad de saber esquiar.",
         keywords: [
           "raquetas de nieve Albiez-Montrond",
           "salida con raquetas Albiez",
@@ -1846,7 +1846,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Escuela de esquí en Albiez-Montrond: ESF y clases privadas",
+          "Escuela de esquí en Albiez-Montrond: ESF y clases particulares",
         description:
           "Club Piou-Piou desde los 3 años y medio, clases para niños, jóvenes y adultos, clases particulares y guardería: así funciona la ESF de Albiez.",
         excerpt:
@@ -2686,7 +2686,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "ete",
     locales: {
       fr: {
-        title: "Chalet d'la Croé, refuge à 2 076 m sous les Aiguilles d'Arves",
+        title: "Chalet d'la Croë, refuge à 2 076 m sous les Aiguilles d'Arves",
         description:
           "Refuge privé rénové en 2013, ouvert du 18 juin au 13 septembre 2026 : restauration, hébergement en dômes, produits locaux faits maison, au cœur des alpages d'Albiez-Montrond.",
         excerpt:
@@ -2700,7 +2700,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Chalet d'la Croé, a 2,076 m refuge below the Aiguilles d'Arves",
+        title: "Chalet d'la Croë, a 2,076 m refuge below the Aiguilles d'Arves",
         description:
           "A private refuge renovated in 2013, open from 18 June to 13 September 2026: meals, dome accommodation and home-made local produce, in the high pastures of Albiez-Montrond.",
         excerpt:
@@ -2715,7 +2715,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       de: {
         title:
-          "Chalet d'la Croé, Hütte auf 2.076 m unter den Aiguilles d'Arves",
+          "Chalet d'la Croë, Hütte auf 2.076 m unter den Aiguilles d'Arves",
         description:
           "Private, 2013 renovierte Hütte, geöffnet vom 18. Juni bis 13. September 2026: Bewirtung, Übernachtung in Kuppelzelten, hausgemachte regionale Erzeugnisse, mitten in den Almen von Albiez-Montrond.",
         excerpt:
@@ -2730,7 +2730,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       es: {
         title:
-          "Chalet d'la Croé, refugio a 2076 m bajo las Aiguilles d'Arves",
+          "Chalet d'la Croë, refugio a 2076 m bajo las Aiguilles d'Arves",
         description:
           "Refugio privado renovado en 2013, abierto del 18 de junio al 13 de septiembre de 2026: restauración, alojamiento en domos, productos locales caseros, en el corazón de los pastos de Albiez-Montrond.",
         excerpt:
@@ -2745,7 +2745,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       },
       it: {
         title:
-          "Chalet d'la Croé, rifugio a 2076 m sotto le Aiguilles d'Arves",
+          "Chalet d'la Croë, rifugio a 2076 m sotto le Aiguilles d'Arves",
         description:
           "Rifugio privato ristrutturato nel 2013, aperto dal 18 giugno al 13 settembre 2026: ristorazione, pernottamento in domi, prodotti locali fatti in casa, nel cuore degli alpeggi di Albiez-Montrond.",
         excerpt:

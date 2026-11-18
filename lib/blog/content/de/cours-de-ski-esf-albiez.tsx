@@ -58,7 +58,7 @@ export default function Article() {
         Wer im eigenen Tempo vorankommen möchte, mit einem Skilehrer nur für sich, findet bei
         der ESF Albiez neben den Gruppenkursen auch <strong>Privatstunden</strong>. Sie folgen
         nicht dem Rhythmus von Samstag bis Samstag der Gruppenkurse: Man bucht sie{" "}
-        <strong>à la carte</strong>, nach Tag und Zeitfenster.
+        <strong>flexibel</strong>, nach Tag und Zeitfenster.
       </p>
       <p>
         Es gelten dieselben Regeln wie für die Gruppenkurse: In den Schulferien sind die

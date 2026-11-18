@@ -8,7 +8,7 @@ export default function Article() {
         No hace falta saber esquiar para disfrutar de la nieve en Albiez. Desde el
         apartamento del Mollard hay tres maneras de salir con raquetas: por libre en los
         itinerarios balizados, en una salida guiada con la ESF o un guía de media montaña, o
-        de noche, subiendo a cenar a un chalet de alpage.
+        de noche, subiendo a cenar a un refugio de montaña.
       </p>
 
       <h2>Por libre, en los itinerarios balizados</h2>
@@ -136,7 +136,7 @@ export default function Article() {
       <h3>De noche: la velada trampero de Mustang</h3>
       <p>
         Los miércoles y jueves por la noche, Mustang lleva a grupos reducidos desde Montrond
-        hasta el chalet de alpage de la Broue (1.800 m): unos 45 minutos de subida con
+        hasta el refugio de montaña de la Broue (1.800 m): unos 45 minutos de subida con
         raquetas junto a un guía de media montaña, aperitivo cena alrededor de los
         braseros y bajada en trineo con frontal. A partir de 8 años. Todos los detalles en
         nuestro artículo sobre{" "}
