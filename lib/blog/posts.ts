@@ -87,12 +87,13 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     slug: "raquettes-albiez",
     stage: "sur-place",
     date: "2026-11-18",
-    // Même photo que ski-de-randonnee-albiez-debutant : un sentier balisé sous la neige,
-    // faute de photo de raquettes à nous.
-    image: "blog/ski-de-randonnee-sentier-balise.jpg",
+    // Photo d'Alain Mollaret, accompagnateur à Albiez, reprise avec son accord (2026-11-18) :
+    // raquettistes face aux Aiguilles d'Arves. Pas de licence à citer, seulement l'auteur.
+    image: "blog/raquettes-aiguilles-d-arves-alain-mollaret.jpg",
     imageCredit: {
-      author: "Office de tourisme d'Albiez-Montrond",
-      sourceUrl: "https://www.explore-maurienne.com/activites/activites-neige/ski-de-rando/",
+      author: "Alain Mollaret",
+      sourceUrl:
+        "https://www.alain-mollaret-randonnees.fr/pr%C3%A9sentation/activit%C3%A9s-hivernales/raquettes/",
     },
     season: "hiver",
     locales: {
