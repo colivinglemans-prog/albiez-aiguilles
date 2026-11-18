@@ -84,6 +84,91 @@ export interface BlogPostMeta {
  */
 export const BLOG_POSTS: BlogPostMeta[] = [
   {
+    slug: "raquettes-albiez",
+    stage: "sur-place",
+    date: "2026-11-18",
+    // Même photo que ski-de-randonnee-albiez-debutant : un sentier balisé sous la neige,
+    // faute de photo de raquettes à nous.
+    image: "blog/ski-de-randonnee-sentier-balise.jpg",
+    imageCredit: {
+      author: "Office de tourisme d'Albiez-Montrond",
+      sourceUrl: "https://www.explore-maurienne.com/activites/activites-neige/ski-de-rando/",
+    },
+    season: "hiver",
+    locales: {
+      fr: {
+        title: "Raquettes à Albiez-Montrond : itinéraires et sorties encadrées",
+        description:
+          "Sortie raquettes à Albiez-Montrond : trois itinéraires balisés autour du Mollard, sorties avec l'ESF ou un accompagnateur, location et règles de prudence.",
+        excerpt:
+          "Seul sur les sentiers balisés, avec un moniteur ESF ou un accompagnateur, ou le soir jusqu'à un chalet d'alpage : la raquette sans savoir skier.",
+        keywords: [
+          "sortie raquette Albiez-Montrond",
+          "raquettes Albiez",
+          "randonnée raquettes Maurienne",
+          "raquettes ESF Albiez",
+          "balade raquettes Savoie",
+        ],
+      },
+      en: {
+        title: "Snowshoeing in Albiez-Montrond: trails and guided outings",
+        description:
+          "Snowshoe outings in Albiez-Montrond: three marked trails near Le Mollard, guided walks with the ESF or a mountain leader, snowshoe hire and safety tips.",
+        excerpt:
+          "On your own along marked trails, with an ESF instructor or a mountain leader, or up to a mountain chalet at night: snowshoeing, no skiing required.",
+        keywords: [
+          "snowshoe outing Albiez-Montrond",
+          "snowshoeing Albiez",
+          "snowshoe trails Maurienne",
+          "guided snowshoe walk Savoie",
+          "snowshoe hire Albiez",
+        ],
+      },
+      de: {
+        title: "Schneeschuhwandern in Albiez-Montrond: Routen und Touren",
+        description:
+          "Schneeschuhtouren in Albiez-Montrond: drei markierte Routen nahe dem Mollard, geführt mit der ESF oder einem Bergwanderführer, Verleih und Sicherheitstipps.",
+        excerpt:
+          "Allein auf markierten Wegen, mit einem ESF-Skilehrer oder einem Bergwanderführer, oder abends hinauf zur Almhütte: Schneeschuhe ganz ohne Skikenntnisse.",
+        keywords: [
+          "Schneeschuhwandern Albiez-Montrond",
+          "Schneeschuhtour Albiez",
+          "Schneeschuhwandern Savoyen",
+          "geführte Schneeschuhwanderung Frankreich",
+          "Schneeschuhe leihen Albiez",
+        ],
+      },
+      es: {
+        title: "Raquetas de nieve en Albiez-Montrond: rutas y salidas guiadas",
+        description:
+          "Salidas con raquetas en Albiez-Montrond: tres rutas balizadas cerca del Mollard, salidas con la ESF o un guía, alquiler de raquetas y normas de seguridad.",
+        excerpt:
+          "Por libre en senderos balizados, con un monitor de la ESF o un guía, o de noche hasta un chalet de alpage: raquetas sin necesidad de saber esquiar.",
+        keywords: [
+          "raquetas de nieve Albiez-Montrond",
+          "salida con raquetas Albiez",
+          "raquetas de nieve Saboya",
+          "ruta guiada raquetas Alpes",
+          "alquiler raquetas Albiez",
+        ],
+      },
+      it: {
+        title: "Ciaspole ad Albiez-Montrond: itinerari e uscite guidate",
+        description:
+          "Ciaspolate ad Albiez-Montrond: tre itinerari segnalati vicino al Mollard, uscite con l'ESF o un accompagnatore, noleggio delle ciaspole e sicurezza.",
+        excerpt:
+          "Da soli sui sentieri segnalati, con un maestro ESF o un accompagnatore, oppure la sera fino a un alpeggio: le ciaspole senza bisogno di saper sciare.",
+        keywords: [
+          "ciaspolata Albiez-Montrond",
+          "ciaspole Albiez",
+          "ciaspolate Savoia",
+          "ciaspolata guidata Francia",
+          "noleggio ciaspole Albiez",
+        ],
+      },
+    },
+  },
+  {
     slug: "quelle-semaine-skier-albiez",
     stage: "reserver",
     date: "2026-11-08",

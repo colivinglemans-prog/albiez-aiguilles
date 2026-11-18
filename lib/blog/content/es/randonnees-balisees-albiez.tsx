@@ -163,7 +163,9 @@ export default function Article() {
 
       <h2>¿Y en invierno?</h2>
       <p>
-        Tres de estos itinerarios (Contamines, La Plaigne, el Chalmieu) son practicables con raquetas. Para el resto de
+        Tres de estos itinerarios (Contamines, La Plaigne, el Chalmieu) son practicables con{" "}
+        <Link href="/es/guide/raquettes-albiez">raquetas</Link> (rutas, salidas guiadas y
+        alquiler en nuestro artículo dedicado). Para el resto de
         la estación fría, todo ocurre en{" "}
         <Link href="/es/esqui">el dominio esquiable</Link>, a 250 m del alojamiento.
       </p>

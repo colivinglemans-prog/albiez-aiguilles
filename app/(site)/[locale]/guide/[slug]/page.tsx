@@ -63,6 +63,13 @@ const CONTENT: Record<string, Record<Locale, ContentLoader>> = {
     es: () => import("@/lib/blog/content/es/pneus-neige-chaines-albiez"),
     it: () => import("@/lib/blog/content/it/pneus-neige-chaines-albiez"),
   },
+  "raquettes-albiez": {
+    fr: () => import("@/lib/blog/content/fr/raquettes-albiez"),
+    en: () => import("@/lib/blog/content/en/raquettes-albiez"),
+    de: () => import("@/lib/blog/content/de/raquettes-albiez"),
+    es: () => import("@/lib/blog/content/es/raquettes-albiez"),
+    it: () => import("@/lib/blog/content/it/raquettes-albiez"),
+  },
   "reserver-ski-esf-en-avance": {
     fr: () => import("@/lib/blog/content/fr/reserver-ski-esf-en-avance"),
     en: () => import("@/lib/blog/content/en/reserver-ski-esf-en-avance"),

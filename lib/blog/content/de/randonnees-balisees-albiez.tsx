@@ -162,7 +162,9 @@ export default function Article() {
 
       <h2>Und im Winter?</h2>
       <p>
-        Drei dieser Routen (Contamines, La Plaigne, Le Chalmieu) sind mit Schneeschuhen machbar. Für den Rest der kalten
+        Drei dieser Routen (Contamines, La Plaigne, Le Chalmieu) sind mit{" "}
+        <Link href="/de/guide/raquettes-albiez">Schneeschuhen</Link> machbar (Routen, geführte
+        Touren und Verleih in unserem eigenen Artikel). Für den Rest der kalten
         Jahreszeit spielt sich alles auf{" "}
         <Link href="/de/ski">dem Skigebiet</Link> ab, 250 m von der Wohnung.
       </p>

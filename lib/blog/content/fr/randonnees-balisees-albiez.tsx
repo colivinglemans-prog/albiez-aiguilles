@@ -177,8 +177,9 @@ export default function Article() {
 
       <h2>Et l'hiver ?</h2>
       <p>
-        Trois de ces itinéraires (Contamines, la Plaigne, le Chalmieu) sont praticables en
-        raquettes. Pour le reste de la saison froide, tout se passe sur{" "}
+        Trois de ces itinéraires (Contamines, la Plaigne, le Chalmieu) sont praticables en{" "}
+        <Link href="/fr/guide/raquettes-albiez">raquettes</Link> (itinéraires, sorties encadrées
+        et location dans notre article dédié). Pour le reste de la saison froide, tout se passe sur{" "}
         <Link href="/fr/ski">le domaine skiable</Link>, à 250 m du logement.
       </p>
     </>

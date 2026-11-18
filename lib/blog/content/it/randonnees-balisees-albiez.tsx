@@ -162,7 +162,9 @@ export default function Article() {
 
       <h2>E d'inverno?</h2>
       <p>
-        Tre di questi itinerari (Contamines, La Plaigne, Le Chalmieu) sono percorribili con le ciaspole. Per il resto
+        Tre di questi itinerari (Contamines, La Plaigne, Le Chalmieu) sono percorribili con le{" "}
+        <Link href="/it/guide/raquettes-albiez">ciaspole</Link> (itinerari, uscite guidate e
+        noleggio nel nostro articolo dedicato). Per il resto
         della stagione fredda, tutto si svolge sul{" "}
         <Link href="/it/sci">comprensorio sciistico</Link>, a 250 m dall'alloggio.
       </p>

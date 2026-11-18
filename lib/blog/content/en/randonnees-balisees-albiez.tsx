@@ -174,7 +174,9 @@ export default function Article() {
 
       <h2>What about winter?</h2>
       <p>
-        Three of these routes (Contamines, La Plaigne, Le Chalmieu) work on snowshoes. For
+        Three of these routes (Contamines, La Plaigne, Le Chalmieu) work on{" "}
+        <Link href="/en/guide/raquettes-albiez">snowshoes</Link> (trails, guided outings and
+        hire are covered in our dedicated article). For
         the rest of the cold season, everything happens on{" "}
         <Link href="/en/ski">the ski area</Link>, 250 m from the apartment.
       </p>
