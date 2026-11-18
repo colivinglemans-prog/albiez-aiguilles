@@ -59,6 +59,29 @@ export default function Article() {
       <h3>Cours adultes</h3>
       <p>Collectifs ou particuliers, pour reprendre ou pour progresser.</p>
 
+      <h2>Cours particuliers</h2>
+      <p>
+        Pour progresser à son rythme, avec un moniteur pour soi, l'ESF d'Albiez propose des{" "}
+        <strong>cours particuliers</strong> en plus des cours collectifs. Ils ne suivent pas
+        le rythme du samedi au samedi des cours collectifs : ils se réservent{" "}
+        <strong>à la carte</strong>, au jour et au créneau.
+      </p>
+      <p>
+        Mêmes réflexes que pour les cours collectifs : les créneaux du matin partent en
+        premier pendant les vacances scolaires, et il faut choisir le{" "}
+        <strong>rassemblement Mollard</strong>, à 250 m de l'appartement. Tarifs et
+        disponibilités sur le site de l'ESF ou au bureau du Mollard (
+        <a href="tel:+33479593180">04 79 59 31 80</a>).
+      </p>
+      <p>
+        Pour le ski de randonnée, l'ESF et des professionnels indépendants proposent aussi
+        des sorties encadrées : tout est dans notre article{" "}
+        <Link href="/fr/guide/ski-de-randonnee-albiez-debutant">
+          débuter le ski de randonnée à Albiez
+        </Link>
+        .
+      </p>
+
       <h2>Au-delà du ski alpin</h2>
       <p>L'ESF d'Albiez encadre aussi des activités qu'on n'attend pas d'une école de ski :</p>
       <ul>
@@ -95,6 +118,15 @@ export default function Article() {
         Les forfaits peuvent être pris <strong>en même temps que les cours</strong>, ce qui
         évite une file supplémentaire le premier jour. Autre option : les commander en
         ligne et les recevoir par la poste avant le départ.
+      </p>
+
+      <p>
+        L'ordre complet — cours, matériel, forfait — et une checklist datée sont dans notre
+        article{" "}
+        <Link href="/fr/guide/reserver-ski-esf-en-avance">
+          dans quel ordre réserver à Albiez
+        </Link>
+        .
       </p>
 
       <div className="facts">

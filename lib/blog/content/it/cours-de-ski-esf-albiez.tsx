@@ -52,6 +52,29 @@ export default function Article() {
       <h3>Corsi per adulti</h3>
       <p>Collettivi o privati, per riprendere o per migliorare.</p>
 
+      <h2>Lezioni private</h2>
+      <p>
+        Per progredire con il proprio ritmo, con un maestro tutto per sé, l'ESF di Albiez
+        propone <strong>lezioni private</strong> oltre ai corsi collettivi. Non seguono il
+        ritmo da sabato a sabato dei corsi collettivi: si prenotano{" "}
+        <strong>à la carte</strong>, per giorno e per fascia oraria.
+      </p>
+      <p>
+        Valgono gli stessi accorgimenti dei corsi collettivi: durante le vacanze scolastiche
+        le fasce del mattino vanno via per prime, e bisogna scegliere il{" "}
+        <strong>punto di ritrovo del Mollard</strong>, a 250 m dall'appartamento. Prezzi e
+        disponibilità sul sito dell'ESF o all'ufficio del Mollard (
+        <a href="tel:+33479593180">+33 4 79 59 31 80</a>).
+      </p>
+      <p>
+        Per lo scialpinismo, l'ESF e alcuni professionisti indipendenti propongono anche
+        uscite accompagnate: tutto è nel nostro articolo su come{" "}
+        <Link href="/it/guide/ski-de-randonnee-albiez-debutant">
+          iniziare lo scialpinismo ad Albiez
+        </Link>
+        .
+      </p>
+
       <h2>Oltre lo sci alpino</h2>
       <p>La ESF di Albiez organizza anche attività che non si aspettano da una scuola di sci:</p>
       <ul>
@@ -86,6 +109,15 @@ export default function Article() {
       <p>
         Gli skipass possono essere acquistati <strong>insieme ai corsi</strong>, evitando una coda in più il primo
         giorno. Altra opzione: ordinarli online e riceverli per posta prima della partenza.
+      </p>
+
+      <p>
+        L'ordine completo — corsi, attrezzatura, skipass — e una checklist con le date sono
+        nel nostro articolo su{" "}
+        <Link href="/it/guide/reserver-ski-esf-en-avance">
+          cosa prenotare per primo ad Albiez
+        </Link>
+        .
       </p>
 
       <div className="facts">

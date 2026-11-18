@@ -51,6 +51,29 @@ export default function Article() {
       <h3>Clases para adultos</h3>
       <p>Colectivas o particulares, para retomar o para progresar.</p>
 
+      <h2>Clases particulares</h2>
+      <p>
+        Para progresar a su ritmo, con un monitor solo para usted, la ESF de Albiez ofrece{" "}
+        <strong>clases particulares</strong> además de las clases colectivas. No siguen el
+        ritmo de sábado a sábado de las colectivas: se reservan{" "}
+        <strong>a la carta</strong>, por día y por franja horaria.
+      </p>
+      <p>
+        Valen los mismos reflejos que para las clases colectivas: durante las vacaciones
+        escolares, las franjas de la mañana se agotan primero, y hay que elegir el{" "}
+        <strong>punto de encuentro del Mollard</strong>, a 250 m del apartamento. Precios y
+        disponibilidad en la web de la ESF o en la oficina del Mollard (
+        <a href="tel:+33479593180">+33 4 79 59 31 80</a>).
+      </p>
+      <p>
+        Para el esquí de travesía, la ESF y profesionales independientes también proponen
+        salidas guiadas: todo está en nuestro artículo sobre cómo{" "}
+        <Link href="/es/guide/ski-de-randonnee-albiez-debutant">
+          empezar con el esquí de travesía en Albiez
+        </Link>
+        .
+      </p>
+
       <h2>Más allá del esquí alpino</h2>
       <p>La ESF de Albiez dirige también actividades que no se esperan de una escuela de esquí:</p>
       <ul>
@@ -85,6 +108,15 @@ export default function Article() {
       <p>
         Los forfaits pueden adquirirse <strong>al mismo tiempo que las clases</strong>, lo que evita una cola más el
         primer día. Otra opción: pedirlos en línea y recibirlos por correo antes de salir.
+      </p>
+
+      <p>
+        El orden completo — clases, material, forfait — y una lista con fechas están en
+        nuestro artículo sobre{" "}
+        <Link href="/es/guide/reserver-ski-esf-en-avance">
+          qué reservar primero en Albiez
+        </Link>
+        .
       </p>
 
       <div className="facts">

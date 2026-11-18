@@ -53,6 +53,28 @@ export default function Article() {
       <h3>Erwachsenenkurse</h3>
       <p>In Gruppen oder als Privatunterricht, zum Wiedereinstieg oder zum Weiterkommen.</p>
 
+      <h2>Privatstunden</h2>
+      <p>
+        Wer im eigenen Tempo vorankommen möchte, mit einem Skilehrer nur für sich, findet bei
+        der ESF Albiez neben den Gruppenkursen auch <strong>Privatstunden</strong>. Sie folgen
+        nicht dem Rhythmus von Samstag bis Samstag der Gruppenkurse: Man bucht sie{" "}
+        <strong>à la carte</strong>, nach Tag und Zeitfenster.
+      </p>
+      <p>
+        Es gelten dieselben Regeln wie für die Gruppenkurse: In den Schulferien sind die
+        Vormittagszeiten zuerst weg, und man muss den <strong>Treffpunkt Mollard</strong>{" "}
+        wählen, 250 m von der Wohnung. Preise und freie Termine auf der Website der ESF oder
+        im Büro am Mollard (<a href="tel:+33479593180">+33 4 79 59 31 80</a>).
+      </p>
+      <p>
+        Für Skitouren bieten die ESF und unabhängige Profis auch geführte Touren an: alles
+        dazu in unserem Artikel zum{" "}
+        <Link href="/de/guide/ski-de-randonnee-albiez-debutant">
+          Einstieg ins Skitourengehen in Albiez
+        </Link>
+        .
+      </p>
+
       <h2>Über den Alpinski hinaus</h2>
       <p>Die ESF von Albiez leitet auch Aktivitäten an, die man von einer Skischule nicht erwartet:</p>
       <ul>
@@ -87,6 +109,15 @@ export default function Article() {
       <p>
         Die Skipässe können <strong>gleichzeitig mit den Kursen</strong> gekauft werden, was am ersten Tag eine
         zusätzliche Schlange erspart. Andere Möglichkeit: sie online bestellen und vor der Abreise per Post erhalten.
+      </p>
+
+      <p>
+        Die ganze Reihenfolge — Kurse, Ausrüstung, Skipass — und eine Checkliste mit Terminen
+        stehen in unserem Artikel{" "}
+        <Link href="/de/guide/reserver-ski-esf-en-avance">
+          was man in Albiez zuerst bucht
+        </Link>
+        .
       </p>
 
       <div className="facts">

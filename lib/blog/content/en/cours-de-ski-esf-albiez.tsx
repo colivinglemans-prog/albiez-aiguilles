@@ -57,6 +57,28 @@ export default function Article() {
       <h3>Adult lessons</h3>
       <p>Group or private, whether you are starting again or trying to improve.</p>
 
+      <h2>Private lessons</h2>
+      <p>
+        To progress at your own pace, with an instructor to yourself, the Albiez ESF offers{" "}
+        <strong>private lessons</strong> as well as group lessons. They do not follow the
+        Saturday-to-Saturday rhythm of group lessons: you book them{" "}
+        <strong>à la carte</strong>, by the day and the time slot.
+      </p>
+      <p>
+        The same reflexes as for group lessons apply: morning slots go first during the
+        school holidays, and you need to choose the <strong>Mollard meeting point</strong>,
+        250 m from the apartment. Prices and availability are on the ESF website or at the
+        Mollard office (<a href="tel:+33479593180">+33 4 79 59 31 80</a>).
+      </p>
+      <p>
+        For ski touring, the ESF and independent professionals also run guided outings:
+        everything is in our article on{" "}
+        <Link href="/en/guide/ski-de-randonnee-albiez-debutant">
+          getting started with ski touring in Albiez
+        </Link>
+        .
+      </p>
+
       <h2>Beyond alpine skiing</h2>
       <p>
         The Albiez ski school also runs activities you would not expect from a ski school:
@@ -94,6 +116,15 @@ export default function Article() {
         Lift passes can be bought <strong>at the same time as the lessons</strong>, which
         removes one more queue on the first day. Alternatively, order them online and have
         them posted before you leave home.
+      </p>
+
+      <p>
+        The full order — lessons, equipment, lift pass — and a dated checklist are in our
+        article on{" "}
+        <Link href="/en/guide/reserver-ski-esf-en-avance">
+          what to book first in Albiez
+        </Link>
+        .
       </p>
 
       <div className="facts">

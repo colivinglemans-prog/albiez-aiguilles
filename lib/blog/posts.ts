@@ -298,11 +298,11 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "ESF, skis, forfait : dans quel ordre réserver à Albiez",
+        title: "Ski à Albiez : réserver dans l'ordre cours, skis et forfait",
         description: "Cours ESF, location de skis, forfait : ce qui part en premier pendant les vacances, ce qui peut attendre janvier, et une checklist datée.",
         excerpt: "Les cours ESF d'abord, le matériel ensuite, le forfait en dernier : l'ordre qui évite le cours de fin de journée, la file du premier matin et le plein tarif.",
         keywords: [
-          "réserver ESF Albiez",
+          "quand réserver vacances ski Albiez",
           "location ski en ligne Albiez",
           "forfait Albiez en ligne",
           "préparer séjour ski",
@@ -310,11 +310,11 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ]
       },
       en: {
-        title: "ESF, skis, lift pass: in which order to book in Albiez",
+        title: "Skiing in Albiez: what to book first, lessons, skis, pass",
         description: "ESF lessons, ski hire, lift pass: what goes first during the holidays, what can wait until January, and a dated checklist.",
         excerpt: "ESF lessons first, equipment next, lift pass last: the order that avoids the late-afternoon lesson, the first-morning queue and the full price.",
         keywords: [
-          "book ESF lessons in advance",
+          "when to book a ski holiday",
           "ski hire online Albiez",
           "Albiez lift pass online",
           "ski holiday planning",
@@ -322,11 +322,11 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ]
       },
       de: {
-        title: "ESF, Ski, Skipass: in welcher Reihenfolge in Albiez buchen",
+        title: "Ski in Albiez: was zuerst buchen – Kurse, Ski, Skipass",
         description: "ESF-Kurse, Skiverleih, Skipass: was in den Ferien zuerst weg ist, was bis Januar warten kann, und eine Checkliste mit Terminen.",
         excerpt: "Erst die ESF-Kurse, dann die Ausrüstung, zuletzt der Skipass: die Reihenfolge, die den Kurs am Tagesende, die Schlange am ersten Morgen und den vollen Preis erspart.",
         keywords: [
-          "ESF Skikurs buchen",
+          "Skiurlaub rechtzeitig buchen",
           "Skiverleih online buchen Frankreich",
           "Skipass Albiez online",
           "Skiurlaub planen",
@@ -334,11 +334,11 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ]
       },
       es: {
-        title: "ESF, esquís, forfait: en qué orden reservar en Albiez",
+        title: "Esquí en Albiez: qué reservar primero, clases, esquís, forfait",
         description: "Clases ESF, alquiler de esquís, forfait: qué se agota antes en vacaciones, qué puede esperar a enero, y una lista de tareas con fechas.",
         excerpt: "Primero las clases de la ESF, después el material y al final el forfait: el orden que evita la clase de última hora, la cola de la primera mañana y la tarifa completa.",
         keywords: [
-          "reservar clases esquí ESF",
+          "cuándo reservar vacaciones de esquí",
           "alquiler esquís online Alpes",
           "forfait Albiez online",
           "preparar viaje de esquí",
@@ -346,11 +346,11 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ]
       },
       it: {
-        title: "ESF, sci, skipass: in che ordine prenotare ad Albiez",
+        title: "Sci ad Albiez: cosa prenotare prima tra corsi, sci e skipass",
         description: "Lezioni ESF, noleggio sci, skipass: che cosa va via per primo durante le vacanze, che cosa può aspettare gennaio, e una checklist con le date.",
         excerpt: "Prima le lezioni ESF, poi l'attrezzatura, lo skipass per ultimo: l'ordine che evita la lezione di fine giornata, la coda della prima mattina e la tariffa piena.",
         keywords: [
-          "prenotare scuola sci ESF",
+          "quando prenotare la settimana bianca",
           "noleggio sci online Francia",
           "skipass Albiez online",
           "preparare settimana bianca",
@@ -544,9 +544,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     season: "hiver",
     locales: {
       fr: {
-        title: "Débuter le ski de randonnée à Albiez : itinéraires, règles et sorties encadrées",
+        title: "Débuter le ski de randonnée à Albiez : itinéraires et sorties",
         description:
-          "Ski de randonnée à Albiez pour débutants : la montée aux Aplanes part du Mollard, le Crêt de l'âne vient ensuite. Niveau, règles sur les pistes, sécurité, location et sorties avec l'ESF ou un guide.",
+          "Ski de randonnée à Albiez pour débutants : la montée aux Aplanes part du Mollard. Niveau, règles, sécurité, location et sorties avec l'ESF ou un guide.",
         excerpt:
           "Deux itinéraires balisés, dont un au pied de l'appartement, et quatre façons de s'initier avec un professionnel.",
         keywords: [
@@ -558,9 +558,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       en: {
-        title: "Getting started with ski touring in Albiez: routes, rules and guided outings",
+        title: "Ski touring in Albiez for beginners: routes and guided trips",
         description:
-          "Ski touring in Albiez for beginners: the climb to les Aplanes starts from the Mollard, the Crêt de l'âne comes next. Level, rules on the pistes, safety, equipment hire and outings with the ESF or a guide.",
+          "Ski touring in Albiez for beginners: the climb to les Aplanes starts at the Mollard. Level, rules, safety, hire and outings with the ESF or a guide.",
         excerpt:
           "Two waymarked routes, one of them right by the apartment, and four ways to learn with a professional.",
         keywords: [
@@ -572,9 +572,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       de: {
-        title: "Skitouren für Einsteiger in Albiez: Routen, Regeln und geführte Touren",
+        title: "Skitouren für Einsteiger in Albiez: Routen und Führungen",
         description:
-          "Skitourengehen in Albiez für Einsteiger: Der Aufstieg zu den Aplanes beginnt am Mollard, der Crêt de l'âne folgt danach. Niveau, Regeln auf den Pisten, Sicherheit, Verleih und Touren mit der ESF oder einem Bergführer.",
+          "Skitouren in Albiez für Einsteiger: Der Aufstieg zu den Aplanes beginnt am Mollard. Niveau, Regeln, Sicherheit, Verleih, Touren mit ESF oder Bergführer.",
         excerpt:
           "Zwei markierte Routen, eine davon direkt bei der Wohnung, und vier Möglichkeiten, mit einem Profi einzusteigen.",
         keywords: [
@@ -586,9 +586,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       es: {
-        title: "Empezar con el esquí de travesía en Albiez: itinerarios, normas y salidas guiadas",
+        title: "Esquí de travesía en Albiez para principiantes: rutas y salidas",
         description:
-          "Esquí de travesía en Albiez para principiantes: la subida a les Aplanes sale del Mollard, el Crêt de l'âne viene después. Nivel, normas en las pistas, seguridad, alquiler y salidas con la ESF o un guía.",
+          "Esquí de travesía en Albiez para principiantes: la subida a les Aplanes sale del Mollard. Nivel, normas, seguridad, alquiler, salidas con la ESF o un guía.",
         excerpt:
           "Dos itinerarios balizados, uno de ellos al pie del apartamento, y cuatro maneras de iniciarse con un profesional.",
         keywords: [
@@ -600,9 +600,9 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         ],
       },
       it: {
-        title: "Iniziare lo scialpinismo ad Albiez: itinerari, regole e uscite accompagnate",
+        title: "Scialpinismo ad Albiez per principianti: itinerari e uscite",
         description:
-          "Scialpinismo ad Albiez per principianti: la salita agli Aplanes parte dal Mollard, il Crêt de l'âne viene dopo. Livello, regole sulle piste, sicurezza, noleggio e uscite con la ESF o una guida.",
+          "Scialpinismo ad Albiez per principianti: la salita agli Aplanes parte dal Mollard. Livello, regole, sicurezza, noleggio e uscite con la ESF o una guida.",
         excerpt:
           "Due itinerari segnalati, di cui uno ai piedi dell'appartamento, e quattro modi di iniziare con un professionista.",
         keywords: [
@@ -1719,7 +1719,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       fr: {
         title: "Cours de ski à Albiez-Montrond : ESF et leçons particulières",
         description:
-          "Club Piou-Piou dès 3 ans et demi, cours enfants, ados et adultes, garderie, biathlon et DVA : le fonctionnement de l'École du Ski Français d'Albiez-Montrond.",
+          "Club Piou-Piou dès 3 ans et demi, cours enfants, ados et adultes, cours particuliers, garderie : le fonctionnement de l'ESF d'Albiez-Montrond.",
         excerpt:
           "Un piège à éviter : l'ESF a deux points de rassemblement. Depuis le Mollard, c'est celui du Mollard qu'il faut choisir à la réservation.",
         keywords: [
@@ -1733,7 +1733,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
       en: {
         title: "Ski school in Albiez-Montrond: ESF and private lessons",
         description:
-          "Piou-Piou club from age 3½, children's, teens' and adults' lessons, childcare, biathlon and avalanche-transceiver taster sessions: how the Albiez-Montrond French ski school works.",
+          "Piou-Piou club from 3½, children's, teens' and adult lessons, private lessons and childcare: how the Albiez-Montrond ski school (ESF) works.",
         excerpt:
           "One trap to avoid: the ski school has two meeting points. From the Mollard, book the Mollard one.",
         keywords: [
@@ -1748,7 +1748,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         title:
           "Skischule in Albiez-Montrond: ESF und Privatstunden",
         description:
-          "Club Piou-Piou ab 3½ Jahren, Kurse für Kinder, Jugendliche und Erwachsene, Kinderbetreuung, Biathlon und LVS-Schnupperkurse: wie die französische Skischule von Albiez-Montrond funktioniert.",
+          "Club Piou-Piou ab 3½ Jahren, Kurse für Kinder, Jugendliche und Erwachsene, Privatstunden, Betreuung: so funktioniert die ESF Albiez-Montrond.",
         excerpt:
           "Eine Falle, die es zu vermeiden gilt: die Skischule hat zwei Treffpunkte. Von Le Mollard aus buchen Sie den von Le Mollard.",
         keywords: [
@@ -1763,7 +1763,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         title:
           "Escuela de esquí en Albiez-Montrond: ESF y clases privadas",
         description:
-          "Club Piou-Piou desde los 3 años y medio, clases para niños, adolescentes y adultos, guardería, biatlón e iniciación al ARVA: cómo funciona la Escuela de Esquí Francesa de Albiez-Montrond.",
+          "Club Piou-Piou desde los 3 años y medio, clases para niños, jóvenes y adultos, clases particulares y guardería: así funciona la ESF de Albiez.",
         excerpt:
           "Una trampa que evitar: la escuela tiene dos puntos de encuentro. Desde Le Mollard hay que elegir el del Mollard al reservar.",
         keywords: [
@@ -1778,7 +1778,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
         title:
           "Scuola di sci ad Albiez-Montrond: ESF e lezioni private",
         description:
-          "Club Piou-Piou dai 3 anni e mezzo, corsi per bambini, ragazzi e adulti, servizio di custodia, biathlon e prova dell'ARTVA: come funziona la Scuola di Sci Francese di Albiez-Montrond.",
+          "Club Piou-Piou dai 3 anni e mezzo, corsi per bambini, ragazzi e adulti, lezioni private e custodia: come funziona la ESF di Albiez-Montrond.",
         excerpt:
           "Una trappola da evitare: la scuola ha due punti di ritrovo. Da Le Mollard bisogna scegliere quello del Mollard al momento della prenotazione.",
         keywords: [
