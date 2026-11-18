@@ -142,7 +142,7 @@ export default function Article() {
         Wahl für Tierwelt, Pflanzen und die Geschichte der Orte, die kein Wanderführer erzählt.
       </p>
       <p>
-        Vor allem: <strong>er ist das ganze Jahr aktiv, Nebensaison inbegriffen</strong>. Das ist im Ort eine Ausnahme:
+        Vor allem: <strong>er ist das ganze Jahr aktiv, Nebensaison inbegriffen</strong>. Das ist wertvoll:
         wenn die Bergbahnen geschlossen sind und ein Teil der Geschäfte im April oder Oktober den Rollladen herunterlässt,
         bleibt eine Möglichkeit, einen Bergtag zu füllen.
       </p>

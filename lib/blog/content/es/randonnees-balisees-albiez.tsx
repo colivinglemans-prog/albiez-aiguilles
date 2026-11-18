@@ -143,7 +143,7 @@ export default function Article() {
         para la fauna, la flora y la historia de los lugares, que ninguna guía cuenta.
       </p>
       <p>
-        Sobre todo, <strong>está activo todo el año, temporada baja incluida</strong>. Es una excepción en la estación:
+        Sobre todo, <strong>está activo todo el año, temporada baja incluida</strong>. Es valioso:
         cuando los remontes están cerrados y parte de los comercios baja la persiana, en abril o en octubre, queda una
         forma de ocupar un día de montaña.
       </p>

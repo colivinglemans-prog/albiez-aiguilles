@@ -154,7 +154,7 @@ export default function Article() {
       </p>
       <p>
         More to the point, <strong>he works all year round, off-season included</strong>.
-        That is an exception in the resort: when the lifts are shut and half the shops have
+        That matters: when the lifts are shut and half the shops have
         pulled the shutters down, in April or October, he is still a way to fill a day in
         the mountains.
       </p>

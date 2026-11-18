@@ -155,8 +155,7 @@ export default function Article() {
         et l'histoire des lieux, qu'un topo-guide ne raconte pas.
       </p>
       <p>
-        Surtout, <strong>il est actif toute l'année, hors saison comprise</strong>. C'est
-        une exception dans la station : quand les remontées sont fermées et qu'une partie
+        Surtout, <strong>il est actif toute l'année, hors saison comprise</strong>. C'est précieux : quand les remontées sont fermées et qu'une partie
         des commerces baisse le rideau, en avril ou en octobre, il reste une façon
         d'occuper une journée de montagne.
       </p>

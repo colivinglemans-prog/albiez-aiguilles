@@ -142,7 +142,7 @@ export default function Article() {
         fauna, la flora e la storia dei luoghi, che una guida cartacea non racconta.
       </p>
       <p>
-        Soprattutto, <strong>è attivo tutto l'anno, bassa stagione compresa</strong>. È un'eccezione nella località:
+        Soprattutto, <strong>è attivo tutto l'anno, bassa stagione compresa</strong>. È prezioso:
         quando gli impianti sono chiusi e una parte dei negozi abbassa la serranda, in aprile o in ottobre, resta un modo
         per occupare una giornata di montagna.
       </p>
