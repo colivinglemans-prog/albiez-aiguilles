@@ -60,35 +60,14 @@ export default function Article() {
         ); the return date is the day pupils go back to class.
       </p>
 
-      <h2>Booking rules, period by period</h2>
-      <p>The apartment is not booked the same way throughout the season:</p>
-      <ul>
-        <li>
-          <strong>From Saturday 19 December to Saturday 2 January</strong>: by the week,
-          arrival and departure on Saturday.
-        </li>
-        <li>
-          <strong>From 2 to 15 January</strong>: 3 nights minimum, arrival on any day. An
-          arrival on the 14th or the 15th must stay until Saturday the 23rd, the first
-          possible departure.
-        </li>
-        <li>
-          <strong>From Saturday 16 January to Saturday 13 March</strong>: by the week,
-          arrival and departure on Saturday.
-        </li>
-        <li>
-          <strong>From 13 to 20 March</strong> (end of season): 6 nights minimum, arrival
-          on any day.
-        </li>
-        <li>
-          <strong>From 20 March</strong>: generally 2 nights minimum. The ski area closes
-          on Sunday the 21st: a stay that starts that day is no longer a ski stay.
-        </li>
-      </ul>
+      <h2>Booking rules</h2>
       <p>
-        Check-in from 4 pm, check-out before 10 am. The site's booking calendar applies
-        these rules date by date.
+        In the winter season, the apartment is rented from Saturday to Saturday. The exact
+        dates are shown on the{" "}
+        <Link href="/en#reserver">booking calendar</Link>, which applies the rules date by
+        date.
       </p>
+      <p>Check-in from 4 pm, check-out before 10 am.</p>
 
       <h2>January: the period we recommend</h2>
       <p>
@@ -100,8 +79,7 @@ export default function Article() {
       <p>
         One detail if someone is taking lessons: ESF group lessons run from Saturday to
         Saturday (only private lessons can be booked à la carte). For a week of lessons,
-        it is therefore better to arrive on a Saturday, even from 2 to 15 January, when
-        arrival is free.
+        it is therefore better to arrive on a Saturday.
       </p>
 
       <h3>What you gain</h3>
@@ -119,11 +97,6 @@ export default function Article() {
           <strong>Lower prices</strong>: January books less well than the rest of the
           season, and the apartment is cheaper then than at Christmas or in February. The
           exact price is shown on the booking calendar.
-        </li>
-        <li>
-          <strong>More flexibility in early January</strong>: from the 2nd to the 15th, 3
-          nights are enough and you arrive on the day you choose. A long ski weekend
-          becomes possible.
         </li>
         <li>
           <strong>The week's activities carry on</strong>: the tourist office's programme
@@ -227,8 +200,8 @@ export default function Article() {
 
       <h2>March: the end of the season</h2>
       <p>
-        After 8 March, no zone is on holiday any more. Two weeks remain: from 6 to 13
-        March, by the week, then from 13 to 20 March, 6 nights minimum with free arrival.
+        After 8 March, no zone is on holiday any more. Two weeks remain, from 6 to
+        20 March: the exact dates are on the calendar.
       </p>
       <ul>
         <li>
@@ -332,8 +305,7 @@ export default function Article() {
           <strong>2026-2027 season</strong>: ski area open from 19 December 2026 to 21
           March 2027
           <br />
-          <strong>January</strong>: 3 nights minimum from the 2nd to the 15th, then by the
-          week from Saturday to Saturday from the 16th
+          <strong>Rental</strong>: Saturday to Saturday in the winter season
           <br />
           <strong>Check-in</strong>: from 4 pm — <strong>check-out</strong>: before 10 am
           <br />

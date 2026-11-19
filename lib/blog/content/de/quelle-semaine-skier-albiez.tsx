@@ -59,36 +59,14 @@ export default function Article() {
         ); der erste Schultag ist der Tag, an dem die Schüler wieder in die Schule gehen.
       </p>
 
-      <h2>Die Buchungsregeln, Zeitraum für Zeitraum</h2>
-      <p>Die Wohnung wird nicht die ganze Saison über auf dieselbe Weise gebucht:</p>
-      <ul>
-        <li>
-          <strong>Von Samstag, 19. Dezember, bis Samstag, 2. Januar</strong>: wochenweise,
-          Anreise und Abreise am Samstag.
-        </li>
-        <li>
-          <strong>Vom 2. bis 15. Januar</strong>: mindestens 3 Nächte, Anreise an jedem
-          beliebigen Tag. Wer am 14. oder 15. anreist, muss bis Samstag, 23., bleiben, dem
-          ersten möglichen Abreisetag.
-        </li>
-        <li>
-          <strong>Von Samstag, 16. Januar, bis Samstag, 13. März</strong>: wochenweise,
-          Anreise und Abreise am Samstag.
-        </li>
-        <li>
-          <strong>Vom 13. bis 20. März</strong> (Saisonende): mindestens 6 Nächte, Anreise
-          an jedem beliebigen Tag.
-        </li>
-        <li>
-          <strong>Ab dem 20. März</strong>: in der Regel mindestens 2 Nächte. Das Skigebiet
-          schließt am Sonntag, 21.: Ein Aufenthalt, der an diesem Tag beginnt, ist kein
-          Skiaufenthalt mehr.
-        </li>
-      </ul>
+      <h2>Die Buchungsregeln</h2>
       <p>
-        Anreise ab 16 Uhr, Abreise vor 10 Uhr. Der Buchungskalender der Website wendet diese
-        Regeln Datum für Datum an.
+        In der Wintersaison wird die Wohnung von Samstag bis Samstag vermietet. Die genauen
+        Termine zeigt der{" "}
+        <Link href="/de#reserver">Buchungskalender</Link>, der die Regeln Datum für Datum
+        anwendet.
       </p>
+      <p>Anreise ab 16 Uhr, Abreise vor 10 Uhr.</p>
 
       <h2>Januar: der Zeitraum, den wir empfehlen</h2>
       <p>
@@ -100,7 +78,7 @@ export default function Article() {
       <p>
         Ein Detail, falls jemand Kurse nimmt: Die Gruppenkurse der ESF laufen von Samstag
         bis Samstag (nur Privatstunden sind frei buchbar). Für eine Kurswoche reist man also
-        besser an einem Samstag an, auch vom 2. bis 15. Januar, wenn die Anreise frei ist.
+        besser an einem Samstag an.
       </p>
 
       <h3>Was man gewinnt</h3>
@@ -119,10 +97,6 @@ export default function Article() {
           <strong>Niedrigere Preise</strong>: Der Januar ist weniger gefragt als der Rest der
           Saison, und die Wohnung ist dann günstiger als an Weihnachten oder im Februar. Der
           genaue Preis erscheint im Buchungskalender.
-        </li>
-        <li>
-          <strong>Mehr Flexibilität Anfang Januar</strong>: Vom 2. bis 15. genügen 3 Nächte,
-          und man reist an, wann man will. Ein langes Skiwochenende wird möglich.
         </li>
         <li>
           <strong>Das Wochenprogramm läuft weiter</strong>: Das Programm des Tourismusbüros
@@ -225,9 +199,8 @@ export default function Article() {
 
       <h2>März: das Saisonende</h2>
       <p>
-        Nach dem 8. März hat keine Zone mehr Ferien. Zwei Wochen bleiben: vom 6. bis
-        13. März wochenweise, dann vom 13. bis 20. März mindestens 6 Nächte mit freier
-        Anreise.
+        Nach dem 8. März hat keine Zone mehr Ferien. Zwei Wochen bleiben, vom 6. bis
+        20. März: Die genauen Termine stehen im Kalender.
       </p>
       <ul>
         <li>
@@ -332,8 +305,7 @@ export default function Article() {
           <strong>Saison 2026-2027</strong>: Skigebiet geöffnet vom 19. Dezember 2026 bis
           21. März 2027
           <br />
-          <strong>Januar</strong>: mindestens 3 Nächte vom 2. bis 15., danach ab dem 16.
-          wochenweise von Samstag bis Samstag
+          <strong>Vermietung</strong>: in der Wintersaison von Samstag bis Samstag
           <br />
           <strong>Anreise</strong>: ab 16 Uhr — <strong>Abreise</strong>: vor 10 Uhr
           <br />

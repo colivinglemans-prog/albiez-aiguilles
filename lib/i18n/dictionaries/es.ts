@@ -715,8 +715,8 @@ export const es: Dictionary = {
     afterWorkLink: "Todo lo que hay que hacer, en nuestra guía",
     servicesTitle: "Lo que incluye una estancia larga",
     servicesItems: [
-      "Sábanas y toallas de baño incluidas.",
-      "Limpieza y cambio de sábanas cada quince días, con más frecuencia si hace falta.",
+      "Sábanas y toallas de baño opcionales, 15 € por persona, a elegir al reservar.",
+      "Limpieza cada quince días, con más frecuencia si hace falta, y cambio de sábanas si ha elegido la opción de ropa de cama.",
       "Factura a nombre de la empresa o de la agencia que reserva.",
       "Pago con tarjeta o por transferencia.",
       "Alojamiento para no fumadores.",
@@ -738,7 +738,7 @@ export const es: Dictionary = {
     seo: {
       title: "Larga estancia en la Maurienne — obras del Lyon-Turín | Albiez",
       description:
-        "Apartamento amueblado en Albiez-Montrond, a 18 km de Saint-Jean-de-Maurienne, por semanas fuera de temporada. Ropa de cama, limpieza, factura de empresa.",
+        "Apartamento en Albiez-Montrond, a 18 km de Saint-Jean-de-Maurienne, por semanas fuera de temporada. Ropa de cama opcional, limpieza, factura de empresa.",
       keywords: [
         "alojamiento obras Lyon-Turín",
         "alquiler larga duración Maurienne",

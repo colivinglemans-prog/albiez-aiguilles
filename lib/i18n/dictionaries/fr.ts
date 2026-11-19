@@ -711,8 +711,8 @@ export const fr: Dictionary = {
     afterWorkLink: "Tout ce qu'il y a à faire, dans notre guide",
     servicesTitle: "Ce qui est prévu pour un séjour long",
     servicesItems: [
-      "Draps et serviettes de bain fournis.",
-      "Ménage et changement des draps tous les quinze jours, plus souvent si nécessaire.",
+      "Draps et serviettes de bain en option, 15 € par personne, à choisir au moment de la réservation.",
+      "Ménage tous les quinze jours, plus souvent si nécessaire, avec changement des draps si vous avez pris l'option linge.",
       "Facture au nom de l'entreprise ou de l'agence qui réserve.",
       "Paiement par carte bancaire ou par virement.",
       "Logement non-fumeur.",
@@ -734,7 +734,7 @@ export const fr: Dictionary = {
     seo: {
       title: "Logement longue durée en Maurienne — chantier Lyon-Turin | Albiez",
       description:
-        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, pour plusieurs semaines hors saison. Draps fournis, ménage, facture entreprise.",
+        "Appartement meublé à Albiez-Montrond, à 18 km de Saint-Jean-de-Maurienne, pour plusieurs semaines hors saison. Linge en option, ménage, facture entreprise.",
       keywords: [
         "logement chantier Lyon-Turin",
         "hébergement longue durée Maurienne",

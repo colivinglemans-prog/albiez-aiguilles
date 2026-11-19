@@ -60,35 +60,14 @@ export default function Article() {
         ); la fecha de vuelta es el día en que los alumnos regresan a clase.
       </p>
 
-      <h2>Las reglas de reserva, periodo por periodo</h2>
-      <p>El apartamento no se reserva de la misma manera durante toda la temporada:</p>
-      <ul>
-        <li>
-          <strong>Del sábado 19 de diciembre al sábado 2 de enero</strong>: por semanas,
-          llegada y salida en sábado.
-        </li>
-        <li>
-          <strong>Del 2 al 15 de enero</strong>: 3 noches mínimo, llegada cualquier día. Una
-          llegada el 14 o el 15 debe quedarse hasta el sábado 23, primera salida posible.
-        </li>
-        <li>
-          <strong>Del sábado 16 de enero al sábado 13 de marzo</strong>: por semanas,
-          llegada y salida en sábado.
-        </li>
-        <li>
-          <strong>Del 13 al 20 de marzo</strong> (final de temporada): 6 noches mínimo,
-          llegada cualquier día.
-        </li>
-        <li>
-          <strong>A partir del 20 de marzo</strong>: en general 2 noches mínimo. El dominio
-          cierra el domingo 21: una estancia que empieza ese día ya no es una estancia de
-          esquí.
-        </li>
-      </ul>
+      <h2>Las reglas de reserva</h2>
       <p>
-        Llegada a partir de las 16 h, salida antes de las 10 h. El calendario de reservas
-        del sitio aplica estas reglas fecha por fecha.
+        En temporada de invierno, el apartamento se alquila de sábado a sábado. Las fechas
+        exactas aparecen en el{" "}
+        <Link href="/es#reserver">calendario de reservas</Link>, que aplica las reglas fecha
+        por fecha.
       </p>
+      <p>Llegada a partir de las 16 h, salida antes de las 10 h.</p>
 
       <h2>Enero: el periodo que aconsejamos</h2>
       <p>
@@ -101,8 +80,7 @@ export default function Article() {
       <p>
         Un detalle si alguien toma clases: las clases colectivas de la ESF van de sábado a
         sábado (solo las clases particulares se reservan a la carta). Para una semana de
-        clases, conviene por tanto llegar en sábado, incluso del 2 al 15 de enero, cuando
-        la llegada es libre.
+        clases, conviene por tanto llegar en sábado.
       </p>
 
       <h3>Lo que se gana</h3>
@@ -122,11 +100,6 @@ export default function Article() {
           <strong>Precios más bajos</strong>: enero se alquila peor que el resto de la
           temporada, y el apartamento es más barato que en Navidad o en febrero. El precio
           exacto aparece en el calendario de reservas.
-        </li>
-        <li>
-          <strong>Más flexibilidad a principios de enero</strong>: del 2 al 15, bastan 3
-          noches y se llega el día que se quiera. Un fin de semana largo de esquí se vuelve
-          posible.
         </li>
         <li>
           <strong>Las actividades de la semana continúan</strong>: el programa de la oficina
@@ -231,9 +204,8 @@ export default function Article() {
 
       <h2>Marzo: el final de temporada</h2>
       <p>
-        Después del 8 de marzo, ninguna zona está ya de vacaciones. Quedan dos semanas: del
-        6 al 13 de marzo, por semanas, y luego del 13 al 20 de marzo, 6 noches mínimo con
-        llegada libre.
+        Después del 8 de marzo, ninguna zona está ya de vacaciones. Quedan dos semanas, del
+        6 al 20 de marzo: las fechas exactas están en el calendario.
       </p>
       <ul>
         <li>
@@ -340,8 +312,7 @@ export default function Article() {
           <strong>Temporada 2026-2027</strong>: dominio abierto del 19 de diciembre de 2026
           al 21 de marzo de 2027
           <br />
-          <strong>Enero</strong>: 3 noches mínimo del 2 al 15, después por semanas de
-          sábado a sábado a partir del 16
+          <strong>Alquiler</strong>: de sábado a sábado en temporada de invierno
           <br />
           <strong>Llegada</strong>: a partir de las 16 h — <strong>salida</strong>: antes de
           las 10 h

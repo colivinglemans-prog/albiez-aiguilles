@@ -60,36 +60,14 @@ export default function Article() {
         ); la data del rientro è il giorno in cui gli alunni tornano in classe.
       </p>
 
-      <h2>Le regole di prenotazione, periodo per periodo</h2>
+      <h2>Le regole di prenotazione</h2>
       <p>
-        L'appartamento non si prenota allo stesso modo per tutta la stagione:
+        In stagione invernale l'appartamento si affitta da sabato a sabato. Le date esatte
+        sono indicate nel{" "}
+        <Link href="/it#reserver">calendario di prenotazione</Link>, che applica le regole
+        data per data.
       </p>
-      <ul>
-        <li>
-          <strong>Da sabato 19 dicembre a sabato 2 gennaio</strong>: a settimana, arrivo e
-          partenza di sabato.
-        </li>
-        <li>
-          <strong>Dal 2 al 15 gennaio</strong>: minimo 3 notti, arrivo in qualsiasi giorno.
-          Chi arriva il 14 o il 15 deve restare fino a sabato 23, prima partenza possibile.
-        </li>
-        <li>
-          <strong>Da sabato 16 gennaio a sabato 13 marzo</strong>: a settimana, arrivo e
-          partenza di sabato.
-        </li>
-        <li>
-          <strong>Dal 13 al 20 marzo</strong> (fine stagione): minimo 6 notti, arrivo in
-          qualsiasi giorno.
-        </li>
-        <li>
-          <strong>Dal 20 marzo</strong>: in genere minimo 2 notti. Il comprensorio chiude
-          domenica 21: un soggiorno che inizia quel giorno non è più un soggiorno sugli sci.
-        </li>
-      </ul>
-      <p>
-        Arrivo dalle 16:00, partenza entro le 10:00. Il calendario di prenotazione del sito
-        applica queste regole data per data.
-      </p>
+      <p>Arrivo dalle 16:00, partenza entro le 10:00.</p>
 
       <h2>Gennaio: il periodo che consigliamo</h2>
       <p>
@@ -101,7 +79,7 @@ export default function Article() {
       <p>
         Un dettaglio se qualcuno prende lezioni: i corsi collettivi dell'ESF vanno da sabato a
         sabato (solo le lezioni private si prenotano à la carte). Per una settimana di corsi,
-        meglio quindi arrivare di sabato, anche dal 2 al 15 gennaio, quando l'arrivo è libero.
+        meglio quindi arrivare di sabato.
       </p>
 
       <h3>Che cosa si guadagna</h3>
@@ -119,10 +97,6 @@ export default function Article() {
           <strong>Prezzi più bassi</strong>: gennaio si affitta meno bene del resto della
           stagione, e l'appartamento costa meno che a Natale o a febbraio. Il prezzo esatto
           compare sul calendario di prenotazione.
-        </li>
-        <li>
-          <strong>Più flessibilità a inizio gennaio</strong>: dal 2 al 15 bastano 3 notti e
-          si arriva il giorno che si vuole. Un weekend lungo sugli sci diventa possibile.
         </li>
         <li>
           <strong>Le animazioni della settimana continuano</strong>: il programma dell'ufficio
@@ -225,8 +199,8 @@ export default function Article() {
 
       <h2>Marzo: il fine stagione</h2>
       <p>
-        Dopo l'8 marzo, nessuna zona è più in vacanza. Restano due settimane: dal 6 al 13
-        marzo, a settimana, poi dal 13 al 20 marzo, minimo 6 notti con arrivo libero.
+        Dopo l'8 marzo, nessuna zona è più in vacanza. Restano due settimane, dal 6 al
+        20 marzo: le date esatte sono nel calendario.
       </p>
       <ul>
         <li>
@@ -330,8 +304,7 @@ export default function Article() {
           <strong>Stagione 2026-2027</strong>: comprensorio aperto dal 19 dicembre 2026 al 21
           marzo 2027
           <br />
-          <strong>Gennaio</strong>: minimo 3 notti dal 2 al 15, poi a settimana da sabato a
-          sabato dal 16
+          <strong>Affitto</strong>: da sabato a sabato in stagione invernale
           <br />
           <strong>Arrivo</strong>: dalle 16:00 — <strong>partenza</strong>: entro le 10:00
           <br />

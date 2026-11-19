@@ -6,7 +6,8 @@ import Link from "next/link";
  * - vacances scolaires 2026-2027 relevées le 8 novembre 2026 dans le jeu de données officiel
  *   du ministère (data.education.gouv.fr, « fr-en-calendrier-scolaire », repris par
  *   education.gouv.fr) ;
- * - séjours minimums : public/llms.txt, à garder identiques si les règles changent ;
+ * - règles de séjour : volontairement générales (« du samedi au samedi en saison d'hiver »,
+ *   décision de l'hôte du 19/11/2026) ; le détail vit dans Beds24 et public/llms.txt ;
  * - animations : fiches de l'office relevées le 8 novembre 2026, « horaires non garantis ».
  * À reprendre chaque automne.
  */
@@ -65,38 +66,14 @@ export default function Article() {
         ) ; la date de reprise est le jour où les élèves retournent en classe.
       </p>
 
-      <h2>Les règles de réservation, période par période</h2>
+      <h2>Les règles de réservation</h2>
       <p>
-        L'appartement ne se réserve pas de la même façon toute la saison :
+        En saison d'hiver, l'appartement se loue du samedi au samedi. Les dates exactes
+        s'affichent sur le{" "}
+        <Link href="/fr#reserver">calendrier de réservation</Link>, qui applique les règles
+        date par date.
       </p>
-      <ul>
-        <li>
-          <strong>Du samedi 19 décembre au samedi 2 janvier</strong> : à la semaine,
-          arrivée et départ le samedi.
-        </li>
-        <li>
-          <strong>Du 2 au 15 janvier</strong> : 3 nuits minimum, arrivée n'importe quel
-          jour. Une arrivée le 14 ou le 15 doit rester jusqu'au samedi 23, premier départ
-          possible.
-        </li>
-        <li>
-          <strong>Du samedi 16 janvier au samedi 13 mars</strong> : à la semaine, arrivée
-          et départ le samedi.
-        </li>
-        <li>
-          <strong>Du 13 au 20 mars</strong> (fin de saison) : 6 nuits minimum, arrivée
-          n'importe quel jour.
-        </li>
-        <li>
-          <strong>À partir du 20 mars</strong> : en général 2 nuits minimum. Le domaine
-          ferme le dimanche 21 : un séjour qui commence ce jour-là n'est plus un séjour de
-          ski.
-        </li>
-      </ul>
-      <p>
-        Arrivée à partir de 16 h, départ avant 10 h. Le calendrier de réservation du site
-        applique ces règles date par date.
-      </p>
+      <p>Arrivée à partir de 16 h, départ avant 10 h.</p>
 
       <h2>Janvier : la période que nous conseillons</h2>
       <p>
@@ -108,8 +85,7 @@ export default function Article() {
       <p>
         Un détail si quelqu'un prend des cours : les cours collectifs de l'ESF vont du
         samedi au samedi (seuls les cours particuliers se prennent à la carte). Pour une
-        semaine de cours, mieux vaut donc arriver un samedi, même du 2 au 15 janvier, quand
-        l'arrivée est libre.
+        semaine de cours, mieux vaut donc arriver un samedi.
       </p>
 
       <h3>Ce qu'on y gagne</h3>
@@ -127,10 +103,6 @@ export default function Article() {
           <strong>Des prix plus bas</strong> : janvier se loue moins bien que le reste de
           la saison, et l'appartement y est moins cher qu'à Noël ou en février. Le prix
           exact s'affiche sur le calendrier de réservation.
-        </li>
-        <li>
-          <strong>Plus de souplesse début janvier</strong> : du 2 au 15, 3 nuits suffisent
-          et l'on arrive le jour qu'on veut. Un long week-end de ski devient possible.
         </li>
         <li>
           <strong>Les animations de la semaine continuent</strong> : le programme de
@@ -234,8 +206,8 @@ export default function Article() {
 
       <h2>Mars : la fin de saison</h2>
       <p>
-        Après le 8 mars, plus aucune zone n'est en vacances. Deux semaines restent : du 6 au
-        13 mars, à la semaine, puis du 13 au 20 mars, 6 nuits minimum avec arrivée libre.
+        Après le 8 mars, plus aucune zone n'est en vacances. Deux semaines restent, du 6 au
+        20 mars : les dates exactes sont sur le calendrier.
       </p>
       <ul>
         <li>
@@ -339,8 +311,7 @@ export default function Article() {
           <strong>Saison 2026-2027</strong> : domaine ouvert du 19 décembre 2026 au 21 mars
           2027
           <br />
-          <strong>Janvier</strong> : 3 nuits minimum du 2 au 15, puis à la semaine du samedi
-          au samedi à partir du 16
+          <strong>Location</strong> : du samedi au samedi en saison d'hiver
           <br />
           <strong>Arrivée</strong> : à partir de 16 h — <strong>départ</strong> : avant
           10 h

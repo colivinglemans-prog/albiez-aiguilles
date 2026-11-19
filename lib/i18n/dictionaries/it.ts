@@ -715,8 +715,8 @@ export const it: Dictionary = {
     afterWorkLink: "Tutto quello che c'è da fare, nella nostra guida",
     servicesTitle: "Che cosa comprende un soggiorno lungo",
     servicesItems: [
-      "Lenzuola e asciugamani da bagno forniti.",
-      "Pulizie e cambio delle lenzuola ogni quindici giorni, più spesso se serve.",
+      "Lenzuola e asciugamani da bagno opzionali, 15 € a persona, da scegliere al momento della prenotazione.",
+      "Pulizie ogni quindici giorni, più spesso se serve, con cambio delle lenzuola se ha scelto l'opzione biancheria.",
       "Fattura intestata all'azienda o all'agenzia che prenota.",
       "Pagamento con carta o bonifico.",
       "Alloggio per non fumatori.",
@@ -738,7 +738,7 @@ export const it: Dictionary = {
     seo: {
       title: "Lunghi soggiorni in Maurienne — cantiere Torino-Lione | Albiez",
       description:
-        "Appartamento ammobiliato ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per più settimane fuori stagione. Biancheria, pulizie, fattura aziendale.",
+        "Appartamento ad Albiez-Montrond, a 18 km da Saint-Jean-de-Maurienne, per più settimane fuori stagione. Biancheria opzionale, pulizie, fattura aziendale.",
       keywords: [
         "alloggio cantiere Torino-Lione",
         "affitto lunga durata Maurienne",

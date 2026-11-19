@@ -716,8 +716,8 @@ export const de: Dictionary = {
     afterWorkLink: "Alles, was es zu tun gibt, in unserem Guide",
     servicesTitle: "Was zum Langzeitaufenthalt gehört",
     servicesItems: [
-      "Bettwäsche und Badetücher werden gestellt.",
-      "Reinigung und Wäschewechsel alle vierzehn Tage, bei Bedarf häufiger.",
+      "Bettwäsche und Badetücher optional, 15 € pro Person, bei der Buchung zu wählen.",
+      "Reinigung alle vierzehn Tage, bei Bedarf häufiger, mit Wäschewechsel, wenn Sie das Wäschepaket gebucht haben.",
       "Rechnung auf den Namen der buchenden Firma oder Agentur.",
       "Zahlung per Karte oder Überweisung.",
       "Nichtraucherwohnung.",
@@ -739,7 +739,7 @@ export const de: Dictionary = {
     seo: {
       title: "Langzeitunterkunft Maurienne — Baustelle Lyon-Turin | Albiez",
       description:
-        "Möblierte Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für mehrere Wochen außerhalb der Saison. Wäsche, Reinigung, Firmenrechnung.",
+        "Wohnung in Albiez-Montrond, 18 km von Saint-Jean-de-Maurienne, für mehrere Wochen außerhalb der Saison. Wäsche optional, Reinigung, Firmenrechnung.",
       keywords: [
         "Unterkunft Baustelle Lyon-Turin",
         "Langzeitmiete Maurienne",

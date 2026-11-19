@@ -368,7 +368,7 @@ export const en: Dictionary = {
       `For €${price} per person the linen is waiting for you in the apartment. Tick the “linen kit” option on the payment page.`,
     optionItems: ["Sheets and pillowcases", "One bath towel per person"],
     notMadeNote:
-      "Beds are not made up on arrival: the linen is provided, it is yours to put on.",
+      "Beds are not made up on arrival: the linen is left out for you to put on.",
     byoNote:
       "Would rather bring your own sheets and towels? That is perfectly fine, and common practice in the mountains. Plan for one 160 × 190 double bed and 80 × 190 single beds.",
   },
@@ -693,8 +693,8 @@ export const en: Dictionary = {
     afterWorkLink: "Everything there is to do, in our guide",
     servicesTitle: "What comes with a long stay",
     servicesItems: [
-      "Bed linen and bath towels provided.",
-      "Cleaning and a change of linen every fortnight, more often if needed.",
+      "Bed linen and bath towels optional, €15 per person, to be chosen when you book.",
+      "Cleaning every fortnight, more often if needed, with a change of linen if you took the linen option.",
       "Invoice made out to the company or agency making the booking.",
       "Payment by card or bank transfer.",
       "Non-smoking flat.",
@@ -716,7 +716,7 @@ export const en: Dictionary = {
     seo: {
       title: "Long-term stay in the Maurienne — Lyon-Turin project | Albiez",
       description:
-        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks off-season. Linen provided, cleaning, company invoice.",
+        "Furnished flat in Albiez-Montrond, 18 km from Saint-Jean-de-Maurienne, for stays of several weeks off-season. Optional linen, cleaning, company invoice.",
       keywords: [
         "Lyon-Turin project accommodation",
         "long term rental Maurienne",
