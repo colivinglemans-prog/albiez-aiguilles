@@ -41,6 +41,11 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link href={`${base}/tarifs`} className="hover:text-foreground">
+                {t.footer.prices}
+              </Link>
+            </li>
+            <li>
               <Link href={`${base}/conditions`} className="hover:text-foreground">
                 {t.footer.conditions}
               </Link>

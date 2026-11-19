@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { ogImage } from "@/lib/og-image";
 import { notFound } from "next/navigation";
 import { cancellationText } from "@sejour/socle/lib/quote-labels";
-import { isLocale, LOCALES, type Locale } from "@/lib/i18n";
+import Link from "next/link";
+import { getDictionary, isLocale, LOCALES, type Locale } from "@/lib/i18n";
 import { CANCELLATION_POLICY, PAYMENT_POLICY, PROPERTY } from "@/lib/property";
 import { Section, SectionTitle } from "@/components/public/Section";
-import { alternatesFor, conditionsPath, openGraphLocales } from "@/lib/seo";
+import { alternatesFor, conditionsPath, openGraphLocales, pricesPath } from "@/lib/seo";
 
 /** `+33620921005` → `+33 6 20 92 10 05`. */
 const PHONE = PROPERTY.contact.phone.replace(/^\+33(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/, "+33 $1 $2 $3 $4 $5");
@@ -229,6 +230,11 @@ export default async function ConditionsPage({ params }: { params: Promise<{ loc
           </ul>
         </div>
       ))}
+      <p className="max-w-3xl text-sm">
+        <Link href={pricesPath(locale)} className="font-medium underline underline-offset-2">
+          {getDictionary(locale).footer.prices}
+        </Link>
+      </p>
     </Section>
   );
 }

@@ -1893,6 +1893,36 @@ location meublée de courte durée —, la taxe de séjour et le régime LMNP c�
 coûte le même prix qu'une nuit d'une semaine. C'est un choix assumé du propriétaire — la
 location longue n'est pas son métier — et non un oubli de configuration.
 
+## Tarifs (`/xx/tarifs`, page discrète, socle v3.27.0)
+
+La grille du **prix exact des semaines à venir**, en HTML lisible sans JavaScript. Tests du
+19/11/2026 : ChatGPT et Gemini trouvaient le site mais répondaient « tarif non publié » — ils ne
+lisent ni le calendrier (JavaScript) ni `llms.txt` ni l'API de devis. Plan :
+`C:Usersalexa.claudeplanscurried-mapping-stallman.md` (lot 1).
+
+- **Calcul** : `lib/tarifs.ts` → `buildPriceGrid` du socle (`@sejour/socle/lib/price-grid`).
+  Saisons d'hiver (`HIVERS`) et étés (`eteDeLAnnee`) à l'horizon de réservation, en **séjours
+  enchaînés d'au moins 7 nuits** (`chainedStays`) : chaque séjour part de la première arrivée que
+  Beds24 autorise et dure le plus court séjour accepté. **Aucune règle de calendrier n'est écrite**
+  (voir « Rotation du samedi ») : si la rotation change dans Beds24, la grille suit.
+- **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 6 personnes »).
+  Le linge n'entre **jamais** dans le total (option à cocher sur la page de paiement) ; formulation
+  « ménage et taxe de séjour compris, linge en option », jamais « tout compris » ni de pourcentage.
+- **Cache** : une grille pour les cinq langues (`unstable_cache`, 1 h, clé avec l'état de
+  l'interrupteur), chaque prix gardé 12 h (`fetchRoomPrice`). Grille dégradée (Beds24 en panne) :
+  rien n'est mis en cache, la page renvoie au calendrier.
+- **Exception assumée** : la page est `force-dynamic` (avec le devis, la seule à ne pas être
+  figée au déploiement) — sinon le `next build` interrogerait Beds24, et la grille serait figée.
+- **Interrupteur** : `PRIX_PUBLICS=off` (Vercel) coupe tous les prix, au cas où Beds24 bloquerait
+  l'endpoint de prix public ; la disponibilité reste affichée. Absente ou autre valeur : prix affichés.
+- **Liens** (page publique mais **discrète**, décision de l'hôte) : pied de page, bloc de réservation
+  (sous le calendrier, donc accueil et pages de saison), page Conditions, `llms.txt`, sitemap.
+  **Pas dans le menu.** Chaque prix mène au calendrier pré-rempli (`rel="nofollow"`) ; jamais de
+  lien de devis signé.
+- **JSON-LD** : un `AggregateOffer` (plus bas et plus haut prix) — pas de résultat enrichi attendu.
+- Textes : `app/(site)/[locale]/tarifs/content.ts` (5 langues), longueurs testées
+  (`tests/tarifs-content.test.ts` : titre ≤ 65, description 120–155).
+
 ## Guide d'arrivée (page cachée)
 
 `/{locale}/guide-arrivee` — l'itinéraire en photos, du col du Mollard à la boîte à clés.

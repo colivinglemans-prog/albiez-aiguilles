@@ -56,6 +56,8 @@ export const blogPath = sectionPath("guide");
  */
 export const longStayPath = sectionPath("sejour-longue-duree");
 export const conditionsPath = sectionPath("conditions");
+/** Page « Tarifs » : la grille des prix exacts des semaines à venir (slug commun aux 5 langues). */
+export const pricesPath = sectionPath("tarifs");
 
 /**
  * Chemin d'un article. Le slug est commun aux cinq langues, contrairement aux

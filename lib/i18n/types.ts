@@ -453,6 +453,8 @@ export interface Dictionary {
     contact: string;
     legal: string;
     conditions: string;
+    /** Lien vers la page « Tarifs » (grille des prix exacts). */
+    prices: string;
     copyright: string;
     tagline: string;
   };

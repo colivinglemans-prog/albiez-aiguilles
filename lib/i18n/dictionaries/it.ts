@@ -686,6 +686,7 @@ export const it: Dictionary = {
     contact: "Contatti",
     legal: "Informazioni legali",
     conditions: "Condizioni di prenotazione",
+    prices: "Prezzi e disponibilità",
     copyright: "Tutti i diritti riservati.",
     tagline: "Appartamento di montagna ad Albiez-Montrond, Savoia.",
   },

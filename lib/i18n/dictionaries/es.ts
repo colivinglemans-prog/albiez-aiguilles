@@ -686,6 +686,7 @@ export const es: Dictionary = {
     contact: "Contacto",
     legal: "Información legal",
     conditions: "Condiciones de reserva",
+    prices: "Precios y disponibilidad",
     copyright: "Todos los derechos reservados.",
     tagline: "Apartamento de montaña en Albiez-Montrond, Saboya.",
   },

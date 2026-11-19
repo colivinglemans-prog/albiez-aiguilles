@@ -687,6 +687,7 @@ export const de: Dictionary = {
     contact: "Kontakt",
     legal: "Rechtliche Hinweise",
     conditions: "Buchungsbedingungen",
+    prices: "Preise und Verfügbarkeit",
     copyright: "Alle Rechte vorbehalten.",
     tagline: "Bergwohnung in Albiez-Montrond, Savoyen.",
   },

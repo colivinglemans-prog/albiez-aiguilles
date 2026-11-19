@@ -49,6 +49,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: alternates((l) => `/${l}/sejour-longue-duree`),
     });
 
+    // Tarifs : la grille des prix exacts, lue par les assistants IA (qui ne lisent pas le
+    // calendrier). Sans `lastModified` : les prix changent sans que la page change de nature.
+    entries.push({
+      url: `${SITE_URL}/${locale}/tarifs`,
+      changeFrequency: "daily",
+      priority: 0.8,
+      alternates: alternates((l) => `/${l}/tarifs`),
+    });
+
     // Conditions de réservation : citées par llms.txt, la page de devis et le profil Stripe.
     entries.push({
       url: `${SITE_URL}/${locale}/conditions`,

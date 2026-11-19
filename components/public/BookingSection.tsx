@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslation } from "@/lib/i18n";
 import { PROPERTY } from "@/lib/property";
 import { Section, SectionTitle } from "./Section";
@@ -15,7 +16,7 @@ import CalendrierReservation from "./CalendrierReservation";
  * lui-même le jour où le direct aura fait ses preuves.
  */
 export default function BookingSection() {
-  const { t } = useTranslation();
+  const { locale, t } = useTranslation();
 
   return (
     <Section id="reserver">
@@ -30,6 +31,12 @@ export default function BookingSection() {
         {/* Mêmes conditions que l'annonce Airbnb : une IA lit les deux et compare. */}
         <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-secondary">
           {t.booking.conditions}
+        </p>
+        {/* La grille de toutes les semaines, pour comparer sans essayer chaque date. */}
+        <p className="mt-3 text-center text-sm">
+          <Link href={`/${locale}/tarifs`} className="font-medium text-foreground underline underline-offset-2">
+            {t.footer.prices}
+          </Link>
         </p>
 
         {/* Chemins secondaires, volontairement en retrait : le bouton principal est celui du
