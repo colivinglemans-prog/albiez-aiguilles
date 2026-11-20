@@ -15,7 +15,7 @@ export const es: Dictionary = {
   },
 
   home: {
-    heroTitle: "Apartamento frente a las Aiguilles d'Arves",
+    heroTitle: "Apartamento en el Hameau des Aiguilles, frente a las Aiguilles d'Arves",
     heroSubtitle:
       "A 1600 m de altitud en Albiez-Montrond, en un chalé tranquilo de la Maurienne. De 4 a 6 personas, balcón orientado al sureste.",
     intro:
