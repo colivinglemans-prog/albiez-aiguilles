@@ -181,8 +181,10 @@ n'accepte pas la clé `environment`. Le post-déploiement ne reçoit pas le mot 
 l'URL d'un déploiement (`*.vercel.app`) est hors de `allowedHosts`, et le moteur refuserait de
 l'y envoyer.
 
-Pas de heartbeat : Albiez n'a pas de stockage (choix de l'utilisateur). Ses deux crons restent
-surveillés par les e-mails d'échec de cron-job.org.
+Pas de heartbeat. Albiez a désormais un stockage Upstash (`lib/kv.ts`, depuis le 15/11/2026 :
+indexation, grille des tarifs), mais ses crons (`beds24-keepalive`, `events-watch`, `indexing`,
+`messages-voyageurs`, `price-grid`) restent surveillés par les e-mails d'échec de cron-job.org et, pour
+l'indexation et la grille, par leurs alertes ntfy à deux relevés.
 
 ## Beds24
 
@@ -1897,10 +1899,10 @@ location longue n'est pas son métier — et non un oubli de configuration.
 
 La page affiche le **prix exact des semaines à venir**, en HTML lisible sans JavaScript.
 
-Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le site, mais répondaient « tarif non publié ». Ils ne lisent ni le calendrier (JavaScript), ni `llms.txt`, ni l'API de devis. Plan : `C:\Users\alexa\.claude\plans\curried-mapping-stallman.md` (lot 1).
+Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le site, mais répondaient « tarif non publié ». Ils ne lisent ni le calendrier (JavaScript), ni `llms.txt`, ni l'API de devis. Plan : `curried-mapping-stallman` (plan de la session) (lot 1).
 
 - **Architecture : le calcul ne passe jamais par une page visitée.**
-  - Le cron `app/api/cron/price-grid` tourne **toutes les heures via cron-job.org**, avec `Authorization: Bearer $CRON_SECRET` et `maxDuration = 60` (plafond Hobby ; calcul arrêté à ~45 s, repris au passage suivant grâce aux prix en cache).
+  - Le cron `app/api/cron/price-grid` tourne **toutes les heures via cron-job.org**, avec `Authorization: Bearer $CRON_SECRET` et `maxDuration = 60` (plafond Hobby ; voir la fiche cron-job.org ci-dessous).
   - Il calcule la grille (`computePriceGrid`, `lib/tarifs.ts`), puis la range dans Upstash sous `albiez:price-grid`, au format `{ grid, generatedAt, composition }`, via `@sejour/socle/lib/price-grid-job`.
   - Si le calcul échoue :
     - **la grille précédente reste** en place ;
@@ -1910,6 +1912,16 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
 - **La page se contente de lire Upstash** (`revalidate = 300`). C'est la seule page du site qui déclare un `revalidate`, et ce choix est assumé : une grille neuve paraît au plus 5 minutes après son calcul, et aucune lecture Beds24 n'est faite au build.
   - Rien de rangé, ou autre composition : la page renvoie au calendrier, sans jamais d'erreur.
   - Grille de plus de 24 h : les lignes passées sont retirées, et le JSON-LD n'est pas émis.
+- **Fiche cron-job.org** : toutes les heures, en-tête `Authorization: Bearer <CRON_SECRET>`, **délai de
+  30 s** (valeur par défaut de cron-job.org) — d'où `timeBudgetMs` ≈ 22 s : le calcul s'arrête avant,
+  les prix déjà demandés restent en cache 12 h, la grille se complète en 2 ou 3 passages
+  (`incomplete`). Au 3e `incomplete` de suite, ou sans succès depuis 24 h, c'est un relevé KO
+  (`stalled`, alerte au 2e). Un verrou (`…:lock`, 90 s) empêche deux calculs simultanés.
+- **Après un déploiement** : appeler le cron à la main, **à répétition, jusqu'à `"outcome":"stored"`**
+  (`curl -H "Authorization: Bearer $CRON_SECRET" https://…/api/cron/price-grid`).
+- **Lecture** : `getPriceGrid` passe par `unstable_cache` (5 min, tag `price-grid`) — le client
+  Upstash lit en `no-store`, ce qui rendrait la page dynamique ; ainsi elle reste en ISR. Elle vérifie
+  aussi `PRIX_PUBLICS` à la lecture (couper agit tout de suite) et ignore une grille de plus de 7 jours.
 - **Composition versionnée** (`PRICE_GRID_COMPOSITION`) : à changer dès que les semaines ou les groupes changent. Après un tel déploiement, **appeler le cron à la main**.
 - **Semaines affichées** : saisons d'hiver (`HIVERS`) et étés (`eteDeLAnnee`), en **séjours enchaînés d'au moins 7 nuits** (`chainedStays`).
   - Chaque semaine part de la première arrivée que Beds24 autorise.

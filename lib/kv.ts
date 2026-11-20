@@ -1,4 +1,4 @@
-import type { HeartbeatStore } from "@sejour/socle/lib/heartbeat";
+import type { PriceGridStore } from "@sejour/socle/lib/price-grid-job";
 
 /**
  * Magasin clé → chaîne sur l'API REST d'Upstash (Vercel Marketplace → Upstash for Redis), sans
@@ -13,7 +13,7 @@ export function hasKv(): boolean {
   return Boolean(process.env.KV_REST_API_URL?.trim() && process.env.KV_REST_API_TOKEN?.trim());
 }
 
-export function kvStore(): HeartbeatStore {
+export function kvStore(): PriceGridStore {
   const url = process.env.KV_REST_API_URL!.trim().replace(/\/+$/, "");
   const headers = { Authorization: `Bearer ${process.env.KV_REST_API_TOKEN!.trim()}` };
   const call = async (path: string, init: RequestInit = {}) => {
@@ -29,11 +29,19 @@ export function kvStore(): HeartbeatStore {
     async set(key, value) {
       await call(`/set/${encodeURIComponent(key)}`, { method: "POST", body: value });
     },
+    // Commande complète en JSON sur la racine de l'API REST : `SET key value NX EX ttl` (verrou).
+    async setIfAbsent(key, value, ttl) {
+      const { result } = await call("", { method: "POST", body: JSON.stringify(["SET", key, value, "NX", "EX", String(ttl)]) });
+      return result === "OK";
+    },
+    async del(key) {
+      await call("", { method: "POST", body: JSON.stringify(["DEL", key]) });
+    },
   };
 }
 
 /** Magasin en mémoire, vide : sert au `?dry=1` tant qu'Upstash n'est pas branché (amorçage seul). */
-export function emptyStore(): HeartbeatStore {
+export function emptyStore(): PriceGridStore {
   const data = new Map<string, string>();
   return {
     async get(key) {
@@ -41,6 +49,14 @@ export function emptyStore(): HeartbeatStore {
     },
     async set(key, value) {
       data.set(key, value);
+    },
+    async setIfAbsent(key, value) {
+      if (data.has(key)) return false;
+      data.set(key, value);
+      return true;
+    },
+    async del(key) {
+      data.delete(key);
     },
   };
 }
