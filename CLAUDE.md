@@ -1926,10 +1926,11 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
 - **Semaines affichées** : saisons d'hiver (`HIVERS`) et étés (`eteDeLAnnee`), en **séjours enchaînés d'au moins 7 nuits** (`chainedStays`).
   - Chaque semaine part de la première arrivée que Beds24 autorise.
   - **Aucune règle de calendrier n'est écrite dans le code** (voir « Rotation du samedi ») : la grille suit Beds24.
-  - Les semaines prises ne sont pas listées, et la page le dit : « les semaines absentes du tableau sont déjà réservées ou pas encore ouvertes à la vente ».
+  - **Les semaines prises sont affichées « Réservé »** (demande de l'hôte du 20/11/2026, socle v3.28.0) : `chainedStays` suit les règles Beds24 (arrivées, départs, minima) sans tenir compte de l'occupation, puis `buildPriceGrid` résout chaque semaine. Une semaine en partie prise donne le plus long séjour libre qui respecte les règles, sinon « Réservé ». Au-delà de la dernière nuit libre lue (vente pas encore ouverte), aucune ligne : la page le dit.
+  - Composition `albiez-v2` : appeler le cron à la main après le déploiement.
 - **Lecture des disponibilités** :
   - une plage par saison, lue en 2 appels (`disponibilites`, puis `contraintes`), jamais mois par mois en parallèle ;
-  - prix demandés un par un, espacés de 700 ms (sinon Beds24 répond 403), gardés 12 h en cache.
+  - prix demandés un par un, espacés de 700 ms (sinon Beds24 répond 403), gardés **12 à 24 h** en cache (durée étalée par séjour, `spreadTtl`, pour qu'ils n'expirent pas tous ensemble). Fausse alerte évitée : relevé KO au 6e `incomplete` de suite seulement (`maxIncompleteStreak`).
 - **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 4 personnes »).
   - Le linge n'entre **jamais** dans le total.
   - Formulation : « ménage et taxe de séjour compris, linge en option ». Jamais « tout compris », jamais de pourcentage.

@@ -18,7 +18,7 @@
  */
 import { unstable_cache } from "next/cache";
 import { addDays } from "@sejour/socle/lib/dates";
-import { buildPriceGrid, chainedStays, type PriceGrid, type WindowSource } from "@sejour/socle/lib/price-grid";
+import { buildPriceGrid, chainedStays, spreadTtl, type PriceGrid, type WindowSource } from "@sejour/socle/lib/price-grid";
 import { readPriceGrid, type ReadPriceGrid } from "@sejour/socle/lib/price-grid-job";
 import { fetchRoomPrice } from "@sejour/socle/lib/stay-price";
 import { todayParis } from "@sejour/socle/lib/time";
@@ -34,7 +34,7 @@ export const PRICE_PARTIES = [4, 5, 6].map((adults) => ({ adults, children: 0 })
  * Ce que la grille contient. **À changer** dès que les semaines ou les groupes changent : une
  * grille rangée sous une autre composition n'est jamais servie.
  */
-export const PRICE_GRID_COMPOSITION = "albiez-v1:hiver+ete,chained-7n;guests-4-5-6";
+export const PRICE_GRID_COMPOSITION = "albiez-v2:hiver+ete,chained-7n,reserves;guests-4-5-6";
 
 /** Clé Upstash de la grille (l'état du cron sous `…:job`, l'alerte sous `…:alert`). */
 export const PRICE_GRID_KEY = "albiez:price-grid";
@@ -76,7 +76,9 @@ export async function computePriceGrid(counter?: { availability: number; price: 
       },
       price: (req) => {
         if (counter) counter.price++;
-        return fetchRoomPrice(req, { revalidate: PRICE_TTL });
+        // Durée de cache étalée par séjour (12 à 24 h) : les prix n'expirent pas tous ensemble.
+        const id = `${req.checkIn}/${req.checkOut}/${req.adults}/${req.children}`;
+        return fetchRoomPrice(req, { revalidate: spreadTtl(id, PRICE_TTL, PRICE_TTL) });
       },
     },
     {
