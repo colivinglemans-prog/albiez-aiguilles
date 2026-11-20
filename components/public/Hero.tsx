@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { goToAnchor } from "@sejour/socle/lib/go-to-anchor";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/lib/i18n";
 import { anchorBase } from "@/lib/anchors";
@@ -72,6 +73,7 @@ export default function Hero({
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href={`${anchor}#reserver`}
+              onClick={(e) => goToAnchor(e, "reserver")}
               className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
             >
               {t.header.book}
