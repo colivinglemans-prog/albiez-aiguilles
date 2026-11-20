@@ -152,6 +152,8 @@ export const STAY_AGENT: StayAgentConfig = {
   stayPagePath: (lang) => `/${lang}/sejour`,
   calendarPath: (lang) => `/${lang}#reserver`,
   instantBooking: true,
+  // Aucun prix par personne affiché (décision de l'hôte du 20/11/2026) : ni page, ni API, ni MCP.
+  perPersonPrice: false,
   childrenDescription:
     "enfants de moins de 18 ans, bébés compris (kit bébé sur demande). 6 voyageurs au plus, enfants compris.",
 };
@@ -166,7 +168,12 @@ export function stayAgentDeps(): StayAgentDeps {
       const [dates, regles] = await Promise.all([disponibilites(from, to), contraintes(from, to)]);
       return { dates, minStay: regles.minima, sansArrivee: regles.sansArrivee, sansDepart: regles.sansDepart };
     }),
+    // Sans `revalidate` : prix frais (socle v3.36.0, jamais le cache de données de Next, qui
+    // servait un prix périmé au premier appel).
     price: (req) => fetchRoomPrice(req),
+    // Pause entre deux appels de prix d'une recherche ou d'un devis et ses alternatives :
+    // getroomprice répond 403 aux rafales ; 30 appels sur 30 acceptés à 250 ms (20/11/2026).
+    pauseMs: 250,
     onAnomaly: (message) => sendNtfy(message, { title: "Devis IA Albiez", priority: 4, tags: ["warning"] }),
     keys: () => quoteKeysFromEnv(),
   };

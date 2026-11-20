@@ -687,7 +687,7 @@ suivent pas les redirections).
 
 Une fois les dates et les voyageurs choisis, `CalendrierReservation` affiche « Disponible » et le
 total Beds24 exact **avant** la modale de paiement (prop `quote` du socle, `lib/calendar-quote`).
-Source : `/api/agent/quote?…&src=calendrier` — la route des IA, même calcul, même cache CDN de 5 min.
+Source : `/api/agent/quote?…&src=calendrier` — la route des IA, même calcul : prix Beds24 **sans cache** (`fetchRoomPrice` sans `revalidate` = `no-store`, socle v3.36.0 — le cache de données de Next servait un prix périmé au premier appel), garde de l'agent 5 min, CDN 2 min sans `stale-while-revalidate`. `pauseMs: 250` dans `stayAgentDeps()` : pause entre deux appels de prix d'une recherche ou entre un devis refusé et ses alternatives (403 en rafale ; 30/30 acceptés à 250 ms le 20/11).
 - **Le linge n'est jamais dans ce total** : l'URL n'envoie pas `extras`. La phrase `COMPRIS` dit
   « linge en option (15 €/pers., `PROPERTY.linen.pricePerPerson`), à cocher sur la page de paiement »
   et précise le ménage « hors cuisine et vaisselle » (comme `lib/agent.ts`).
@@ -724,7 +724,8 @@ la grille — corriger `breakdown`, pas le contourner. **Indexation automatique*
   balise robots en plus, hors sitemap, sans canonical. Sans paramètre → 308 vers `/tarifs` ; alias
   `arrivee/depart/adultes/enfants` ou ordre différent → 308 vers la forme canonique.
 - **Pas de prix par personne** sur le calendrier, le devis et `/sejour` (décision de l'hôte du 20/11 :
-  même prix de 1 à 4 voyageurs, le chiffre doublait pour un couple).
+  même prix de 1 à 4 voyageurs, le chiffre doublait pour un couple), **ni dans l'API et le MCP** :
+  `perPersonPrice: false` dans `lib/agent.ts` (socle v3.36.0).
 - Textes sous le prix (`INCLUDED`, `included`, `PAYMENT_NOTE`) dans `lib/quote-notes.ts`, partagés par
   `/devis` et `/sejour`. `MobileBookBar` masquée sur `/sejour`.
 - `stayPagePath` dans `lib/agent.ts` : l'API et le MCP renvoient `stayUrl` (sauf avec `extras=linge`,
@@ -1980,7 +1981,7 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
   - Grille de plus de 24 h : les lignes passées sont retirées, et le JSON-LD n'est pas émis.
 - **Fiche cron-job.org** : toutes les heures, en-tête `Authorization: Bearer <CRON_SECRET>`, **délai de
   30 s** (valeur par défaut de cron-job.org) — d'où `timeBudgetMs` ≈ 22 s : le calcul s'arrête avant,
-  les prix déjà demandés restent en cache 12 h, la grille se complète en 2 ou 3 passages
+  les prix déjà demandés restent en cache 6 h au moins, la grille se complète en 2 ou 3 passages
   (`incomplete`). Au 3e `incomplete` de suite, ou sans succès depuis 24 h, c'est un relevé KO
   (`stalled`, alerte au 2e). Un verrou (`…:lock`, 90 s) empêche deux calculs simultanés.
 - **Après un déploiement** : appeler le cron à la main, **à répétition, jusqu'à `"outcome":"stored"`**
@@ -1996,7 +1997,7 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
   - Composition `albiez-v2` : appeler le cron à la main après le déploiement.
 - **Lecture des disponibilités** :
   - une plage par saison, lue en 2 appels (`disponibilites`, puis `contraintes`), jamais mois par mois en parallèle ;
-  - prix demandés un par un, espacés de 700 ms (sinon Beds24 répond 403), gardés **12 à 24 h** en cache (durée étalée par séjour, `spreadTtl`, pour qu'ils n'expirent pas tous ensemble). Fausse alerte évitée : relevé KO au 6e `incomplete` de suite seulement (`maxIncompleteStreak`).
+  - prix demandés un par un, espacés de 700 ms (sinon Beds24 répond 403), gardés **6 à 12 h** en cache (durée étalée par séjour, `spreadTtl`, pour qu'ils n'expirent pas tous ensemble ; 12 à 24 h jusqu'au 20/11 : prix de la veille affichés, test voyageur). Pas 3 à 6 h comme prévu au plan : un prix expiré est rendu tout de suite par Next et redemandé en arrière-plan sans pause, tous ensemble — plus court, la rafale du passage horaire grossit (403). Mention de date : « Prix relevés dans les 24 heures précédant le … » ; « 7 nuits à partir de » ne compte que les lignes de 7 nuits (`lowestTotal(grid, 0, r => r.nights === 7)`, un sous-séjour de 3 nuits citait 238,57 €). Renouvellement par âge prévu en socle v3.37.0. Fausse alerte évitée : relevé KO au 6e `incomplete` de suite seulement (`maxIncompleteStreak`).
 - **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 4 personnes »).
   - Le linge n'entre **jamais** dans le total.
   - Formulation : « ménage et taxe de séjour compris, linge en option ». Jamais « tout compris », jamais de pourcentage.

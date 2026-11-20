@@ -64,7 +64,9 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
   const tag = LOCALE_META[locale].bcp47;
   const stored = await getPriceGrid();
   const grid = stored?.grid ?? null;
-  const min = grid?.pricesShown ? lowestTotal(grid, 0) : null;
+  // « 7 nuits à partir de » : les semaines de 7 nuits seulement, jamais un sous-séjour de 3 nuits
+  // glissé dans une semaine en partie prise (test voyageur du 20/11/2026 : « dès 238,57 € »).
+  const min = grid?.pricesShown ? lowestTotal(grid, 0, (r) => r.nights === 7) : null;
   const from = min === null ? null : new Intl.NumberFormat(tag, { style: "currency", currency: "EUR" }).format(min);
   const offer = grid && !stored?.stale ? priceGridOffer(grid, `${SITE_URL}${pricesPath(locale)}`) : null;
 
