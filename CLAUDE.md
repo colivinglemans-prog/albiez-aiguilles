@@ -1981,7 +1981,7 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
   - Grille de plus de 24 h : les lignes passées sont retirées, et le JSON-LD n'est pas émis.
 - **Fiche cron-job.org** : toutes les heures, en-tête `Authorization: Bearer <CRON_SECRET>`, **délai de
   30 s** (valeur par défaut de cron-job.org) — d'où `timeBudgetMs` ≈ 22 s : le calcul s'arrête avant,
-  les prix déjà demandés restent en cache 6 h au moins, la grille se complète en 2 ou 3 passages
+  la grille de travail est rangée à chaque passage, la grille servie remplacée une fois complète (socle v3.37.0) ; elle se complète en 2 ou 3 passages
   (`incomplete`). Au 3e `incomplete` de suite, ou sans succès depuis 24 h, c'est un relevé KO
   (`stalled`, alerte au 2e). Un verrou (`…:lock`, 90 s) empêche deux calculs simultanés.
 - **Après un déploiement** : appeler le cron à la main, **à répétition, jusqu'à `"outcome":"stored"`**
@@ -1997,7 +1997,8 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
   - Composition `albiez-v2` : appeler le cron à la main après le déploiement.
 - **Lecture des disponibilités** :
   - une plage par saison, lue en 2 appels (`disponibilites`, puis `contraintes`), jamais mois par mois en parallèle ;
-  - prix demandés un par un, espacés de 700 ms (sinon Beds24 répond 403), gardés **6 à 12 h** en cache (durée étalée par séjour, `spreadTtl`, pour qu'ils n'expirent pas tous ensemble ; 12 à 24 h jusqu'au 20/11 : prix de la veille affichés, test voyageur). Pas 3 à 6 h comme prévu au plan : un prix expiré est rendu tout de suite par Next et redemandé en arrière-plan sans pause, tous ensemble — plus court, la rafale du passage horaire grossit (403). Mention de date : « Prix relevés dans les 24 heures précédant le … » ; « 7 nuits à partir de » ne compte que les lignes de 7 nuits (`lowestTotal(grid, 0, r => r.nights === 7)`, un sous-séjour de 3 nuits citait 238,57 €). Renouvellement par âge prévu en socle v3.37.0. Fausse alerte évitée : relevé KO au 6e `incomplete` de suite seulement (`maxIncompleteStreak`).
+  - prix demandés un par un, sans cache (`fetchRoomPrice` sans `revalidate`), espacés de 400 ms (403 en rafale ; 30/30 acceptés à 250 ms le 20/11), les plus vieux d'abord (voir ci-dessous).
+  - ⚠️ **Grille renouvelée par âge (socle v3.37.0, depuis le 20/11/2026)** : plus aucun cache de Next pour les prix de la grille (`fetchRoomPrice(req)` sans `revalidate`). Chaque cellule porte `pricedAt` ; à chaque passage du cron (`incremental: true`), les cellules jamais demandées puis les plus vieilles sont redemandées (pause 400 ms, ~30 prix par passage de 22 s, ~66 cellules à Albiez, 3 passages à froid, cycle complet en 2 à 4 h). La grille de travail est rangée sous `…:price-grid:work` à chaque passage, même partielle ; la grille servie n'est remplacée que complète. La page affiche « Prix relevés entre le … et le … » (`readPriceGrid().priced`, prop `priced` de `PriceGrid`), et le cron appelle `revalidateTag("price-grid", { expire: 0 })` chaque fois que la grille **servie** est remplacée (jamais pour la seule grille de travail). Alerte : grille incomplète 6 fois de suite, ou plus vieux prix > 24 h. Pare-feu « Limite API IA » : réponse **429** (plus 403) depuis le 20/11, annoncée dans `llms.txt`.
 - **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 4 personnes »).
   - Le linge n'entre **jamais** dans le total.
   - Formulation : « ménage et taxe de séjour compris, linge en option ». Jamais « tout compris », jamais de pourcentage.

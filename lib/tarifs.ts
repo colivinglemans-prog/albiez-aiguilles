@@ -18,7 +18,7 @@
  */
 import { unstable_cache } from "next/cache";
 import { addDays } from "@sejour/socle/lib/dates";
-import { buildPriceGrid, chainedStays, spreadTtl, type PriceGrid, type WindowSource } from "@sejour/socle/lib/price-grid";
+import { buildPriceGrid, chainedStays, type PriceGrid, type WindowSource } from "@sejour/socle/lib/price-grid";
 import { readPriceGrid, type ReadPriceGrid } from "@sejour/socle/lib/price-grid-job";
 import { fetchRoomPrice } from "@sejour/socle/lib/stay-price";
 import { todayParis } from "@sejour/socle/lib/time";
@@ -39,16 +39,6 @@ export const PRICE_GRID_COMPOSITION = "albiez-v2:hiver+ete,chained-7n,reserves;g
 /** Clé Upstash de la grille (l'état du cron sous `…:job`, l'alerte sous `…:alert`). */
 export const PRICE_GRID_KEY = "albiez:price-grid";
 
-/**
- * Durée d'un prix en cache, en secondes, étalée sur 6 à 12 h (`spreadTtl`) : le cron passe toutes
- * les heures et ne redemande qu'une fraction des prix. 12 à 24 h jusqu'au 20/11/2026 : la page
- * affichait des prix de la veille (575,10 € pour une semaine facturée 620,24 €, test voyageur).
- * Pas plus court : un prix expiré est rendu tout de suite (stale-while-revalidate de Next) et
- * redemandé en arrière-plan **sans pause**, tous ensemble — avec des durées courtes, la rafale du
- * passage horaire grossit et `getroomprice` répond 403. Le renouvellement par âge de chaque prix,
- * hors cache de Next, est prévu (socle v3.37.0).
- */
-const PRICE_TTL = 6 * 3600;
 
 export function publicPricesEnabled(): boolean {
   return !["off", "0", "false"].includes((process.env.PRIX_PUBLICS ?? "").trim().toLowerCase());
@@ -70,7 +60,10 @@ function sources(today: string): WindowSource[] {
  * (deux appels : nuits libres et règles), pas mois par mois en parallèle : le quota de l'API v2
  * du compte est partagé avec le calendrier du site et les crons.
  */
-export async function computePriceGrid(counter?: { availability: number; price: number }): Promise<PriceGrid> {
+export async function computePriceGrid(
+  counter?: { availability: number; price: number },
+  previous: PriceGrid | null = null,
+): Promise<PriceGrid> {
   const today = todayParis();
   return buildPriceGrid(
     STAY_QUOTE,
@@ -84,20 +77,23 @@ export async function computePriceGrid(counter?: { availability: number; price: 
       },
       price: (req) => {
         if (counter) counter.price++;
-        // Durée de cache étalée par séjour (6 à 12 h) : les prix n'expirent pas tous ensemble.
-        const id = `${req.checkIn}/${req.checkOut}/${req.adults}/${req.children}`;
-        return fetchRoomPrice(req, { revalidate: spreadTtl(id, PRICE_TTL, PRICE_TTL) });
+        // Sans cache (socle v3.37.0) : la fraîcheur vient de l'âge de chaque cellule, renouvelée
+        // la plus vieille d'abord — plus du cache de Next (stale-while-revalidate : prix de la veille).
+        return fetchRoomPrice(req);
       },
     },
     {
       sources: sources(today),
       parties: PRICE_PARTIES,
       enabled: publicPricesEnabled(),
-      // getroomprice répond 403 à des appels trop rapprochés (mesuré le 19/11/2026).
-      pauseMs: 700,
-      // cron-job.org coupe la requête à 30 s par défaut (la route en a 60) : on s'arrête à ~22 s ;
-      // les prix déjà demandés restent en cache 6 h au moins, la grille se complète en 2 ou 3 passages.
+      // getroomprice répond 403 aux rafales (19/11/2026) ; 30 appels sur 30 acceptés à 250 ms
+      // (20/11/2026). Chaque appel part chez Beds24 : environ 30 prix par passage de 22 s.
+      pauseMs: 400,
+      // cron-job.org coupe la requête à 30 s par défaut (la route en a 60) : on s'arrête à ~22 s.
+      // Renouvellement par âge : les cellules jamais demandées d'abord, puis les plus vieilles ; la
+      // grille de travail est rangée à chaque passage (`price-grid-job`, `incremental`).
       timeBudgetMs: 22_000,
+      previous,
     },
   );
 }
