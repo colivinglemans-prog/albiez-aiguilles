@@ -1895,33 +1895,43 @@ location longue n'est pas son métier — et non un oubli de configuration.
 
 ## Tarifs (`/xx/tarifs`, page discrète, socle v3.27.0)
 
-La grille du **prix exact des semaines à venir**, en HTML lisible sans JavaScript. Tests du
-19/11/2026 : ChatGPT et Gemini trouvaient le site mais répondaient « tarif non publié » — ils ne
-lisent ni le calendrier (JavaScript) ni `llms.txt` ni l'API de devis. Plan :
-`C:Usersalexa.claudeplanscurried-mapping-stallman.md` (lot 1).
+La page affiche le **prix exact des semaines à venir**, en HTML lisible sans JavaScript.
 
-- **Calcul** : `lib/tarifs.ts` → `buildPriceGrid` du socle (`@sejour/socle/lib/price-grid`).
-  Saisons d'hiver (`HIVERS`) et étés (`eteDeLAnnee`) à l'horizon de réservation, en **séjours
-  enchaînés d'au moins 7 nuits** (`chainedStays`) : chaque séjour part de la première arrivée que
-  Beds24 autorise et dure le plus court séjour accepté. **Aucune règle de calendrier n'est écrite**
-  (voir « Rotation du samedi ») : si la rotation change dans Beds24, la grille suit.
-- **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 6 personnes »).
-  Le linge n'entre **jamais** dans le total (option à cocher sur la page de paiement) ; formulation
-  « ménage et taxe de séjour compris, linge en option », jamais « tout compris » ni de pourcentage.
-- **Cache** : une grille pour les cinq langues (`unstable_cache`, 1 h, clé avec l'état de
-  l'interrupteur), chaque prix gardé 12 h (`fetchRoomPrice`). Grille dégradée (Beds24 en panne) :
-  rien n'est mis en cache, la page renvoie au calendrier.
-- **Exception assumée** : la page est `force-dynamic` (avec le devis, la seule à ne pas être
-  figée au déploiement) — sinon le `next build` interrogerait Beds24, et la grille serait figée.
-- **Interrupteur** : `PRIX_PUBLICS=off` (Vercel) coupe tous les prix, au cas où Beds24 bloquerait
-  l'endpoint de prix public ; la disponibilité reste affichée. Absente ou autre valeur : prix affichés.
-- **Liens** (page publique mais **discrète**, décision de l'hôte) : pied de page, bloc de réservation
-  (sous le calendrier, donc accueil et pages de saison), page Conditions, `llms.txt`, sitemap.
-  **Pas dans le menu.** Chaque prix mène au calendrier pré-rempli (`rel="nofollow"`) ; jamais de
-  lien de devis signé.
-- **JSON-LD** : un `AggregateOffer` (plus bas et plus haut prix) — pas de résultat enrichi attendu.
-- Textes : `app/(site)/[locale]/tarifs/content.ts` (5 langues), longueurs testées
-  (`tests/tarifs-content.test.ts` : titre ≤ 65, description 120–155).
+Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le site, mais répondaient « tarif non publié ». Ils ne lisent ni le calendrier (JavaScript), ni `llms.txt`, ni l'API de devis. Plan : `C:\Users\alexa\.claude\plans\curried-mapping-stallman.md` (lot 1).
+
+- **Architecture : le calcul ne passe jamais par une page visitée.**
+  - Le cron `app/api/cron/price-grid` tourne **toutes les heures via cron-job.org**, avec `Authorization: Bearer $CRON_SECRET` et `maxDuration = 60` (plafond Hobby ; calcul arrêté à ~45 s, repris au passage suivant grâce aux prix en cache).
+  - Il calcule la grille (`computePriceGrid`, `lib/tarifs.ts`), puis la range dans Upstash sous `albiez:price-grid`, au format `{ grid, generatedAt, composition }`, via `@sejour/socle/lib/price-grid-job`.
+  - Si le calcul échoue :
+    - **la grille précédente reste** en place ;
+    - les essais sont suspendus 15 min ;
+    - une alerte ntfy part au 2e relevé KO, n'est jamais répétée, et le retour à la normale est signalé en priorité 1.
+  - `?dry=1` rend la grille et le nombre d'appels, sans rien écrire.
+- **La page se contente de lire Upstash** (`revalidate = 300`). C'est la seule page du site qui déclare un `revalidate`, et ce choix est assumé : une grille neuve paraît au plus 5 minutes après son calcul, et aucune lecture Beds24 n'est faite au build.
+  - Rien de rangé, ou autre composition : la page renvoie au calendrier, sans jamais d'erreur.
+  - Grille de plus de 24 h : les lignes passées sont retirées, et le JSON-LD n'est pas émis.
+- **Composition versionnée** (`PRICE_GRID_COMPOSITION`) : à changer dès que les semaines ou les groupes changent. Après un tel déploiement, **appeler le cron à la main**.
+- **Semaines affichées** : saisons d'hiver (`HIVERS`) et étés (`eteDeLAnnee`), en **séjours enchaînés d'au moins 7 nuits** (`chainedStays`).
+  - Chaque semaine part de la première arrivée que Beds24 autorise.
+  - **Aucune règle de calendrier n'est écrite dans le code** (voir « Rotation du samedi ») : la grille suit Beds24.
+  - Les semaines prises ne sont pas listées, et la page le dit : « les semaines absentes du tableau sont déjà réservées ou pas encore ouvertes à la vente ».
+- **Lecture des disponibilités** :
+  - une plage par saison, lue en 2 appels (`disponibilites`, puis `contraintes`), jamais mois par mois en parallèle ;
+  - prix demandés un par un, espacés de 700 ms (sinon Beds24 répond 403), gardés 12 h en cache.
+- **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 4 personnes »).
+  - Le linge n'entre **jamais** dans le total.
+  - Formulation : « ménage et taxe de séjour compris, linge en option ». Jamais « tout compris », jamais de pourcentage.
+- **Interrupteur** : `PRIX_PUBLICS=off` (ou `0`, `false`) sur Vercel coupe tous les prix au calcul suivant.
+- **Liens** : page publique mais **discrète** (décision de l'hôte). Elle est liée depuis :
+  - le pied de page ;
+  - le bloc de réservation (accueil et pages de saison) ;
+  - la page Conditions ;
+  - `llms.txt` ;
+  - le sitemap (`weekly`).
+
+  Elle n'apparaît **pas dans le menu**. Chaque prix mène au calendrier pré-rempli (`rel="nofollow"`).
+- **JSON-LD** : un `AggregateOffer`.
+- **Textes** : `app/(site)/[locale]/tarifs/content.ts`, longueurs vérifiées par `tests/tarifs-content.test.ts`.
 
 ## Guide d'arrivée (page cachée)
 

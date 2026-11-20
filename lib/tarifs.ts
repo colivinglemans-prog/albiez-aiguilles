@@ -1,34 +1,48 @@
 /**
  * La grille de la page « Tarifs » (`/xx/tarifs`) : le prix exact des semaines de la saison, en
  * HTML, pour les assistants IA qui ne lisent ni le calendrier (JavaScript) ni l'API de devis —
- * Gemini, le 19/11/2026 : « la grille tarifaire n'est pas publiée en clair ». Le calcul est celui
- * du socle (`@sejour/socle/lib/price-grid`) ; ce fichier ne garde que ce qui est propre à Albiez.
+ * Gemini, le 19/11/2026 : « la grille tarifaire n'est pas publiée en clair ».
  *
- * - **Quelles semaines** : la saison d'hiver (`HIVERS`) et l'été (`eteDeLAnnee`), en séjours
- *   enchaînés d'au moins 7 nuits. Aucune règle de calendrier n'est écrite ici (voir CLAUDE.md,
+ * **Architecture** : la grille est calculée par le cron `/api/cron/price-grid` (cron-job.org,
+ * toutes les heures) et rangée dans Upstash (`albiez:price-grid`) ; la page ne fait que la lire.
+ * Jamais un appel Beds24 sur le chemin d'un visiteur. Rangement et alerte :
+ * `@sejour/socle/lib/price-grid-job` ; calcul : `@sejour/socle/lib/price-grid`.
+ *
+ * - **Quelles semaines** : la saison d'hiver (`HIVERS`) et les étés (`eteDeLAnnee`), en séjours
+ *   enchaînés d'au moins 7 nuits. Aucune règle de calendrier n'est écrite ici (CLAUDE.md,
  *   « Rotation du samedi ») : les séjours partent des arrivées que Beds24 autorise.
  * - **Quels groupes** : 4, 5 et 6 voyageurs, colonnes réunies quand le prix est le même.
- * - **Cache** : une seule grille pour les cinq langues, recalculée au plus une fois par heure ;
- *   chaque prix est gardé 12 h (`fetchRoomPrice`). Une grille dégradée (Beds24 en panne) n'est
- *   pas mise en cache : la page affiche alors le renvoi au calendrier.
- * - **Interrupteur** : `PRIX_PUBLICS=off` coupe tous les prix (Beds24 bloquerait l'endpoint de
- *   prix public) ; la disponibilité reste affichée.
+ * - **Composition** (`PRICE_GRID_COMPOSITION`) : à changer dès que les semaines ou les groupes
+ *   changent — la page ne sert jamais une grille d'une autre composition.
+ * - **Interrupteur** : `PRIX_PUBLICS=off` (ou `0`, `false`) coupe tous les prix au calcul suivant.
  */
-import { unstable_cache } from "next/cache";
 import { addDays } from "@sejour/socle/lib/dates";
 import { buildPriceGrid, chainedStays, type PriceGrid, type WindowSource } from "@sejour/socle/lib/price-grid";
+import { readPriceGrid, type ReadPriceGrid } from "@sejour/socle/lib/price-grid-job";
 import { fetchRoomPrice } from "@sejour/socle/lib/stay-price";
-import { STAY_QUOTE, stayAgentDeps } from "@/lib/agent";
+import { todayParis } from "@sejour/socle/lib/time";
+import { STAY_QUOTE } from "@/lib/agent";
+import { contraintes, disponibilites } from "@/lib/beds24";
+import { hasKv, kvStore } from "@/lib/kv";
 import { eteDeLAnnee, HIVERS } from "@/lib/seasons";
 
-/** Les voyageurs chiffrés : le prix est le même jusqu'à 4, il peut changer à 5 et 6. */
+/** Les voyageurs chiffrés : le prix est le même jusqu'à 4, il change à 5 et 6. */
 export const PRICE_PARTIES = [4, 5, 6].map((adults) => ({ adults, children: 0 }));
 
-/** Durée d'un prix en cache, en secondes : la grille se recalcule toutes les heures, pas les prix. */
+/**
+ * Ce que la grille contient. **À changer** dès que les semaines ou les groupes changent : une
+ * grille rangée sous une autre composition n'est jamais servie.
+ */
+export const PRICE_GRID_COMPOSITION = "albiez-v1:hiver+ete,chained-7n;guests-4-5-6";
+
+/** Clé Upstash de la grille (l'état du cron sous `…:job`, l'alerte sous `…:alert`). */
+export const PRICE_GRID_KEY = "albiez:price-grid";
+
+/** Durée d'un prix en cache, en secondes : le cron passe toutes les heures, pas les prix. */
 const PRICE_TTL = 12 * 3600;
 
 export function publicPricesEnabled(): boolean {
-  return (process.env.PRIX_PUBLICS ?? "").trim().toLowerCase() !== "off";
+  return !["off", "0", "false"].includes((process.env.PRIX_PUBLICS ?? "").trim().toLowerCase());
 }
 
 /** Les saisons encore à venir, à l'horizon de réservation. */
@@ -38,41 +52,50 @@ function sources(today: string): WindowSource[] {
   const seasons = [...HIVERS, eteDeLAnnee(year), eteDeLAnnee(year + 1)].filter(
     (s) => s.fin >= today && s.debut <= horizon,
   );
-  return seasons.map((s) =>
-    // Dernière arrivée : une semaine avant la fin de la saison.
-    chainedStays({ from: s.debut, to: addDays(s.fin, -6) }, { minNights: 7 }),
-  );
+  // Dernière arrivée : une semaine avant la fin de la saison.
+  return seasons.map((s) => chainedStays({ from: s.debut, to: addDays(s.fin, -6) }, { minNights: 7 }));
 }
 
-async function compute(enabled: boolean): Promise<PriceGrid> {
-  const deps = stayAgentDeps();
+/**
+ * Le calcul, appelé par le cron seulement. La disponibilité est lue **en une plage par saison**
+ * (deux appels : nuits libres et règles), pas mois par mois en parallèle : le quota de l'API v2
+ * du compte est partagé avec le calendrier du site et les crons.
+ */
+export async function computePriceGrid(counter?: { availability: number; price: number }): Promise<PriceGrid> {
+  const today = todayParis();
   return buildPriceGrid(
     STAY_QUOTE,
-    { ...deps, price: (req) => fetchRoomPrice(req, { revalidate: PRICE_TTL }) },
     {
-      sources: sources(deps.today),
+      today,
+      availability: async (from, to) => {
+        if (counter) counter.availability += 2;
+        const dates = await disponibilites(from, to);
+        const regles = await contraintes(from, to);
+        return { dates, minStay: regles.minima, sansArrivee: regles.sansArrivee, sansDepart: regles.sansDepart };
+      },
+      price: (req) => {
+        if (counter) counter.price++;
+        return fetchRoomPrice(req, { revalidate: PRICE_TTL });
+      },
+    },
+    {
+      sources: sources(today),
       parties: PRICE_PARTIES,
-      enabled,
-      mergeEqualColumns: true,
+      enabled: publicPricesEnabled(),
       // getroomprice répond 403 à des appels trop rapprochés (mesuré le 19/11/2026).
       pauseMs: 700,
+      // La route a 60 s (plan Hobby) : on s'arrête avant, les prix déjà demandés restent en cache.
+      timeBudgetMs: 45_000,
     },
   );
 }
 
-/** La grille, ou `null` si Beds24 ne répond pas (aucun prix inventé, renvoi au calendrier). */
-export async function getPriceGrid(): Promise<PriceGrid | null> {
-  // L'état de l'interrupteur entre dans la clé : le cache de données survit aux déploiements, et
-  // couper les prix ne doit pas attendre l'expiration d'une grille chiffrée.
-  const enabled = publicPricesEnabled();
-  const cached = unstable_cache(() => compute(enabled), ["albiez-price-grid-v1", enabled ? "on" : "off"], {
-    revalidate: 3600,
-    tags: ["price-grid"],
-  });
+/** La grille rangée par le cron, ou `null` (Upstash absent ou vide, autre composition). */
+export async function getPriceGrid(): Promise<ReadPriceGrid | null> {
+  if (!hasKv()) return null;
   try {
-    return await cached();
-  } catch (e) {
-    console.error("Grille de prix :", e instanceof Error ? e.message : e);
+    return await readPriceGrid(kvStore(), PRICE_GRID_KEY, PRICE_GRID_COMPOSITION, { today: todayParis() });
+  } catch {
     return null;
   }
 }

@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // calendrier). Sans `lastModified` : les prix changent sans que la page change de nature.
     entries.push({
       url: `${SITE_URL}/${locale}/tarifs`,
-      changeFrequency: "daily",
+      changeFrequency: "weekly",
       priority: 0.8,
       alternates: alternates((l) => `/${l}/tarifs`),
     });

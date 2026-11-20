@@ -17,11 +17,13 @@ import { pricesContent } from "./content";
  * liée depuis le pied de page, les conditions, les saisons et le bloc de réservation, pas depuis
  * le menu.
  *
- * Rendue à la demande (jamais au `next build`, qui interrogerait Beds24) ; la grille vient d'un
- * cache d'une heure partagé par les cinq langues (`lib/tarifs.ts`) — c'est la seule page du site
- * qui ne soit pas figée au déploiement, avec le devis.
+ * La page ne fait **que lire** la grille rangée dans Upstash par le cron `/api/cron/price-grid`
+ * (toutes les heures) : jamais un appel Beds24 sur le chemin d'un visiteur. Régénérée au plus toutes
+ * les 5 minutes (`revalidate`, seule page du site qui en déclare un) : une grille neuve paraît au
+ * plus 5 minutes après le calcul. Rien de rangé, ou autre composition : renvoi au calendrier, jamais
+ * d'erreur. Grille de plus de 24 h : lignes passées retirées, pas de JSON-LD.
  */
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -60,10 +62,11 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
   if (!isLocale(locale)) notFound();
   const c = pricesContent(locale);
   const tag = LOCALE_META[locale].bcp47;
-  const grid = await getPriceGrid();
+  const stored = await getPriceGrid();
+  const grid = stored?.grid ?? null;
   const min = grid?.pricesShown ? lowestTotal(grid, 0) : null;
   const from = min === null ? null : new Intl.NumberFormat(tag, { style: "currency", currency: "EUR" }).format(min);
-  const offer = grid ? priceGridOffer(grid, `${SITE_URL}${pricesPath(locale)}`) : null;
+  const offer = grid && !stored?.stale ? priceGridOffer(grid, `${SITE_URL}${pricesPath(locale)}`) : null;
 
   return (
     <Section>
@@ -87,6 +90,7 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
         <p className="max-w-3xl rounded-2xl bg-light-bg p-4 text-sm">{c.noPrices}</p>
       )}
       <div className="mt-8 max-w-3xl space-y-2 text-sm text-secondary">
+        <p>{c.absentWeeks}</p>
         <p>{c.linen}</p>
         <p>{c.exact}</p>
         <p>

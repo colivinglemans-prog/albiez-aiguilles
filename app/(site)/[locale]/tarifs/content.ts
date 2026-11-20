@@ -20,6 +20,8 @@ export interface PricesContent {
   metaDescription: string;
   /** Phrase de tête ; `from` est le plus petit prix affiché, déjà formaté, ou `null`. */
   lead: (from: string | null) => string;
+  /** Les semaines prises ne sont pas listées (séjours enchaînés) : le dire. */
+  absentWeeks: string;
   linen: string;
   exact: string;
   otherDates: string;
@@ -62,6 +64,7 @@ export function pricesContent(locale: Locale): PricesContent {
           from
             ? `7-night stays from ${from}, cleaning and tourist tax included, bed linen optional. Direct rate, cheaper than on the platforms.`
             : "Exact price of each week, cleaning and tourist tax included, bed linen optional. Direct rate, cheaper than on the platforms.",
+        absentWeeks: "Weeks missing from the table are already booked or not yet open for booking.",
         linen: `Bed linen and towels optional: ${linen} € per person per stay, to be ticked on the payment page (beds are not made up).`,
         exact: "The price is recalculated on the payment page at the time of booking: it is the one that applies.",
         otherDates: "Other dates or another length of stay:",
@@ -88,6 +91,7 @@ export function pricesContent(locale: Locale): PricesContent {
           from
             ? `7 Nächte ab ${from}, Endreinigung und Kurtaxe inklusive, Bettwäsche optional. Direktpreis, günstiger als auf den Plattformen.`
             : "Genauer Preis jeder Woche, Endreinigung und Kurtaxe inklusive, Bettwäsche optional. Direktpreis, günstiger als auf den Plattformen.",
+        absentWeeks: "Wochen, die in der Tabelle fehlen, sind bereits gebucht oder noch nicht buchbar.",
         linen: `Bettwäsche und Handtücher optional: ${linen} € pro Person und Aufenthalt, auf der Zahlungsseite anzukreuzen (Betten nicht bezogen).`,
         exact: "Der Preis wird bei der Buchung auf der Zahlungsseite neu berechnet: Dieser Preis gilt.",
         otherDates: "Andere Daten oder eine andere Dauer:",
@@ -114,6 +118,7 @@ export function pricesContent(locale: Locale): PricesContent {
           from
             ? `Estancias de 7 noches desde ${from}, limpieza y tasa turística incluidas, ropa de cama opcional. Tarifa directa, más barata que en las plataformas.`
             : "Precio exacto de cada semana, limpieza y tasa turística incluidas, ropa de cama opcional. Tarifa directa, más barata que en las plataformas.",
+        absentWeeks: "Las semanas que no aparecen en la tabla ya están reservadas o aún no están abiertas a la venta.",
         linen: `Ropa de cama y toallas opcionales: ${linen} € por persona y estancia, a marcar en la página de pago (camas sin hacer).`,
         exact: "El precio se recalcula en la página de pago al reservar: es el que se aplica.",
         otherDates: "Otras fechas u otra duración:",
@@ -140,6 +145,7 @@ export function pricesContent(locale: Locale): PricesContent {
           from
             ? `Soggiorni di 7 notti da ${from}, pulizia e tassa di soggiorno incluse, biancheria opzionale. Tariffa diretta, più conveniente che sulle piattaforme.`
             : "Prezzo esatto di ogni settimana, pulizia e tassa di soggiorno incluse, biancheria opzionale. Tariffa diretta, più conveniente che sulle piattaforme.",
+        absentWeeks: "Le settimane assenti dalla tabella sono già prenotate o non ancora aperte alla vendita.",
         linen: `Biancheria da letto e asciugamani opzionali: ${linen} € a persona per soggiorno, da spuntare nella pagina di pagamento (letti non preparati).`,
         exact: "Il prezzo viene ricalcolato nella pagina di pagamento al momento della prenotazione: è quello che si applica.",
         otherDates: "Altre date o un'altra durata:",
@@ -166,6 +172,7 @@ export function pricesContent(locale: Locale): PricesContent {
           from
             ? `Séjours de 7 nuits à partir de ${from}, ménage et taxe de séjour compris, linge en option. Tarif direct, moins cher que sur les plateformes.`
             : "Prix exact de chaque semaine, ménage et taxe de séjour compris, linge en option. Tarif direct, moins cher que sur les plateformes.",
+        absentWeeks: "Les semaines absentes du tableau sont déjà réservées ou pas encore ouvertes à la vente.",
         linen: `Linge de lit et serviettes en option : ${linen} € par personne et par séjour, à cocher sur la page de paiement (lits non faits).`,
         exact: "Le prix est recalculé sur la page de paiement au moment de la réservation : c'est lui qui s'applique.",
         otherDates: "Autres dates ou autre durée :",
