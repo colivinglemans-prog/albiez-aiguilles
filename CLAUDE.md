@@ -72,6 +72,10 @@ même nom. Les `MX` et le `SPF` d'OVH Mail sont à laisser intacts.
   export de réservations. Il s'active par `git config core.hooksPath .githooks` (déjà posé dans
   le clone de ce poste, donc dans tous ses worktrees) et exige `node_modules` (`npm ci`).
   **Un agent ne passe jamais `--no-verify`** sans l'accord explicite de l'hôte.
+- **En CI** (`ci.yml`, étape `garde-commit`, socle ≥ v3.35.0) : le même contrôle, commit par
+  commit, sur chaque PR et chaque push (checkout en `fetch-depth: 0`). Il **détecte** seulement :
+  le dépôt est public, un échec veut dire que le contenu est déjà en ligne → prévenir l'hôte
+  (rotation du secret, ou réécriture de l'historique et purge GitHub).
 
 ## Déploiement
 
