@@ -446,7 +446,7 @@ export const fr: Dictionary = {
     adults: "Adultes",
     children: "Enfants",
     selectCheckOut: "Sélectionnez votre date de départ",
-    directDiscount: "Meilleur tarif garanti : −7 % en réservation directe",
+    directDiscount: "Tarif direct, moins cher que sur les plateformes",
     nights: (n) => `${n} nuit${n > 1 ? "s" : ""}`,
     minStayNote: (n) => `(minimum ${n} nuits)`,
     capacityNote: (max) => `Jusqu'à ${max} voyageurs.`,

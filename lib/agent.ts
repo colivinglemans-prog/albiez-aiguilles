@@ -36,11 +36,11 @@ function refuse(req: { checkIn: string; checkOut: string; purpose?: string }): s
 
 /** Les lignes du détail du prix, par langue. */
 const LINE_LABELS: Record<string, { nights: (n: number) => string; cleaning: string; tax: string }> = {
-  fr: { nights: (n) => `${n} nuit${n > 1 ? "s" : ""}, remise directe de 7 % incluse`, cleaning: "Ménage de fin de séjour", tax: "Taxe de séjour" },
-  en: { nights: (n) => `${n} night${n > 1 ? "s" : ""}, 7% direct-booking discount included`, cleaning: "End-of-stay cleaning", tax: "Tourist tax" },
-  de: { nights: (n) => `${n > 1 ? `${n} Nächte` : "1 Nacht"}, inkl. 7 % Direktbuchungsrabatt`, cleaning: "Endreinigung", tax: "Kurtaxe" },
-  es: { nights: (n) => `${n} noche${n > 1 ? "s" : ""}, descuento directo del 7 % incluido`, cleaning: "Limpieza final", tax: "Tasa turística" },
-  it: { nights: (n) => `${n} nott${n > 1 ? "i" : "e"}, sconto diretto del 7 % incluso`, cleaning: "Pulizia finale", tax: "Tassa di soggiorno" },
+  fr: { nights: (n) => `${n} nuit${n > 1 ? "s" : ""} au tarif direct`, cleaning: "Ménage de fin de séjour", tax: "Taxe de séjour" },
+  en: { nights: (n) => `${n} night${n > 1 ? "s" : ""} at the direct rate`, cleaning: "End-of-stay cleaning", tax: "Tourist tax" },
+  de: { nights: (n) => `${n > 1 ? `${n} Nächte` : "1 Nacht"} zum Direktpreis`, cleaning: "Endreinigung", tax: "Kurtaxe" },
+  es: { nights: (n) => `${n} noche${n > 1 ? "s" : ""} con tarifa directa`, cleaning: "Limpieza final", tax: "Tasa turística" },
+  it: { nights: (n) => `${n} nott${n > 1 ? "i" : "e"} a tariffa diretta`, cleaning: "Pulizia finale", tax: "Tassa di soggiorno" },
 };
 
 export const STAY_QUOTE: StayQuoteConfig = {

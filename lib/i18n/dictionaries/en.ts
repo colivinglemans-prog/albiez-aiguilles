@@ -429,7 +429,7 @@ export const en: Dictionary = {
     adults: "Adults",
     children: "Children",
     selectCheckOut: "Select your check-out date",
-    directDiscount: "Best rate guaranteed: −7% when you book direct",
+    directDiscount: "Direct rate, cheaper than on the booking platforms",
     nights: (n) => `${n} night${n > 1 ? "s" : ""}`,
     minStayNote: (n) => `(minimum ${n} nights)`,
     capacityNote: (max) => `Up to ${max} guests.`,

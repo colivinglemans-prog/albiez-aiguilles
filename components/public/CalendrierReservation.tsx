@@ -102,7 +102,9 @@ export default function CalendrierReservation() {
       overlayLegend={legendeSaison}
       quote={{
         url: urlDevis(locale),
-        labels: calendarQuoteLabels(locale),
+        // Pas de « soit X € par personne et par nuit » : le prix est le même de 1 à 4 voyageurs,
+        // le chiffre doublerait pour un couple sans rien apprendre (décision de l'hôte, 2026-11-20).
+        labels: { ...calendarQuoteLabels(locale), perPersonPerNight: undefined },
         included: (COMPRIS[locale] ?? COMPRIS.fr)(PROPERTY.linen.pricePerPerson),
       }}
     />
