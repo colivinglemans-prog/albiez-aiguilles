@@ -39,18 +39,18 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>The Contamines loop, in the village centre</h3>
+      <h3>The Contamines loop, in the Chef-lieu</h3>
       <p>
         A very flat loop around the Contamines hillock, starting from rue Froide, opposite
         the Constantin bar-tobacconist. It is the shortest and easiest of the three. The
         trail is shared: in winter you will meet{" "}
         <Link href="/en/guide/chiens-de-traineau-albiez">dog-sled teams</Link> on it, so let
-        them have the track. The village centre is lower than Le Mollard: early or late in
+        them have the track. The Chef-lieu is lower than Le Mollard: early or late in
         the season, snow can be short there.
       </p>
       <div className="facts">
         <p>
-          <strong>Start</strong>: rue Froide, village centre · <strong>Walking time</strong>:
+          <strong>Start</strong>: rue Froide, Chef-lieu · <strong>Walking time</strong>:
           40 min · <strong>Climb</strong>: 37 m · <strong>Distance</strong>: 2.2 km
         </p>
       </div>
@@ -77,7 +77,7 @@ export default function Article() {
         as long as you stay on the marked routes.
       </p>
       <p>
-        The tourist office, in the village centre, sells route guides covering
+        The tourist office, in the Chef-lieu, sells route guides covering
         Albiez-Montrond and Albiez-le-Jeune. It is also where to ask about trail conditions
         before setting off.
       </p>

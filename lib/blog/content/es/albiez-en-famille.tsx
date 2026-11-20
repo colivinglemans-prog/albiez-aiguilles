@@ -73,7 +73,7 @@ export default function Article() {
         en poni de media hora o de una hora alrededor del Châtel, y cursos de poni por semanas.
       </p>
       <p>
-        En el centro del pueblo, la{" "}
+        En el Chef-lieu, la{" "}
         <Link href="/es/guide/bmx-vtt-trottinette-albiez">pista de BMX race</Link> es de libre acceso,
         rodeada de campos de fútbol, baloncesto, tenis y petanca, una zona de juegos y mesas de picnic.
       </p>

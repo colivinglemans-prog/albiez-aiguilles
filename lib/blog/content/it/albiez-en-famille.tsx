@@ -74,7 +74,7 @@ export default function Article() {
         pony di mezz'ora o di un'ora attorno al Châtel, e corsi di pony settimanali.
       </p>
       <p>
-        Nel centro del paese, la{" "}
+        Al Chef-lieu, la{" "}
         <Link href="/it/guide/bmx-vtt-trottinette-albiez">pista di BMX race</Link> è ad accesso libero,
         circondata da campi da calcio, basket, tennis e bocce, da un'area gioco e da tavoli da picnic.
       </p>

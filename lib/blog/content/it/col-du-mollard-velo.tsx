@@ -31,8 +31,8 @@ export default function Article() {
         </li>
       </ul>
       <p>
-        Ristoranti, alimentari e alloggi si trovano nelle vicinanze, nella borgata di Le Mollard e nel centro del
-        paese.
+        Ristoranti, alimentari e alloggi si trovano nelle vicinanze, nella borgata di Le Mollard e al
+        Chef-lieu.
       </p>
 
       <h2>Tre modi per salire</h2>

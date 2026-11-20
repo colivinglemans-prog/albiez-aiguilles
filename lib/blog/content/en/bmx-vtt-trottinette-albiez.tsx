@@ -6,14 +6,14 @@ export default function Article() {
       <p className="lead">
         Albiez-Montrond has its own BMX track, freely
         accessible
-        in the village centre, surrounded by sports pitches and a picnic area. And for
+        in the Chef-lieu, surrounded by sports pitches and a picnic area. And for
         anything on wheels, the resort hires out electric mountain bikes, BMX bikes and
         e-scooters.
       </p>
 
       <h2>The BMX race track</h2>
       <p>
-        It sits in the village centre and is <strong>open to all</strong>: no booking, no
+        It sits in the Chef-lieu and is <strong>open to all</strong>: no booking, no
         compulsory supervision. The features come at{" "}
         <strong>different levels</strong>, so a beginner and an experienced rider can share
         the same track.
@@ -39,7 +39,7 @@ export default function Article() {
 
       <h2>Hiring a bike</h2>
 
-      <h3>Skiset — Albiez Sports (village centre)</h3>
+      <h3>Skiset — Albiez Sports (Chef-lieu)</h3>
       <p>
         <strong>BMX</strong> and <strong>e-scooter</strong> hire, plus guided rides. A
         100 m² retail space, with ski equipment in winter and hiking gear in summer.
@@ -79,7 +79,7 @@ export default function Article() {
         and the Arvan-Villards tour linking the Glandon, the Croix de Fer and the Mollard.
       </p>
       <p>
-        The tourist office in the village centre provides maps and routes for road cycling,
+        The tourist office in the Chef-lieu provides maps and routes for road cycling,
         gravel and mountain biking, with or without electric assistance.
       </p>
     </>

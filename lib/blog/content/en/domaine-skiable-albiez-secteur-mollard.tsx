@@ -6,7 +6,7 @@ export default function Article() {
       <p className="lead">
         Albiez is a family ski resort in the Maurienne valley: 40 km of pistes, 13 lifts and
         22 runs between 1,500 and 2,060 metres. It splits into three sectors — Montrond,
-        the village centre and the Mollard — plus the neighbouring village of
+        the Chef-lieu and the Mollard — plus the neighbouring village of
         Albiez-le-Jeune. Our apartment is in the Mollard, the highest of the three.
       </p>
 
@@ -63,7 +63,7 @@ export default function Article() {
         </li>
         <li>
           <strong>Intermediate</strong>: Échaux from opening to get the measure of the
-          sector, then move across to the village centre and Montrond during the day.
+          sector, then move across to the Chef-lieu and Montrond during the day.
         </li>
         <li>
           <strong>Strong skier</strong>: Échaux then Aplanes, and the area unrolls from

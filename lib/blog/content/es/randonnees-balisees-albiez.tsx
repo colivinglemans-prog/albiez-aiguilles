@@ -29,7 +29,7 @@ export default function Article() {
 
       <h2>2. La vuelta de las Contamines — 40 minutos</h2>
       <p>
-        Un circuito muy llano que sale del centro del pueblo y basta para salir del casco urbano y abrir el paisaje. La
+        Un circuito muy llano que sale del Chef-lieu y basta para salir del casco urbano y abrir el paisaje. La
         salida se toma en la rue Froide, frente al bar tabaco Constantin; siga la calle hasta el cruce, luego a la
         derecha, y siga el sendero que rodea el cerro de las Contamines.
       </p>
@@ -39,7 +39,7 @@ export default function Article() {
       </p>
       <div className="facts">
         <p>
-          <strong>Salida</strong>: rue Froide, centro del pueblo · <strong>Duración</strong>: 40 min ·{" "}
+          <strong>Salida</strong>: rue Froide, Chef-lieu · <strong>Duración</strong>: 40 min ·{" "}
           <strong>Desnivel</strong>: 37 m · <strong>Distancia</strong>: 2,2 km
         </p>
       </div>
@@ -85,14 +85,14 @@ export default function Article() {
 
       <h2>5. La vuelta de la Cochette — 3 horas</h2>
       <p>
-        Un circuito de 8 km que sale del centro del pueblo, con vistas a las crestas de Lâcha, el pueblo de
+        Un circuito de 8 km que sale del Chef-lieu, con vistas a las crestas de Lâcha, el pueblo de
         Albiez-le-Jeune y las chimeneas de hadas. Es también el más rico de los seis en el plano del patrimonio: se
         atraviesa un piso montano donde antaño se cultivaba cada rincón de tierra — cebada, centeno, patata, lino,
         remolacha — y donde las <em>broues</em>, esos taludes de terrazas a menudo bordeados de arces, marcaban los
         límites de las parcelas.
       </p>
       <ol>
-        <li>Desde el centro del pueblo, tome la RD80 en dirección a Albiez-le-Jeune durante 100 m.</li>
+        <li>Desde el Chef-lieu, tome la RD80 en dirección a Albiez-le-Jeune durante 100 m.</li>
         <li>Deje la RD80 por una carretera a la izquierda.</li>
         <li>En el cruce, a la derecha dirección Les Crozets, hasta el cruce de La Côte.</li>
         <li>A la izquierda, el camino baja hasta el cruce del Bois du Nez.</li>
@@ -109,7 +109,7 @@ export default function Article() {
       </ol>
       <div className="facts">
         <p>
-          <strong>Salida</strong>: centro de Albiez-Montrond · <strong>Duración</strong>: 3 h ·{" "}
+          <strong>Salida</strong>: Chef-lieu de Albiez-Montrond · <strong>Duración</strong>: 3 h ·{" "}
           <strong>Desnivel</strong>: 245 m · <strong>Distancia</strong>: 8 km
         </p>
       </div>
@@ -174,7 +174,7 @@ export default function Article() {
         </p>
       </div>
       <p>
-        La oficina de turismo de Albiez-Montrond, en el centro del pueblo, vende además guías de senderismo que cubren
+        La oficina de turismo de Albiez-Montrond, en el Chef-lieu, vende además guías de senderismo que cubren
         cuatro sectores, entre ellos el de Albiez-Montrond y Albiez-le-Jeune.
       </p>
 

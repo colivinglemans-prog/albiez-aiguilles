@@ -32,7 +32,7 @@ export default function Article() {
         </li>
       </ul>
       <p>
-        Restaurants, Lebensmittelladen und Unterkünfte liegen in der Nähe, im Weiler Le Mollard und im Dorfkern.
+        Restaurants, Lebensmittelladen und Unterkünfte liegen in der Nähe, im Weiler Le Mollard und im Chef-lieu.
       </p>
 
       <h2>Drei Wege hinauf</h2>

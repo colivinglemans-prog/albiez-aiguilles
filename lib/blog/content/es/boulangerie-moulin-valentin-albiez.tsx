@@ -4,7 +4,7 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        En el centro de Albiez-Montrond, Le Moulin Valentin lo prepara todo en el local:
+        En el Chef-lieu de Albiez-Montrond, Le Moulin Valentin lo prepara todo en el local:
         panes, bollería, tartas, quiches, bocadillos. Y detrás del escaparate, una historia
         que empieza en 1694 — quizá antes.
       </p>

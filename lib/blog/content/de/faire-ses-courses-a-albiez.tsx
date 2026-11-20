@@ -7,7 +7,7 @@ export default function Article() {
     <>
       <p className="lead">
         Albiez-Montrond hat genug, um ohne Talfahrt zu leben: einen Supermarkt am Pistenzugang, einen
-        Lebensmittelladen und eine Bäckerei im Dorfkern. Aber um nach Albiez zu kommen, fährt man zwangsläufig durch
+        Lebensmittelladen und eine Bäckerei im Chef-lieu. Aber um nach Albiez zu kommen, fährt man zwangsläufig durch
         Saint-Jean-de-Maurienne – und genau dort sollte man den Großeinkauf machen.
       </p>
 
@@ -72,7 +72,7 @@ export default function Article() {
         <li>Der Génépi einer kleinen Destillerie.</li>
       </ul>
 
-      <h2>Im Dorfkern — der Laden Sambuis Dufreney</h2>
+      <h2>Im Chef-lieu — der Laden Sambuis Dufreney</h2>
       <p>
         Ein Lebensmittelladen im Herzen des Dorfes, untergebracht in einem einstigen Bauernhof, der zum traditionellen
         Krämerladen umgebaut wurde. Dieses Familiengeschäft ist{" "}
@@ -90,7 +90,7 @@ export default function Article() {
         </p>
       </div>
 
-      <h2>Im Dorfkern — die Bäckerei</h2>
+      <h2>Im Chef-lieu — die Bäckerei</h2>
       <p>
         Le Moulin Valentin bietet Brot, Gebäck, süße Tartes, warme und kalte Getränke, belegte Brote, Quiches und
         Sandwiches.{" "}

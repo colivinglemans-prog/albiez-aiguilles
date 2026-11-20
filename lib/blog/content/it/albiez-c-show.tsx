@@ -76,7 +76,7 @@ export default function Article() {
         Date e orari esatti cambiano da una stagione all'altra: seguono il calendario delle vacanze
         e la notte scende più tardi a fine inverno (17:45 o 18:00 a dicembre e febbraio, 18:15 a
         marzo, secondo l'ufficio del turismo). Il programma delle animazioni è
-        disponibile all'ufficio del turismo di Albiez-Montrond, nel centro del paese, dove si
+        disponibile all'ufficio del turismo di Albiez-Montrond, al Chef-lieu, dove si
         trovano anche la mappa della località e il programma del cinema.
       </p>
 

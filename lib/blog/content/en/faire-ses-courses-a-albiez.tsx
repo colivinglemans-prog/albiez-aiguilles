@@ -7,7 +7,7 @@ export default function Article() {
     <>
       <p className="lead">
         Albiez-Montrond has everything you need without going back down: a supermarket on
-        the snow front, a grocery and a bakery in the village. But to reach Albiez you have
+        the snow front, a grocery and a bakery in the Chef-lieu. But to reach Albiez you have
         to pass through Saint-Jean-de-Maurienne — and that is where the big shop belongs.
       </p>
 
@@ -75,7 +75,7 @@ export default function Article() {
         <li>Génépi from a small local distillery.</li>
       </ul>
 
-      <h2>In the village — the Sambuis Dufreney grocery</h2>
+      <h2>In the Chef-lieu — the Sambuis Dufreney grocery</h2>
       <p>
         A small grocery-cum-general store in the heart of the village, housed in what was
         once a farm, later converted into a traditional shop. This family business is{" "}
@@ -95,7 +95,7 @@ export default function Article() {
         </p>
       </div>
 
-      <h2>In the village — the bakery</h2>
+      <h2>In the Chef-lieu — the bakery</h2>
       <p>
         Le Moulin Valentin sells bread, pastries, sweet tarts, hot and cold drinks, open
         sandwiches, quiches and sandwiches.{" "}

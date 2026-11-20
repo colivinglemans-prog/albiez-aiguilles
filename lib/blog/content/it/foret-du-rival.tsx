@@ -15,7 +15,7 @@ export default function Article() {
         La foresta si estende su diverse borgate del comune di Albiez-Montrond. Comincia al{" "}
         <strong>Collet d'en Haut</strong> e sale fino al{" "}
         <Link href="/it/guide/col-du-mollard-velo">col du Mollard</Link>, passando per La Colonne, Le Fregny,
-        La Villette e il centro del paese.
+        La Villette e il Chef-lieu.
       </p>
       <p>
         In concreto, è la foresta che si attraversa salendo verso la località: la si percorre senza

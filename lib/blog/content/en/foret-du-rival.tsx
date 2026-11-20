@@ -15,7 +15,7 @@ export default function Article() {
         The forest spreads across several hamlets of the commune of Albiez-Montrond. It
         starts at the <strong>Collet d'en Haut</strong> and rises to the{" "}
         <Link href="/en/guide/col-du-mollard-velo">Col du Mollard</Link>, passing La
-        Colonne, Le Fregny, La Villette and the village centre.
+        Colonne, Le Fregny, La Villette and the Chef-lieu.
       </p>
       <p>
         In practice, it is the forest you drive through on the way up to the resort: you

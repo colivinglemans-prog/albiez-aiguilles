@@ -73,7 +73,7 @@ export default function Article() {
         half-hour and one-hour pony rides around the Châtel, and week-long pony courses.
       </p>
       <p>
-        In the village, the{" "}
+        In the Chef-lieu, the{" "}
         <Link href="/en/guide/bmx-vtt-trottinette-albiez">BMX race track</Link> is freely
         accessible, ringed by football, basketball, tennis and pétanque areas, a playground
         and picnic tables.

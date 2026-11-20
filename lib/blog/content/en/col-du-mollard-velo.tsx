@@ -34,7 +34,7 @@ export default function Article() {
       </ul>
       <p>
         Restaurants, a grocery and accommodation are nearby, in the Mollard hamlet and in
-        the village centre.
+        the Chef-lieu.
       </p>
 
       <h2>Three ways up</h2>
