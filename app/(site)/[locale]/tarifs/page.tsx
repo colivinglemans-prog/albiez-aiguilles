@@ -87,7 +87,7 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
       <SectionTitle as="h1" title={c.title} />
       <p className="mb-6 max-w-3xl text-secondary">{c.lead(from)}</p>
       {grid && grid.rows.length > 0 ? (
-        <PriceGrid grid={grid} locale={tag} labels={c.grid} linkFor={grid.pricesShown ? calendarHref(locale) : undefined} className="max-w-4xl" />
+        <PriceGrid grid={grid} priced={stored?.priced} locale={tag} labels={c.grid} linkFor={grid.pricesShown ? calendarHref(locale) : undefined} className="max-w-4xl" />
       ) : (
         <p className="max-w-3xl rounded-2xl bg-light-bg p-4 text-sm">{c.noPrices}</p>
       )}
