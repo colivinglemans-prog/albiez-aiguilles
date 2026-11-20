@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { destinationApresConnexion } from "@/lib/retour-connexion";
 
 /**
  * `useSearchParams()` force le rendu côté client. Sans frontière Suspense, le prérendu
@@ -22,7 +23,7 @@ export default function LoginPage() {
 function Formulaire() {
   const router = useRouter();
   const params = useSearchParams();
-  const retour = params.get("retour") ?? "/dashboard";
+  const retour = destinationApresConnexion(params.get("retour"));
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState("");
   const [envoi, setEnvoi] = useState(false);

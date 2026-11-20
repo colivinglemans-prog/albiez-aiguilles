@@ -633,6 +633,12 @@ Hors du `matcher` du proxy, qui ne couvre que `/` et `/dashboard/:path*`. Elle n
 des **dates, des booléens et des durées minimales** : aucun montant, aucun nom, aucune
 référence de réservation. Plage plafonnée à 400 jours, garde-fou sur une route ouverte.
 
+Depuis le 2026-11-20 : lecture **par mois civils entiers** (`monthlyAvailability` du socle,
+comme `lib/agent.ts`), bornes ramenées dans `[aujourd'hui − 31 j, aujourd'hui + 400 j]` (un jour
+hors horizon est absent : le calendrier le lit « non vendable »), et
+`Cache-Control: public, s-maxage=60, stale-while-revalidate=60` sur les 200. Tests :
+`tests/securite/routes.test.ts`.
+
 ### Ce qui reste à faire côté Beds24
 
 ⚠️ **Le sélecteur de langue de la booking page propose English, Español, Français, Italiano,
@@ -819,6 +825,13 @@ sur `/dashboard` : les chemins ouverts au rôle restreint se lisent **par préfi
 La mécanique vit désormais dans `@sejour/socle/lib/auth` (voir sa CLAUDE.md, section
 « Lot 1 ») ; `lib/auth.ts` n'en garde que la configuration : les rôles, le repli et les
 préfixes de mots de passe.
+
+**`?retour=` de la page de connexion** (2026-11-20) : validé par `lib/retour-connexion.ts` —
+`/dashboard` ou `/dashboard/…` (lettres, chiffres, tirets, barres), sinon `/dashboard`. Pris
+tel quel, c'était une redirection ouverte. **En-têtes** (`next.config.ts`) : `nosniff`,
+`Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy: camera=(), microphone=(),
+geolocation=()` partout — jamais `payment`, l'iframe de paiement Beds24 porte `allow="payment"` —,
+et `X-Frame-Options: DENY` + `frame-ancestors 'none'` sur `/dashboard/*` seulement.
 
 ### La navigation vient du socle
 

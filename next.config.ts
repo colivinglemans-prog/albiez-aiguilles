@@ -11,6 +11,34 @@ const nextConfig: NextConfig = {
    */
   async headers() {
     return [
+      /**
+       * En-têtes de sécurité (2026-11-20), toutes pages et routes.
+       *
+       * `Permissions-Policy` minimale : seulement ce qu'aucune page n'utilise. **Jamais
+       * `payment`** : l'iframe de paiement Beds24 du calendrier (socle `ReservationCalendar`)
+       * porte `allow="payment"` (Apple Pay, Google Pay), qu'une politique de la page parente
+       * fermerait.
+       */
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+      /**
+       * Le dashboard ne s'affiche jamais dans un cadre (détournement de clic). **Lui seul** :
+       * les pages publiques restent encadrables, et la page de réservation Beds24, encadrée
+       * par le site, garde ses propres en-têtes (contrôle `frameBlocked` du socle).
+       */
+      {
+        source: "/dashboard/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+        ],
+      },
       {
         source: "/:locale(fr|en|de|es|it)/sejour",
         headers: [
