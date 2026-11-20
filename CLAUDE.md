@@ -672,7 +672,7 @@ Source : `/api/agent/quote?…&src=calendrier` — la route des IA, même calcul
   prix bloqué affichent « Le prix exact s'affiche sur la page de paiement » : Réserver reste actif.
 - Vérifié le 20/11 (Playwright, 360 px et bureau) : 4 pers. 23→30/01/2027 = 633,97 €, égal à l'API.
 
-## Réservation par IA (`/api/agent/*`, `/[locale]/devis/[token]`)
+## Réservation par IA (`/api/agent/*`, `/[locale]/devis/[token]`, `/[locale]/sejour`)
 
 `lib/agent.ts` déclare l'appartement à `@sejour/socle/lib/stay-agent` : une seule route publique
 `app/api/agent/[tool]/route.ts` (`info`, `availability`, `quote`, `find`, `openapi`, en GET,
@@ -690,6 +690,25 @@ la grille — corriger `breakdown`, pas le contourner. **Indexation automatique*
 - **Conditions de réservation** : `app/(site)/[locale]/conditions/page.tsx` (5 langues, indexée, au sitemap, liée depuis le pied de page et `llms.txt`). Nombres lus dans `PROPERTY` / `CANCELLATION_POLICY` / `PAYMENT_POLICY`, texte d'annulation généré par `cancellationText` du socle.
 - **Contact public** : `PROPERTY.contact.email` = `contact@albiez-aiguilles.fr` (2026-11-08) — plus aucune adresse personnelle dans une page publique.
 - **Connecteur MCP** : `app/api/mcp/route.ts` (`createMcpRoute`, socle v3.12.0), mêmes outils que `/api/agent/*` via `runTool`, sans état. Route publique ; à couvrir par la règle Vercel Firewall comme `/api/agent/*`.
+
+### Page Séjour et voyageurs avant les dates (socle v3.30.0, 2026-11-20)
+
+- **`/[locale]/sejour?checkin=&checkout=&adults=&children=`** (`app/(site)/[locale]/sejour/page.tsx`,
+  socle `lib/stay-page`) : le séjour chiffré rendu côté serveur, lisible par une IA sans JavaScript.
+  « Disponible » + total Beds24 au centime, ou refus traduit + séjours libres les plus proches.
+  **Rendue à la demande**, comme `/devis/[token]` (exception à la règle « tout statique »).
+  Cache CDN de 60 s et `X-Robots-Tag: noindex, nofollow` posés dans `next.config.ts` (qui fait foi),
+  balise robots en plus, hors sitemap, sans canonical. Sans paramètre → 308 vers `/tarifs` ; alias
+  `arrivee/depart/adultes/enfants` ou ordre différent → 308 vers la forme canonique.
+- **Pas de prix par personne** sur le calendrier, le devis et `/sejour` (décision de l'hôte du 20/11 :
+  même prix de 1 à 4 voyageurs, le chiffre doublait pour un couple).
+- Textes sous le prix (`INCLUDED`, `included`, `PAYMENT_NOTE`) dans `lib/quote-notes.ts`, partagés par
+  `/devis` et `/sejour`. `MobileBookBar` masquée sur `/sejour`.
+- `stayPagePath` dans `lib/agent.ts` : l'API et le MCP renvoient `stayUrl` (sauf avec `extras=linge`,
+  la page ne compte pas le linge). Séjours limités à 60 nuits (`invalid-request`, sans appel Beds24).
+- Pare-feu Vercel : `^/[a-z]{2}/sejour$` ajouté à la règle « Limite API IA » (20/min/IP, compteur partagé avec l'API ; le plan Vercel n'autorise qu'une règle de limitation).
+- **Calendrier : les voyageurs avant les dates.** Compteurs en tête (« Combien de voyageurs ? »),
+  adultes à 0 au départ (sauf `?adultes=`) : ni prix ni bouton Réserver avant au moins un adulte.
 
 ## Tarification du tunnel direct — ce que la page affiche vraiment
 
@@ -1414,7 +1433,8 @@ contenu sans équivalent « naturel » d'une langue à l'autre ne rapporterait r
 `createDashboardProxy` du socle. Pour la langue, il ne traite que `/` :
 il lit `Accept-Language`, trie les tags par poids `q=`, retient le premier que le site
 parle **sur la langue de base** (`de-AT` → `/de`) et retombe sur `DEFAULT_LOCALE`. Le reste
-du site étant déjà préfixé et rendu statiquement, le faire passer par le proxy coûterait
+du site étant déjà préfixé et rendu statiquement (sauf `/devis/[token]` et `/sejour`, rendus
+à la demande), le faire passer par le proxy coûterait
 une invocation par requête pour rien — d'où `matcher: "/"`.
 
 Conséquence importante : `app/` **ne contient plus de page à la racine**, seulement
