@@ -47,3 +47,6 @@ jobs:
     secrets:
       BEDS24_MONITOR_TOKEN: ${{ secrets.BEDS24_MONITOR_TOKEN }}
       NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      # Préversions derrière la protection SSO de Vercel : sans ce jeton, les contrôles lisent la
+      # page de connexion Vercel (302). Resynchronisé avec Vercel le 2026-11-20.
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
