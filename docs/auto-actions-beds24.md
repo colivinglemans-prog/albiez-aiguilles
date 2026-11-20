@@ -167,7 +167,7 @@ L'été ne porte aucune incitation à réserver : à Albiez, ce n'est pas néces
 
 # Auto Action 617008 — Confirmation de réservation (réservations directes)
 
-*Trigger : Auto · Send Message : Booking API/Email Smart · Reply To : alexandre.delan@gmail.com*
+*Trigger : Auto · Send Message : Booking API/Email Smart · Reply To : adresse personnelle de l’hôte (non reproduite ici, dépôt public)*
 *Booking Source : **Direct** — voir l'action jumelle 625162 plus bas.*
 
 ## Français — **version de référence** — code `fr`
