@@ -660,6 +660,18 @@ moteurs des assistants IA indexent sinon l'hôte Vercel. Hôte exact (les previe
 touchées), **`/api/*` exclu** (un cron ou un webhook peut viser cet hôte, et les crons Vercel ne
 suivent pas les redirections).
 
+## Bloc prix du calendrier (socle v3.29.0, 2026-11-20)
+
+Une fois les dates et les voyageurs choisis, `CalendrierReservation` affiche « Disponible » et le
+total Beds24 exact **avant** la modale de paiement (prop `quote` du socle, `lib/calendar-quote`).
+Source : `/api/agent/quote?…&src=calendrier` — la route des IA, même calcul, même cache CDN de 5 min.
+- **Le linge n'est jamais dans ce total** : l'URL n'envoie pas `extras`. La phrase `COMPRIS` dit
+  « linge en option (15 €/pers., `PROPERTY.linen.pricePerPerson`), à cocher sur la page de paiement »
+  et précise le ménage « hors cuisine et vaisselle » (comme `lib/agent.ts`).
+- Une panne, un 429 du pare-feu (« Limite API IA », 20/min/IP, le socle se tait alors 60 s) ou un
+  prix bloqué affichent « Le prix exact s'affiche sur la page de paiement » : Réserver reste actif.
+- Vérifié le 20/11 (Playwright, 360 px et bureau) : 4 pers. 23→30/01/2027 = 633,97 €, égal à l'API.
+
 ## Réservation par IA (`/api/agent/*`, `/[locale]/devis/[token]`)
 
 `lib/agent.ts` déclare l'appartement à `@sejour/socle/lib/stay-agent` : une seule route publique

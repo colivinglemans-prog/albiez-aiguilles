@@ -1,6 +1,7 @@
 "use client";
 
 import ReservationCalendar from "@sejour/socle/components/ReservationCalendar";
+import { calendarQuoteLabels, type CalendarStay } from "@sejour/socle/lib/calendar-quote";
 import { LOCALE_META, useTranslation } from "@/lib/i18n";
 import { PROPERTY } from "@/lib/property";
 import { formatPeriode, HIVERS } from "@/lib/seasons";
@@ -23,7 +24,32 @@ import { formatPeriode, HIVERS } from "@/lib/seasons";
  * La **rotation du samedi** (`sansArrivee` / `sansDepart`) n'est pas un paramètre : elle
  * arrive dans la réponse de `/api/disponibilites`, et le socle la lit si elle est là. Le Mans
  * n'envoie pas ces champs et ne voit aucune différence.
+ *
+ * **Bloc prix** (socle v3.29.0) : une fois les dates choisies, « Disponible » et le total Beds24
+ * exact, lus sur `/api/agent/quote` — la route des IA, même calcul et même cache. Le linge n'est
+ * jamais compté dans ce total : il est en option en direct, à cocher sur la page de paiement.
  */
+
+/** Ce que le total comprend — et ne comprend pas : le linge, en option (règle de l'hôte, 19/11/2026). */
+const COMPRIS: Record<string, (prix: number) => string> = {
+  fr: (p) => `Ménage de fin de séjour (hors cuisine et vaisselle) et taxe de séjour compris. Linge de lit et serviettes en option (${p} € par personne), à cocher sur la page de paiement.`,
+  en: (p) => `End-of-stay cleaning (except kitchen and dishes) and tourist tax included. Bed linen and towels optional (€${p} per person), to tick on the payment page.`,
+  de: (p) => `Endreinigung (außer Küche und Geschirr) und Kurtaxe inklusive. Bettwäsche und Handtücher optional (${p} € pro Person), auf der Zahlungsseite anzukreuzen.`,
+  es: (p) => `Limpieza final (excepto cocina y vajilla) y tasa turística incluidas. Ropa de cama y toallas opcionales (${p} € por persona), a marcar en la página de pago.`,
+  it: (p) => `Pulizia finale (escluse cucina e stoviglie) e tassa di soggiorno incluse. Biancheria e asciugamani opzionali (${p} € a persona), da spuntare nella pagina di pagamento.`,
+};
+
+/** La route de devis pour un séjour ; `src=calendrier` distingue ces appels de ceux des IA. */
+const urlDevis = (lang: string) => (s: CalendarStay) =>
+  `/api/agent/quote?${new URLSearchParams({
+    checkin: s.checkIn,
+    checkout: s.checkOut,
+    adults: String(s.adults),
+    children: String(s.children),
+    lang,
+    src: "calendrier",
+  })}`;
+
 export default function CalendrierReservation() {
   const { t, locale } = useTranslation();
 
@@ -74,6 +100,11 @@ export default function CalendrierReservation() {
       }}
       dayOverlayClass={(jour) => (estSaisonSki(jour) ? "bg-sky-200" : undefined)}
       overlayLegend={legendeSaison}
+      quote={{
+        url: urlDevis(locale),
+        labels: calendarQuoteLabels(locale),
+        included: (COMPRIS[locale] ?? COMPRIS.fr)(PROPERTY.linen.pricePerPerson),
+      }}
     />
   );
 }
