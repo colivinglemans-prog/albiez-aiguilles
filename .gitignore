@@ -48,13 +48,16 @@ next-env.d.ts
 
 .env*
 
-# Archive de revenus reconstituee depuis Airbnb : le repo est PUBLIC, ces chiffres
-# sont ceux de la SCI. Le fichier se regenere avec scripts/import-airbnb-history.mjs.
-/data/historique-*.json
-/data/historique-*.env.txt
-/data/archive-albiez.json
-/data/archive-albiez.env.txt
-# data/vacances-scolaires.json est au contraire VERSIONNE : donnee publique du ministere.
+# data/ en LISTE BLANCHE (audit securite 2026-11-20) : le repo est PUBLIC, et c'est un
+# fichier de data/ oublie qui a fuite chez Barbusse le 24/07/2026. Tout y est ignore sauf
+# ce qui est nomme ci-dessous ; versionner un nouveau fichier de data/ = l'ajouter ici,
+# apres avoir verifie qu'il ne contient ni donnee voyageur ni chiffre de la SCI.
+# Restent ignores, entre autres : les archives de revenus (historique-*, archive-albiez.*),
+# regenerees par scripts/import-airbnb-history.mjs. Le hook .githooks/pre-commit
+# (garde-commit du socle) refuse aussi un `git add -f` sur un fichier ignore.
+/data/*
+!/data/reviews.json
+!/data/guidebook-airbnb.md
 
 # Les definitions d agents sont synchronisees depuis le depot socle,
 # qui en est la source de verite. Les versionner ici les ferait diverger.
