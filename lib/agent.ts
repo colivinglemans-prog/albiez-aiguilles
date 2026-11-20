@@ -149,6 +149,7 @@ export const STAY_AGENT: StayAgentConfig = {
   payment: PAYMENT_POLICY,
   facts: (lang) => ({ ...(lang === "fr" ? FACTS_FR : FACTS_EN), pages: pages(lang) }),
   quotePagePath: (lang, token) => `/${lang}/devis/${token}`,
+  stayPagePath: (lang) => `/${lang}/sejour`,
   calendarPath: (lang) => `/${lang}#reserver`,
   instantBooking: true,
   childrenDescription:

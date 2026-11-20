@@ -23,7 +23,7 @@ import { anchorBase } from "@/lib/anchors";
  * Pages où la barre n'a rien à faire : le devis (il porte son propre lien de réservation)
  * et le guide d'arrivée (le voyageur a déjà réservé).
  */
-const HIDDEN_SECTIONS = new Set(["devis", "guide-arrivee"]);
+const HIDDEN_SECTIONS = new Set(["devis", "sejour", "guide-arrivee"]);
 
 export default function MobileBookBar() {
   const { locale, t } = useTranslation();
