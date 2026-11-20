@@ -60,6 +60,19 @@ pointait sur `213.186.33.5`, et deux `TXT` au format interne des redirections OV
 création du `CNAME`, un `CNAME` ne pouvant coexister avec aucun autre enregistrement sur le
 même nom. Les `MX` et le `SPF` d'OVH Mail sont à laisser intacts.
 
+## Dépôt public : garde-fous git
+
+- **`data/` est en liste blanche** dans le `.gitignore` : tout y est ignoré sauf les fichiers
+  nommés (`reviews.json`, `guidebook-airbnb.md`). Les archives de revenus de la SCI
+  (`historique-*`, `archive-albiez.*`) restent hors du dépôt. Versionner un nouveau fichier de
+  `data/`, c'est l'ajouter à cette liste après avoir vérifié qu'il ne contient ni donnée
+  voyageur ni chiffre de la SCI.
+- **Hook avant commit** `.githooks/pre-commit` → `garde-commit` du socle (v3.32.0) : il refuse
+  un fichier ignoré ajouté de force, un `.env*`, la valeur d'un secret de `.env.local` et un
+  export de réservations. Il s'active par `git config core.hooksPath .githooks` (déjà posé dans
+  le clone de ce poste, donc dans tous ses worktrees) et exige `node_modules` (`npm ci`).
+  **Un agent ne passe jamais `--no-verify`** sans l'accord explicite de l'hôte.
+
 ## Déploiement
 
 Projet Vercel **`albiez-aiguilles`** (équipe `colivinglemans-progs-projects`).
