@@ -7,7 +7,7 @@ export default function Article() {
     <>
       <p className="lead">
         Albiez-Montrond tiene con qué vivir sin bajar al valle: un supermercado en el acceso a pistas, una tienda de
-        alimentación y una panadería en el centro del pueblo. Pero para llegar a Albiez se pasa necesariamente por
+        alimentación y una panadería en el Chef-lieu. Pero para llegar a Albiez se pasa necesariamente por
         Saint-Jean-de-Maurienne, y es allí donde hay que hacer la compra grande.
       </p>
 
@@ -71,7 +71,7 @@ export default function Article() {
         <li>El génépi de una pequeña destilería.</li>
       </ul>
 
-      <h2>En el centro del pueblo — la tienda Sambuis Dufreney</h2>
+      <h2>En el Chef-lieu — la tienda Sambuis Dufreney</h2>
       <p>
         Un pequeño supermercado en el corazón del pueblo, instalado en lo que antaño fue una granja, rehabilitada como
         tienda de alimentación tradicional. Este comercio familiar está{" "}
@@ -90,7 +90,7 @@ export default function Article() {
         </p>
       </div>
 
-      <h2>En el centro del pueblo — la panadería</h2>
+      <h2>En el Chef-lieu — la panadería</h2>
       <p>
         Le Moulin Valentin ofrece panes, bollería, tartas dulces, bebidas calientes y frías, tostas, quiches y
         bocadillos.{" "}

@@ -5,14 +5,14 @@ export default function Article() {
     <>
       <p className="lead">
         Albiez-Montrond ha la sua pista di BMX. È ad accesso
-        libero, nel centro
-        del paese, circondata da campi sportivi e da un'area picnic. E per tutto ciò che rotola, la
+        libero, al
+        Chef-lieu, circondata da campi sportivi e da un'area picnic. E per tutto ciò che rotola, la
         località noleggia mountain bike elettriche, BMX e monopattini elettrici.
       </p>
 
       <h2>La pista di BMX race</h2>
       <p>
-        Si trova nel centro del paese e si pratica <strong>in totale libertà</strong>: nessuna
+        Si trova al Chef-lieu e si pratica <strong>in totale libertà</strong>: nessuna
         prenotazione, nessuna assistenza obbligatoria. I moduli sono di{" "}
         <strong>livelli diversi</strong>, il che permette a un principiante e a un praticante
         esperto di girare sullo stesso terreno.
@@ -38,7 +38,7 @@ export default function Article() {
 
       <h2>Noleggiare una bici</h2>
 
-      <h3>Skiset — Albiez Sports (centro del paese)</h3>
+      <h3>Skiset — Albiez Sports (Chef-lieu)</h3>
       <p>
         Noleggio di <strong>BMX</strong> e di <strong>monopattini elettrici</strong>, e uscite con
         accompagnatori. Spazio vendita di 100 m², attrezzatura da sci d'inverno e da escursionismo
@@ -79,7 +79,7 @@ export default function Article() {
         giro Arvan-Villards che collega Glandon, Croix de Fer e Mollard.
       </p>
       <p>
-        L'ufficio del turismo nel centro del paese mette a disposizione mappe e itinerari per bici
+        L'ufficio del turismo al Chef-lieu mette a disposizione mappe e itinerari per bici
         da strada, gravel e mountain bike, con o senza assistenza elettrica.
       </p>
     </>

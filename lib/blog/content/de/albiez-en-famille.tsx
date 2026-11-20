@@ -74,7 +74,7 @@ export default function Article() {
         einer halben oder einer ganzen Stunde rund um den Châtel sowie Ponykurse über eine Woche.
       </p>
       <p>
-        Im Dorfkern ist die{" "}
+        Im Chef-lieu ist die{" "}
         <Link href="/de/guide/bmx-vtt-trottinette-albiez">BMX-Race-Bahn</Link> frei zugänglich, umgeben
         von Fußball-, Basketball-, Tennis- und Bouleplätzen, einem Spielplatz und Picknicktischen.
       </p>

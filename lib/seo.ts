@@ -158,10 +158,24 @@ export function apartmentJsonLd(
       { "@type": "LocationFeatureSpecification", name: "Dishwasher", value: true },
       { "@type": "LocationFeatureSpecification", name: "Free parking", value: true },
     ],
+    // L'appartement est dans une résidence, elle-même dans la station : deux niveaux de
+    // `containedInPlace`, pour que le nom de la résidence — celui que portent le h1 et les
+    // annonces — soit déclaré comme un lieu et non seulement écrit dans le nom du site.
     containedInPlace: {
-      "@type": "SkiResort",
-      name: `Station d'${RESORT.name}`,
-      url: PROPERTY.links.resort,
+      "@type": "ApartmentComplex",
+      name: PROPERTY.residence,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: PROPERTY.address.street,
+        postalCode: PROPERTY.address.postalCode,
+        addressLocality: PROPERTY.address.city,
+        addressCountry: "FR",
+      },
+      containedInPlace: {
+        "@type": "SkiResort",
+        name: `Station d'${RESORT.name}`,
+        url: PROPERTY.links.resort,
+      },
     },
   };
 }

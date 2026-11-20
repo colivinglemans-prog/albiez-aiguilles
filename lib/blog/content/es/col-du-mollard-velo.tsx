@@ -33,7 +33,7 @@ export default function Article() {
       </ul>
       <p>
         Restaurantes, tienda de alimentación y alojamientos se encuentran cerca, en la aldea del Mollard y en el
-        centro del pueblo.
+        Chef-lieu.
       </p>
 
       <h2>Tres formas de subir</h2>

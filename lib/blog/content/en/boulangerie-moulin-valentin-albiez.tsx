@@ -4,7 +4,7 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        In the centre of Albiez-Montrond, Le Moulin Valentin makes everything on site:
+        In the Chef-lieu of Albiez-Montrond, Le Moulin Valentin makes everything on site:
         bread, pastries, tarts, quiches, sandwiches. And behind the counter, a story that
         begins in 1694 — possibly earlier.
       </p>

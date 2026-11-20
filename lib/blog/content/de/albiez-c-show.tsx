@@ -76,7 +76,7 @@ export default function Article() {
         Die genauen Termine und Uhrzeiten wechseln von Saison zu Saison – sie folgen dem Kalender
         der Ferien, und am Ende des Winters wird es später dunkel (17:45 oder 18 Uhr im Dezember
         und Februar, 18:15 Uhr im März, laut Tourismusbüro). Das Veranstaltungsprogramm
-        ist im Tourismusbüro von Albiez-Montrond im Dorfkern erhältlich, wo man auch den Plan des
+        ist im Tourismusbüro von Albiez-Montrond im Chef-lieu erhältlich, wo man auch den Plan des
         Skigebiets und das Kinoprogramm findet.
       </p>
 

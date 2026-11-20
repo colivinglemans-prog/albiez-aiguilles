@@ -4,7 +4,7 @@ export default function Article() {
   return (
     <>
       <p className="lead">
-        Im Dorfkern von Albiez-Montrond stellt Le Moulin Valentin alles selbst her: Brot,
+        Im Chef-lieu von Albiez-Montrond stellt Le Moulin Valentin alles selbst her: Brot,
         Gebäck, Kuchen, Quiches, Sandwiches. Und hinter der Auslage eine Geschichte, die
         1694 beginnt – vielleicht früher.
       </p>

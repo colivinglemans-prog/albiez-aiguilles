@@ -29,7 +29,7 @@ export default function Article() {
 
       <h2>2. Der Rundweg der Contamines — 40 Minuten</h2>
       <p>
-        Eine sehr flache Runde ab dem Dorfkern, die genügt, um aus dem Dorfzentrum herauszukommen und die Landschaft zu
+        Eine sehr flache Runde ab dem Chef-lieu, die genügt, um aus dem Dorfzentrum herauszukommen und die Landschaft zu
         öffnen. Der Start ist in der Rue Froide, gegenüber der Bar-Tabak Constantin; nehmen Sie die Straße bis zur
         Kreuzung, dann rechts, und folgen Sie dem Pfad, der um den Hügel der Contamines führt.
       </p>
@@ -39,7 +39,7 @@ export default function Article() {
       </p>
       <div className="facts">
         <p>
-          <strong>Start</strong>: Rue Froide, Dorfkern · <strong>Dauer</strong>: 40 Min. ·{" "}
+          <strong>Start</strong>: Rue Froide, Chef-lieu · <strong>Dauer</strong>: 40 Min. ·{" "}
           <strong>Höhenunterschied</strong>: 37 m · <strong>Länge</strong>: 2,2 km
         </p>
       </div>
@@ -85,13 +85,13 @@ export default function Article() {
 
       <h2>5. Der Rundweg der Cochette — 3 Stunden</h2>
       <p>
-        Eine 8 km lange Runde ab dem Dorfkern, mit Blick auf die Grate von Lâcha, das Dorf Albiez-le-Jeune und die
+        Eine 8 km lange Runde ab dem Chef-lieu, mit Blick auf die Grate von Lâcha, das Dorf Albiez-le-Jeune und die
         Erdpyramiden. Es ist auch die reichste der sechs, was das Kulturerbe betrifft: man durchquert eine Bergstufe, in
         der einst jeder Fleck Erde bebaut wurde – Gerste, Roggen, Kartoffeln, Flachs, Rüben – und wo die{" "}
         <em>broues</em>, diese oft von Ahornbäumen gesäumten Terrassenböschungen, die Parzellengrenzen markierten.
       </p>
       <ol>
-        <li>Vom Dorfkern nehmen Sie die RD80 in Richtung Albiez-le-Jeune für 100 m.</li>
+        <li>Vom Chef-lieu nehmen Sie die RD80 in Richtung Albiez-le-Jeune für 100 m.</li>
         <li>Verlassen Sie die RD80 über eine Straße auf der linken Seite.</li>
         <li>An der Kreuzung rechts Richtung Les Crozets, bis zur Kreuzung La Côte.</li>
         <li>Links führt der Weg hinunter bis zur Kreuzung Bois du Nez.</li>
@@ -108,7 +108,7 @@ export default function Article() {
       </ol>
       <div className="facts">
         <p>
-          <strong>Start</strong>: Dorfkern von Albiez-Montrond · <strong>Dauer</strong>: 3 Std. ·{" "}
+          <strong>Start</strong>: Chef-lieu von Albiez-Montrond · <strong>Dauer</strong>: 3 Std. ·{" "}
           <strong>Höhenunterschied</strong>: 245 m · <strong>Länge</strong>: 8 km
         </p>
       </div>
@@ -173,7 +173,7 @@ export default function Article() {
         </p>
       </div>
       <p>
-        Das Tourismusbüro von Albiez-Montrond im Dorfkern verkauft außerdem Wanderführer zu vier Sektoren, darunter dem
+        Das Tourismusbüro von Albiez-Montrond im Chef-lieu verkauft außerdem Wanderführer zu vier Sektoren, darunter dem
         von Albiez-Montrond und Albiez-le-Jeune.
       </p>
 

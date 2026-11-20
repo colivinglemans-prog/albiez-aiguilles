@@ -15,7 +15,7 @@ export const de: Dictionary = {
   },
 
   home: {
-    heroTitle: "Ferienwohnung mit Blick auf die Aiguilles d'Arves",
+    heroTitle: "Ferienwohnung im Hameau des Aiguilles mit Blick auf die Aiguilles d'Arves",
     heroSubtitle:
       "Auf 1.600 m Höhe in Albiez-Montrond, ruhig gelegen in einem Chalet in der Maurienne. 4 bis 6 Personen, Balkon nach Südosten.",
     intro:

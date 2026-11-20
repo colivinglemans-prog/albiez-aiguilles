@@ -15,7 +15,7 @@ export default function Article() {
         Der Wald erstreckt sich über mehrere Weiler der Gemeinde Albiez-Montrond. Er beginnt am{" "}
         <strong>Collet d'en Haut</strong> und steigt bis zum{" "}
         <Link href="/de/guide/col-du-mollard-velo">Col du Mollard</Link>, über La Colonne, Le Fregny, La
-        Villette und den Dorfkern.
+        Villette und den Chef-lieu.
       </p>
       <p>
         Konkret ist es der Wald, den man auf der Auffahrt zum Skigebiet durchquert: man fährt daran vorbei,

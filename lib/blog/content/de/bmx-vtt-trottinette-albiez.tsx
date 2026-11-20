@@ -5,13 +5,13 @@ export default function Article() {
     <>
       <p className="lead">
         Albiez-Montrond hat eine eigene BMX-Bahn. Sie ist frei
-        zugänglich, liegt im Dorfkern und ist von Sportplätzen und einem Picknickplatz umgeben.
+        zugänglich, liegt im Chef-lieu und ist von Sportplätzen und einem Picknickplatz umgeben.
         Und für alles, was rollt, verleiht der Ort E-Mountainbikes, BMX-Räder und E-Scooter.
       </p>
 
       <h2>Die BMX-Race-Bahn</h2>
       <p>
-        Sie liegt im Dorfkern und ist <strong>frei benutzbar</strong>: keine Reservierung, keine
+        Sie liegt im Chef-lieu und ist <strong>frei benutzbar</strong>: keine Reservierung, keine
         vorgeschriebene Betreuung. Die Elemente haben{" "}
         <strong>unterschiedliche Schwierigkeitsgrade</strong>, sodass Anfänger und
         Fortgeschrittene auf derselben Bahn fahren können.
@@ -38,18 +38,18 @@ export default function Article() {
 
       <h2>Ein Rad leihen</h2>
 
-      <h3>Skiset — Albiez Sports (Dorfkern)</h3>
+      <h3>Skiset — Albiez Sports (Chef-lieu)</h3>
       <p>
         Verleih von <strong>BMX-Rädern</strong> und <strong>E-Scootern</strong>, dazu geführte
         Ausfahrten. Verkaufsfläche von 100 m², Skiausrüstung im Winter und Wanderausrüstung im
         Sommer.
       </p>
 
-      <h3>Mustang — 1550 Skimium (Dorfkern) und 1650 Skiset (Le Mollard)</h3>
+      <h3>Mustang — 1550 Skimium (Chef-lieu) und 1650 Skiset (Le Mollard)</h3>
       <p>
         <strong>Mountainbikeschule</strong>, <strong>Verleih von Mountainbikes und
         E-Mountainbikes</strong>, Enduro Park und Shuttles. Zwei ganzjährig geöffnete
-        Geschäfte: das 1550 im Dorfkern, nahe der place Opinel, und das 1650 am Pistenzugang
+        Geschäfte: das 1550 im Chef-lieu, nahe der place Opinel, und das 1650 am Pistenzugang
         von Le Mollard, 250 m von der Wohnung.
       </p>
 
@@ -79,7 +79,7 @@ export default function Article() {
         und die Runde Arvan-Villards, die Glandon, Croix de Fer und Mollard verbindet.
       </p>
       <p>
-        Das Tourismusbüro im Dorfkern stellt Karten und Routen für Rennrad, Gravel und
+        Das Tourismusbüro im Chef-lieu stellt Karten und Routen für Rennrad, Gravel und
         Mountainbike bereit, mit oder ohne elektrische Unterstützung.
       </p>
     </>

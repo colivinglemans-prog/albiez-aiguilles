@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         È l'attività che si prenota troppo tardi. I giri in slitta con i cani di Albiez partono
-        dalla base ricreativa delle Contamines, nel centro del paese, e gli slot si riempiono
+        dalla base ricreativa delle Contamines, al Chef-lieu, e gli slot si riempiono
         molto prima dell'arrivo dei vacanzieri.
       </p>
 
@@ -50,8 +50,8 @@ export default function Article() {
 
       <h2>Salvo innevamento</h2>
       <p>
-        L'attività dipende dalla neve al suolo, e non solo da quella delle piste: il centro del
-        paese è più in basso di Le Mollard. A inizio o fine stagione prevedete un piano B: le{" "}
+        L'attività dipende dalla neve al suolo, e non solo da quella delle piste: il Chef-lieu
+        è più in basso di Le Mollard. A inizio o fine stagione prevedete un piano B: le{" "}
         <Link href="/it/guide/randonnees-balisees-albiez">ciaspole</Link>, la pista da slittino
         del Mollard o l'
         <Link href="/it/guide/albiez-c-show">Albiez C'Show</Link> del martedì sera.

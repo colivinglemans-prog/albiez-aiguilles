@@ -39,18 +39,18 @@ export default function Article() {
         </p>
       </div>
 
-      <h3>Die Runde um die Contamines, im Dorfkern</h3>
+      <h3>Die Runde um die Contamines, im Chef-lieu</h3>
       <p>
         Eine sehr flache Runde um den Hügel der Contamines, mit Start in der Rue Froide,
         gegenüber der Bar-Tabac Constantin. Die kürzeste und leichteste der drei. Der Weg
         wird geteilt: Im Winter begegnet man dort{" "}
         <Link href="/de/guide/chiens-de-traineau-albiez">Hundeschlittengespannen</Link>, denen
-        man die Spur überlässt. Der Dorfkern liegt tiefer als der Mollard: Zu Beginn oder
+        man die Spur überlässt. Der Chef-lieu liegt tiefer als der Mollard: Zu Beginn oder
         am Ende der Saison kann dort der Schnee fehlen.
       </p>
       <div className="facts">
         <p>
-          <strong>Start</strong>: Rue Froide, Dorfkern · <strong>Gehzeit</strong>: 40 Min. ·{" "}
+          <strong>Start</strong>: Rue Froide, Chef-lieu · <strong>Gehzeit</strong>: 40 Min. ·{" "}
           <strong>Höhenmeter</strong>: 37 m · <strong>Strecke</strong>: 2,2 km
         </p>
       </div>
@@ -77,7 +77,7 @@ export default function Article() {
         vorausgesetzt, man bleibt auf den markierten Routen.
       </p>
       <p>
-        Das Tourismusbüro im Dorfkern verkauft Wanderführer für den Sektor Albiez-Montrond
+        Das Tourismusbüro im Chef-lieu verkauft Wanderführer für den Sektor Albiez-Montrond
         und Albiez-le-Jeune. Dort fragt man auch am besten nach dem Zustand der Routen,
         bevor man losgeht.
       </p>

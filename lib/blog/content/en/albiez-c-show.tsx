@@ -77,7 +77,7 @@ export default function Article() {
         Exact dates and times change from one season to the next — they follow the holiday
         calendar, and darkness falls later towards the end of winter (5:45 pm or 6 pm in
         December and February, 6:15 pm in March, according to the tourist office). The events
-        programme is available at the Albiez-Montrond tourist office in the village centre,
+        programme is available at the Albiez-Montrond tourist office in the Chef-lieu,
         along with the resort map and the cinema listings.
       </p>
 

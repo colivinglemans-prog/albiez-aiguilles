@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         This is the activity everyone books too late. Albiez's husky sledding rides leave
-        from the Contamines leisure area in the village centre, and the slots fill up well
+        from the Contamines leisure area in the Chef-lieu, and the slots fill up well
         before the holidaymakers arrive.
       </p>
 
@@ -22,8 +22,8 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>Departure</strong>: Contamines leisure area, Albiez-Montrond village
-          centre
+          <strong>Departure</strong>: Contamines leisure area, Chef-lieu
+          of Albiez-Montrond
           <br />
           <strong>Season</strong>: 17/12 to 01/04, daily, subject to snow conditions
           <br />
@@ -49,8 +49,8 @@ export default function Article() {
 
       <h2>Subject to snow conditions</h2>
       <p>
-        The activity depends on snow on the ground, not just on the pistes: the village
-        centre is lower than the Mollard. Early or late in the season, have a plan B —{" "}
+        The activity depends on snow on the ground, not just on the pistes: the Chef-lieu
+        is lower than the Mollard. Early or late in the season, have a plan B —{" "}
         <Link href="/en/guide/randonnees-balisees-albiez">snowshoeing</Link>, the Mollard
         sledging run or the{" "}
         <Link href="/en/guide/albiez-c-show">Albiez C'Show</Link> on Tuesday evening.

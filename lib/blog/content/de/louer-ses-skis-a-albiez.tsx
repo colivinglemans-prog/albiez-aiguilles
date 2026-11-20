@@ -53,7 +53,7 @@ export default function Article() {
         <Link href="/de/guide/motoneige-igloo-albiez">Motorschlitten und Igluabende</Link>.
       </p>
 
-      <h2>Im Chef-lieu, dem Dorfkern (2 km)</h2>
+      <h2>Im Chef-lieu (2 km)</h2>
 
       <h3>Mustang 1550 — Skimium</h3>
       <p>

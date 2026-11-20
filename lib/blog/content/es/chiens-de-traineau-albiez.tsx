@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         Es la actividad que se reserva demasiado tarde. Los paseos en trineo tirado por perros
-        de Albiez salen de la base de ocio de Les Contamines, en el centro del pueblo, y los
+        de Albiez salen de la base de ocio de Les Contamines, en el Chef-lieu, y los
         turnos se llenan mucho antes de la llegada de los veraneantes.
       </p>
 

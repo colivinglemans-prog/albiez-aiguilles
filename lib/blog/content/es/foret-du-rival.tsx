@@ -15,7 +15,7 @@ export default function Article() {
         El bosque se extiende por varias aldeas del municipio de Albiez-Montrond. Empieza en el{" "}
         <strong>Collet d'en Haut</strong> y sube hasta el{" "}
         <Link href="/es/guide/col-du-mollard-velo">col du Mollard</Link>, pasando por La Colonne, Le Fregny,
-        La Villette y el centro del pueblo.
+        La Villette y el Chef-lieu.
       </p>
       <p>
         En la práctica, es el bosque que se atraviesa al subir a la estación: se recorre sin mirarlo

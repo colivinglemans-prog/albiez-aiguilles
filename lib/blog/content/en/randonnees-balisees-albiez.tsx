@@ -31,7 +31,7 @@ export default function Article() {
 
       <h2>2. The Contamines loop — 40 minutes</h2>
       <p>
-        A very flat loop from the village centre, just enough to leave the built-up part
+        A very flat loop from the Chef-lieu, just enough to leave the built-up part
         behind and open up the view. It starts on Rue Froide, opposite the Constantin bar
         and tobacconist; follow the street to the junction, turn right, and take the path
         that circles the Contamines hillock.
@@ -42,7 +42,7 @@ export default function Article() {
       </p>
       <div className="facts">
         <p>
-          <strong>Start</strong>: Rue Froide, village centre · <strong>Time</strong>:
+          <strong>Start</strong>: Rue Froide, Chef-lieu · <strong>Time</strong>:
           40 min · <strong>Height gain</strong>: 37 m · <strong>Distance</strong>: 2.2 km
         </p>
       </div>
@@ -91,7 +91,7 @@ export default function Article() {
 
       <h2>5. The Cochette loop — 3 hours</h2>
       <p>
-        An 8 km loop from the village centre, with views of the Lâcha ridges, the village of
+        An 8 km loop from the Chef-lieu, with views of the Lâcha ridges, the village of
         Albiez-le-Jeune and the fairy chimneys. It is also the richest of the six in terms
         of heritage: you cross a mountain belt where every scrap of land was once
         cultivated — barley, rye, potatoes, flax, beet — and where the{" "}
@@ -99,7 +99,7 @@ export default function Article() {
         boundaries.
       </p>
       <ol>
-        <li>From the village centre, take the RD80 towards Albiez-le-Jeune for 100 m.</li>
+        <li>From the Chef-lieu, take the RD80 towards Albiez-le-Jeune for 100 m.</li>
         <li>Leave the RD80 on a road to the left.</li>
         <li>At the junction, right towards Les Crozets, as far as the La Côte crossroads.</li>
         <li>Turn left; the track drops to the Bois du Nez crossroads.</li>
@@ -116,7 +116,7 @@ export default function Article() {
       </ol>
       <div className="facts">
         <p>
-          <strong>Start</strong>: Albiez-Montrond village centre · <strong>Time</strong>:
+          <strong>Start</strong>: Chef-lieu of Albiez-Montrond · <strong>Time</strong>:
           3 h · <strong>Height gain</strong>: 245 m · <strong>Distance</strong>: 8 km
         </p>
       </div>
@@ -185,7 +185,7 @@ export default function Article() {
         </p>
       </div>
       <p>
-        The Albiez-Montrond tourist office, in the village centre, also sells route guides
+        The Albiez-Montrond tourist office, in the Chef-lieu, also sells route guides
         covering four sectors, including Albiez-Montrond and Albiez-le-Jeune.
       </p>
 

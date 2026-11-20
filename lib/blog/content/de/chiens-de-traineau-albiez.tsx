@@ -5,7 +5,7 @@ export default function Article() {
     <>
       <p className="lead">
         Das ist die Aktivität, die man zu spät bucht. Die Hundeschlittenfahrten von Albiez
-        starten am Freizeitgelände Les Contamines im Dorfkern, und die Termine füllen sich
+        starten am Freizeitgelände Les Contamines im Chef-lieu, und die Termine füllen sich
         lange vor der Ankunft der Urlaubsgäste.
       </p>
 
@@ -22,7 +22,7 @@ export default function Article() {
 
       <div className="facts">
         <p>
-          <strong>Start</strong>: Freizeitgelände Les Contamines, Dorfkern von
+          <strong>Start</strong>: Freizeitgelände Les Contamines, Chef-lieu von
           Albiez-Montrond
           <br />
           <strong>Zeitraum</strong>: vom 17.12. bis 01.04., täglich, abhängig von den
@@ -51,7 +51,7 @@ export default function Article() {
       <h2>Abhängig von der Schneelage</h2>
       <p>
         Die Aktivität hängt vom Schnee am Boden ab, und nicht nur von dem auf den Pisten: der
-        Dorfkern liegt tiefer als Le Mollard. Zu Saisonbeginn oder -ende sollten Sie einen
+        Chef-lieu liegt tiefer als Le Mollard. Zu Saisonbeginn oder -ende sollten Sie einen
         Plan B haben – die{" "}
         <Link href="/de/guide/randonnees-balisees-albiez">Schneeschuhtour</Link>, die
         Rodelbahn am Mollard oder die{" "}
