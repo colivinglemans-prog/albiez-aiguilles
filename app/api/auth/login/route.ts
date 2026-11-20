@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
-import { setAuthCookie } from "@sejour/socle/lib/auth-cookie";
+import { createLoginLimiter, createMemoryLoginAttemptStore } from "@sejour/socle/lib/login-attempts";
+import { createLoginRoute } from "@sejour/socle/lib/login-route";
+import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { auth } from "@/lib/auth";
 
 /**
@@ -8,17 +9,15 @@ import { auth } from "@/lib/auth";
  * ouvre le calendrier seul, ce qui permet d'en donner un différent à chaque personne
  * (`DASHBOARD_PASSWORD_MENAGE_Sylvie`) et d'en révoquer un sans changer celui des autres.
  * La résolution est dans le socle.
+ *
+ * Tentatives limitées (socle) : 5 échecs en 15 min par adresse, puis 429 jusqu'à ce que le plus
+ * ancien sorte de la fenêtre. Albiez n'a pas de Redis : le magasin est la mémoire de l'instance,
+ * donc la limite vaut par instance Vercel, pas globalement. Une seule alerte au franchissement.
  */
-export async function POST(request: Request) {
-  const { motDePasse } = (await request.json().catch(() => ({}))) as { motDePasse?: string };
+const limiter = createLoginLimiter({
+  store: createMemoryLoginAttemptStore(),
+  notify: (message) =>
+    sendNtfy(message, { title: "Dashboard Albiez", priority: 4, tags: ["warning"] }),
+});
 
-  const role = auth.roleForPassword(motDePasse);
-  if (!role) {
-    // Même message quel que soit le motif : ne pas indiquer si le mot de passe est vide,
-    // inexistant ou simplement faux.
-    return NextResponse.json({ erreur: "Mot de passe incorrect" }, { status: 401 });
-  }
-
-  await setAuthCookie(await auth.createToken(role));
-  return NextResponse.json({ ok: true, role });
-}
+export const { POST } = createLoginRoute({ auth, passwordField: "motDePasse", limiter });
