@@ -30,7 +30,7 @@ const CONFIG: IndexingConfig = {
   // La propriété Bing est le **domaine nu** (`https://albiez-aiguilles.fr/`, vérifié par
   // `GetUserSites`), pas le `SITE_URL` en www : on retire le `www.`, on ne le remplace pas.
   bingSiteUrl: `${new URL(SITE_URL).origin.replace("://www.", "://")}/`,
-  indexNowKey: "665c5a478fa47b3dbc1e2c94bfa76e22",
+  indexNowKey: "a5d720043367d1b50115ca0e012b0ac6",
   extraPaths: ["/llms.txt"],
   primaryLocale: "fr",
   bingAlreadySubmitted: 98,
