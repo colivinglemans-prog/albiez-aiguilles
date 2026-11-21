@@ -2121,7 +2121,7 @@ export const BLOG_POSTS: BlogPostMeta[] = [
     slug: "albiez-en-famille",
     stage: "reserver",
     date: "2026-08-07",
-    image: "activites-ete/90-aire-de-jeux-mollard.jpg",
+    image: "activites-ete/90-aire-de-jeux-mollard-paysage.jpg",
     season: null,
     locales: {
       fr: {
