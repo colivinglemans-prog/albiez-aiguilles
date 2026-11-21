@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyCronAuth } from "@sejour/socle/lib/cron-auth";
 import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { modes, runCron } from "@/lib/messages/engine";
+import { beat } from "@/lib/heartbeat";
 
 /**
  * Messages automatiques aux voyageurs — appelé par cron-job.org **toutes les 10 minutes**
@@ -15,7 +16,7 @@ import { modes, runCron } from "@/lib/messages/engine";
  * code.
  */
 /**
- * Albiez n'a pas de stockage (choix de l'hôte) : un blocage durable (code de la boîte non
+ * Le moteur des messages n'a pas d'état d'alerte stocké : un blocage durable (code de la boîte non
  * configuré, e-mail absent) n'est rappelé qu'au premier passage de chaque heure, pas toutes les
  * 10 minutes. Les échecs d'envoi, eux, sont signalés à chaque fois.
  */
@@ -33,9 +34,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   }
   const { killSwitch, modes: m } = modes();
-  if (killSwitch) return NextResponse.json({ ok: true, disabled: true });
+  if (killSwitch) {
+    await beat("messages-voyageurs", "ok");
+    return NextResponse.json({ ok: true, disabled: true });
+  }
   if (!Object.values(m).some((x) => x === "live" || x === "test")) {
     // Rien en réel ni en test : inutile de dépenser des crédits Beds24, l'écran de suivi calcule le plan lui-même.
+    await beat("messages-voyageurs", "ok");
     return NextResponse.json({ ok: true, live: 0 });
   }
 
@@ -57,6 +62,7 @@ export async function GET(request: NextRequest) {
       ];
       await sendNtfy(lines.join("\n"), { title: "Albiez — message voyageur non envoyé", priority: 4, tags: ["warning"] });
     }
+    await beat("messages-voyageurs", "ok");
     return NextResponse.json({
       ok: !result.aborted && failed.length === 0,
       planned: result.planned,
@@ -68,6 +74,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (e) {
     console.error(JSON.stringify({ scope: "guest-message", event: "failed", reason: "cron", error: e instanceof Error ? e.name : typeof e }));
+    await beat("messages-voyageurs", "error");
     return NextResponse.json({ ok: false, error: "indisponible" }, { status: 502 });
   }
 }

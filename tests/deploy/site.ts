@@ -173,6 +173,13 @@ const site = {
     ],
   },
 
+  /**
+   * Battement de cœur des crons (Upstash, depuis le 21/11/2026) : la liste est `EXPECTED_CRONS`
+   * (`lib/heartbeat.ts`). `warning` : la route envoie déjà elle-même l'alerte ntfy qui nomme les
+   * crons en retard (`albiez:alert:heartbeat`) ; une route injoignable reste bloquante
+   * (`heartbeat.reachable`).
+   */
+  heartbeat: { path: "/api/health/heartbeat", severity: "warning" },
   extraChecks: [
     rotationCheck(HIVERS),
     legalNoticeCheck({

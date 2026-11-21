@@ -4,6 +4,7 @@ import { formatEventWatch, watchEvents } from "@sejour/socle/lib/events-watch";
 import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { todayParis } from "@sejour/socle/lib/time";
 import { EVENTS, EVENTS_WATCH } from "@/lib/events";
+import { beat } from "@/lib/heartbeat";
 
 /**
  * Rappelle d'aller vérifier les dates d'événements qui ne sont pas encore officielles. À
@@ -28,6 +29,9 @@ import { EVENTS, EVENTS_WATCH } from "@/lib/events";
  * Planifié sur cron-job.org, en-tête `Authorization: Bearer $CRON_SECRET`. La route n'est pas
  * couverte par le matcher de `proxy.ts` — sa protection est ce seul secret.
  */
+export const dynamic = "force-dynamic";
+export const maxDuration = 30;
+
 export async function GET(request: NextRequest) {
   if (!verifyCronAuth(request)) {
     return NextResponse.json({ erreur: "Non autorisé" }, { status: 401 });
@@ -42,10 +46,12 @@ export async function GET(request: NextRequest) {
   const message = formatEventWatch(alertes);
 
   if (alertes.length === 0 || aBlanc) {
+    if (!aBlanc) await beat("events-watch", "ok");
     return NextResponse.json({ ok: true, aujourdhui, alertes, message, envoye: false });
   }
 
   if (!process.env.NTFY_TOPIC) {
+    await beat("events-watch", "error");
     return NextResponse.json(
       { ok: false, erreur: "NTFY_TOPIC n'est pas défini : la veille aurait quelque chose à dire et ne peut pas l'envoyer", alertes },
       { status: 500 },
@@ -59,6 +65,7 @@ export async function GET(request: NextRequest) {
     tags: ["calendar"],
     click: fenetre?.window.url,
   });
+  await beat("events-watch", "ok");
 
   return NextResponse.json({ ok: true, aujourdhui, alertes, message, envoye: true });
 }

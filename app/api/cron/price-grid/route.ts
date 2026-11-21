@@ -5,9 +5,10 @@ import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { runPriceGridJob } from "@sejour/socle/lib/price-grid-job";
 import { emptyStore, hasKv, kvStore } from "@/lib/kv";
 import { computePriceGrid, PRICE_GRID_COMPOSITION, PRICE_GRID_KEY } from "@/lib/tarifs";
+import { beat } from "@/lib/heartbeat";
 
 /**
- * Calcul de la grille de la page « Tarifs », **toutes les heures** par cron-job.org, avec
+ * Calcul de la grille de la page « Tarifs », **toutes les 20 min** (:03, :23, :43) par cron-job.org, avec
  * l'en-tête `Authorization: Bearer $CRON_SECRET`. Elle est rangée dans Upstash
  * (`albiez:price-grid`) ; la page ne fait que la lire. Un échec garde la grille précédente,
  * suspend les essais 15 min et alerte au 2e relevé KO (`@sejour/socle/lib/price-grid-job`).
@@ -16,7 +17,7 @@ import { computePriceGrid, PRICE_GRID_COMPOSITION, PRICE_GRID_KEY } from "@/lib/
  * Après un déploiement qui change la composition, appeler la route une fois à la main.
  */
 export const dynamic = "force-dynamic";
-// Plafond du plan Hobby. Le calcul s'arrête à ~22 s (`timeBudgetMs`, cron-job.org coupe à 30 s) :
+// Plafond du plan Hobby. Le calcul s'arrête à ~18 s (`timeBudgetMs`, cron-job.org coupe à 30 s) :
 // à froid, la grille de travail est rangée à chaque passage (`…:work`) et la grille servie est
 // remplacée par la première grille complète, vers le 3e ou 4e passage (socle v3.37.0).
 export const maxDuration = 60;
@@ -50,6 +51,7 @@ export async function GET(request: NextRequest) {
     if (!dry && report.grid && report.grid.complete !== false && report.outcome !== "dry") {
       revalidateTag("price-grid", { expire: 0 });
     }
+    if (!dry) await beat("price-grid", report.outcome === "failed" || report.stalled ? "error" : "ok");
     const grid = report.grid;
     return NextResponse.json({
       success: report.outcome !== "failed",
@@ -63,6 +65,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (e) {
     console.error("[price-grid]", e instanceof Error ? e.message : String(e));
+    if (!dry) await beat("price-grid", "error");
     return NextResponse.json({ success: false, error: "Calcul de la grille momentanément impossible." }, { status: 500 });
   }
 }

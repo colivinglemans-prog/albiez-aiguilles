@@ -4,6 +4,7 @@ import { runIndexing, type IndexingConfig } from "@sejour/socle/lib/indexing";
 import { sendNtfy } from "@sejour/socle/lib/ntfy";
 import { emptyStore, hasKv, kvStore } from "@/lib/kv";
 import { SITE_URL } from "@/lib/property";
+import { beat } from "@/lib/heartbeat";
 
 /**
  * Indexation automatique, une fois par jour (cron-job.org, 06:30 heure de Paris, en-tête
@@ -56,11 +57,13 @@ export async function GET(request: NextRequest) {
       notify: (n) =>
         sendNtfy(n.body, { title: `Indexation Albiez — ${n.title}`, priority: n.priority, tags: ["mag", "warning"] }),
     });
+    if (!dry) await beat("indexing", "ok");
     return NextResponse.json({ success: true, ...report });
   } catch (e) {
     // Le détail ne va qu'au journal (les erreurs du socle ne portent jamais la clé Bing) ; le
     // client reçoit un message générique.
     console.error("[indexing]", e instanceof Error ? e.message : String(e));
+    if (!dry) await beat("indexing", "error");
     return NextResponse.json({ success: false, error: "Indexation momentanément impossible." }, { status: 500 });
   }
 }
