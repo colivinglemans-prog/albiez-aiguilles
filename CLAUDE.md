@@ -198,10 +198,18 @@ n'accepte pas la clé `environment`. Le post-déploiement ne reçoit pas le mot 
 l'URL d'un déploiement (`*.vercel.app`) est hors de `allowedHosts`, et le moteur refuserait de
 l'y envoyer.
 
-Pas de heartbeat. Albiez a désormais un stockage Upstash (`lib/kv.ts`, depuis le 15/11/2026 :
-indexation, grille des tarifs), mais ses crons (`beds24-keepalive`, `events-watch`, `indexing`,
-`messages-voyageurs`, `price-grid`) restent surveillés par les e-mails d'échec de cron-job.org et, pour
-l'indexation et la grille, par leurs alertes ntfy à deux relevés.
+**Battement de cœur des crons (depuis le 21/11/2026, socle v3.38.0)** : les 5 crons
+(`beds24-keepalive`, `events-watch`, `indexing`, `messages-voyageurs`, `price-grid`) appellent
+`beat(nom, "ok" | "error")` (`lib/heartbeat.ts`) en fin de passage réel, jamais en `?dry=1`. Clés
+Upstash `albiez:heartbeat:<nom>` et `…:ok` (expiration 30 j, `kvStore().setEx`). Retards
+tolérés : messages 30 min, grille 90 min, indexation 26 h, keepalive et veille événements 8 jours.
+`GET /api/health/heartbeat`, **publique** (hors `matcher` de `proxy.ts`), répond 200 ou 503 avec
+un compte seulement, jamais un nom ; elle envoie l'alerte ntfy « Albiez — N cron(s) en retard »
+une fois par changement d'état (`albiez:alert:heartbeat`, écrit **après** un envoi réussi), puis
+« rétablis » en priorité 1. Délai de grâce au démarrage : `overdueWithGrace` du socle
+(`…:watched-since`, sans expiration). Appelée par la surveillance GitHub (check `heartbeat`,
+`warning`) et par un job cron-job.org toutes les 15 min. Un cron ajouté doit entrer dans
+`EXPECTED_CRONS` (test `tests/heartbeat-coverage.test.ts`).
 
 ## Beds24
 
@@ -1979,8 +1987,8 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
 - **La page se contente de lire Upstash** (`revalidate = 300`). C'est la seule page du site qui déclare un `revalidate`, et ce choix est assumé : une grille neuve paraît au plus 5 minutes après son calcul, et aucune lecture Beds24 n'est faite au build.
   - Rien de rangé, ou autre composition : la page renvoie au calendrier, sans jamais d'erreur.
   - Grille de plus de 24 h : les lignes passées sont retirées, et le JSON-LD n'est pas émis.
-- **Fiche cron-job.org** : toutes les heures, en-tête `Authorization: Bearer <CRON_SECRET>`, **délai de
-  30 s** (valeur par défaut de cron-job.org) — d'où `timeBudgetMs` ≈ 22 s : le calcul s'arrête avant,
+- **Fiche cron-job.org** : toutes les 20 min (:03, :23, :43, depuis le 21/11/2026), en-tête `Authorization: Bearer <CRON_SECRET>`, **délai de
+  30 s** (valeur par défaut de cron-job.org) — d'où `timeBudgetMs` ≈ 18 s (22 s jusqu'au 21/11/2026, passages de 24-26 s mesurés) : le calcul s'arrête avant,
   la grille de travail est rangée à chaque passage, la grille servie remplacée une fois complète (socle v3.37.0) ; elle se complète en 2 ou 3 passages
   (`incomplete`). Au 3e `incomplete` de suite, ou sans succès depuis 24 h, c'est un relevé KO
   (`stalled`, alerte au 2e). Un verrou (`…:lock`, 90 s) empêche deux calculs simultanés.
@@ -1998,7 +2006,7 @@ Origine : lors des tests du 19/11/2026, ChatGPT et Gemini trouvaient bien le sit
 - **Lecture des disponibilités** :
   - une plage par saison, lue en 2 appels (`disponibilites`, puis `contraintes`), jamais mois par mois en parallèle ;
   - prix demandés un par un, sans cache (`fetchRoomPrice` sans `revalidate`), espacés de 400 ms (403 en rafale ; 30/30 acceptés à 250 ms le 20/11), les plus vieux d'abord (voir ci-dessous).
-  - ⚠️ **Grille renouvelée par âge (socle v3.37.0, depuis le 20/11/2026)** : plus aucun cache de Next pour les prix de la grille (`fetchRoomPrice(req)` sans `revalidate`). Chaque cellule porte `pricedAt` ; à chaque passage du cron (`incremental: true`), les cellules jamais demandées puis les plus vieilles sont redemandées (pause 400 ms, ~30 prix par passage de 22 s, ~66 cellules à Albiez, 3 passages à froid, cycle complet en 2 à 4 h). La grille de travail est rangée sous `…:price-grid:work` à chaque passage, même partielle ; la grille servie n'est remplacée que complète. La page affiche « Prix relevés entre le … et le … » (`readPriceGrid().priced`, prop `priced` de `PriceGrid`), et le cron appelle `revalidateTag("price-grid", { expire: 0 })` chaque fois que la grille **servie** est remplacée (jamais pour la seule grille de travail). Alerte : grille incomplète 6 fois de suite, ou plus vieux prix > 24 h. Pare-feu « Limite API IA » : réponse **429** (plus 403) depuis le 20/11, annoncée dans `llms.txt`.
+  - ⚠️ **Grille renouvelée par âge (socle v3.37.0, depuis le 20/11/2026)** : plus aucun cache de Next pour les prix de la grille (`fetchRoomPrice(req)` sans `revalidate`). Chaque cellule porte `pricedAt` ; à chaque passage du cron (`incremental: true`), les cellules jamais demandées puis les plus vieilles sont redemandées (pause 400 ms, ~25 prix par passage de 18 s, ~66 cellules à Albiez, 3 passages à froid, cycle complet en 2 à 4 h). La grille de travail est rangée sous `…:price-grid:work` à chaque passage, même partielle ; la grille servie n'est remplacée que complète. La page affiche « Prix relevés entre le … et le … » (`readPriceGrid().priced`, prop `priced` de `PriceGrid`), et le cron appelle `revalidateTag("price-grid", { expire: 0 })` chaque fois que la grille **servie** est remplacée (jamais pour la seule grille de travail). Alerte : grille incomplète 6 fois de suite, ou plus vieux prix > 24 h. Pare-feu « Limite API IA » : réponse **429** (plus 403) depuis le 20/11, annoncée dans `llms.txt`.
 - **Colonnes** : 4, 5 et 6 voyageurs, réunies quand le prix est le même (« Jusqu'à 4 personnes »).
   - Le linge n'entre **jamais** dans le total.
   - Formulation : « ménage et taxe de séjour compris, linge en option ». Jamais « tout compris », jamais de pourcentage.

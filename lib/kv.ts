@@ -2,8 +2,9 @@ import type { PriceGridStore } from "@sejour/socle/lib/price-grid-job";
 
 /**
  * Magasin clé → chaîne sur l'API REST d'Upstash (Vercel Marketplace → Upstash for Redis), sans
- * dépendance : deux appels `fetch`. Albiez n'avait aucun stockage jusqu'ici ; il sert à l'état de
- * l'indexation automatique (`/api/cron/indexing`, socle v3.24.0).
+ * dépendance : deux appels `fetch`. Il sert à l'état de l'indexation automatique
+ * (`/api/cron/indexing`, socle v3.24.0), à la grille de prix et au battement de cœur des crons
+ * (`lib/heartbeat.ts`, depuis le 21/11/2026).
  *
  * Variables posées par l'intégration Vercel : `KV_REST_API_URL` et `KV_REST_API_TOKEN` (les
  * mêmes noms que chez Barbusse). Le jeton ne sort jamais : aucune URL ni réponse brute dans un
@@ -13,7 +14,13 @@ export function hasKv(): boolean {
   return Boolean(process.env.KV_REST_API_URL?.trim() && process.env.KV_REST_API_TOKEN?.trim());
 }
 
-export function kvStore(): PriceGridStore {
+/** `PriceGridStore` plus une écriture avec expiration (`setEx`, battement de cœur). */
+export interface KvStore extends PriceGridStore {
+  /** `SET key value EX ttl` : la clé disparaît seule au bout de `ttlSeconds`. */
+  setEx(key: string, value: string, ttlSeconds: number): Promise<void>;
+}
+
+export function kvStore(): KvStore {
   const url = process.env.KV_REST_API_URL!.trim().replace(/\/+$/, "");
   const headers = { Authorization: `Bearer ${process.env.KV_REST_API_TOKEN!.trim()}` };
   const call = async (path: string, init: RequestInit = {}) => {
@@ -36,6 +43,9 @@ export function kvStore(): PriceGridStore {
     },
     async del(key) {
       await call("", { method: "POST", body: JSON.stringify(["DEL", key]) });
+    },
+    async setEx(key, value, ttlSeconds) {
+      await call("", { method: "POST", body: JSON.stringify(["SET", key, value, "EX", String(ttlSeconds)]) });
     },
   };
 }
