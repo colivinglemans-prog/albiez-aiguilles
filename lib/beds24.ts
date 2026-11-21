@@ -308,10 +308,9 @@ export function ecrireNotes(id: number, notes: string): Promise<void> {
  * rendrait un registre en retard (champollion, 2026-11-08).
  */
 
-/** Réservations confirmées ou nouvelles de la fenêtre, avec `infoItems` et données du voyageur. */
 /**
  * Réservations **créées** depuis `depuisIso` (ISO UTC), quelle que soit leur date d'arrivée — pour
- * qu'une réservation lointaine (24 Heures réservées à l'automne) reçoive sa confirmation : la
+ * qu'une réservation lointaine (vacances d'hiver réservées dès l'été) reçoive sa confirmation : la
  * lecture principale ne voit que les arrivées à 120 jours. Filtre Beds24 `bookingTimeFrom`, mesuré
  * le 2026-11-21 (1 crédit).
  */
@@ -328,6 +327,7 @@ export async function reservationsCreeesDepuis(depuisIso: string): Promise<Beds2
   return data;
 }
 
+/** Réservations confirmées ou nouvelles de la fenêtre, avec `infoItems` et données du voyageur. */
 export async function reservationsMessagerie(params: { departDu: string; arriveeAu: string }): Promise<Beds24Booking[]> {
   const { data = [] } = await client.get<{ data: Beds24Booking[] }>("/bookings", {
     params: {
