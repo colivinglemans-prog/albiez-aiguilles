@@ -31,6 +31,7 @@ import {
   kitLingePris,
   messagesHote,
   reservationMessagerie,
+  reservationsCreeesDepuis,
   reservationsMessagerie,
 } from "@/lib/beds24";
 import { urlGuideArrivee } from "@/lib/partage-voyageur";
@@ -61,6 +62,8 @@ import { LATE_BOOKING_HOURS, TEMPLATES } from "./templates";
 /** Fenêtre lue : les séjours terminés depuis 60 jours (historique) jusqu'aux arrivées à 4 mois. */
 const PAST_DAYS = 60;
 const AHEAD_DAYS = 120;
+/** Réservations créées depuis 3 jours, lues en plus quelle que soit leur arrivée (confirmation : 24 h de rattrapage). */
+const RECENT_DAYS = 3;
 /** Plafond d'envois par passage du cron : au-delà, rien ne part (un pic est un bug). */
 export const CAP = 5;
 
@@ -107,15 +110,36 @@ function propertyId(): number {
 /** Réservations de la fenêtre, avec leur registre et l'historique des fils. */
 async function loadRows(): Promise<Row[]> {
   const today = todayParis();
-  const [bookings, host] = await Promise.all([
+  const [main, recent, host] = await Promise.all([
     reservationsMessagerie({ departDu: addDays(today, -PAST_DAYS), arriveeAu: addDays(today, AHEAD_DAYS) }),
+    recentBookings(),
     messagesHote(PAST_DAYS + AHEAD_DAYS),
   ]);
   const byBooking = new Map<number, Beds24Message[]>();
   for (const m of host) byBooking.set(m.bookingId, [...(byBooking.get(m.bookingId) ?? []), m]);
-  return bookings
+  // Le filtre de propriété après la fusion : il vaut pour les deux lectures.
+  return mergeBookings(main, recent)
     .filter((b) => b.propertyId === propertyId())
     .map((b) => toMessagingBooking(b, byBooking.get(b.id) ?? []));
+}
+
+/**
+ * Fusion de la lecture principale (arrivées à 120 jours) et des réservations créées récemment,
+ * sans doublon : la première lecture fait foi pour une réservation présente dans les deux.
+ */
+export function mergeBookings<T extends { id: number }>(main: readonly T[], recent: readonly T[]): T[] {
+  const seen = new Set(main.map((b) => b.id));
+  return [...main, ...recent.filter((b) => !seen.has(b.id))];
+}
+
+/** Lecture des réservations récentes, **isolée** : un échec n'empêche jamais le passage principal. */
+async function recentBookings(): Promise<Beds24Booking[]> {
+  try {
+    return await reservationsCreeesDepuis(new Date(Date.now() - RECENT_DAYS * 86_400_000).toISOString());
+  } catch (e) {
+    console.error(JSON.stringify({ scope: "guest-message", event: "failed", reason: "recent-bookings", error: e instanceof Error ? e.name : typeof e }));
+    return [];
+  }
 }
 
 async function reload(id: number): Promise<Row | null> {

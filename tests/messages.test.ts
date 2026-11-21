@@ -111,3 +111,10 @@ describe("garde-fous propres à Albiez (le-dahu)", () => {
     expect(airbnb).toContain("centre de résolution Airbnb");
   });
 });
+
+describe("réservations lointaines (2026-11-21)", () => {
+  it("fusion sans doublon, la lecture principale fait foi", async () => {
+    const { mergeBookings } = await import("@/lib/messages/engine");
+    expect(mergeBookings([{ id: 1, v: "a" }], [{ id: 1, v: "b" }, { id: 2, v: "b" }])).toEqual([{ id: 1, v: "a" }, { id: 2, v: "b" }]);
+  });
+});

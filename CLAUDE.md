@@ -2212,8 +2212,13 @@ paiement) : décision de l'hôte, à rouvrir après une saison.
 - **Dernière minute** : réservée moins de 48 h avant le jour d'arrivée (`LATE_BOOKING_HOURS`), pas
   d'avant-arrivée ; le message du code reprend l'essentiel (linge selon le canal, pneus) dans son
   bloc `tardif`. Lendemain de l'arrivée (3 nuits minimum) et départ sont des messages de confort
-  (`quietHours: 12`) : ils sautent si un autre message vient de partir — sur une nuit, le départ
-  ne double pas le code du matin.
+  (`quietHours: 12`) : ils sautent si un autre message vient de partir. Albiez n'accepte pas les
+  séjours d'une nuit (hôte, 2026-11-21) : le départ ne saute donc jamais à cause du code du matin
+  (contrairement à Barbusse, où `quietHours` a été retiré du départ).
+- **Réservations lointaines** : la lecture principale ne voit que les arrivées à 120 jours ; les
+  réservations **créées depuis 3 jours** sont lues en plus (`reservationsCreeesDepuis`, filtre
+  `bookingTimeFrom`, isolée : un échec n'arrête pas le passage) pour la confirmation. Une
+  réservation lointaine apparaît 3 jours à l'écran, puis disparaît jusqu'à J-120.
 - **Confirmation** (`confirmation`, à la réservation) : **en mode test seulement** depuis le
   2026-11-08 — la vraie reste dans Beds24 (617008 / 625162 : facture, lien de paiement). Le
   webhook Beds24 du sous-compte ([app/api/webhooks/beds24/route.ts](app/api/webhooks/beds24/route.ts),
